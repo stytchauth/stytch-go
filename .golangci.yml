@@ -1,0 +1,27 @@
+run:
+  deadline: 1m
+  skip-dirs:
+  modules-download-mode: readonly
+linters-settings:
+  goimports:
+    local-prefixes: github.com/stytchauth/stytch-go/stytch
+  lll:
+    line-length: 100
+linters:
+  enable:
+    - vet
+    - gofmt
+    - goimports
+    - deadcode
+    - varcheck
+    - structcheck
+    - ineffassign
+    - unconvert
+    - misspell
+    - lll
+    - sqlclosecheck
+    - bodyclose
+    - gosec
+    - stylecheck
+    - gofumpt
+  disable-all: true
