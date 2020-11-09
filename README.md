@@ -19,7 +19,7 @@ $ go get github.com/stytchauth/stytch-go
 
 ## Documentation
 
-The module supports all Plaid API endpoints.
+The module supports all Stytch API endpoints.
 
 ## Getting Started
 
