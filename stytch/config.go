@@ -23,17 +23,6 @@ type config struct {
 	secret string
 }
 
-//type Configuration interface {
-//	BasicAuthProjectID() string
-//	SetBasicAuthProjectID(projectID   string)
-//	BasicAuthSecret() string
-//	SetBasicAuthSecret(secret   string)
-//	SetEnv(env Env)
-//	GetEnv() Env
-//	GetBaseURI() BaseURI
-//}
-
-
 func newConfig() *config{
 	config := new(config)
 	return config

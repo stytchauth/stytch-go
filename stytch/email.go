@@ -23,11 +23,6 @@ func (c *Client) SendEmailVerification (emailID string, body *SendEmailVerificat
 	return retVal, err
 }
 
-/**
-* Verify that a user supplied the correct email during signup.
-* @param    string        token     parameter: Required
-* @return	Returns the *models_pkg.VerifyEmailResponse response from the API call
-*/
 func (c *Client) VerifyEmail (token string) (*VerifyEmailResponse, error) {
 	path := "/emails/" + token + "/verify"
 
