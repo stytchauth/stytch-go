@@ -108,11 +108,11 @@ In order to setup authentication of the API client, you need the following infor
 
 | Parameter | Description |
 |-----------|-------------|
-| basicAuthUserName | The username to use with basic authentication |
-| basicAuthPassword | The password to use with basic authentication |
+| ProjectID | The projectID to use with basic authentication |
+| Secret | The secret to use with basic authentication |
 
 
-To configure these for your generated code, open the file "Configuration.go" and edit it's contents.
+To configure these for your generated code, open the file "Configuration.go" and edit its contents.
 
 
 # Class Reference
