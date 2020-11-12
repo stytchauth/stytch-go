@@ -2,7 +2,7 @@ package stytch
 
 import "encoding/json"
 
-func (c *Client) DeleteEmail (emailID string, userID string) (*DeleteEmailResponse, error) {
+func (c *Client) DeleteEmail(emailID string, userID string) (*DeleteEmailResponse, error) {
 	path := "emails/" + emailID + "/users/" + userID
 
 	var retVal *DeleteEmailResponse
@@ -10,7 +10,10 @@ func (c *Client) DeleteEmail (emailID string, userID string) (*DeleteEmailRespon
 	return retVal, err
 }
 
-func (c *Client) SendEmailVerification (emailID string, body *SendEmailVerification) (*SendEmailVerificationResponse, error) {
+func (c *Client) SendEmailVerification(
+	emailID string,
+	body *SendEmailVerification,
+) (*SendEmailVerificationResponse, error) {
 	path := "/emails/" + emailID + "/send_verification"
 
 	jsonBody, err := json.Marshal(body)
@@ -23,7 +26,7 @@ func (c *Client) SendEmailVerification (emailID string, body *SendEmailVerificat
 	return retVal, err
 }
 
-func (c *Client) VerifyEmail (token string) (*VerifyEmailResponse, error) {
+func (c *Client) VerifyEmail(token string) (*VerifyEmailResponse, error) {
 	path := "/emails/" + token + "/verify"
 
 	var retVal *VerifyEmailResponse

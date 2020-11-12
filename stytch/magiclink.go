@@ -2,7 +2,7 @@ package stytch
 
 import "encoding/json"
 
-func (c *Client) SendMagicLink (body *SendMagicLink) (*SendMagicLinkResponse, error) {
+func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, error) {
 	path := "/magic_links/send"
 
 	jsonBody, err := json.Marshal(body)
@@ -15,8 +15,7 @@ func (c *Client) SendMagicLink (body *SendMagicLink) (*SendMagicLinkResponse, er
 	return retVal, err
 }
 
-
-func (c *Client) SendMagicLinkByEmail (body *SendMagicLinkByEmail) (*SendMagicLinkResponse, error) {
+func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkResponse, error) {
 	path := "/magic_links/send_by_email"
 
 	jsonBody, err := json.Marshal(body)
@@ -29,8 +28,10 @@ func (c *Client) SendMagicLinkByEmail (body *SendMagicLinkByEmail) (*SendMagicLi
 	return retVal, err
 }
 
-
-func (c *Client) AuthenticateMagicLink (token string, body *AuthenticateMagicLink) (*AuthenticateMagicLinkResponse, error) {
+func (c *Client) AuthenticateMagicLink(
+	token string,
+	body *AuthenticateMagicLink,
+) (*AuthenticateMagicLinkResponse, error) {
 	path := "/magic_links/" + token + "/authenticate"
 
 	jsonBody, err := json.Marshal(body)

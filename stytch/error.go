@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type stytchError struct {
+type Error struct {
 	Status       int          `json:"status,omitempty"`
 	RequestID    string       `json:"request_id,omitempty"`
 	ErrorType    ErrorType    `json:"error_type,omitempty"`
@@ -12,11 +12,14 @@ type stytchError struct {
 	ErrorURL     ErrorURL     `json:"error_url,omitempty"`
 }
 
-type ErrorType string
-type ErrorMessage string
-type ErrorURL string
+type (
+	ErrorType    string
+	ErrorMessage string
+	ErrorURL     string
+)
 
-func (e stytchError) Error() string {
-	return fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, type: %s, code: %s, message: %s",
+func (e Error) Error() string {
+	return fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, "+
+		"type: %s, code: %s, message: %s",
 		e.RequestID, e.Status, e.ErrorType, e.ErrorMessage, e.ErrorURL)
 }

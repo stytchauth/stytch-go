@@ -4,7 +4,7 @@ run:
   modules-download-mode: readonly
 linters-settings:
   goimports:
-    local-prefixes: github.com/stytchauth/stytch-go
+    local-prefixes: github.com/stytchauth/stytch-go/stytch
   lll:
     line-length: 100
 linters:

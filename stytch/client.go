@@ -9,7 +9,7 @@ import (
 )
 
 type Client struct {
-	Config  *config
+	Config     *config
 	HTTPClient *http.Client
 }
 
@@ -39,17 +39,16 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 		return err
 	}
 
-	//append basic auth headers
+	// append basic auth headers
 	if len(c.Config.projectID) > 1 || len(c.Config.secret) > 1 {
 		authToken := base64.StdEncoding.EncodeToString([]byte(c.Config.projectID + ":" + c.Config.secret))
-		req.Header.Set("Authorization", "Basic " + authToken)
+		req.Header.Set("Authorization", "Basic "+authToken)
 	}
 
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("User-Agent", "Stytch Go v1.0.0")
 
 	res, err := c.HTTPClient.Do(req)
-
 	if err != nil {
 		return err
 	}
@@ -63,7 +62,7 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 	}
 
 	// Attempt to unmarshal into Stytch error format
-	var stytchErr stytchError
+	var stytchErr Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
 		return err
 	}

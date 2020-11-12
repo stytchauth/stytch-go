@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-func (c *Client) CreateUser (body *CreateUser) (*CreateUserResponse, error) {
+func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -15,8 +15,7 @@ func (c *Client) CreateUser (body *CreateUser) (*CreateUserResponse, error) {
 	return retVal, err
 }
 
-func (c *Client) GetUser (userID string) (*GetUserResponse, error) {
-
+func (c *Client) GetUser(userID string) (*GetUserResponse, error) {
 	path := "/users/" + userID
 
 	var retVal *GetUserResponse
@@ -24,7 +23,7 @@ func (c *Client) GetUser (userID string) (*GetUserResponse, error) {
 	return retVal, err
 }
 
-func (c *Client) UpdateUser (userID string, body *UpdateUser) (*UpdateUserResponse, error) {
+func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserResponse, error) {
 	path := "/users/" + userID
 
 	jsonBody, err := json.Marshal(body)
@@ -37,7 +36,7 @@ func (c *Client) UpdateUser (userID string, body *UpdateUser) (*UpdateUserRespon
 	return retVal, err
 }
 
-func (c *Client) DeleteUser (userID string) (*DeleteUserResponse, error) {
+func (c *Client) DeleteUser(userID string) (*DeleteUserResponse, error) {
 	path := "/users/" + userID
 
 	var retVal *DeleteUserResponse
