@@ -19,7 +19,7 @@ $ go get github.com/stytchauth/stytch-go
 
 ## Documentation
 
-The module supports all Plaid API endpoints.
+The module supports all Stytch API endpoints. Full documentation can be found [here](https://docs.stytch.com/reference).
 
 ## Getting Started
 
@@ -34,16 +34,59 @@ import (
     "github.com/stytchauth/stytch-go/stytch"
 )
 
-client := stytch.NewClient(stytch.EnvTest, os.Getenv("STYTCH_PROJECT_ID"), os.Getenv("STYTCH_SECRET"))
+stytchClient := stytch.NewClient(
+    stytch.EnvTest, // available environments are EnvTest and EnvLive
+    os.Getenv("STYTCH_PROJECT_ID"), 
+    os.Getenv("STYTCH_SECRET"), 
+)
 ```
 
 Each endpoint returns an object which contains the parsed JSON from the HTTP response.
 
+#### Create User
+```go
+    res, err := stytchClient.CreateUser(&stytch.CreateUser{
+		Email:      "clark@stytch.com",
+		Name: stytch.Name{
+			FirstName:  "Clark",
+			MiddleName: "Joseph",
+			LastName:   "Kent",
+		},
+    })
+```
+
+#### Get User
+```go
+    res, err := stytchClient.GetUser("user-test-e3ca2fde-0cbe-4248-a8b8-b1dd68a4514d")
+```
+
+#### Send Magic Link
+```go
+    res, err := sc.SendMagicLinkByEmail(&stytch.SendMagicLinkByEmail{
+		Email:             "clarck@stytch.com",
+		MagicLinkURL:      "https://yoururl.com",
+		ExpirationMinutes: 5,
+		Attributes:        stytch.Attributes{
+			IPAddress: "10.0.0.0",
+		},
+    })
+```
+
+#### Authenticate Magic Link
+```go
+    res, err := sc.AuthenticateMagicLink(
+		"GCRzBlufdaQ3mJh2QcygLsbuG__gqGwwvRuIuetv6ZM=",
+		&stytch.AuthenticateMagicLink{
+			Options:    stytch.Options{IPMatchRequired: true},
+			Attributes: stytch.Attributes{IPAddress: "10.0.0.0"},
+		})
+```
+
 ### Errors
 
-All non-200 responses will return a stytchError instance.
+All non-200 responses will return a stytch.Error instance.
 
-For more information on Stytch response codes, head to the [docs](https://stytch.com/).
+For more information on Stytch response codes, head to the [docs](https://docs.stytch.com/reference#errors).
 
 ## Developing
 
