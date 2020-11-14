@@ -99,4 +99,4 @@ Open an [issue](https://github.com/stytchauth/stytch-go/issues/new)!
 
 ## License
 
-[MIT]()
+[MIT](LICENSE)
