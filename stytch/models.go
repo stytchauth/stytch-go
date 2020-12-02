@@ -169,8 +169,9 @@ type LoginOrCreateUser struct {
 	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
-	// Set the expiration for the sign up email magic link, in minutes. By default, it expires in 1 week.
-	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	// Set the expiration for the sign up email magic link, in minutes.
+	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
+	// the maximum is 7 days (10080 mins).
 	SignUpExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
 	// The template id to use for the login magic link, for example the template_id
 	// that corresponds to a specific login email format.
@@ -195,8 +196,9 @@ type LoginOrInviteByEmail struct {
 	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
-	// Set the expiration for the invite email magic link, in minutes. By default, it expires in 1 week.
-	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	// Set the expiration for the invite email magic link, in minutes.
+	// By default, it expires in 1 week. The minimum expiration is 5 minutes
+	// and the maximum is 7 days (10080 mins).
 	InviteExpirationMinutes int32 `json:"invite_expiration_minutes,omitempty"`
 	// The template id to use for the login magic link, for example the template_id
 	// that corresponds to a specific login email format.

@@ -83,7 +83,6 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 ```
 
 #### Login or Create A User
-#### Send Magic Link
 ```go
     res, err := sc.LoginOrCreateUser(&stytch.LoginOrCreateUser{
 		Email:             "clark@stytch.com",
