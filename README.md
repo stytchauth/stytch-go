@@ -63,7 +63,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 #### Send Magic Link
 ```go
     res, err := sc.SendMagicLinkByEmail(&stytch.SendMagicLinkByEmail{
-		Email:             "clarck@stytch.com",
+		Email:             "clark@stytch.com",
 		MagicLinkURL:      "https://yoururl.com",
 		ExpirationMinutes: 5,
 		Attributes:        stytch.Attributes{
@@ -80,6 +80,30 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 			Options:    stytch.Options{IPMatchRequired: true},
 			Attributes: stytch.Attributes{IPAddress: "10.0.0.0"},
 		})
+```
+
+#### Login or Create A User
+```go
+    res, err := sc.LoginOrCreateUser(&stytch.LoginOrCreateUser{
+		Email:             "clark@stytch.com",
+		LoginMagicLinkURL:      "https://yoururl.com/login",
+        SignupMagicLinkURL:      "https://yoururl.com/signup",
+		Attributes:        stytch.Attributes{
+			IPAddress: "10.0.0.0",
+		},
+    })
+```
+
+#### Login or Invite A User By Email
+```go
+    res, err := sc.LoginOrInviteByEmail(&stytch.LoginOrInviteByEmail{
+		Email:             "clark@stytch.com",
+		LoginMagicLinkURL:      "https://yoururl.com/login",
+        InviteMagicLinkURL:      "https://yoururl.com/signup",
+		Attributes:        stytch.Attributes{
+			IPAddress: "10.0.0.0",
+		},
+    })
 ```
 
 ### Errors

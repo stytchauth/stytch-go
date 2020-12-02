@@ -154,3 +154,64 @@ type AuthenticateMagicLinkResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	UserID    string `json:"user_id,omitempty"`
 }
+
+type LoginOrCreateUser struct {
+	// The email the user enters to login or sign up with.
+	Email string `json:"email"`
+	// The url the user clicks from the login email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and log in the user.
+	LoginMagicLinkURL string `json:"login_magic_link_url,omitempty"`
+	// The url the user clicks from the sign up email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and sign the user up.
+	SignUpMagicLinkURL string `json:"signup_magic_link_url,omitempty"`
+	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
+	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
+	// Set the expiration for the sign up email magic link, in minutes.
+	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
+	// the maximum is 7 days (10080 mins).
+	SignUpExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
+	// The template id to use for the login magic link, for example the template_id
+	// that corresponds to a specific login email format.
+	LoginTemplateID string `json:"login_template_id,omitempty"`
+	// The template id to use for the sign up magic link, for example the template_id
+	// that corresponds to a specific sign up email format.
+	SignUpTemplateID string     `json:"signup_template_id,omitempty"`
+	Attributes       Attributes `json:"attributes,omitempty"`
+}
+
+type LoginOrInviteByEmail struct {
+	// The email the user enters to login or be invited with.
+	Email string `json:"email"`
+	// The url the user clicks from the login email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and log in the user.
+	LoginMagicLinkURL string `json:"login_magic_link_url,omitempty"`
+	// The url the user clicks from the invite email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and finish creating a users account.
+	InviteMagicLinkURL string `json:"invite_magic_link_url,omitempty"`
+	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
+	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
+	// Set the expiration for the invite email magic link, in minutes.
+	// By default, it expires in 1 week. The minimum expiration is 5 minutes
+	// and the maximum is 7 days (10080 mins).
+	InviteExpirationMinutes int32 `json:"invite_expiration_minutes,omitempty"`
+	// The template id to use for the login magic link, for example the template_id
+	// that corresponds to a specific login email format.
+	LoginTemplateID string `json:"login_template_id,omitempty"`
+	// The template id to use for the invite magic link, for example the template_id
+	// that corresponds to a specific invite email format.
+	InviteTemplateID string     `json:"invite_template_id,omitempty"`
+	Attributes       Attributes `json:"attributes,omitempty"`
+}
+
+type LoginOrCreateResponse struct {
+	RequestID   string `json:"request_id,omitempty"`
+	UserID      string `json:"user_id,omitempty"`
+	EmailID     string `json:"email_id,omitempty"`
+	UserCreated bool   `json:"user_created,omitempty"`
+}
