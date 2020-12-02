@@ -28,6 +28,32 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 	return retVal, err
 }
 
+func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateResponse, error) {
+	path := "/magic_links/login_or_create"
+
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+
+	var retVal *LoginOrCreateResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return retVal, err
+}
+
+func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreateResponse, error) {
+	path := "/magic_links/login_or_invite"
+
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+
+	var retVal *LoginOrCreateResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return retVal, err
+}
+
 func (c *Client) AuthenticateMagicLink(
 	token string,
 	body *AuthenticateMagicLink,
