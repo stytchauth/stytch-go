@@ -86,27 +86,6 @@ type DeleteEmailResponse struct {
 	EmailID   string `json:"email_id,omitempty"`
 }
 
-type SendEmailVerification struct {
-	UserID  string `json:"user_id"`
-	EmailID string `json:"email_id,omitempty"`
-	// The url the user clicks from the email magic link. This should be a url that your app
-	// receives and parses and subsequently send an api request to authenticate the magic
-	// link and log in the user.
-	MagicLinkURL string `json:"magic_link_url,omitempty"`
-	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
-	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-}
-
-type SendEmailVerificationResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-}
-
-type VerifyEmailResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	EmailID   string `json:"email_id,omitempty"`
-}
-
 type SendMagicLink struct {
 	UserID string `json:"user_id"`
 	// The method id for where to send the magic link, such as an email_id.
