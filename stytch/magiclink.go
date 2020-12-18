@@ -67,7 +67,8 @@ func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, err
 	return retVal, err
 }
 
-func (c *Client) RevokeInviteByEmail(body *RevokeInviteByEmail) (*RevokeInviteByEmailResponse, error) {
+func (c *Client) RevokeInviteByEmail(
+	body *RevokeInviteByEmail) (*RevokeInviteByEmailResponse, error) {
 	path := "/magic_links/revoke_invite"
 
 	jsonBody, err := json.Marshal(body)

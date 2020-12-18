@@ -204,8 +204,9 @@ type InviteByEmail struct {
 	// app receives and parses and subsequently send an api request to authenticate the
 	// magic link and log in the user.
 	MagicLinkURL string `json:"magic_link_url,omitempty"`
-	// Set the expiration for the invite email magic link, in minutes. By default, it expires in 1 hour.
-	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	// Set the expiration for the invite email magic link, in minutes. By default,
+	// it expires in 1 hour. The minimum expiration is 5 minutes and the maximum
+	// is 7 days (10080 mins).
 	ExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
 	// The template id to use for the invite magic link, for example the template_id
 	// that corresponds to a specific invite email format.
