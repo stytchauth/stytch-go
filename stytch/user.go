@@ -11,7 +11,7 @@ func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
 	}
 
 	var retVal *CreateUserResponse
-	err = c.newRequest("POST", "/users", jsonBody, &retVal)
+	err = c.newRequest("POST", "/users", jsonBody, retVal)
 	return retVal, err
 }
 
@@ -19,13 +19,13 @@ func (c *Client) GetUser(userID string) (*GetUserResponse, error) {
 	path := "/users/" + userID
 
 	var retVal *GetUserResponse
-	err := c.newRequest("GET", path, nil, &retVal)
+	err := c.newRequest("GET", path, nil, retVal)
 	return retVal, err
 }
 
 func (c *Client) GetInvitedUsers() (*GetInvitedUsersResponse, error) {
 	var retVal *GetInvitedUsersResponse
-	err := c.newRequest("GET", "/users/invites", nil, &retVal)
+	err := c.newRequest("GET", "/users/invites", nil, retVal)
 	return retVal, err
 }
 
@@ -34,11 +34,11 @@ func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserRespons
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *UpdateUserResponse
-	err = c.newRequest("PUT", path, jsonBody, &retVal)
+	err = c.newRequest("PUT", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -46,7 +46,7 @@ func (c *Client) DeleteUser(userID string) (*DeleteUserResponse, error) {
 	path := "/users/" + userID
 
 	var retVal *DeleteUserResponse
-	err := c.newRequest("DELETE", path, nil, &retVal)
+	err := c.newRequest("DELETE", path, nil, retVal)
 	return retVal, err
 }
 

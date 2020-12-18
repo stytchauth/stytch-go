@@ -36,7 +36,7 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 
 	req, err := http.NewRequest(method, path, bytes.NewReader(body))
 	if err != nil {
-		return err
+		return newInternalServerError()
 	}
 
 	// append basic auth headers
@@ -50,21 +50,23 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return err
+		return newInternalServerError()
 	}
 	defer func() {
-		_ = res.Body.Close()
+		res.Body.Close()
 	}()
 
 	// Successful response
 	if res.StatusCode == 200 {
-		return json.NewDecoder(res.Body).Decode(v)
+		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
+			return newInternalServerError()
+		}
 	}
 
 	// Attempt to unmarshal into Stytch error format
 	var stytchErr Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
-		return err
+		return newInternalServerError()
 	}
 	stytchErr.Status = res.StatusCode
 	return stytchErr

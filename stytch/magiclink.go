@@ -1,17 +1,19 @@
 package stytch
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, error) {
 	path := "/magic_links/send"
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *SendMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -20,11 +22,11 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *SendMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -33,11 +35,11 @@ func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateRespo
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *LoginOrCreateResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -46,11 +48,11 @@ func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreat
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *LoginOrCreateResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -59,11 +61,11 @@ func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, err
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *InviteByEmailResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -73,11 +75,11 @@ func (c *Client) RevokeInviteByEmail(
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *RevokeInviteByEmailResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -89,10 +91,10 @@ func (c *Client) AuthenticateMagicLink(
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError()
 	}
 
 	var retVal *AuthenticateMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, &retVal)
+	err = c.newRequest("POST", path, jsonBody, retVal)
 	return retVal, err
 }

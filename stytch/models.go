@@ -98,11 +98,8 @@ type SendMagicLink struct {
 	MagicLinkURL string `json:"magic_link_url,omitempty"`
 	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// The template id to use for the magic link, for example the template_id that corresponds
-	// to a specific email format.
-	TemplateID string     `json:"template_id,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
 type SendMagicLinkResponse struct {
@@ -119,11 +116,8 @@ type SendMagicLinkByEmail struct {
 	MagicLinkURL string `json:"magic_link_url,omitempty"`
 	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// The template id to use for the magic link, for example the template_id
-	// that corresponds to a specific email format.
-	TemplateID string     `json:"template_id,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
 type AuthenticateMagicLink struct {
@@ -153,14 +147,8 @@ type LoginOrCreateUser struct {
 	// Set the expiration for the sign up email magic link, in minutes.
 	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
 	// the maximum is 7 days (10080 mins).
-	SignUpExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
-	// The template id to use for the login magic link, for example the template_id
-	// that corresponds to a specific login email format.
-	LoginTemplateID string `json:"login_template_id,omitempty"`
-	// The template id to use for the sign up magic link, for example the template_id
-	// that corresponds to a specific sign up email format.
-	SignUpTemplateID string     `json:"signup_template_id,omitempty"`
-	Attributes       Attributes `json:"attributes,omitempty"`
+	SignUpExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type LoginOrInviteByEmail struct {
@@ -180,14 +168,8 @@ type LoginOrInviteByEmail struct {
 	// Set the expiration for the invite email magic link, in minutes.
 	// By default, it expires in 1 week. The minimum expiration is 5 minutes
 	// and the maximum is 7 days (10080 mins).
-	InviteExpirationMinutes int32 `json:"invite_expiration_minutes,omitempty"`
-	// The template id to use for the login magic link, for example the template_id
-	// that corresponds to a specific login email format.
-	LoginTemplateID string `json:"login_template_id,omitempty"`
-	// The template id to use for the invite magic link, for example the template_id
-	// that corresponds to a specific invite email format.
-	InviteTemplateID string     `json:"invite_template_id,omitempty"`
-	Attributes       Attributes `json:"attributes,omitempty"`
+	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type LoginOrCreateResponse struct {
@@ -207,11 +189,8 @@ type InviteByEmail struct {
 	// Set the expiration for the invite email magic link, in minutes. By default,
 	// it expires in 1 hour. The minimum expiration is 5 minutes and the maximum
 	// is 7 days (10080 mins).
-	ExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
-	// The template id to use for the invite magic link, for example the template_id
-	// that corresponds to a specific invite email format.
-	TemplateID string     `json:"login_template_id,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	ExpirationMinutes int32      `json:"login_expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
 type InviteByEmailResponse struct {
