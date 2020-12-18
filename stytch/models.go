@@ -52,6 +52,7 @@ type CreateUserResponse struct {
 	UserID    string `json:"user_id,omitempty"`
 	// The id for the created email.
 	EmailID string `json:"email_id,omitempty"`
+	Status  string `json:"status,omitempty"`
 }
 
 type GetUserResponse struct {
@@ -59,6 +60,7 @@ type GetUserResponse struct {
 	UserID    string  `json:"user_id,omitempty"`
 	Name      Name    `json:"name,omitempty"`
 	Emails    []Email `json:"emails,omitempty"`
+	Status    string  `json:"status,omitempty"`
 }
 
 type UpdateUser struct {
@@ -193,4 +195,48 @@ type LoginOrCreateResponse struct {
 	UserID      string `json:"user_id,omitempty"`
 	EmailID     string `json:"email_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
+}
+
+type InviteByEmail struct {
+	// The email the user enters to be invited with.
+	Email string `json:"email"`
+	// The url the user clicks from the invite email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and log in the user.
+	MagicLinkURL string `json:"magic_link_url,omitempty"`
+	// Set the expiration for the invite email magic link, in minutes. By default, it expires in 1 hour.
+	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	ExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
+	// The template id to use for the invite magic link, for example the template_id
+	// that corresponds to a specific invite email format.
+	TemplateID string     `json:"login_template_id,omitempty"`
+	Attributes Attributes `json:"attributes,omitempty"`
+}
+
+type InviteByEmailResponse struct {
+	RequestID string `json:"request_id,omitempty"`
+	UserID    string `json:"user_id,omitempty"`
+	EmailID   string `json:"email_id,omitempty"`
+}
+
+type RevokeInviteByEmail struct {
+	// The email of the user who's invite should be revoked.
+	Email string `json:"email"`
+}
+
+type RevokeInviteByEmailResponse struct {
+	RequestID string `json:"request_id,omitempty"`
+}
+
+type InvitedUsers struct {
+	UserID    string  `json:"user_id,omitempty"`
+	Name      Name    `json:"name,omitempty"`
+	Emails    []Email `json:"emails,omitempty"`
+	Status    string  `json:"status,omitempty"`
+	InvitedAt string  `json:"invited_at,omitempty"`
+}
+
+type GetInvitedUsersResponse struct {
+	RequestID string       `json:"request_id,omitempty"`
+	Users     InvitedUsers `json:"users,omitempty"`
 }

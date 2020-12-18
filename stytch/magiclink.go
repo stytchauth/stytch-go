@@ -54,6 +54,32 @@ func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreat
 	return retVal, err
 }
 
+func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, error) {
+	path := "/magic_links/invite_by_email"
+
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+
+	var retVal *InviteByEmailResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return retVal, err
+}
+
+func (c *Client) RevokeInviteByEmail(body *RevokeInviteByEmail) (*RevokeInviteByEmailResponse, error) {
+	path := "/magic_links/revoke_invite"
+
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+
+	var retVal *RevokeInviteByEmailResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return retVal, err
+}
+
 func (c *Client) AuthenticateMagicLink(
 	token string,
 	body *AuthenticateMagicLink,

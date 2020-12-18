@@ -106,6 +106,29 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
     })
 ```
 
+#### Invite A User By Email
+```go
+    res, err := sc.InviteByEmail(&stytch.InviteByEmail{
+		Email:             "clark@stytch.com",
+		MagicLinkURL:      "https://yoururl.com/invite",
+		Attributes:        stytch.Attributes{
+			IPAddress: "10.0.0.0",
+		},
+    })
+```
+
+#### Revoke an Invitation By Email
+```go
+    res, err := sc.RevokeInviteByEmail(&stytch.RevokeInviteByEmail{
+		Email:             "clark@stytch.com"
+    })
+```
+
+#### Get Invited Users
+```go
+    res, err := sc.GetInvitedUsers()
+```
+
 ### Errors
 
 All non-200 responses will return a stytch.Error instance.

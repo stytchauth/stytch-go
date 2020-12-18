@@ -23,6 +23,12 @@ func (c *Client) GetUser(userID string) (*GetUserResponse, error) {
 	return retVal, err
 }
 
+func (c *Client) GetInvitedUsers() (*GetInvitedUsersResponse, error) {
+	var retVal *GetInvitedUsersResponse
+	err := c.newRequest("GET", "/users/invites", nil, &retVal)
+	return retVal, err
+}
+
 func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserResponse, error) {
 	path := "/users/" + userID
 
