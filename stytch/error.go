@@ -28,11 +28,15 @@ func (e Error) Error() string {
 	return error
 }
 
-func newInternalServerError() error {
+func newInternalServerError(message string) error {
+	if message == "" {
+		message = "Oops, something seems to have gone wrong"
+	}
+
 	return Error{
 		Status:       500,
 		ErrorType:    "internal_server_error",
-		ErrorMessage: "Oops, something seems to have gone wrong",
+		ErrorMessage: ErrorMessage(message),
 		ErrorURL:     "https://docs.stytch.com/reference#500-internal-server-error",
 	}
 }

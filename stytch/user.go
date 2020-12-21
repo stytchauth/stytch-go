@@ -7,7 +7,8 @@ import (
 func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+			"marshalling the CreateUser request body")
 	}
 
 	var retVal *CreateUserResponse
@@ -34,7 +35,8 @@ func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserRespons
 
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		return nil, newInternalServerError()
+		return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+			"marshalling the UpdateUser request body")
 	}
 
 	var retVal *UpdateUserResponse
