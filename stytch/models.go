@@ -80,10 +80,10 @@ type DeleteUserResponse struct {
 	UserID    string `json:"user_id,omitempty"`
 }
 
-type DeleteEmailResponse struct {
+type DeleteUserEmailResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	UserID    string `json:"user_id,omitempty"`
-	EmailID   string `json:"email_id,omitempty"`
+	Email     string `json:"email,omitempty"`
 }
 
 type SendMagicLink struct {
