@@ -48,6 +48,6 @@ func (c *Client) DeleteUserEmail(userID string, email string) (*DeleteUserEmailR
 	path := "/users/" + userID + "/emails/" + email
 
 	var retVal *DeleteUserEmailResponse
-	err := c.newRequest("DELETE", path, nil, &retVal)
+	err := c.newRequest("DELETE", path, nil, retVal)
 	return retVal, err
 }
