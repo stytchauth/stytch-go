@@ -36,12 +36,14 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 
 	req, err := http.NewRequest(method, path, bytes.NewReader(body))
 	if err != nil {
-		return err
+		return newInternalServerError("Oops, something seems to have gone " +
+			"wrong creating a new http request")
 	}
 
 	// append basic auth headers
 	if len(c.Config.projectID) > 1 || len(c.Config.secret) > 1 {
-		authToken := base64.StdEncoding.EncodeToString([]byte(c.Config.projectID + ":" + c.Config.secret))
+		authToken := base64.StdEncoding.EncodeToString(
+			[]byte(c.Config.projectID + ":" + c.Config.secret))
 		req.Header.Set("Authorization", "Basic "+authToken)
 	}
 
@@ -50,21 +52,26 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return err
+		return newInternalServerError("Oops, something seems to have gone " +
+			"wrong sending the http request")
 	}
 	defer func() {
-		_ = res.Body.Close()
+		res.Body.Close()
 	}()
 
 	// Successful response
 	if res.StatusCode == 200 {
-		return json.NewDecoder(res.Body).Decode(v)
+		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
+			return newInternalServerError("Oops, something seems to have gone wrong " +
+				"decoding the successful response body")
+		}
 	}
 
 	// Attempt to unmarshal into Stytch error format
 	var stytchErr Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
-		return err
+		return newInternalServerError("Oops, something seems to have gone wrong " +
+			"decoding the unsuccessful response body")
 	}
 	stytchErr.Status = res.StatusCode
 	return stytchErr

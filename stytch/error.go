@@ -19,7 +19,24 @@ type (
 )
 
 func (e Error) Error() string {
-	return fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, "+
-		"type: %s, code: %s, message: %s",
-		e.RequestID, e.Status, e.ErrorType, e.ErrorMessage, e.ErrorURL)
+	error := fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, "+
+		"type: %s, message: %s",
+		e.RequestID, e.Status, e.ErrorType, e.ErrorMessage)
+	if e.ErrorURL != "" {
+		error = error + fmt.Sprintf(" error_url: %s", e.ErrorURL)
+	}
+	return error
+}
+
+func newInternalServerError(message string) error {
+	if message == "" {
+		message = "Oops, something seems to have gone wrong"
+	}
+
+	return Error{
+		Status:       500,
+		ErrorType:    "internal_server_error",
+		ErrorMessage: ErrorMessage(message),
+		ErrorURL:     "https://docs.stytch.com/reference#500-internal-server-error",
+	}
 }

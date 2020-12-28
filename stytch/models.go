@@ -52,6 +52,7 @@ type CreateUserResponse struct {
 	UserID    string `json:"user_id,omitempty"`
 	// The id for the created email.
 	EmailID string `json:"email_id,omitempty"`
+	Status  string `json:"status,omitempty"`
 }
 
 type GetUserResponse struct {
@@ -59,6 +60,7 @@ type GetUserResponse struct {
 	UserID    string  `json:"user_id,omitempty"`
 	Name      Name    `json:"name,omitempty"`
 	Emails    []Email `json:"emails,omitempty"`
+	Status    string  `json:"status,omitempty"`
 }
 
 type UpdateUser struct {
@@ -96,11 +98,8 @@ type SendMagicLink struct {
 	MagicLinkURL string `json:"magic_link_url,omitempty"`
 	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// The template id to use for the magic link, for example the template_id that corresponds
-	// to a specific email format.
-	TemplateID string     `json:"template_id,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
 type SendMagicLinkResponse struct {
@@ -117,11 +116,8 @@ type SendMagicLinkByEmail struct {
 	MagicLinkURL string `json:"magic_link_url,omitempty"`
 	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// The template id to use for the magic link, for example the template_id
-	// that corresponds to a specific email format.
-	TemplateID string     `json:"template_id,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
 type AuthenticateMagicLink struct {
@@ -151,14 +147,8 @@ type LoginOrCreateUser struct {
 	// Set the expiration for the sign up email magic link, in minutes.
 	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
 	// the maximum is 7 days (10080 mins).
-	SignUpExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
-	// The template id to use for the login magic link, for example the template_id
-	// that corresponds to a specific login email format.
-	LoginTemplateID string `json:"login_template_id,omitempty"`
-	// The template id to use for the sign up magic link, for example the template_id
-	// that corresponds to a specific sign up email format.
-	SignUpTemplateID string     `json:"signup_template_id,omitempty"`
-	Attributes       Attributes `json:"attributes,omitempty"`
+	SignUpExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type LoginOrInviteByEmail struct {
@@ -178,14 +168,8 @@ type LoginOrInviteByEmail struct {
 	// Set the expiration for the invite email magic link, in minutes.
 	// By default, it expires in 1 week. The minimum expiration is 5 minutes
 	// and the maximum is 7 days (10080 mins).
-	InviteExpirationMinutes int32 `json:"invite_expiration_minutes,omitempty"`
-	// The template id to use for the login magic link, for example the template_id
-	// that corresponds to a specific login email format.
-	LoginTemplateID string `json:"login_template_id,omitempty"`
-	// The template id to use for the invite magic link, for example the template_id
-	// that corresponds to a specific invite email format.
-	InviteTemplateID string     `json:"invite_template_id,omitempty"`
-	Attributes       Attributes `json:"attributes,omitempty"`
+	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type LoginOrCreateResponse struct {
@@ -193,4 +177,46 @@ type LoginOrCreateResponse struct {
 	UserID      string `json:"user_id,omitempty"`
 	EmailID     string `json:"email_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
+}
+
+type InviteByEmail struct {
+	// The email the user enters to be invited with.
+	Email string `json:"email"`
+	// The url the user clicks from the invite email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and log in the user.
+	MagicLinkURL string `json:"magic_link_url,omitempty"`
+	// Set the expiration for the invite email magic link, in minutes. By default,
+	// it expires in 1 hour. The minimum expiration is 5 minutes and the maximum
+	// is 7 days (10080 mins).
+	ExpirationMinutes int32      `json:"login_expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
+}
+
+type InviteByEmailResponse struct {
+	RequestID string `json:"request_id,omitempty"`
+	UserID    string `json:"user_id,omitempty"`
+	EmailID   string `json:"email_id,omitempty"`
+}
+
+type RevokeInviteByEmail struct {
+	// The email of the user who's invite should be revoked.
+	Email string `json:"email"`
+}
+
+type RevokeInviteByEmailResponse struct {
+	RequestID string `json:"request_id,omitempty"`
+}
+
+type InvitedUsers struct {
+	UserID    string  `json:"user_id,omitempty"`
+	Name      Name    `json:"name,omitempty"`
+	Emails    []Email `json:"emails,omitempty"`
+	Status    string  `json:"status,omitempty"`
+	InvitedAt string  `json:"invited_at,omitempty"`
+}
+
+type GetInvitedUsersResponse struct {
+	RequestID string       `json:"request_id,omitempty"`
+	Users     InvitedUsers `json:"users,omitempty"`
 }
