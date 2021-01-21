@@ -5,7 +5,7 @@ import (
 )
 
 type Error struct {
-	Status       int          `json:"status,omitempty"`
+	StatusCode   int          `json:"status_code,omitempty"`
 	RequestID    string       `json:"request_id,omitempty"`
 	ErrorType    ErrorType    `json:"error_type,omitempty"`
 	ErrorMessage ErrorMessage `json:"error_message,omitempty"`
@@ -21,7 +21,7 @@ type (
 func (e Error) Error() string {
 	error := fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, "+
 		"type: %s, message: %s",
-		e.RequestID, e.Status, e.ErrorType, e.ErrorMessage)
+		e.RequestID, e.StatusCode, e.ErrorType, e.ErrorMessage)
 	if e.ErrorURL != "" {
 		error = error + fmt.Sprintf(" error_url: %s", e.ErrorURL)
 	}
@@ -34,7 +34,7 @@ func newInternalServerError(message string) error {
 	}
 
 	return Error{
-		Status:       500,
+		StatusCode:   500,
 		ErrorType:    "internal_server_error",
 		ErrorMessage: ErrorMessage(message),
 		ErrorURL:     "https://docs.stytch.com/reference#500-internal-server-error",

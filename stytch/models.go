@@ -48,19 +48,21 @@ type CreateUser struct {
 }
 
 type CreateUserResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	UserID    string `json:"user_id,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
 	// The id for the created email.
 	EmailID string `json:"email_id,omitempty"`
 	Status  string `json:"status,omitempty"`
 }
 
 type GetUserResponse struct {
-	RequestID string  `json:"request_id,omitempty"`
-	UserID    string  `json:"user_id,omitempty"`
-	Name      Name    `json:"name,omitempty"`
-	Emails    []Email `json:"emails,omitempty"`
-	Status    string  `json:"status,omitempty"`
+	RequestID  string  `json:"request_id,omitempty"`
+	StatusCode int32   `json:"status_code,omitempty"`
+	UserID     string  `json:"user_id,omitempty"`
+	Name       Name    `json:"name,omitempty"`
+	Emails     []Email `json:"emails,omitempty"`
+	Status     string  `json:"status,omitempty"`
 }
 
 type UpdateUser struct {
@@ -72,20 +74,23 @@ type UpdateUser struct {
 }
 
 type UpdateUserResponse struct {
-	RequestID string  `json:"request_id,omitempty"`
-	UserID    string  `json:"user_id,omitempty"`
-	Emails    []Email `json:"emails,omitempty"`
+	RequestID  string  `json:"request_id,omitempty"`
+	StatusCode int32   `json:"status_code,omitempty"`
+	UserID     string  `json:"user_id,omitempty"`
+	Emails     []Email `json:"emails,omitempty"`
 }
 
 type DeleteUserResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	UserID    string `json:"user_id,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
 }
 
 type DeleteUserEmailResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	UserID    string `json:"user_id,omitempty"`
-	Email     string `json:"email,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	Email      string `json:"email,omitempty"`
 }
 
 type SendMagicLink struct {
@@ -103,8 +108,9 @@ type SendMagicLink struct {
 }
 
 type SendMagicLinkResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	UserID    string `json:"user_id,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
 }
 
 type SendMagicLinkByEmail struct {
@@ -126,8 +132,9 @@ type AuthenticateMagicLink struct {
 }
 
 type AuthenticateMagicLinkResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	UserID    string `json:"user_id,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
 }
 
 type LoginOrCreateUser struct {
@@ -174,6 +181,7 @@ type LoginOrInviteByEmail struct {
 
 type LoginOrCreateResponse struct {
 	RequestID   string `json:"request_id,omitempty"`
+	StatusCode  int32  `json:"status_code,omitempty"`
 	UserID      string `json:"user_id,omitempty"`
 	EmailID     string `json:"email_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
@@ -194,9 +202,10 @@ type InviteByEmail struct {
 }
 
 type InviteByEmailResponse struct {
-	RequestID string `json:"request_id,omitempty"`
-	UserID    string `json:"user_id,omitempty"`
-	EmailID   string `json:"email_id,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	EmailID    string `json:"email_id,omitempty"`
 }
 
 type RevokeInviteByEmail struct {
@@ -205,7 +214,8 @@ type RevokeInviteByEmail struct {
 }
 
 type RevokeInviteByEmailResponse struct {
-	RequestID string `json:"request_id,omitempty"`
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
 }
 
 type InvitedUsers struct {
@@ -217,6 +227,7 @@ type InvitedUsers struct {
 }
 
 type GetInvitedUsersResponse struct {
-	RequestID string       `json:"request_id,omitempty"`
-	Users     InvitedUsers `json:"users,omitempty"`
+	RequestID  string       `json:"request_id,omitempty"`
+	StatusCode int32        `json:"status_code,omitempty"`
+	Users      InvitedUsers `json:"users,omitempty"`
 }

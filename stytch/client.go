@@ -73,6 +73,6 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 		return newInternalServerError("Oops, something seems to have gone wrong " +
 			"decoding the unsuccessful response body")
 	}
-	stytchErr.Status = res.StatusCode
+	stytchErr.StatusCode = res.StatusCode
 	return stytchErr
 }
