@@ -13,9 +13,9 @@ func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, err
 			"marshalling the SendMagicLink request body")
 	}
 
-	var retVal *SendMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal SendMagicLinkResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkResponse, error) {
@@ -27,9 +27,9 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 			"marshalling the SendMagicLinkByEmail request body")
 	}
 
-	var retVal *SendMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal SendMagicLinkResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateResponse, error) {
@@ -41,9 +41,9 @@ func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateRespo
 			"marshalling the LoginOrCreateUser request body")
 	}
 
-	var retVal *LoginOrCreateResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal LoginOrCreateResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreateResponse, error) {
@@ -55,9 +55,9 @@ func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreat
 			"marshalling the LoginOrInviteByEmail request body")
 	}
 
-	var retVal *LoginOrCreateResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal LoginOrCreateResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, error) {
@@ -69,9 +69,9 @@ func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, err
 			"marshalling the InviteByEmail request body")
 	}
 
-	var retVal *InviteByEmailResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal InviteByEmailResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) RevokeInviteByEmail(
@@ -84,9 +84,9 @@ func (c *Client) RevokeInviteByEmail(
 			"marshalling the RevokeInviteByEmail request body")
 	}
 
-	var retVal *RevokeInviteByEmailResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal RevokeInviteByEmailResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) AuthenticateMagicLink(
@@ -101,7 +101,7 @@ func (c *Client) AuthenticateMagicLink(
 			"marshalling the AuthenticateMagicLink request body")
 	}
 
-	var retVal *AuthenticateMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
-	return retVal, err
+	var retVal AuthenticateMagicLinkResponse
+	err = c.newRequest("POST", path, jsonBody, &retVal)
+	return &retVal, err
 }

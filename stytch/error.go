@@ -2,6 +2,7 @@ package stytch
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Error struct {
@@ -19,13 +20,20 @@ type (
 )
 
 func (e Error) Error() string {
-	error := fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, "+
-		"type: %s, message: %s",
-		e.RequestID, e.StatusCode, e.ErrorType, e.ErrorMessage)
-	if e.ErrorURL != "" {
-		error = error + fmt.Sprintf(" error_url: %s", e.ErrorURL)
+	var es strings.Builder
+	es.WriteString("Stytch Error - ")
+
+	if e.RequestID != "" {
+		fmt.Fprintf(&es, "request ID: %s, ", e.RequestID)
 	}
-	return error
+
+	fmt.Fprintf(&es, "status code: %d, type: %s, message: %s",
+		e.StatusCode, e.ErrorType, e.ErrorMessage)
+
+	if e.ErrorURL != "" {
+		fmt.Fprintf(&es, " error_url: %s", e.ErrorURL)
+	}
+	return es.String()
 }
 
 func newInternalServerError(message string) error {
