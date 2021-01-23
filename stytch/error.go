@@ -19,9 +19,15 @@ type (
 )
 
 func (e Error) Error() string {
-	error := fmt.Sprintf("Stytch Error - request ID: %s, http status: %d, "+
-		"type: %s, message: %s",
-		e.RequestID, e.StatusCode, e.ErrorType, e.ErrorMessage)
+	error := fmt.Sprintf("Stytch Error - ")
+
+	if e.RequestID != "" {
+		error = error + fmt.Sprintf("request ID: %s, ", e.RequestID)
+	}
+
+	error = error + fmt.Sprintf("status code: %d, type: %s, message: %s",
+		e.StatusCode, e.ErrorType, e.ErrorMessage)
+
 	if e.ErrorURL != "" {
 		error = error + fmt.Sprintf(" error_url: %s", e.ErrorURL)
 	}
