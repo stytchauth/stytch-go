@@ -27,7 +27,8 @@ func NewClient(env Env, projectID string, secret string) *Client {
 }
 
 // newRequest is used by Call to generate and Do a http.Request
-func (c *Client) newRequest(method string, path string, body []byte, v interface{}) error {
+func (c *Client) newRequest(method string, path string, queryParams map[string]string,
+	body []byte, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
@@ -39,6 +40,15 @@ func (c *Client) newRequest(method string, path string, body []byte, v interface
 		return newInternalServerError("Oops, something seems to have gone " +
 			"wrong creating a new http request")
 	}
+
+	// add query params
+	q := req.URL.Query()
+	for k, v := range queryParams {
+		if v != "" {
+			q.Add(k, v)
+		}
+	}
+	req.URL.RawQuery = q.Encode()
 
 	// append basic auth headers
 	if len(c.Config.projectID) > 1 || len(c.Config.secret) > 1 {

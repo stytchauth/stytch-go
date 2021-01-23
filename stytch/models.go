@@ -226,6 +226,11 @@ type InvitedUsers struct {
 	InvitedAt string  `json:"invited_at,omitempty"`
 }
 
+type GetInvitedUsers struct {
+	Limit           int32  `json:"limit,omitempty"`
+	StartingAfterID string `json:"starting_after_id,omitempty"`
+}
+
 type GetInvitedUsersResponse struct {
 	RequestID  string       `json:"request_id,omitempty"`
 	StatusCode int32        `json:"status_code,omitempty"`

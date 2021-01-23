@@ -14,7 +14,7 @@ func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, err
 	}
 
 	var retVal *SendMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -28,7 +28,7 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 	}
 
 	var retVal *SendMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -42,7 +42,7 @@ func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateRespo
 	}
 
 	var retVal *LoginOrCreateResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -56,7 +56,7 @@ func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreat
 	}
 
 	var retVal *LoginOrCreateResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -70,7 +70,7 @@ func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, err
 	}
 
 	var retVal *InviteByEmailResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -85,7 +85,7 @@ func (c *Client) RevokeInviteByEmail(
 	}
 
 	var retVal *RevokeInviteByEmailResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
 
@@ -102,6 +102,6 @@ func (c *Client) AuthenticateMagicLink(
 	}
 
 	var retVal *AuthenticateMagicLinkResponse
-	err = c.newRequest("POST", path, jsonBody, retVal)
+	err = c.newRequest("POST", path, nil, jsonBody, retVal)
 	return retVal, err
 }
