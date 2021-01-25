@@ -49,7 +49,7 @@ type CreateUser struct {
 
 type CreateUserResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	// The id for the created email.
 	EmailID string `json:"email_id,omitempty"`
@@ -58,7 +58,7 @@ type CreateUserResponse struct {
 
 type GetUserResponse struct {
 	RequestID  string  `json:"request_id,omitempty"`
-	StatusCode int32   `json:"status_code,omitempty"`
+	StatusCode int     `json:"status_code,omitempty"`
 	UserID     string  `json:"user_id,omitempty"`
 	Name       Name    `json:"name,omitempty"`
 	Emails     []Email `json:"emails,omitempty"`
@@ -75,20 +75,20 @@ type UpdateUser struct {
 
 type UpdateUserResponse struct {
 	RequestID  string  `json:"request_id,omitempty"`
-	StatusCode int32   `json:"status_code,omitempty"`
+	StatusCode int     `json:"status_code,omitempty"`
 	UserID     string  `json:"user_id,omitempty"`
 	Emails     []Email `json:"emails,omitempty"`
 }
 
 type DeleteUserResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 }
 
 type DeleteUserEmailResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	Email      string `json:"email,omitempty"`
 }
@@ -109,7 +109,7 @@ type SendMagicLink struct {
 
 type SendMagicLinkResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 }
 
@@ -133,7 +133,7 @@ type AuthenticateMagicLink struct {
 
 type AuthenticateMagicLinkResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 }
 
@@ -181,7 +181,7 @@ type LoginOrInviteByEmail struct {
 
 type LoginOrCreateResponse struct {
 	RequestID   string `json:"request_id,omitempty"`
-	StatusCode  int32  `json:"status_code,omitempty"`
+	StatusCode  int    `json:"status_code,omitempty"`
 	UserID      string `json:"user_id,omitempty"`
 	EmailID     string `json:"email_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
@@ -203,7 +203,7 @@ type InviteByEmail struct {
 
 type InviteByEmailResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	EmailID    string `json:"email_id,omitempty"`
 }
@@ -215,7 +215,7 @@ type RevokeInviteByEmail struct {
 
 type RevokeInviteByEmailResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 }
 
 type InvitedUsers struct {
@@ -233,7 +233,7 @@ type GetInvitedUsers struct {
 
 type GetInvitedUsersResponse struct {
 	RequestID       string         `json:"request_id,omitempty"`
-	StatusCode      int32          `json:"status_code,omitempty"`
+	StatusCode      int            `json:"status_code,omitempty"`
 	Users           []InvitedUsers `json:"users,omitempty"`
 	HasMore         bool           `json:"has_more,omitempty"`
 	StartingAfterID string         `json:"starting_after_id,omitempty"`

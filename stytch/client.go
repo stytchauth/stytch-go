@@ -75,6 +75,7 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 			return newInternalServerError("Oops, something seems to have gone wrong " +
 				"decoding the successful response body")
 		}
+		return nil
 	}
 
 	// Attempt to unmarshal into Stytch error format

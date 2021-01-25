@@ -12,17 +12,17 @@ func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
 			"marshalling the CreateUser request body")
 	}
 
-	var retVal *CreateUserResponse
-	err = c.newRequest("POST", "/users", nil, jsonBody, retVal)
-	return retVal, err
+	var retVal CreateUserResponse
+	err = c.newRequest("POST", "/users", nil, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) GetUser(userID string) (*GetUserResponse, error) {
 	path := "/users/" + userID
 
-	var retVal *GetUserResponse
-	err := c.newRequest("GET", path, nil, nil, retVal)
-	return retVal, err
+	var retVal GetUserResponse
+	err := c.newRequest("GET", path, nil, nil, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) GetInvitedUsers(body *GetInvitedUsers) (*GetInvitedUsersResponse, error) {
@@ -36,9 +36,9 @@ func (c *Client) GetInvitedUsers(body *GetInvitedUsers) (*GetInvitedUsersRespons
 		"starting_after_id": body.StartingAfterID,
 	}
 
-	var retVal *GetInvitedUsersResponse
-	err := c.newRequest("GET", "/users/invites", queryParams, nil, retVal)
-	return retVal, err
+	var retVal GetInvitedUsersResponse
+	err := c.newRequest("GET", "/users/invites", queryParams, nil, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserResponse, error) {
@@ -50,23 +50,23 @@ func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserRespons
 			"marshalling the UpdateUser request body")
 	}
 
-	var retVal *UpdateUserResponse
-	err = c.newRequest("PUT", path, nil, jsonBody, retVal)
-	return retVal, err
+	var retVal UpdateUserResponse
+	err = c.newRequest("PUT", path, nil, jsonBody, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) DeleteUser(userID string) (*DeleteUserResponse, error) {
 	path := "/users/" + userID
 
-	var retVal *DeleteUserResponse
-	err := c.newRequest("DELETE", path, nil, nil, retVal)
-	return retVal, err
+	var retVal DeleteUserResponse
+	err := c.newRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
 }
 
 func (c *Client) DeleteUserEmail(userID string, email string) (*DeleteUserEmailResponse, error) {
 	path := "/users/" + userID + "/emails/" + email
 
-	var retVal *DeleteUserEmailResponse
-	err := c.newRequest("DELETE", path, nil, nil, retVal)
-	return retVal, err
+	var retVal DeleteUserEmailResponse
+	err := c.newRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
 }
