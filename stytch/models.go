@@ -37,7 +37,7 @@ type Name struct {
 type Email struct {
 	EmailID  string `json:"email_id,omitempty"`
 	Email    string `json:"email,omitempty"`
-	Verified bool   `json:"verified,omitempty"`
+	Verified string `json:"verified,omitempty"`
 }
 
 type CreateUser struct {
@@ -226,8 +226,16 @@ type InvitedUsers struct {
 	InvitedAt string  `json:"invited_at,omitempty"`
 }
 
+type GetInvitedUsers struct {
+	Limit           int32  `json:"limit,omitempty"`
+	StartingAfterID string `json:"starting_after_id,omitempty"`
+}
+
 type GetInvitedUsersResponse struct {
-	RequestID  string       `json:"request_id,omitempty"`
-	StatusCode int          `json:"status_code,omitempty"`
-	Users      InvitedUsers `json:"users,omitempty"`
+	RequestID       string         `json:"request_id,omitempty"`
+	StatusCode      int            `json:"status_code,omitempty"`
+	Users           []InvitedUsers `json:"users,omitempty"`
+	HasMore         bool           `json:"has_more,omitempty"`
+	StartingAfterID string         `json:"starting_after_id,omitempty"`
+	Total           int            `json:"total,omitempty"`
 }
