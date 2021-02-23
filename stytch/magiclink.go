@@ -46,20 +46,6 @@ func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateRespo
 	return &retVal, err
 }
 
-func (c *Client) LoginOrInviteByEmail(body *LoginOrInviteByEmail) (*LoginOrCreateResponse, error) {
-	path := "/magic_links/login_or_invite"
-
-	jsonBody, err := json.Marshal(body)
-	if err != nil {
-		return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-			"marshalling the LoginOrInviteByEmail request body")
-	}
-
-	var retVal LoginOrCreateResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
-}
-
 func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, error) {
 	path := "/magic_links/invite_by_email"
 

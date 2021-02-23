@@ -158,27 +158,6 @@ type LoginOrCreateUser struct {
 	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
-type LoginOrInviteByEmail struct {
-	// The email the user enters to login or be invited with.
-	Email string `json:"email"`
-	// The url the user clicks from the login email magic link. This should be a url that your
-	// app receives and parses and subsequently send an api request to authenticate the
-	// magic link and log in the user.
-	LoginMagicLinkURL string `json:"login_magic_link_url,omitempty"`
-	// The url the user clicks from the invite email magic link. This should be a url that your
-	// app receives and parses and subsequently send an api request to authenticate the
-	// magic link and finish creating a users account.
-	InviteMagicLinkURL string `json:"invite_magic_link_url,omitempty"`
-	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
-	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
-	// Set the expiration for the invite email magic link, in minutes.
-	// By default, it expires in 1 week. The minimum expiration is 5 minutes
-	// and the maximum is 7 days (10080 mins).
-	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
-	Attributes              Attributes `json:"attributes,omitempty"`
-}
-
 type LoginOrCreateResponse struct {
 	RequestID   string `json:"request_id,omitempty"`
 	StatusCode  int    `json:"status_code,omitempty"`
