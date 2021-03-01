@@ -6,10 +6,14 @@ import (
 )
 
 func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
-	jsonBody, err := json.Marshal(body)
-	if err != nil {
-		return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-			"marshalling the CreateUser request body")
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+				"marshalling the AuthenticateMagicLink request body")
+		}
 	}
 
 	var retVal CreateUserResponse
@@ -44,10 +48,14 @@ func (c *Client) GetInvitedUsers(body *GetInvitedUsers) (*GetInvitedUsersRespons
 func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserResponse, error) {
 	path := "/users/" + userID
 
-	jsonBody, err := json.Marshal(body)
-	if err != nil {
-		return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-			"marshalling the UpdateUser request body")
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+				"marshalling the AuthenticateMagicLink request body")
+		}
 	}
 
 	var retVal UpdateUserResponse
