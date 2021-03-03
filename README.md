@@ -112,9 +112,9 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
     })
 ```
 
-#### Get Invited Users
+#### Get Pending Users
 ```go
-    res, err := sc.GetInvitedUsers()
+    res, err := sc.GetPendingUsers()
 ```
 
 ### Errors
