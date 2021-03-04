@@ -70,7 +70,7 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	}()
 
 	// Successful response
-	if res.StatusCode == 200 {
+	if res.StatusCode == 200 || res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
 			return newInternalServerError("Oops, something seems to have gone wrong " +
 				"decoding the successful response body")

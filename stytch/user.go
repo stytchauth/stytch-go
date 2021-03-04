@@ -29,7 +29,7 @@ func (c *Client) GetUser(userID string) (*GetUserResponse, error) {
 	return &retVal, err
 }
 
-func (c *Client) GetInvitedUsers(body *GetInvitedUsers) (*GetInvitedUsersResponse, error) {
+func (c *Client) GetPendingUsers(body *GetPendingUsers) (*GetPendingUsersResponse, error) {
 	limitString := ""
 	if body.Limit != 0 {
 		limitString = strconv.Itoa(int(body.Limit))
@@ -40,8 +40,8 @@ func (c *Client) GetInvitedUsers(body *GetInvitedUsers) (*GetInvitedUsersRespons
 		"starting_after_id": body.StartingAfterID,
 	}
 
-	var retVal GetInvitedUsersResponse
-	err := c.newRequest("GET", "/users/invites", queryParams, nil, &retVal)
+	var retVal GetPendingUsersResponse
+	err := c.newRequest("GET", "/users/pending", queryParams, nil, &retVal)
 	return &retVal, err
 }
 

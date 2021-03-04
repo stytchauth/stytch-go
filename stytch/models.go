@@ -197,7 +197,7 @@ type RevokeInviteByEmailResponse struct {
 	StatusCode int    `json:"status_code,omitempty"`
 }
 
-type InvitedUsers struct {
+type PendingUsers struct {
 	UserID    string  `json:"user_id,omitempty"`
 	Name      Name    `json:"name,omitempty"`
 	Emails    []Email `json:"emails,omitempty"`
@@ -205,15 +205,15 @@ type InvitedUsers struct {
 	InvitedAt string  `json:"invited_at,omitempty"`
 }
 
-type GetInvitedUsers struct {
+type GetPendingUsers struct {
 	Limit           int32  `json:"limit,omitempty"`
 	StartingAfterID string `json:"starting_after_id,omitempty"`
 }
 
-type GetInvitedUsersResponse struct {
+type GetPendingUsersResponse struct {
 	RequestID       string         `json:"request_id,omitempty"`
 	StatusCode      int            `json:"status_code,omitempty"`
-	Users           []InvitedUsers `json:"users,omitempty"`
+	Users           []PendingUsers `json:"users,omitempty"`
 	HasMore         bool           `json:"has_more,omitempty"`
 	StartingAfterID string         `json:"starting_after_id,omitempty"`
 	Total           int            `json:"total,omitempty"`
