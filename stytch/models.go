@@ -154,8 +154,11 @@ type LoginOrCreateUser struct {
 	// Set the expiration for the sign up email magic link, in minutes.
 	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
 	// the maximum is 7 days (10080 mins).
-	SignUpExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
-	Attributes              Attributes `json:"attributes,omitempty"`
+	SignUpExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
+	// Boolean flag for whether or not to save a user as pending vs active in Stytch.
+	// Defaults to false. If true, users will be saved with status pending.
+	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+	Attributes          Attributes `json:"attributes,omitempty"`
 }
 
 type LoginOrCreateResponse struct {
