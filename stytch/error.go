@@ -45,6 +45,6 @@ func newInternalServerError(message string) error {
 		StatusCode:   500,
 		ErrorType:    "internal_server_error",
 		ErrorMessage: ErrorMessage(message),
-		ErrorURL:     "https://docs.stytch.com/reference#500-internal-server-error",
+		ErrorURL:     "https://stytch.com/docs/api/errors/500",
 	}
 }

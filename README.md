@@ -19,7 +19,7 @@ $ go get github.com/stytchauth/stytch-go
 
 ## Documentation
 
-The module supports all Stytch API endpoints. Full documentation can be found [here](https://docs.stytch.com/reference).
+The module supports all Stytch API endpoints. Full documentation can be found [here](https://stytch.com/docs).
 
 ## Getting Started
 
@@ -121,7 +121,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 All non-200 responses will return a stytch.Error instance.
 
-For more information on Stytch response codes, head to the [docs](https://docs.stytch.com/reference#errors).
+For more information on Stytch response codes, head to the [docs](https://stytch.com/docs/api/errors).
 
 ## Developing
 
