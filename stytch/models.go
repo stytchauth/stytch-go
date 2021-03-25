@@ -135,6 +135,7 @@ type AuthenticateMagicLinkResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
+	MethodID   string `json:"method_id,omitempty"`
 }
 
 type LoginOrCreateUser struct {
