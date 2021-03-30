@@ -181,6 +181,7 @@ type InviteByEmail struct {
 	// it expires in 1 hour. The minimum expiration is 5 minutes and the maximum
 	// is 7 days (10080 mins).
 	ExpirationMinutes int32      `json:"login_expiration_minutes,omitempty"`
+	Name              Name       `json:"name,omitempty"`
 	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
