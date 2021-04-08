@@ -126,6 +126,13 @@ type SendMagicLinkByEmail struct {
 	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
+type SendMagicLinkByEmailResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	EmailID    string `json:"email_id,omitempty"`
+}
+
 type AuthenticateMagicLink struct {
 	Options    Options    `json:"options,omitempty"`
 	Attributes Attributes `json:"attributes,omitempty"`
