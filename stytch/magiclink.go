@@ -22,7 +22,8 @@ func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, err
 	return &retVal, err
 }
 
-func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkResponse, error) {
+func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkByEmailResponse,
+	error) {
 	path := "/magic_links/send_by_email"
 
 	var jsonBody []byte
@@ -35,7 +36,7 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 		}
 	}
 
-	var retVal SendMagicLinkResponse
+	var retVal SendMagicLinkByEmailResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
