@@ -37,7 +37,7 @@ type Name struct {
 type Email struct {
 	EmailID  string `json:"email_id,omitempty"`
 	Email    string `json:"email,omitempty"`
-	Verified string `json:"verified,omitempty"`
+	Verified bool   `json:"verified,omitempty"`
 }
 
 type CreateUser struct {
