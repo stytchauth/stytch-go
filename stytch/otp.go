@@ -22,7 +22,8 @@ func (c *Client) SendOTPBySMS(body *SendOTPBySMS) (*SendOTPBySMSResponse, error)
 	return &retVal, err
 }
 
-func (c *Client) LoginOrCreateUserBySMS(body *LoginOrCreateUserBySMS) (*LoginOrCreateUserBySMSResponse, error) {
+func (c *Client) LoginOrCreateUserBySMS(body *LoginOrCreateUserBySMS,
+) (*LoginOrCreateUserBySMSResponse, error) {
 	path := "/otp/login_or_create"
 
 	var jsonBody []byte
