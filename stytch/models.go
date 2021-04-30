@@ -40,9 +40,24 @@ type Email struct {
 	Verified bool   `json:"verified,omitempty"`
 }
 
+type EmailString struct {
+	Email    string `json:"email,omitempty"`
+}
+
+type PhoneNumber struct {
+	PhoneID  string `json:"phone_id,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
+	Verified bool `json:"verified,omitempty"`
+}
+
+type PhoneNumberString struct {
+	PhoneNumber string `json:"phone_number,omitempty"`
+}
+
 type CreateUser struct {
 	// The email to use for email magic links. This can be changed later via the update endpoint.
 	Email      string     `json:"email"`
+	PhoneNumber string `json:"phone_number,omitempty"`
 	Name       Name       `json:"name,omitempty"`
 	Attributes Attributes `json:"attributes,omitempty"`
 }
@@ -53,6 +68,7 @@ type CreateUserResponse struct {
 	UserID     string `json:"user_id,omitempty"`
 	// The id for the created email.
 	EmailID string `json:"email_id,omitempty"`
+	PhoneID string `json:"phone_id,omitempty"`
 	Status  string `json:"status,omitempty"`
 }
 
@@ -62,6 +78,7 @@ type GetUserResponse struct {
 	UserID     string  `json:"user_id,omitempty"`
 	Name       Name    `json:"name,omitempty"`
 	Emails     []Email `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
 	Status     string  `json:"status,omitempty"`
 }
 
@@ -69,7 +86,8 @@ type UpdateUser struct {
 	Name Name `json:"name,omitempty"`
 	// Multiple emails can exist for one user. Add additional emails via this endpoint.
 	// To delete an email, use the delete endpoint.
-	Emails     []Email    `json:"emails,omitempty"`
+	Emails     []EmailString    `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumberString `json:"phone_numbers,omitempty"`
 	Attributes Attributes `json:"attributes,omitempty"`
 }
 
@@ -78,6 +96,7 @@ type UpdateUserResponse struct {
 	StatusCode int     `json:"status_code,omitempty"`
 	UserID     string  `json:"user_id,omitempty"`
 	Emails     []Email `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
 }
 
 type DeleteUserResponse struct {
@@ -91,6 +110,12 @@ type DeleteUserEmailResponse struct {
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	Email      string `json:"email,omitempty"`
+}
+
+type DeleteUserPhoneNumberResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
 }
 
 type SendMagicLink struct {
@@ -213,6 +238,7 @@ type PendingUsers struct {
 	UserID    string  `json:"user_id,omitempty"`
 	Name      Name    `json:"name,omitempty"`
 	Emails    []Email `json:"emails,omitempty"`
+	PhoneNumbers    []PhoneNumber `json:"phone_numbers,omitempty"`
 	Status    string  `json:"status,omitempty"`
 	InvitedAt string  `json:"invited_at,omitempty"`
 }
@@ -229,4 +255,46 @@ type GetPendingUsersResponse struct {
 	HasMore         bool           `json:"has_more,omitempty"`
 	StartingAfterID string         `json:"starting_after_id,omitempty"`
 	Total           int            `json:"total,omitempty"`
+}
+
+type SendOTPBySMS struct {
+	PhoneNumber string `json:"phone_number"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
+}
+
+type SendOTPBySMSResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	PhoneID     string `json:"phone_id,omitempty"`
+}
+
+type LoginOrCreateUserBySMS struct {
+	PhoneNumber string `json:"phone_number"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
+	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+}
+
+type LoginOrCreateUserBySMSResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	PhoneID     string `json:"phone_id,omitempty"`
+	UserCreated bool   `json:"user_created,omitempty"`
+}
+
+type AuthenticateOTP struct {
+	MethodID   string `json:"method_id"`
+	Code   string `json:"code"`
+	Options    Options    `json:"options,omitempty"`
+	Attributes Attributes `json:"attributes,omitempty"`
+}
+
+type AuthenticateOTPResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	MethodID   string `json:"method_id,omitempty"`
 }
