@@ -109,7 +109,6 @@ type DeleteUserEmailResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
-	Email      string `json:"email,omitempty"`
 }
 
 type DeleteUserPhoneNumberResponse struct {
