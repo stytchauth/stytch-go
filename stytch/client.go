@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const apiVersion = "1.1.2"
+
 type Client struct {
 	Config     *config
 	HTTPClient *http.Client
@@ -58,7 +60,7 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("User-Agent", "Stytch Go v1.0.0")
+	req.Header.Add("User-Agent", "Stytch Go v"+apiVersion)
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
