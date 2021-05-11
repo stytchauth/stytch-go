@@ -27,8 +27,11 @@ func (e Error) Error() string {
 		fmt.Fprintf(&es, "request ID: %s, ", e.RequestID)
 	}
 
-	fmt.Fprintf(&es, "status code: %d, type: %s, message: %s",
-		e.StatusCode, e.ErrorType, e.ErrorMessage)
+	if e.StatusCode != 0 {
+		fmt.Fprintf(&es, "status code: %d, ", e.StatusCode)
+	}
+
+	fmt.Fprintf(&es, "type: %s, message: %s", e.ErrorType, e.ErrorMessage)
 
 	if e.ErrorURL != "" {
 		fmt.Fprintf(&es, " error_url: %s", e.ErrorURL)
@@ -36,15 +39,14 @@ func (e Error) Error() string {
 	return es.String()
 }
 
-func newInternalServerError(message string) error {
+func newClientLibraryError(message string) error {
 	if message == "" {
-		message = "Oops, something seems to have gone wrong"
+		message = "Oops, something seems to have gone wrong with the Stytch Go client library"
 	}
 
 	return Error{
-		StatusCode:   500,
-		ErrorType:    "internal_server_error",
-		ErrorMessage: ErrorMessage(message),
-		ErrorURL:     "https://stytch.com/docs/api/errors/500",
+		ErrorType:    "client_library_error",
+		ErrorMessage: ErrorMessage(message + ", v" + APIVersion),
+		ErrorURL:     "https://stytch.com/docs/api/errors",
 	}
 }

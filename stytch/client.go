@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const apiVersion = "1.1.2"
+const APIVersion = "1.1.2"
 
 type Client struct {
 	Config     *config
@@ -39,7 +39,7 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 
 	req, err := http.NewRequest(method, path, bytes.NewReader(body))
 	if err != nil {
-		return newInternalServerError("Oops, something seems to have gone " +
+		return newClientLibraryError("Oops, something seems to have gone " +
 			"wrong creating a new http request")
 	}
 
@@ -60,11 +60,11 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("User-Agent", "Stytch Go v"+apiVersion)
+	req.Header.Add("User-Agent", "Stytch Go v"+APIVersion)
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return newInternalServerError("Oops, something seems to have gone " +
+		return newClientLibraryError("Oops, something seems to have gone " +
 			"wrong sending the http request")
 	}
 	defer func() {
@@ -74,7 +74,7 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	// Successful response
 	if res.StatusCode == 200 || res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
-			return newInternalServerError("Oops, something seems to have gone wrong " +
+			return newClientLibraryError("Oops, something seems to have gone wrong " +
 				"decoding the successful response body")
 		}
 		return nil
@@ -83,7 +83,7 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	// Attempt to unmarshal into Stytch error format
 	var stytchErr Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
-		return newInternalServerError("Oops, something seems to have gone wrong " +
+		return newClientLibraryError("Oops, something seems to have gone wrong " +
 			"decoding the unsuccessful response body")
 	}
 	stytchErr.StatusCode = res.StatusCode

@@ -12,7 +12,7 @@ func (c *Client) SendOTPBySMS(body *SendOTPBySMS) (*SendOTPBySMSResponse, error)
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the SendOTPBySMS request body")
 		}
 	}
@@ -31,7 +31,7 @@ func (c *Client) LoginOrCreateUserBySMS(body *LoginOrCreateUserBySMS,
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the LoginOrCreateUserBySMS request body")
 		}
 	}
@@ -49,7 +49,7 @@ func (c *Client) AuthenticateOTP(body *AuthenticateOTP) (*AuthenticateOTPRespons
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the AuthenticateOTP request body")
 		}
 	}

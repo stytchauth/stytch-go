@@ -12,8 +12,8 @@ func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, err
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the SendMagicLink request body")
 		}
 	}
 
@@ -31,8 +31,8 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the SendMagicLinkByEmail request body")
 		}
 	}
 
@@ -49,8 +49,8 @@ func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateRespo
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the LoginOrCreateUser request body")
 		}
 	}
 
@@ -67,8 +67,8 @@ func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, err
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the InviteByEmail request body")
 		}
 	}
 
@@ -86,8 +86,8 @@ func (c *Client) RevokeInviteByEmail(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the RevokeInviteByEmail request body")
 		}
 	}
 
@@ -107,7 +107,7 @@ func (c *Client) AuthenticateMagicLink(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the AuthenticateMagicLink request body")
 		}
 	}

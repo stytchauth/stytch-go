@@ -11,8 +11,8 @@ func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the CreateUser request body")
 		}
 	}
 
@@ -53,8 +53,8 @@ func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserRespons
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+			return nil, newClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the UpdateUser request body")
 		}
 	}
 
