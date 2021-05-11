@@ -56,7 +56,7 @@ type PhoneNumberString struct {
 
 type CreateUser struct {
 	// The email to use for email magic links. This can be changed later via the update endpoint.
-	Email       string     `json:"email"`
+	Email       string     `json:"email,omitempty"`
 	PhoneNumber string     `json:"phone_number,omitempty"`
 	Name        Name       `json:"name,omitempty"`
 	Attributes  Attributes `json:"attributes,omitempty"`
