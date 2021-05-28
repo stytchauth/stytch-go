@@ -56,10 +56,11 @@ type PhoneNumberString struct {
 
 type CreateUser struct {
 	// The email to use for email magic links. This can be changed later via the update endpoint.
-	Email       string     `json:"email,omitempty"`
-	PhoneNumber string     `json:"phone_number,omitempty"`
-	Name        Name       `json:"name,omitempty"`
-	Attributes  Attributes `json:"attributes,omitempty"`
+	Email               string     `json:"email,omitempty"`
+	PhoneNumber         string     `json:"phone_number,omitempty"`
+	Name                Name       `json:"name,omitempty"`
+	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+	Attributes          Attributes `json:"attributes,omitempty"`
 }
 
 type CreateUserResponse struct {
@@ -121,14 +122,22 @@ type SendMagicLink struct {
 	UserID string `json:"user_id"`
 	// The method id for where to send the magic link, such as an email_id.
 	MethodID string `json:"method_id"`
-	// The url the user clicks from the email magic link. This should be a url that your app
-	// receives and parses and subsequently send an api request to authenticate the magic
-	// link and log in the user.
-	MagicLinkURL string `json:"magic_link_url,omitempty"`
-	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
+	// The url the user clicks from the login email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and log in the user.
+	LoginMagicLinkURL string `json:"login_magic_link_url"`
+	// The url the user clicks from the sign up email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and sign the user up.
+	SignupMagicLinkURL string `json:"signup_magic_link_url"`
+	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
-	Attributes        Attributes `json:"attributes,omitempty"`
+	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
+	// Set the expiration for the sign up email magic link, in minutes.
+	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
+	// the maximum is 7 days (10080 mins).
+	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type SendMagicLinkResponse struct {
@@ -140,14 +149,22 @@ type SendMagicLinkResponse struct {
 type SendMagicLinkByEmail struct {
 	// The email the user enters to sign in with.
 	Email string `json:"email"`
-	// The url the user clicks from the email magic link. This should be a url that your
+	// The url the user clicks from the login email magic link. This should be a url that your
 	// app receives and parses and subsequently send an api request to authenticate the
 	// magic link and log in the user.
-	MagicLinkURL string `json:"magic_link_url,omitempty"`
-	// Set the expiration for the email magic link, in minutes. By default, it expires in 1 hour.
+	LoginMagicLinkURL string `json:"login_magic_link_url"`
+	// The url the user clicks from the sign up email magic link. This should be a url that your
+	// app receives and parses and subsequently send an api request to authenticate the
+	// magic link and sign the user up.
+	SignupMagicLinkURL string `json:"signup_magic_link_url"`
+	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
-	Attributes        Attributes `json:"attributes,omitempty"`
+	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
+	// Set the expiration for the sign up email magic link, in minutes.
+	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
+	// the maximum is 7 days (10080 mins).
+	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type SendMagicLinkByEmailResponse struct {
@@ -175,18 +192,18 @@ type LoginOrCreateUser struct {
 	// The url the user clicks from the login email magic link. This should be a url that your
 	// app receives and parses and subsequently send an api request to authenticate the
 	// magic link and log in the user.
-	LoginMagicLinkURL string `json:"login_magic_link_url,omitempty"`
+	LoginMagicLinkURL string `json:"login_magic_link_url"`
 	// The url the user clicks from the sign up email magic link. This should be a url that your
 	// app receives and parses and subsequently send an api request to authenticate the
 	// magic link and sign the user up.
-	SignUpMagicLinkURL string `json:"signup_magic_link_url,omitempty"`
+	SignupMagicLinkURL string `json:"signup_magic_link_url"`
 	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
 	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
 	// Set the expiration for the sign up email magic link, in minutes.
 	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
 	// the maximum is 7 days (10080 mins).
-	SignUpExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
+	SignupExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
 	// Boolean flag for whether or not to save a user as pending vs active in Stytch.
 	// Defaults to false. If true, users will be saved with status pending.
 	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
@@ -207,13 +224,13 @@ type InviteByEmail struct {
 	// The url the user clicks from the invite email magic link. This should be a url that your
 	// app receives and parses and subsequently send an api request to authenticate the
 	// magic link and log in the user.
-	MagicLinkURL string `json:"magic_link_url,omitempty"`
+	InviteMagicLinkURL string `json:"magic_link_url"`
 	// Set the expiration for the invite email magic link, in minutes. By default,
 	// it expires in 1 hour. The minimum expiration is 5 minutes and the maximum
 	// is 7 days (10080 mins).
-	ExpirationMinutes int32      `json:"login_expiration_minutes,omitempty"`
-	Name              Name       `json:"name,omitempty"`
-	Attributes        Attributes `json:"attributes,omitempty"`
+	InviteExpirationMinutes int32      `json:"login_expiration_minutes,omitempty"`
+	Name                    Name       `json:"name,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
 type InviteByEmailResponse struct {
