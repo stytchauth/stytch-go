@@ -118,34 +118,6 @@ type DeleteUserPhoneNumberResponse struct {
 	UserID     string `json:"user_id,omitempty"`
 }
 
-type SendMagicLink struct {
-	UserID string `json:"user_id"`
-	// The method id for where to send the magic link, such as an email_id.
-	MethodID string `json:"method_id"`
-	// The url the user clicks from the login email magic link. This should be a url that your
-	// app receives and parses and subsequently send an api request to authenticate the
-	// magic link and log in the user.
-	LoginMagicLinkURL string `json:"login_magic_link_url"`
-	// The url the user clicks from the sign up email magic link. This should be a url that your
-	// app receives and parses and subsequently send an api request to authenticate the
-	// magic link and sign the user up.
-	SignupMagicLinkURL string `json:"signup_magic_link_url"`
-	// Set the expiration for the login email magic link, in minutes. By default, it expires in 1 hour.
-	// The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
-	LoginExpirationMinutes int32 `json:"login_expiration_minutes,omitempty"`
-	// Set the expiration for the sign up email magic link, in minutes.
-	// By default, it expires in 1 week. The minimum expiration is 5 minutes and
-	// the maximum is 7 days (10080 mins).
-	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
-	Attributes              Attributes `json:"attributes,omitempty"`
-}
-
-type SendMagicLinkResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int    `json:"status_code,omitempty"`
-	UserID     string `json:"user_id,omitempty"`
-}
-
 type SendMagicLinkByEmail struct {
 	// The email the user enters to sign in with.
 	Email string `json:"email"`

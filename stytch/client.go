@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const apiVersion = "1.1.4"
+const apiVersion = "1.2.0"
 
 type Client struct {
 	Config     *config
