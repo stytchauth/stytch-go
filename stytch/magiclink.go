@@ -4,24 +4,6 @@ import (
 	"encoding/json"
 )
 
-func (c *Client) SendMagicLink(body *SendMagicLink) (*SendMagicLinkResponse, error) {
-	path := "/magic_links/send"
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal SendMagicLinkResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
-}
-
 func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkByEmailResponse,
 	error) {
 	path := "/magic_links/send_by_email"
