@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 )
 
-func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkByEmailResponse,
+func (c *Client) MagicLinksEmailSend(body *MagicLinksEmailSend) (*MagicLinksEmailSendResponse,
 	error) {
-	path := "/magic_links/send_by_email"
+	path := "/magic_links/email/send"
 
 	var jsonBody []byte
 	var err error
@@ -14,17 +14,18 @@ func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLin
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+				"marshalling the MagicLinksEmailSend request body")
 		}
 	}
 
-	var retVal SendMagicLinkByEmailResponse
+	var retVal MagicLinksEmailSendResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateResponse, error) {
-	path := "/magic_links/login_or_create"
+func (c *Client) MagicLinksEmailLoginOrCreate(body *MagicLinksEmailLoginOrCreate) (
+	*MagicLinksEmailLoginOrCreateResponse, error) {
+	path := "/magic_links/email/login_or_create"
 
 	var jsonBody []byte
 	var err error
@@ -32,17 +33,18 @@ func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateRespo
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+				"marshalling the MagicLinksEmailLoginOrCreate request body")
 		}
 	}
 
-	var retVal LoginOrCreateResponse
+	var retVal MagicLinksEmailLoginOrCreateResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, error) {
-	path := "/magic_links/invite_by_email"
+func (c *Client) MagicLinksEmailInvite(body *MagicLinksEmailInvite) (
+	*MagicLinksEmailInviteResponse, error) {
+	path := "/magic_links/email/invite"
 
 	var jsonBody []byte
 	var err error
@@ -50,18 +52,18 @@ func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, err
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+				"marshalling the MagicLinksEmailInvite request body")
 		}
 	}
 
-	var retVal InviteByEmailResponse
+	var retVal MagicLinksEmailInviteResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) RevokeInviteByEmail(
-	body *RevokeInviteByEmail) (*RevokeInviteByEmailResponse, error) {
-	path := "/magic_links/revoke_invite"
+func (c *Client) MagicLinksEmailRevokeInvite(body *MagicLinksEmailRevokeInvite) (
+	*MagicLinksEmailRevokeInviteResponse, error) {
+	path := "/magic_links/email/revoke_invite"
 
 	var jsonBody []byte
 	var err error
@@ -69,20 +71,19 @@ func (c *Client) RevokeInviteByEmail(
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+				"marshalling the MagicLinksEmailRevokeInvite request body")
 		}
 	}
 
-	var retVal RevokeInviteByEmailResponse
+	var retVal MagicLinksEmailRevokeInviteResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) AuthenticateMagicLink(
-	token string,
-	body *AuthenticateMagicLink,
-) (*AuthenticateMagicLinkResponse, error) {
-	path := "/magic_links/" + token + "/authenticate"
+func (c *Client) MagicLinksAuthenticate(
+	body *MagicLinksAuthenticate,
+) (*MagicLinksAuthenticateResponse, error) {
+	path := "/magic_links/authenticate"
 
 	var jsonBody []byte
 	var err error
@@ -90,11 +91,11 @@ func (c *Client) AuthenticateMagicLink(
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
+				"marshalling the MagicLinksAuthenticate request body")
 		}
 	}
 
-	var retVal AuthenticateMagicLinkResponse
+	var retVal MagicLinksAuthenticateResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

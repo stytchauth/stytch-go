@@ -118,7 +118,7 @@ type DeleteUserPhoneNumberResponse struct {
 	UserID     string `json:"user_id,omitempty"`
 }
 
-type SendMagicLinkByEmail struct {
+type MagicLinksEmailSend struct {
 	// The email the user enters to sign in with.
 	Email string `json:"email"`
 	// The url the user clicks from the login email magic link. This should be a url that your
@@ -139,26 +139,27 @@ type SendMagicLinkByEmail struct {
 	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
-type SendMagicLinkByEmailResponse struct {
+type MagicLinksEmailSendResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	EmailID    string `json:"email_id,omitempty"`
 }
 
-type AuthenticateMagicLink struct {
+type MagicLinksAuthenticate struct {
+	Token      string     `json:"token"`
 	Options    Options    `json:"options,omitempty"`
 	Attributes Attributes `json:"attributes,omitempty"`
 }
 
-type AuthenticateMagicLinkResponse struct {
+type MagicLinksAuthenticateResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	MethodID   string `json:"method_id,omitempty"`
 }
 
-type LoginOrCreateUser struct {
+type MagicLinksEmailLoginOrCreate struct {
 	// The email the user enters to login or sign up with.
 	Email string `json:"email"`
 	// The url the user clicks from the login email magic link. This should be a url that your
@@ -182,7 +183,7 @@ type LoginOrCreateUser struct {
 	Attributes          Attributes `json:"attributes,omitempty"`
 }
 
-type LoginOrCreateResponse struct {
+type MagicLinksEmailLoginOrCreateResponse struct {
 	RequestID   string `json:"request_id,omitempty"`
 	StatusCode  int    `json:"status_code,omitempty"`
 	UserID      string `json:"user_id,omitempty"`
@@ -190,7 +191,7 @@ type LoginOrCreateResponse struct {
 	UserCreated bool   `json:"user_created,omitempty"`
 }
 
-type InviteByEmail struct {
+type MagicLinksEmailInvite struct {
 	// The email the user enters to be invited with.
 	Email string `json:"email"`
 	// The url the user clicks from the invite email magic link. This should be a url that your
@@ -205,19 +206,19 @@ type InviteByEmail struct {
 	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
-type InviteByEmailResponse struct {
+type MagicLinksEmailInviteResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	EmailID    string `json:"email_id,omitempty"`
 }
 
-type RevokeInviteByEmail struct {
+type MagicLinksEmailRevokeInvite struct {
 	// The email of the user who's invite should be revoked.
 	Email string `json:"email"`
 }
 
-type RevokeInviteByEmailResponse struct {
+type MagicLinksEmailRevokeInviteResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 }
@@ -245,27 +246,27 @@ type GetPendingUsersResponse struct {
 	Total           int            `json:"total,omitempty"`
 }
 
-type SendOTPBySMS struct {
+type OTPsSMSSend struct {
 	PhoneNumber       string     `json:"phone_number"`
 	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
 	Attributes        Attributes `json:"attributes,omitempty"`
 }
 
-type SendOTPBySMSResponse struct {
+type OTPsSMSSendResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
 	PhoneID    string `json:"phone_id,omitempty"`
 }
 
-type LoginOrCreateUserBySMS struct {
+type OTPsSMSLoginOrCreate struct {
 	PhoneNumber         string     `json:"phone_number"`
 	ExpirationMinutes   int32      `json:"expiration_minutes,omitempty"`
 	Attributes          Attributes `json:"attributes,omitempty"`
 	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
 }
 
-type LoginOrCreateUserBySMSResponse struct {
+type OTPsSMSLoginOrCreateResponse struct {
 	RequestID   string `json:"request_id,omitempty"`
 	StatusCode  int    `json:"status_code,omitempty"`
 	UserID      string `json:"user_id,omitempty"`
@@ -273,14 +274,14 @@ type LoginOrCreateUserBySMSResponse struct {
 	UserCreated bool   `json:"user_created,omitempty"`
 }
 
-type AuthenticateOTP struct {
+type OTPsAuthenticate struct {
 	MethodID   string     `json:"method_id"`
 	Code       string     `json:"code"`
 	Options    Options    `json:"options,omitempty"`
 	Attributes Attributes `json:"attributes,omitempty"`
 }
 
-type AuthenticateOTPResponse struct {
+type OTPsAuthenticateResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`

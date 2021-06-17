@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 )
 
-func (c *Client) SendOTPBySMS(body *SendOTPBySMS) (*SendOTPBySMSResponse, error) {
-	path := "/otp/send_by_sms"
+func (c *Client) OTPsSMSSend(body *OTPsSMSSend) (*OTPsSMSSendResponse, error) {
+	path := "/otps/sms/send"
 
 	var jsonBody []byte
 	var err error
@@ -13,18 +13,18 @@ func (c *Client) SendOTPBySMS(body *SendOTPBySMS) (*SendOTPBySMSResponse, error)
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the SendOTPBySMS request body")
+				"marshalling the OTPsSMSSend request body")
 		}
 	}
 
-	var retVal SendOTPBySMSResponse
+	var retVal OTPsSMSSendResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) LoginOrCreateUserBySMS(body *LoginOrCreateUserBySMS,
-) (*LoginOrCreateUserBySMSResponse, error) {
-	path := "/otp/login_or_create"
+func (c *Client) OTPsSMSLoginOrCreate(body *OTPsSMSLoginOrCreate,
+) (*OTPsSMSLoginOrCreateResponse, error) {
+	path := "/otps/sms/login_or_create"
 
 	var jsonBody []byte
 	var err error
@@ -32,17 +32,17 @@ func (c *Client) LoginOrCreateUserBySMS(body *LoginOrCreateUserBySMS,
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the LoginOrCreateUserBySMS request body")
+				"marshalling the OTPsSMSLoginOrCreate request body")
 		}
 	}
 
-	var retVal LoginOrCreateUserBySMSResponse
+	var retVal OTPsSMSLoginOrCreateResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) AuthenticateOTP(body *AuthenticateOTP) (*AuthenticateOTPResponse, error) {
-	path := "/otp/authenticate"
+func (c *Client) OTPsAuthenticate(body *OTPsAuthenticate) (*OTPsAuthenticateResponse, error) {
+	path := "/otps/authenticate"
 
 	var jsonBody []byte
 	var err error
@@ -50,11 +50,11 @@ func (c *Client) AuthenticateOTP(body *AuthenticateOTP) (*AuthenticateOTPRespons
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
 			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateOTP request body")
+				"marshalling the OTPsAuthenticate request body")
 		}
 	}
 
-	var retVal AuthenticateOTPResponse
+	var retVal OTPsAuthenticateResponse
 	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

@@ -62,7 +62,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Send Magic Link
 ```go
-    res, err := sc.SendMagicLinkByEmail(&stytch.SendMagicLinkByEmail{
+    res, err := sc.MagicLinksEmailSend(&stytch.MagicLinksEmailSend{
 		Email:             "clark@stytch.com",
 		MagicLinkURL:      "https://yoururl.com",
 		ExpirationMinutes: 5,
@@ -74,9 +74,9 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Authenticate Magic Link
 ```go
-    res, err := sc.AuthenticateMagicLink(
+    res, err := sc.MagicLinksAuthenticate(
 		"GCRzBlufdaQ3mJh2QcygLsbuG__gqGwwvRuIuetv6ZM=",
-		&stytch.AuthenticateMagicLink{
+		&stytch.MagicLinksAuthenticate{
 			Options:    stytch.Options{IPMatchRequired: true},
 			Attributes: stytch.Attributes{IPAddress: "10.0.0.0"},
 		})
@@ -84,7 +84,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Login or Create A User
 ```go
-    res, err := sc.LoginOrCreateUser(&stytch.LoginOrCreateUser{
+    res, err := sc.MagicLinksEmailLoginOrCreate(&stytch.MagicLinksEmailLoginOrCreate{
 		Email:             "clark@stytch.com",
 		LoginMagicLinkURL:      "https://yoururl.com/login",
         SignupMagicLinkURL:      "https://yoururl.com/signup",
@@ -96,7 +96,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Invite A User By Email
 ```go
-    res, err := sc.InviteByEmail(&stytch.InviteByEmail{
+    res, err := sc.MagicLinksEmailInvite(&stytch.MagicLinksEmailInvite{
 		Email:             "clark@stytch.com",
 		MagicLinkURL:      "https://yoururl.com/invite",
 		Attributes:        stytch.Attributes{
@@ -107,7 +107,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Revoke an Invitation By Email
 ```go
-    res, err := sc.RevokeInviteByEmail(&stytch.RevokeInviteByEmail{
+    res, err := sc.MagicLinksEmailRevokeInvite(&stytch.MagicLinksEmailRevokeInvite{
 		Email:             "clark@stytch.com"
     })
 ```
