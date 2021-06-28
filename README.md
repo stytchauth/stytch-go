@@ -45,7 +45,7 @@ stytchAPIClient.Init(
 
 Each endpoint returns an object which contains the parsed JSON from the HTTP response.
 
-#### Create User
+#### Users - Create
 ```go
 	res, err := stytchAPIClient.Users.Create(&stytch.UsersCreateParams{
 		Email:      "sandbox@stytch.com",
@@ -57,12 +57,12 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 	})
 ```
 
-#### Get User
+#### Users - Get
 ```go
 	res, err := stytchAPIClient.Users.Get("user-test-e3ca2fde-0cbe-4248-a8b8-b1dd68a4514d")
 ```
 
-#### Magic Links - Email: Send
+#### Magic Links - Email - Send
 ```go
 	res, err := stytchAPIClient.MagicLinks.Email.Send(&stytch.MagicLinksEmailSendParams{
 		Email:              "sandbox@stytch.com",
@@ -74,7 +74,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
     })
 ```
 
-#### Magic Links: Authenticate
+#### Magic Links - Authenticate
 ```go
 	res, err := stytchAPIClient.MagicLinks.Authenticate(
 		&stytch.MagicLinksAuthenticateParams{
@@ -84,7 +84,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 		})
 ```
 
-#### Magic Links - Email: Login or Create
+#### Magic Links - Email - Login or Create
 ```go
 	res, err := stytchAPIClient.MagicLinks.Email.LoginOrCreate(&stytch.MagicLinksEmailLoginOrCreateParams{
 		Email:                  "sandbox@stytch.com",
@@ -96,7 +96,7 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 	})
 ```
 
-#### Magic Links - Email: Invite
+#### Magic Links - Email - Invite
 ```go
 	res, err := stytchAPIClient.MagicLinks.Email.Invite(&stytch.MagicLinksEmailInviteParams{
 		Email:                   "sandbox@stytch.com",
@@ -107,14 +107,14 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 	})
 ```
 
-#### Magic Links - Email: Revoke Invite
+#### Magic Links - Email - Revoke Invite
 ```go
 	res, err := stytchAPIClient.MagicLinks.Email.RevokeInvite(&stytch.MagicLinksEmailRevokeInviteParams{
 		Email: "sandbox@stytch.com"
 	})
 ```
 
-#### Get Pending Users
+#### Users - Get Pending
 ```go
 	res, err := stytchAPIClient.Users.GetPending()
 ```
