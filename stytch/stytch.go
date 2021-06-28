@@ -15,13 +15,13 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
-func New(env string, projectID string, secret string) *Client {
+func New(env Env, projectID string, secret string) *Client {
 	stytchClient := new(Client)
 	stytchClient.Config = newConfig()
 
 	stytchClient.Config.SetBasicAuthProjectID(projectID)
 	stytchClient.Config.SetBasicAuthSecret(secret)
-	stytchClient.Config.SetEnv(Env(env))
+	stytchClient.Config.SetEnv(env)
 
 	stytchClient.HTTPClient = &http.Client{}
 

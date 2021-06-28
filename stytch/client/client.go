@@ -16,7 +16,7 @@ type API struct {
 }
 
 func (a *API) Init(env stytch.Env, projectID string, secret string) {
-	client := stytch.New(string(env), projectID, secret)
+	client := stytch.New(env, projectID, secret)
 
 	a.MagicLinks = &magiclink.Client{C: client, Email: &email.Client{C: client}}
 	a.OTPs = &otp.Client{C: client, SMS: &sms.Client{C: client}}
