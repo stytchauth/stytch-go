@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/stytch"
+	"github.com/stytchauth/stytch-go/stytch/stytcherror"
 )
 
 type Client struct {
@@ -18,7 +19,7 @@ func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendRespon
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewClientLibraryError(
+			return nil, stytcherror.NewClientLibraryError(
 				"Oops, something seems to have gone wrong marshalling the /otps/sms/send request body")
 		}
 	}
@@ -37,7 +38,7 @@ func (c *Client) LoginOrCreate(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /otps/sms/login_or_create request body")
 		}
 	}

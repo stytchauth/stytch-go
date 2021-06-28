@@ -5,6 +5,7 @@ import (
 
 	"github.com/stytchauth/stytch-go/stytch"
 	"github.com/stytchauth/stytch-go/stytch/magiclink/email"
+	"github.com/stytchauth/stytch-go/stytch/stytcherror"
 )
 
 type Client struct {
@@ -21,8 +22,9 @@ func (c *Client) Authenticate(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
-				"marshalling the /magic_links/authenticate request body")
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the /magic_links/authenticate request body")
 		}
 	}
 

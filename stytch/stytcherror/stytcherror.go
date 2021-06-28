@@ -1,22 +1,24 @@
-package stytch
+package stytcherror
 
 import (
 	"fmt"
 	"strings"
+
+	"github.com/stytchauth/stytch-go/stytch/config"
 )
 
 type Error struct {
-	StatusCode   int          `json:"status_code,omitempty"`
-	RequestID    string       `json:"request_id,omitempty"`
-	ErrorType    ErrorType    `json:"error_type,omitempty"`
-	ErrorMessage ErrorMessage `json:"error_message,omitempty"`
-	ErrorURL     ErrorURL     `json:"error_url,omitempty"`
+	StatusCode   int     `json:"status_code,omitempty"`
+	RequestID    string  `json:"request_id,omitempty"`
+	ErrorType    Type    `json:"error_type,omitempty"`
+	ErrorMessage Message `json:"error_message,omitempty"`
+	ErrorURL     URL     `json:"error_url,omitempty"`
 }
 
 type (
-	ErrorType    string
-	ErrorMessage string
-	ErrorURL     string
+	Type    string
+	Message string
+	URL     string
 )
 
 func (e Error) Error() string {
@@ -44,7 +46,7 @@ func NewClientLibraryError(message string) error {
 	return Error{
 		StatusCode:   500,
 		ErrorType:    "client_library_error",
-		ErrorMessage: ErrorMessage(message + ", v" + apiVersion),
+		ErrorMessage: Message(message + ", v" + config.APIVersion),
 		ErrorURL:     "https://stytch.com/docs/api/errors/500",
 	}
 }

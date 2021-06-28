@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/stytchauth/stytch-go/stytch"
+	"github.com/stytchauth/stytch-go/stytch/stytcherror"
 )
 
 type Client struct {
@@ -17,7 +18,7 @@ func (c *Client) Create(body *stytch.UsersCreateParams) (*stytch.UsersCreateResp
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the create user request body")
 		}
 	}
@@ -64,7 +65,7 @@ func (c *Client) Update(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the update users request body")
 		}
 	}

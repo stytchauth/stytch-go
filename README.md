@@ -32,11 +32,10 @@ import (
 	"os"
 
 	"github.com/stytchauth/stytch-go/stytch"
-	"github.com/stytchauth/stytch-go/stytch/client"
+	"github.com/stytchauth/stytch-go/stytch/stytchapi"
 )
 
-stytchAPIClient := &client.API{}
-stytchAPIClient.Init(
+stytchAPIClient := stytchapi.NewAPIClient(
 	stytch.EnvTest, // available environments are EnvTest and EnvLive
 	os.Getenv("STYTCH_PROJECT_ID"),
 	os.Getenv("STYTCH_SECRET"), 
