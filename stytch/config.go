@@ -30,44 +30,26 @@ func newConfig() *config {
 	return config
 }
 
-/*
- * Getter function returning ProjectID
- */
 func (c *config) BasicAuthProjectID() string {
 	return c.projectID
 }
 
-/*
- * Setter function setting up ProjectID
- */
 func (c *config) SetBasicAuthProjectID(projectID string) {
 	c.projectID = projectID
 }
 
-/*
- * Getter function returning Secret
- */
 func (c *config) BasicAuthSecret() string {
 	return c.secret
 }
 
-/*
- * Setter function setting up Secret
- */
 func (c *config) SetBasicAuthSecret(secret string) {
 	c.secret = secret
 }
 
-/*
- * Getter function returning Env
- */
 func (c *config) GetEnv() Env {
 	return c.env
 }
 
-/*
- * Setter function setting up Env
- */
 func (c *config) SetEnv(env Env) {
 	c.env = env
 	if env == EnvLive {
@@ -77,9 +59,6 @@ func (c *config) SetEnv(env Env) {
 	}
 }
 
-/*
- * Getter function returning BaseURI
- */
 func (c *config) GetBaseURI() BaseURI {
 	return c.baseURI
 }

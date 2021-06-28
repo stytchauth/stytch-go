@@ -36,7 +36,7 @@ func (e Error) Error() string {
 	return es.String()
 }
 
-func newInternalServerError(message string) error {
+func NewInternalServerError(message string) error {
 	if message == "" {
 		message = "Oops, something seems to have gone wrong"
 	}

@@ -1,88 +1,110 @@
 package stytch
 
-import (
-	"encoding/json"
-	"strconv"
-)
-
-func (c *Client) CreateUser(body *CreateUser) (*CreateUserResponse, error) {
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal CreateUserResponse
-	err = c.newRequest("POST", "/users", nil, jsonBody, &retVal)
-	return &retVal, err
+type Name struct {
+	FirstName  string `json:"firstName,omitempty"`
+	MiddleName string `json:"middleName,omitempty"`
+	LastName   string `json:"lastName,omitempty"`
 }
 
-func (c *Client) GetUser(userID string) (*GetUserResponse, error) {
-	path := "/users/" + userID
-
-	var retVal GetUserResponse
-	err := c.newRequest("GET", path, nil, nil, &retVal)
-	return &retVal, err
+type Email struct {
+	EmailID  string `json:"email_id,omitempty"`
+	Email    string `json:"email,omitempty"`
+	Verified bool   `json:"verified,omitempty"`
 }
 
-func (c *Client) GetPendingUsers(body *GetPendingUsers) (*GetPendingUsersResponse, error) {
-	limitString := ""
-	if body.Limit != 0 {
-		limitString = strconv.Itoa(int(body.Limit))
-	}
-
-	queryParams := map[string]string{
-		"limit":             limitString,
-		"starting_after_id": body.StartingAfterID,
-	}
-
-	var retVal GetPendingUsersResponse
-	err := c.newRequest("GET", "/users/pending", queryParams, nil, &retVal)
-	return &retVal, err
+type EmailString struct {
+	Email string `json:"email,omitempty"`
 }
 
-func (c *Client) UpdateUser(userID string, body *UpdateUser) (*UpdateUserResponse, error) {
-	path := "/users/" + userID
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal UpdateUserResponse
-	err = c.newRequest("PUT", path, nil, jsonBody, &retVal)
-	return &retVal, err
+type PhoneNumber struct {
+	PhoneID     string `json:"phone_id,omitempty"`
+	PhoneNumber string `json:"phone_number,omitempty"`
+	Verified    bool   `json:"verified,omitempty"`
 }
 
-func (c *Client) DeleteUser(userID string) (*DeleteUserResponse, error) {
-	path := "/users/" + userID
-
-	var retVal DeleteUserResponse
-	err := c.newRequest("DELETE", path, nil, nil, &retVal)
-	return &retVal, err
+type PhoneNumberString struct {
+	PhoneNumber string `json:"phone_number,omitempty"`
 }
 
-func (c *Client) DeleteUserEmail(emailID string) (*DeleteUserEmailResponse, error) {
-	path := "/users/emails/" + emailID
-
-	var retVal DeleteUserEmailResponse
-	err := c.newRequest("DELETE", path, nil, nil, &retVal)
-	return &retVal, err
+type UsersCreateParams struct {
+	Email               string     `json:"email,omitempty"`
+	PhoneNumber         string     `json:"phone_number,omitempty"`
+	Name                Name       `json:"name,omitempty"`
+	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+	Attributes          Attributes `json:"attributes,omitempty"`
 }
 
-func (c *Client) DeleteUserPhoneNumber(phoneID string) (*DeleteUserPhoneNumberResponse, error) {
-	path := "/users/phone_numbers/" + phoneID
+type UsersCreateResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	EmailID    string `json:"email_id,omitempty"`
+	PhoneID    string `json:"phone_id,omitempty"`
+	Status     string `json:"status,omitempty"`
+}
 
-	var retVal DeleteUserPhoneNumberResponse
-	err := c.newRequest("DELETE", path, nil, nil, &retVal)
-	return &retVal, err
+type UsersGetResponse struct {
+	RequestID    string        `json:"request_id,omitempty"`
+	StatusCode   int           `json:"status_code,omitempty"`
+	UserID       string        `json:"user_id,omitempty"`
+	Name         Name          `json:"name,omitempty"`
+	Emails       []Email       `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
+	Status       string        `json:"status,omitempty"`
+}
+
+type UsersUpdateParams struct {
+	Name         Name                `json:"name,omitempty"`
+	Emails       []EmailString       `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumberString `json:"phone_numbers,omitempty"`
+	Attributes   Attributes          `json:"attributes,omitempty"`
+}
+
+type UsersUpdateResponse struct {
+	RequestID    string        `json:"request_id,omitempty"`
+	StatusCode   int           `json:"status_code,omitempty"`
+	UserID       string        `json:"user_id,omitempty"`
+	Emails       []Email       `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
+}
+
+type UsersDeleteResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+}
+
+type UsersDeleteEmailResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+}
+
+type UsersDeletePhoneNumberResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+}
+
+type PendingUsers struct {
+	UserID       string        `json:"user_id,omitempty"`
+	Name         Name          `json:"name,omitempty"`
+	Emails       []Email       `json:"emails,omitempty"`
+	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
+	Status       string        `json:"status,omitempty"`
+	InvitedAt    string        `json:"invited_at,omitempty"`
+}
+
+type UsersGetPendingParams struct {
+	Limit           int32  `json:"limit,omitempty"`
+	StartingAfterID string `json:"starting_after_id,omitempty"`
+}
+
+type UsersGetPendingResponse struct {
+	RequestID       string         `json:"request_id,omitempty"`
+	StatusCode      int            `json:"status_code,omitempty"`
+	Users           []PendingUsers `json:"users,omitempty"`
+	HasMore         bool           `json:"has_more,omitempty"`
+	StartingAfterID string         `json:"starting_after_id,omitempty"`
+	Total           int            `json:"total,omitempty"`
 }
