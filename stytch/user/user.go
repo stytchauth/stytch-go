@@ -17,7 +17,7 @@ func (c *Client) Create(body *stytch.UsersCreateParams) (*stytch.UsersCreateResp
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the create user request body")
 		}
 	}
@@ -35,7 +35,7 @@ func (c *Client) Get(userID string) (*stytch.UsersGetResponse, error) {
 	return &retVal, err
 }
 
-func (c *Client) GetPendingUsers(
+func (c *Client) GetPending(
 	body *stytch.UsersGetPendingParams) (*stytch.UsersGetPendingResponse, error) {
 	var queryParams map[string]string
 	if body != nil {
@@ -55,7 +55,7 @@ func (c *Client) GetPendingUsers(
 	return &retVal, err
 }
 
-func (c *Client) UpdateUser(
+func (c *Client) Update(
 	userID string, body *stytch.UsersUpdateParams) (*stytch.UsersUpdateResponse, error) {
 	path := "/users/" + userID
 
@@ -64,7 +64,7 @@ func (c *Client) UpdateUser(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the update users request body")
 		}
 	}
@@ -74,7 +74,7 @@ func (c *Client) UpdateUser(
 	return &retVal, err
 }
 
-func (c *Client) DeleteUser(userID string) (*stytch.UsersDeleteResponse, error) {
+func (c *Client) Delete(userID string) (*stytch.UsersDeleteResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersDeleteResponse
@@ -82,7 +82,7 @@ func (c *Client) DeleteUser(userID string) (*stytch.UsersDeleteResponse, error) 
 	return &retVal, err
 }
 
-func (c *Client) DeleteUserEmail(emailID string) (*stytch.UsersDeleteEmailResponse, error) {
+func (c *Client) DeleteEmail(emailID string) (*stytch.UsersDeleteEmailResponse, error) {
 	path := "/users/emails/" + emailID
 
 	var retVal stytch.UsersDeleteEmailResponse
@@ -90,7 +90,7 @@ func (c *Client) DeleteUserEmail(emailID string) (*stytch.UsersDeleteEmailRespon
 	return &retVal, err
 }
 
-func (c *Client) DeleteUserPhoneNumber(
+func (c *Client) DeletePhoneNumber(
 	phoneID string) (*stytch.UsersDeletePhoneNumberResponse, error) {
 	path := "/users/phone_numbers/" + phoneID
 

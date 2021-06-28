@@ -36,15 +36,15 @@ func (e Error) Error() string {
 	return es.String()
 }
 
-func NewInternalServerError(message string) error {
+func NewClientLibraryError(message string) error {
 	if message == "" {
-		message = "Oops, something seems to have gone wrong"
+		message = "Oops, something seems to have gone wrong with the Stytch Go client library"
 	}
 
 	return Error{
 		StatusCode:   500,
-		ErrorType:    "internal_server_error",
-		ErrorMessage: ErrorMessage(message),
+		ErrorType:    "client_library_error",
+		ErrorMessage: ErrorMessage(message + ", v" + apiVersion),
 		ErrorURL:     "https://stytch.com/docs/api/errors/500",
 	}
 }

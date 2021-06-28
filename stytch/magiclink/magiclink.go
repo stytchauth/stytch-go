@@ -21,7 +21,7 @@ func (c *Client) Authenticate(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /magic_links/authenticate request body")
 		}
 	}

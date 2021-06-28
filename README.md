@@ -29,17 +29,17 @@ To call an endpoint you must first initialize a Stytch client `API` object.
 
 ```go
 import (
-    "os"
+	"os"
 
-    "github.com/stytchauth/stytch-go/stytch"
-    "github.com/stytchauth/stytch-go/stytch/client"
+	"github.com/stytchauth/stytch-go/stytch"
+	"github.com/stytchauth/stytch-go/stytch/client"
 )
 
 stytchAPIClient := &client.API{}
 stytchAPIClient.Init(
-    client.EnvTest, // available environments are EnvTest and EnvLive
-    os.Getenv("STYTCH_PROJECT_ID"),
-    os.Getenv("STYTCH_SECRET"), 
+	stytch.EnvTest, // available environments are EnvTest and EnvLive
+	os.Getenv("STYTCH_PROJECT_ID"),
+	os.Getenv("STYTCH_SECRET"), 
 )
 ```
 
@@ -47,24 +47,24 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Create User
 ```go
-    res, err := stytchAPIClient.Users.Create(&stytch.UsersCreateParams{
+	res, err := stytchAPIClient.Users.Create(&stytch.UsersCreateParams{
 		Email:      "sandbox@stytch.com",
 		Name: stytch.Name{
 			FirstName:  "Clark",
 			MiddleName: "Joseph",
 			LastName:   "Kent",
 		},
-    })
+	})
 ```
 
 #### Get User
 ```go
-    res, err := stytchAPIClient.Users.Get("user-test-e3ca2fde-0cbe-4248-a8b8-b1dd68a4514d")
+	res, err := stytchAPIClient.Users.Get("user-test-e3ca2fde-0cbe-4248-a8b8-b1dd68a4514d")
 ```
 
 #### Magic Links - Email: Send
 ```go
-    res, err := stytchAPIClient.MagicLinks.Email.Send(&stytch.MagicLinksEmailSendParams{
+	res, err := stytchAPIClient.MagicLinks.Email.Send(&stytch.MagicLinksEmailSendParams{
 		Email:              "sandbox@stytch.com",
 		LoginMagicLinkURL:  "https://example.com/login",
 		SignupMagicLinkURL: "https://example.com/signup",
@@ -76,9 +76,9 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Magic Links: Authenticate
 ```go
-    res, err := stytchAPIClient.MagicLinks.Authenticate(
+	res, err := stytchAPIClient.MagicLinks.Authenticate(
 		&stytch.MagicLinksAuthenticateParams{
-            Token:      "GCRzBlufdaQ3mJh2QcygLsbuG__gqGwwvRuIuetv6ZM="
+			Token:      "GCRzBlufdaQ3mJh2QcygLsbuG__gqGwwvRuIuetv6ZM=",
 			Options:    stytch.Options{IPMatchRequired: true},
 			Attributes: stytch.Attributes{IPAddress: "10.0.0.0"},
 		})
@@ -86,37 +86,37 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
 
 #### Magic Links - Email: Login or Create
 ```go
-    res, err := stytchAPIClient.MagicLinks.Email.LoginOrCreate(&stytch.MagicLinksEmailLoginOrCreateParams{
+	res, err := stytchAPIClient.MagicLinks.Email.LoginOrCreate(&stytch.MagicLinksEmailLoginOrCreateParams{
 		Email:                  "sandbox@stytch.com",
 		LoginMagicLinkURL:      "https://example.com/login",
-        SignupMagicLinkURL:     "https://example.com/signup",
+		SignupMagicLinkURL:     "https://example.com/signup",
 		Attributes:             stytch.Attributes{
 			IPAddress: "10.0.0.0",
 		},
-    })
+	})
 ```
 
 #### Magic Links - Email: Invite
 ```go
-    res, err := stytchAPIClient.MagicLinks.Email.Invite(&stytch.MagicLinksEmailInviteParams{
+	res, err := stytchAPIClient.MagicLinks.Email.Invite(&stytch.MagicLinksEmailInviteParams{
 		Email:                   "sandbox@stytch.com",
 		InviteMagicLinkURL:      "https://example.com/invite",
 		Attributes:              stytch.Attributes{
 			IPAddress: "10.0.0.0",
 		},
-    })
+	})
 ```
 
 #### Magic Links - Email: Revoke Invite
 ```go
-    res, err := stytchAPIClient.MagicLinks.Email.RevokeInvite(&stytch.MagicLinksEmailRevokeInviteParams{
-		Email:             "sandbox@stytch.com"
-    })
+	res, err := stytchAPIClient.MagicLinks.Email.RevokeInvite(&stytch.MagicLinksEmailRevokeInviteParams{
+		Email: "sandbox@stytch.com"
+	})
 ```
 
 #### Get Pending Users
 ```go
-    res, err := stytchAPIClient.Users.GetPendingUsers()
+	res, err := stytchAPIClient.Users.GetPending()
 ```
 
 ### Errors

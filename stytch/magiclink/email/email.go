@@ -19,7 +19,7 @@ func (c *Client) Send(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /magic_links/email/send request body")
 		}
 	}
@@ -38,7 +38,7 @@ func (c *Client) LoginOrCreate(body *stytch.MagicLinksEmailLoginOrCreateParams) 
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /magic_links/email/login_or_create request body")
 		}
 	}
@@ -57,7 +57,7 @@ func (c *Client) Invite(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /magic_links/email/invite request body")
 		}
 	}
@@ -76,7 +76,7 @@ func (c *Client) RevokeInvite(body *stytch.MagicLinksEmailRevokeInviteParams) (
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /magic_links/email/revoke_invite request body")
 		}
 	}

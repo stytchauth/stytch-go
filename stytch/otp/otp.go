@@ -12,7 +12,7 @@ type Client struct {
 	SMS *sms.Client
 }
 
-func (c *Client) AuthenticateOTP(
+func (c *Client) Authenticate(
 	body *stytch.OTPsAuthenticateParams) (*stytch.OTPsAuthenticateResponse, error) {
 	path := "/otps/authenticate"
 
@@ -21,7 +21,7 @@ func (c *Client) AuthenticateOTP(
 	if body != nil {
 		jsonBody, err = json.Marshal(body)
 		if err != nil {
-			return nil, stytch.NewInternalServerError("Oops, something seems to have gone wrong " +
+			return nil, stytch.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"marshalling the /otps/authenticate request body")
 		}
 	}
