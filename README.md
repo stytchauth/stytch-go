@@ -25,7 +25,7 @@ The module supports all Stytch API endpoints. Full documentation can be found [h
 
 ### Calling Endpoints
 
-To call an endpoint you must first initialize a Stytch client `API` object.
+To call an endpoint you must first create a Stytch `API` object.
 
 ```go
 import (
