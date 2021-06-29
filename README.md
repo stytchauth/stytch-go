@@ -14,7 +14,7 @@ A Go client library for the [Stytch API](https://stytch.com/).
 ## Install
 
 ```console
-$ go get github.com/stytchauth/stytch-go
+$ go get github.com/stytchauth/stytch-go/v2
 ```
 
 ## Documentation
