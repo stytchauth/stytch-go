@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/stytchauth/stytch-go/stytch"
-	"github.com/stytchauth/stytch-go/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v3/stytch"
+	"github.com/stytchauth/stytch-go/v3/stytch/stytcherror"
 )
 
 type Client struct {

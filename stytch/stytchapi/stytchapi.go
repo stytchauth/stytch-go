@@ -1,13 +1,13 @@
 package stytchapi
 
 import (
-	"github.com/stytchauth/stytch-go/stytch"
-	"github.com/stytchauth/stytch-go/stytch/config"
-	"github.com/stytchauth/stytch-go/stytch/magiclink"
-	"github.com/stytchauth/stytch-go/stytch/magiclink/email"
-	"github.com/stytchauth/stytch-go/stytch/otp"
-	"github.com/stytchauth/stytch-go/stytch/otp/sms"
-	"github.com/stytchauth/stytch-go/stytch/user"
+	"github.com/stytchauth/stytch-go/v3/stytch"
+	"github.com/stytchauth/stytch-go/v3/stytch/config"
+	"github.com/stytchauth/stytch-go/v3/stytch/magiclink"
+	"github.com/stytchauth/stytch-go/v3/stytch/magiclink/email"
+	"github.com/stytchauth/stytch-go/v3/stytch/otp"
+	"github.com/stytchauth/stytch-go/v3/stytch/otp/sms"
+	"github.com/stytchauth/stytch-go/v3/stytch/user"
 )
 
 type API struct {
