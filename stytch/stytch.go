@@ -6,18 +6,24 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+
+	"github.com/stytchauth/stytch-go/stytch/config"
+	"github.com/stytchauth/stytch-go/stytch/stytcherror"
 )
 
-const apiVersion = "2.0.0"
+const (
+	EnvTest = config.EnvTest
+	EnvLive = config.EnvLive
+)
 
 type Client struct {
-	Config     *config
+	Config     *config.Config
 	HTTPClient *http.Client
 }
 
-func NewClient(env Env, projectID string, secret string) *Client {
+func New(env config.Env, projectID string, secret string) *Client {
 	stytchClient := new(Client)
-	stytchClient.Config = newConfig()
+	stytchClient.Config = config.New()
 
 	stytchClient.Config.SetBasicAuthProjectID(projectID)
 	stytchClient.Config.SetBasicAuthSecret(secret)
@@ -29,17 +35,17 @@ func NewClient(env Env, projectID string, secret string) *Client {
 }
 
 // newRequest is used by Call to generate and Do a http.Request
-func (c *Client) newRequest(method string, path string, queryParams map[string]string,
+func (c *Client) NewRequest(method string, path string, queryParams map[string]string,
 	body []byte, v interface{}) error {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
 
-	path = string(c.Config.baseURI) + path
+	path = string(c.Config.BaseURI) + path
 
 	req, err := http.NewRequest(method, path, bytes.NewReader(body))
 	if err != nil {
-		return newInternalServerError("Oops, something seems to have gone " +
+		return stytcherror.NewClientLibraryError("Oops, something seems to have gone " +
 			"wrong creating a new http request")
 	}
 
@@ -53,18 +59,18 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	req.URL.RawQuery = q.Encode()
 
 	// append basic auth headers
-	if len(c.Config.projectID) > 1 || len(c.Config.secret) > 1 {
+	if len(c.Config.ProjectID) > 1 || len(c.Config.Secret) > 1 {
 		authToken := base64.StdEncoding.EncodeToString(
-			[]byte(c.Config.projectID + ":" + c.Config.secret))
+			[]byte(c.Config.ProjectID + ":" + c.Config.Secret))
 		req.Header.Set("Authorization", "Basic "+authToken)
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("User-Agent", "Stytch Go v"+apiVersion)
+	req.Header.Add("User-Agent", "Stytch Go v"+config.APIVersion)
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return newInternalServerError("Oops, something seems to have gone " +
+		return stytcherror.NewClientLibraryError("Oops, something seems to have gone " +
 			"wrong sending the http request")
 	}
 	defer func() {
@@ -74,16 +80,16 @@ func (c *Client) newRequest(method string, path string, queryParams map[string]s
 	// Successful response
 	if res.StatusCode == 200 || res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
-			return newInternalServerError("Oops, something seems to have gone wrong " +
+			return stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
 				"decoding the successful response body")
 		}
 		return nil
 	}
 
 	// Attempt to unmarshal into Stytch error format
-	var stytchErr Error
+	var stytchErr stytcherror.Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
-		return newInternalServerError("Oops, something seems to have gone wrong " +
+		return stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
 			"decoding the unsuccessful response body")
 	}
 	stytchErr.StatusCode = res.StatusCode

@@ -1,100 +1,73 @@
 package stytch
 
-import (
-	"encoding/json"
-)
-
-func (c *Client) SendMagicLinkByEmail(body *SendMagicLinkByEmail) (*SendMagicLinkByEmailResponse,
-	error) {
-	path := "/magic_links/send_by_email"
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal SendMagicLinkByEmailResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
+type MagicLinksAuthenticateParams struct {
+	Token      string     `json:"token,omitempty"`
+	Options    Options    `json:"options,omitempty"`
+	Attributes Attributes `json:"attributes,omitempty"`
 }
 
-func (c *Client) LoginOrCreateUser(body *LoginOrCreateUser) (*LoginOrCreateResponse, error) {
-	path := "/magic_links/login_or_create"
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal LoginOrCreateResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
+type MagicLinksAuthenticateResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	MethodID   string `json:"method_id,omitempty"`
 }
 
-func (c *Client) InviteByEmail(body *InviteByEmail) (*InviteByEmailResponse, error) {
-	path := "/magic_links/invite_by_email"
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal InviteByEmailResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
+// MAGIC LINK - EMAIL
+type MagicLinksEmailSendParams struct {
+	Email                   string     `json:"email"`
+	LoginMagicLinkURL       string     `json:"login_magic_link_url"`
+	SignupMagicLinkURL      string     `json:"signup_magic_link_url"`
+	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
+	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
 }
 
-func (c *Client) RevokeInviteByEmail(
-	body *RevokeInviteByEmail) (*RevokeInviteByEmailResponse, error) {
-	path := "/magic_links/revoke_invite"
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
-
-	var retVal RevokeInviteByEmailResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
+type MagicLinksEmailSendResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	EmailID    string `json:"email_id,omitempty"`
 }
 
-func (c *Client) AuthenticateMagicLink(
-	token string,
-	body *AuthenticateMagicLink,
-) (*AuthenticateMagicLinkResponse, error) {
-	path := "/magic_links/" + token + "/authenticate"
+type MagicLinksEmailLoginOrCreateParams struct {
+	Email                   string     `json:"email"`
+	LoginMagicLinkURL       string     `json:"login_magic_link_url"`
+	SignupMagicLinkURL      string     `json:"signup_magic_link_url"`
+	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
+	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	CreateUserAsPending     bool       `json:"create_user_as_pending,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
+}
 
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, newInternalServerError("Oops, something seems to have gone wrong " +
-				"marshalling the AuthenticateMagicLink request body")
-		}
-	}
+type MagicLinksEmailLoginOrCreateResponse struct {
+	RequestID   string `json:"request_id,omitempty"`
+	StatusCode  int    `json:"status_code,omitempty"`
+	UserID      string `json:"user_id,omitempty"`
+	EmailID     string `json:"email_id,omitempty"`
+	UserCreated bool   `json:"user_created,omitempty"`
+}
 
-	var retVal AuthenticateMagicLinkResponse
-	err = c.newRequest("POST", path, nil, jsonBody, &retVal)
-	return &retVal, err
+type MagicLinksEmailInviteParams struct {
+	Email                   string     `json:"email"`
+	InviteMagicLinkURL      string     `json:"invite_magic_link_url"`
+	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
+	Name                    Name       `json:"name,omitempty"`
+	Attributes              Attributes `json:"attributes,omitempty"`
+}
+
+type MagicLinksEmailInviteResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	EmailID    string `json:"email_id,omitempty"`
+}
+
+type MagicLinksEmailRevokeInviteParams struct {
+	Email string `json:"email"`
+}
+
+type MagicLinksEmailRevokeInviteResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 }
