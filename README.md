@@ -31,8 +31,8 @@ To call an endpoint you must first create a Stytch `API` object.
 import (
 	"os"
 
-	"github.com/stytchauth/stytch-go/stytch"
-	"github.com/stytchauth/stytch-go/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v3/stytch"
+	"github.com/stytchauth/stytch-go/v3/stytch/stytchapi"
 )
 
 stytchAPIClient := stytchapi.NewAPIClient(
