@@ -5,7 +5,7 @@ Thanks for contributing to Stytch's Go library! If you run into trouble, find us
 ## Setup
 
 1. Clone this repo.
-2. To test your changes locally replace the import in your test project's go.mod with `replace github.com/stytchauth/go-common => ../go-common` where `../go-common` is the path to your cloned copy of stytch-go.
+2. To test your changes locally replace the import in your test project's go.mod with `replace github.com/stytchauth/stytch-go => ../stytch-go` where `../stytch-go` is the path to your cloned copy of stytch-go.
 
 ## Issues and Pull Requests
 
