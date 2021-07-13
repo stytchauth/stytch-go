@@ -1,15 +1,8 @@
-# stytch-go
+# Stytch Go Library
 
-A Go client library for the [Stytch API](https://stytch.com/).
+The Stytch Go library makes it easy to use the Stytch user infrastructure API in Go applications.
 
-## Table of Contents
-
-- [stytch-go](#stytch-go)
-    * [Install](#install)
-    * [Documentation](#documentation)
-    * [Getting Started](#getting-started)
-    * [Developing](#developing)
-    * [License](#license)
+It pairs well with the Stytch [Web SDK](https://www.npmjs.com/package/@stytch/stytch-js) or your own custom authentication flow.
 
 ## Install
 
@@ -17,16 +10,11 @@ A Go client library for the [Stytch API](https://stytch.com/).
 $ go get github.com/stytchauth/stytch-go/v3
 ```
 
-## Documentation
+## Usage
 
-The module supports all Stytch API endpoints. Full documentation can be found [here](https://stytch.com/docs).
+You can find your API credentials in the [Stytch Dashboard](https://stytch.com/dashboard/api-keys).
 
-## Getting Started
-
-### Calling Endpoints
-
-To call an endpoint you must first create a Stytch `API` object.
-
+Create an API client:
 ```go
 import (
 	"os"
@@ -37,31 +25,12 @@ import (
 
 stytchAPIClient := stytchapi.NewAPIClient(
 	stytch.EnvTest, // available environments are EnvTest and EnvLive
-	os.Getenv("STYTCH_PROJECT_ID"),
-	os.Getenv("STYTCH_SECRET"), 
+	"project-live-c60c0abe-c25a-4472-a9ed-320c6667d317",
+	"secret-live-80JASucyk7z_G8Z-7dVwZVGXL5NT_qGAQ2I=", 
 )
 ```
 
-Each endpoint returns an object which contains the parsed JSON from the HTTP response.
-
-#### Users - Create
-```go
-	res, err := stytchAPIClient.Users.Create(&stytch.UsersCreateParams{
-		Email:      "sandbox@stytch.com",
-		Name: stytch.Name{
-			FirstName:  "Clark",
-			MiddleName: "Joseph",
-			LastName:   "Kent",
-		},
-	})
-```
-
-#### Users - Get
-```go
-	res, err := stytchAPIClient.Users.Get("user-test-e3ca2fde-0cbe-4248-a8b8-b1dd68a4514d")
-```
-
-#### Magic Links - Email - Send
+Send a magic link by email:
 ```go
 	res, err := stytchAPIClient.MagicLinks.Email.Send(&stytch.MagicLinksEmailSendParams{
 		Email:              "sandbox@stytch.com",
@@ -73,66 +42,41 @@ Each endpoint returns an object which contains the parsed JSON from the HTTP res
     })
 ```
 
-#### Magic Links - Authenticate
+Authenticate the token from the magic link:
 ```go
 	res, err := stytchAPIClient.MagicLinks.Authenticate(
 		&stytch.MagicLinksAuthenticateParams{
-			Token:      "GCRzBlufdaQ3mJh2QcygLsbuG__gqGwwvRuIuetv6ZM=",
+			Token:      "DOYoip3rvIMMW5lgItikFK-Ak1CfMsgjuiCyI7uuU94=",
 			Options:    stytch.Options{IPMatchRequired: true},
 			Attributes: stytch.Attributes{IPAddress: "10.0.0.0"},
 		})
 ```
 
-#### Magic Links - Email - Login or Create
-```go
-	res, err := stytchAPIClient.MagicLinks.Email.LoginOrCreate(&stytch.MagicLinksEmailLoginOrCreateParams{
-		Email:                  "sandbox@stytch.com",
-		LoginMagicLinkURL:      "https://example.com/login",
-		SignupMagicLinkURL:     "https://example.com/signup",
-		Attributes:             stytch.Attributes{
-			IPAddress: "10.0.0.0",
-		},
-	})
-```
+## Handling Errors
 
-#### Magic Links - Email - Invite
-```go
-	res, err := stytchAPIClient.MagicLinks.Email.Invite(&stytch.MagicLinksEmailInviteParams{
-		Email:                   "sandbox@stytch.com",
-		InviteMagicLinkURL:      "https://example.com/invite",
-		Attributes:              stytch.Attributes{
-			IPAddress: "10.0.0.0",
-		},
-	})
-```
+When possible Stytch returns an error prepended with `Stytch Error`. 
+Additionally, the error should include a type that can be used to distinguish errors.
 
-#### Magic Links - Email - Revoke Invite
-```go
-	res, err := stytchAPIClient.MagicLinks.Email.RevokeInvite(&stytch.MagicLinksEmailRevokeInviteParams{
-		Email: "sandbox@stytch.com"
-	})
-```
+Learn more about errors in the [docs](https://stytch.com/docs/api/errors).
 
-#### Users - Get Pending
-```go
-	res, err := stytchAPIClient.Users.GetPending()
-```
+## Documentation
 
-### Errors
+See example requests and responses for all the endpoints in the [Stytch API Reference](https://stytch.com/docs/api).
 
-All non-200 responses will return a stytch.Error instance.
-
-For more information on Stytch response codes, head to the [docs](https://stytch.com/docs/api/errors).
-
-## Developing
-
-1. Download this repo into your Go source directory
-2. Run `make setup` pull down all dependencies etc
+Follow one of the [integration guides](https://stytch.com/docs/guides) or start with one of our [example apps](https://stytch.com/docs/example-apps).
 
 ## Support
 
-Open an [issue](https://github.com/stytchauth/stytch-go/issues/new)!
+If you've found a bug, [open an issue](https://github.com/stytchauth/stytch-go/issues/new)!
 
-## License
+If you have questions or want help troubleshooting, join us in [Slack](https://join.slack.com/t/stytch/shared_invite/zt-nil4wo92-jApJ9Cl32cJbEd9esKkvyg) or email support@stytch.com.
 
-[MIT](LICENSE)
+If you've found a security vulnerability, please follow our [responsible disclosure instructions](https://stytch.com/docs/security).
+
+## Development
+
+See [DEVELOPMENT.md](DEVELOPMENT.md)
+
+## Code of Conduct
+
+Everyone interacting in the Stytch project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
