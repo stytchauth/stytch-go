@@ -20,7 +20,11 @@ type SessionsAuthenticateResponse struct {
 	SessionToken string  `json:"session_token,omitempty"`
 }
 
+type SessionsRevokeParams struct {
+	SessionID    string `json:"session_id,omitempty"`
+	SessionToken string `json:"session_token,omitempty"`
+}
+
 type SessionsRevokeResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 }
-
