@@ -1,16 +1,20 @@
 package stytch
 
 type MagicLinksAuthenticateParams struct {
-	Token      string     `json:"token,omitempty"`
-	Options    Options    `json:"options,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	Token           string     `json:"token,omitempty"`
+	Options         Options    `json:"options,omitempty"`
+	Attributes      Attributes `json:"attributes,omitempty"`
+	SessionToken    string     `json:"session_token,omitempty"`
+	SessionDuration string     `json:"session_duration,omitempty"`
 }
 
 type MagicLinksAuthenticateResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int    `json:"status_code,omitempty"`
-	UserID     string `json:"user_id,omitempty"`
-	MethodID   string `json:"method_id,omitempty"`
+	RequestID    string  `json:"request_id,omitempty"`
+	StatusCode   int     `json:"status_code,omitempty"`
+	UserID       string  `json:"user_id,omitempty"`
+	MethodID     string  `json:"method_id,omitempty"`
+	SessionToken string  `json:"session_token,omitempty"`
+	Session      Session `json:"session,omitempty"`
 }
 
 // MAGIC LINK - EMAIL
