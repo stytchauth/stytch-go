@@ -1,11 +1,11 @@
 package stytch
 
 type MagicLinksAuthenticateParams struct {
-	Token           string     `json:"token,omitempty"`
-	Options         Options    `json:"options,omitempty"`
-	Attributes      Attributes `json:"attributes,omitempty"`
-	SessionToken    string     `json:"session_token,omitempty"`
-	SessionDuration string     `json:"session_duration,omitempty"`
+	Token                  string     `json:"token,omitempty"`
+	Options                Options    `json:"options,omitempty"`
+	Attributes             Attributes `json:"attributes,omitempty"`
+	SessionToken           string     `json:"session_token,omitempty"`
+	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
 }
 
 type MagicLinksAuthenticateResponse struct {

@@ -10,8 +10,8 @@ type SessionsGetResponse struct {
 }
 
 type SessionsAuthenticateParams struct {
-	SessionToken    string `json:"session_token,omitempty"`
-	SessionDuration string `json:"session_duration,omitempty"`
+	SessionToken           string `json:"session_token,omitempty"`
+	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
 }
 
 type SessionsAuthenticateResponse struct {

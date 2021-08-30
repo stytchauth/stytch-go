@@ -1,12 +1,12 @@
 package stytch
 
 type OTPsAuthenticateParams struct {
-	MethodID        string     `json:"method_id"`
-	Code            string     `json:"code"`
-	Options         Options    `json:"options,omitempty"`
-	Attributes      Attributes `json:"attributes,omitempty"`
-	SessionToken    string     `json:"session_token,omitempty"`
-	SessionDuration string     `json:"session_duration,omitempty"`
+	MethodID               string     `json:"method_id"`
+	Code                   string     `json:"code"`
+	Options                Options    `json:"options,omitempty"`
+	Attributes             Attributes `json:"attributes,omitempty"`
+	SessionToken           string     `json:"session_token,omitempty"`
+	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
 }
 
 type OTPsAuthenticateResponse struct {
