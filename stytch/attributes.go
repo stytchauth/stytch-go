@@ -21,3 +21,15 @@ type Options struct {
 	// matches the user agent it's clicked from.
 	UserAgentMatchRequired bool `json:"user_agent_match_required,omitempty"`
 }
+
+/*
+ * Structure for the custom type Session
+ */
+type Session struct {
+	SessionID      string     `json:"session_id,omitempty"`
+	UserID         string     `json:"user_id,omitempty"`
+	StartedAt      string     `json:"started_at,omitempty"`
+	LastAccessedAt string     `json:"last_accessed_at,omitempty"`
+	ExpiresAt      string     `json:"expires_at,omitempty"`
+	Attributes     Attributes `json:"attributes,omitempty"`
+}

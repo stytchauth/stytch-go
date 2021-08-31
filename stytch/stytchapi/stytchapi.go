@@ -8,12 +8,14 @@ import (
 	"github.com/stytchauth/stytch-go/v3/stytch/otp"
 	"github.com/stytchauth/stytch-go/v3/stytch/otp/sms"
 	"github.com/stytchauth/stytch-go/v3/stytch/otp/whatsapp"
+	"github.com/stytchauth/stytch-go/v3/stytch/session"
 	"github.com/stytchauth/stytch-go/v3/stytch/user"
 )
 
 type API struct {
 	MagicLinks *magiclink.Client
 	OTPs       *otp.Client
+	Sessions   *session.Client
 	Users      *user.Client
 }
 
@@ -23,6 +25,7 @@ func NewAPIClient(env config.Env, projectID string, secret string) *API {
 
 	a.MagicLinks = &magiclink.Client{C: client, Email: &email.Client{C: client}}
 	a.OTPs = &otp.Client{C: client, SMS: &sms.Client{C: client}, WhatsApp: &whatsapp.Client{C: client}}
+	a.Sessions = &session.Client{C: client}
 	a.Users = &user.Client{C: client}
 	return a
 }

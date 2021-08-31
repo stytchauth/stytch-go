@@ -1,17 +1,21 @@
 package stytch
 
 type OTPsAuthenticateParams struct {
-	MethodID   string     `json:"method_id"`
-	Code       string     `json:"code"`
-	Options    Options    `json:"options,omitempty"`
-	Attributes Attributes `json:"attributes,omitempty"`
+	MethodID               string     `json:"method_id"`
+	Code                   string     `json:"code"`
+	Options                Options    `json:"options,omitempty"`
+	Attributes             Attributes `json:"attributes,omitempty"`
+	SessionToken           string     `json:"session_token,omitempty"`
+	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
 }
 
 type OTPsAuthenticateResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int    `json:"status_code,omitempty"`
-	UserID     string `json:"user_id,omitempty"`
-	MethodID   string `json:"method_id,omitempty"`
+	RequestID    string  `json:"request_id,omitempty"`
+	StatusCode   int     `json:"status_code,omitempty"`
+	UserID       string  `json:"user_id,omitempty"`
+	MethodID     string  `json:"method_id,omitempty"`
+	SessionToken string  `json:"session_token,omitempty"`
+	Session      Session `json:"session,omitempty"`
 }
 
 // OTP - SMS
