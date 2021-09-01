@@ -75,3 +75,32 @@ type OTPsWhatsAppLoginOrCreateResponse struct {
 	PhoneID     string `json:"phone_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
 }
+
+// OTP - Email
+type OTPsEmailSendParams struct {
+	Email             string     `json:"email"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
+}
+
+type OTPsEmailSendResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	EmailID    string `json:"email_id,omitempty"`
+}
+
+type OTPsEmailLoginOrCreateParams struct {
+	Email               string     `json:"email"`
+	ExpirationMinutes   int32      `json:"expiration_minutes,omitempty"`
+	Attributes          Attributes `json:"attributes,omitempty"`
+	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+}
+
+type OTPsEmailLoginOrCreateResponse struct {
+	RequestID   string `json:"request_id,omitempty"`
+	StatusCode  int    `json:"status_code,omitempty"`
+	UserID      string `json:"user_id,omitempty"`
+	EmailID     string `json:"email_id,omitempty"`
+	UserCreated bool   `json:"user_created,omitempty"`
+}
