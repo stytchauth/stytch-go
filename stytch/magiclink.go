@@ -1,5 +1,18 @@
 package stytch
 
+type MagicLinksCreateParams struct {
+	UserID            string     `json:"user_id,omitempty"`
+	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
+	Attributes        Attributes `json:"attributes,omitempty"`
+}
+
+type MagicLinksCreateResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	Token      string `json:"token,omitempty"`
+}
+
 type MagicLinksAuthenticateParams struct {
 	Token                  string     `json:"token,omitempty"`
 	Options                Options    `json:"options,omitempty"`
