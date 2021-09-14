@@ -3,7 +3,7 @@ package stytch
 type SessionManagementType string
 
 const (
-	SessionManagementTypeIdP    SessionManagementType = "idp"
+	SessionManagementTypeIDP    SessionManagementType = "idp"
 	SessionManagementTypeNone   SessionManagementType = "none"
 	SessionManagementTypeStytch SessionManagementType = "stytch"
 )
