@@ -5,6 +5,7 @@ import (
 	"github.com/stytchauth/stytch-go/v3/stytch/config"
 	"github.com/stytchauth/stytch-go/v3/stytch/magiclink"
 	mle "github.com/stytchauth/stytch-go/v3/stytch/magiclink/email"
+	"github.com/stytchauth/stytch-go/v3/stytch/oauth"
 	"github.com/stytchauth/stytch-go/v3/stytch/otp"
 	otpe "github.com/stytchauth/stytch-go/v3/stytch/otp/email"
 	"github.com/stytchauth/stytch-go/v3/stytch/otp/sms"
@@ -15,6 +16,7 @@ import (
 
 type API struct {
 	MagicLinks *magiclink.Client
+	OAuth      *oauth.Client
 	OTPs       *otp.Client
 	Sessions   *session.Client
 	Users      *user.Client
@@ -31,6 +33,7 @@ func NewAPIClient(env config.Env, projectID string, secret string) *API {
 		SMS:      &sms.Client{C: client},
 		WhatsApp: &whatsapp.Client{C: client},
 	}
+	a.OAuth = &oauth.Client{C: client}
 	a.Sessions = &session.Client{C: client}
 	a.Users = &user.Client{C: client}
 	return a
