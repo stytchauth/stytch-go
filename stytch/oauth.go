@@ -17,6 +17,8 @@ const (
 type OAuthAuthenticateParams struct {
 	Token                 string                `json:"token,omitempty"`
 	SessionManagementType SessionManagementType `json:"session_management_type,omitempty"`
+	SessionToken           string     `json:"session_token,omitempty"`
+	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
 }
 
 type OAuthSessionIdp struct {
@@ -24,8 +26,14 @@ type OAuthSessionIdp struct {
 	RefreshToken string `json:"refresh_token,omitempty"`
 }
 
+type StytchSession struct {
+	Session Session `json:"session,omitempty"`
+	SessionToken string  `json:"session_token,omitempty"`
+}
+
 type OAuthSession struct {
 	Idp *OAuthSessionIdp `json:"idp,omitempty"`
+	StytchSession *StytchSession `json:"stytch_session,omitempty"`
 }
 
 type OAuthAuthenticateResponse struct {
