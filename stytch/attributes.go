@@ -39,8 +39,10 @@ type GoogleOAuthFactor struct {
 }
 
 type AuthenticationFactor struct {
-	Type              string            `json:"type,omitempty"`
-	DeliveryMethod    string            `json:"delivery_method,omitempty"`
+	Type                string `json:"type,omitempty"`
+	DeliveryMethod      string `json:"delivery_method,omitempty"`
+	LastAuthenticatedAt string `json:"last_authenticated_at,omitempty"`
+
 	EmailFactor       EmailFactor       `json:"email_factor,omitempty"`
 	PhoneNumberFactor PhoneNumberFactor `json:"phone_number_factor,omitempty"`
 	GoogleOAuthFactor GoogleOAuthFactor `json:"google_oauth_factor,omitempty"`
