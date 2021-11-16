@@ -26,6 +26,13 @@ type PhoneNumberString struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 }
 
+type WebAuthnRegistration struct {
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	Domain                 string `json:"domain,omitempty"`
+	UserAgent              string `json:"user_agent,omitempty"`
+	Verified               bool   `json:"verified,omitempty"`
+}
+
 type UsersCreateParams struct {
 	Email               string     `json:"email,omitempty"`
 	PhoneNumber         string     `json:"phone_number,omitempty"`
@@ -44,13 +51,14 @@ type UsersCreateResponse struct {
 }
 
 type UsersGetResponse struct {
-	RequestID    string        `json:"request_id,omitempty"`
-	StatusCode   int           `json:"status_code,omitempty"`
-	UserID       string        `json:"user_id,omitempty"`
-	Name         Name          `json:"name,omitempty"`
-	Emails       []Email       `json:"emails,omitempty"`
-	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
-	Status       string        `json:"status,omitempty"`
+	RequestID             string                 `json:"request_id,omitempty"`
+	StatusCode            int                    `json:"status_code,omitempty"`
+	UserID                string                 `json:"user_id,omitempty"`
+	Name                  Name                   `json:"name,omitempty"`
+	Emails                []Email                `json:"emails,omitempty"`
+	PhoneNumbers          []PhoneNumber          `json:"phone_numbers,omitempty"`
+	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
+	Status                string                 `json:"status,omitempty"`
 }
 
 type UsersUpdateParams struct {
@@ -81,6 +89,12 @@ type UsersDeleteEmailResponse struct {
 }
 
 type UsersDeletePhoneNumberResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+}
+
+type DeleteWebAuthnRegistrationResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
