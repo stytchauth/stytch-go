@@ -101,10 +101,10 @@ func (c *Client) DeletePhoneNumber(
 }
 
 func (c *Client) DeleteWebAuthnRegistration(
-	webAuthnRegistration string) (*stytch.DeleteWebAuthnRegistrationResponse, error) {
+	webAuthnRegistration string) (*stytch.UsersDeleteWebAuthnRegistrationResponse, error) {
 	path := "/users/webauthn_registrations/" + webAuthnRegistration
 
-	var retVal stytch.DeleteWebAuthnRegistrationResponse
+	var retVal stytch.UsersDeleteWebAuthnRegistrationResponse
 	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }

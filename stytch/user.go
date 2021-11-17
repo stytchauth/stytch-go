@@ -94,7 +94,7 @@ type UsersDeletePhoneNumberResponse struct {
 	UserID     string `json:"user_id,omitempty"`
 }
 
-type DeleteWebAuthnRegistrationResponse struct {
+type UsersDeleteWebAuthnRegistrationResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
