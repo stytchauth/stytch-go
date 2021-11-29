@@ -12,6 +12,7 @@ import (
 	"github.com/stytchauth/stytch-go/v3/stytch/otp/whatsapp"
 	"github.com/stytchauth/stytch-go/v3/stytch/session"
 	"github.com/stytchauth/stytch-go/v3/stytch/user"
+	"github.com/stytchauth/stytch-go/v3/stytch/webauthn"
 )
 
 type API struct {
@@ -20,6 +21,7 @@ type API struct {
 	OTPs       *otp.Client
 	Sessions   *session.Client
 	Users      *user.Client
+	WebAuthn   *webauthn.Client
 }
 
 func NewAPIClient(env config.Env, projectID string, secret string) *API {
@@ -36,5 +38,6 @@ func NewAPIClient(env config.Env, projectID string, secret string) *API {
 	a.OAuth = &oauth.Client{C: client}
 	a.Sessions = &session.Client{C: client}
 	a.Users = &user.Client{C: client}
+	a.WebAuthn = &webauthn.Client{C: client}
 	return a
 }

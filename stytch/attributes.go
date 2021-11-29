@@ -38,6 +38,12 @@ type GoogleOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type WebAuthnFactor struct {
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	Domain                 string `json:"domain,omitempty"`
+	UserAgent              string `json:"user_agent,omitempty"`
+}
+
 type AuthenticationFactor struct {
 	Type                string `json:"type,omitempty"`
 	DeliveryMethod      string `json:"delivery_method,omitempty"`
@@ -46,6 +52,7 @@ type AuthenticationFactor struct {
 	EmailFactor       EmailFactor       `json:"email_factor,omitempty"`
 	PhoneNumberFactor PhoneNumberFactor `json:"phone_number_factor,omitempty"`
 	GoogleOAuthFactor GoogleOAuthFactor `json:"google_oauth_factor,omitempty"`
+	WebAuthnFactor    WebAuthnFactor    `json:"webauthn_factor,omitempty"`
 }
 
 /*
