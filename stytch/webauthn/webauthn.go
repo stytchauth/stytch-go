@@ -11,8 +11,8 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) RegisterStart(body *stytch.RegisterStartParams,
-) (*stytch.RegisterStartResponse, error) {
+func (c *Client) RegisterStart(body *stytch.WebAuthnRegisterStartParams,
+) (*stytch.WebAuthnRegisterStartResponse, error) {
 	path := "/webauthn/register/start"
 
 	var jsonBody []byte
@@ -25,13 +25,13 @@ func (c *Client) RegisterStart(body *stytch.RegisterStartParams,
 		}
 	}
 
-	var retVal stytch.RegisterStartResponse
+	var retVal stytch.WebAuthnRegisterStartResponse
 	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) Register(body *stytch.RegisterParams,
-) (*stytch.RegisterResponse, error) {
+func (c *Client) Register(body *stytch.WebAuthnRegisterParams,
+) (*stytch.WebAuthnRegisterResponse, error) {
 	path := "/webauthn/register"
 
 	var jsonBody []byte
@@ -44,13 +44,13 @@ func (c *Client) Register(body *stytch.RegisterParams,
 		}
 	}
 
-	var retVal stytch.RegisterResponse
+	var retVal stytch.WebAuthnRegisterResponse
 	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) AuthenticateStart(body *stytch.AuthenticateStartParams,
-) (*stytch.AuthenticateStartResponse, error) {
+func (c *Client) AuthenticateStart(body *stytch.WebAuthnAuthenticateStartParams,
+) (*stytch.WebAuthnAuthenticateStartResponse, error) {
 	path := "/webauthn/authenticate/start"
 
 	var jsonBody []byte
@@ -63,13 +63,13 @@ func (c *Client) AuthenticateStart(body *stytch.AuthenticateStartParams,
 		}
 	}
 
-	var retVal stytch.AuthenticateStartResponse
+	var retVal stytch.WebAuthnAuthenticateStartResponse
 	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) Authenticate(body *stytch.AuthenticateParams,
-) (*stytch.AuthenticateResponse, error) {
+func (c *Client) Authenticate(body *stytch.WebAuthnAuthenticateParams,
+) (*stytch.WebAuthnAuthenticateResponse, error) {
 	path := "/webauthn/authenticate"
 
 	var jsonBody []byte
@@ -82,7 +82,7 @@ func (c *Client) Authenticate(body *stytch.AuthenticateParams,
 		}
 	}
 
-	var retVal stytch.AuthenticateResponse
+	var retVal stytch.WebAuthnAuthenticateResponse
 	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

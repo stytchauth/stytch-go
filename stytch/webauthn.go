@@ -1,50 +1,50 @@
 package stytch
 
-type RegisterStartParams struct {
+type WebAuthnRegisterStartParams struct {
 	UserID            string `json:"user_id,omitempty"`
 	Domain            string `json:"domain,omitempty"`
 	UserAgent         string `json:"user_agent,omitempty"`
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
 }
 
-type RegisterStartResponse struct {
+type WebAuthnRegisterStartResponse struct {
 	RequestID                          string `json:"request_id,omitempty"`
 	StatusCode                         int    `json:"status_code,omitempty"`
 	UserID                             string `json:"user_id,omitempty"`
 	PublicKeyCredentialCreationOptions string `json:"public_key_credential_creation_options,omitempty"`
 }
 
-type RegisterParams struct {
+type WebAuthnRegisterParams struct {
 	UserID              string `json:"user_id,omitempty"`
 	PublicKeyCredential string `json:"public_key_credential,omitempty"`
 }
 
-type RegisterResponse struct {
+type WebAuthnRegisterResponse struct {
 	RequestID              string `json:"request_id,omitempty"`
 	StatusCode             int    `json:"status_code,omitempty"`
 	UserID                 string `json:"user_id,omitempty"`
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 }
 
-type AuthenticateStartParams struct {
+type WebAuthnAuthenticateStartParams struct {
 	UserID string `json:"user_id,omitempty"`
 	Domain string `json:"domain,omitempty"`
 }
 
-type AuthenticateStartResponse struct {
+type WebAuthnAuthenticateStartResponse struct {
 	RequestID                         string `json:"request_id,omitempty"`
 	StatusCode                        int    `json:"status_code,omitempty"`
 	UserID                            string `json:"user_id,omitempty"`
 	PublicKeyCredentialRequestOptions string `json:"public_key_credential_request_options,omitempty"`
 }
 
-type AuthenticateParams struct {
+type WebAuthnAuthenticateParams struct {
 	PublicKeyCredential    string `json:"public_key_credential,omitempty"`
 	SessionToken           string `json:"session_token,omitempty"`
 	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
 }
 
-type AuthenticateResponse struct {
+type WebAuthnAuthenticateResponse struct {
 	RequestID              string  `json:"request_id,omitempty"`
 	StatusCode             int     `json:"status_code,omitempty"`
 	UserID                 string  `json:"user_id,omitempty"`
