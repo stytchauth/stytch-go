@@ -1,9 +1,9 @@
 package stytch
 
 type Name struct {
-	FirstName  string `json:"firstName,omitempty"`
-	MiddleName string `json:"middleName,omitempty"`
-	LastName   string `json:"lastName,omitempty"`
+	FirstName  string `json:"first_name,omitempty"`
+	MiddleName string `json:"middle_name,omitempty"`
+	LastName   string `json:"last_name,omitempty"`
 }
 
 type Email struct {
