@@ -24,6 +24,8 @@ This client library supports all of Stytch's live products:
   - [x] [Session Management (Beta)](https://stytch.com/docs/api/sessions-overview)
   - [x] [WebAuthn (Beta)](https://stytch.com/docs/api/webauthn-overview)
 
+Please note that we've modeled this library with the Go style guide, meaning that variable names will be camel case.
+
 ### Example usage
 Create an API client:
 ```go
