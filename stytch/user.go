@@ -126,6 +126,13 @@ const (
 	UserSearchOperatorAND UsersSearchOperator = "AND"
 )
 
+func marshalFilter(filterName string, filterValue interface{}) ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"filter_name":  filterName,
+		"filter_value": filterValue,
+	})
+}
+
 type UsersSearchQuery struct {
 	Operator UsersSearchOperator `json:"operator,omitempty"`
 	Operands []json.Marshaler    `json:"operands,omitempty"`
@@ -137,10 +144,7 @@ type UsersSearchQueryCreatedAtGreaterThanFilter struct {
 }
 
 func (q UsersSearchQueryCreatedAtGreaterThanFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":                  "created_at_greater_than",
-		"created_at_greater_than": q.CreatedAtGreaterThan,
-	})
+	return marshalFilter("created_at_greater_than", q.CreatedAtGreaterThan)
 }
 
 type UsersSearchQueryCreatedAtLessThanFilter struct {
@@ -148,10 +152,7 @@ type UsersSearchQueryCreatedAtLessThanFilter struct {
 }
 
 func (q UsersSearchQueryCreatedAtLessThanFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":               "created_at_less_than",
-		"created_at_less_than": q.CreatedAtLessThan,
-	})
+	return marshalFilter("created_at_less_than", q.CreatedAtLessThan)
 }
 
 type UsersSearchQueryCreatedAtBetweenFilter struct {
@@ -160,8 +161,7 @@ type UsersSearchQueryCreatedAtBetweenFilter struct {
 }
 
 func (q UsersSearchQueryCreatedAtBetweenFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":                  "created_at_between",
+	return marshalFilter("created_at_between", map[string]time.Time{
 		"created_at_greater_than": q.CreatedAtGreaterThan,
 		"created_at_less_than":    q.CreatedAtLessThan,
 	})
@@ -173,10 +173,7 @@ type UsersSearchQueryStatusFilter struct {
 }
 
 func (q UsersSearchQueryStatusFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter": "status",
-		"status": q.Status,
-	})
+	return marshalFilter("status", q.Status)
 }
 
 type UsersSearchQueryUserIDFilter struct {
@@ -184,10 +181,7 @@ type UsersSearchQueryUserIDFilter struct {
 }
 
 func (q UsersSearchQueryUserIDFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":   "user_id",
-		"user_ids": q.UserIDs,
-	})
+	return marshalFilter("user_id", q.UserIDs)
 }
 
 type UsersSearchQueryFullNameFuzzyFilter struct {
@@ -195,10 +189,7 @@ type UsersSearchQueryFullNameFuzzyFilter struct {
 }
 
 func (q UsersSearchQueryFullNameFuzzyFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":          "full_name_fuzzy",
-		"full_name_fuzzy": q.FullNameFuzzy,
-	})
+	return marshalFilter("full_name_fuzzy", q.FullNameFuzzy)
 }
 
 /* Phone Number Filters */
@@ -208,10 +199,7 @@ type UsersSearchQueryPhoneNumberFilter struct {
 }
 
 func (q UsersSearchQueryPhoneNumberFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":        "phone_number",
-		"phone_numbers": q.PhoneNumbers,
-	})
+	return marshalFilter("phone_number", q.PhoneNumbers)
 }
 
 type UsersSearchQueryPhoneIDFilter struct {
@@ -219,10 +207,7 @@ type UsersSearchQueryPhoneIDFilter struct {
 }
 
 func (q UsersSearchQueryPhoneIDFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":    "phone_id",
-		"phone_ids": q.PhoneIDs,
-	})
+	return marshalFilter("phone_id", q.PhoneIDs)
 }
 
 type UsersSearchQueryPhoneVerifiedFilter struct {
@@ -230,10 +215,7 @@ type UsersSearchQueryPhoneVerifiedFilter struct {
 }
 
 func (q UsersSearchQueryPhoneVerifiedFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":         "phone_verified",
-		"phone_verified": q.PhoneVerified,
-	})
+	return marshalFilter("phone_verified", q.PhoneVerified)
 }
 
 type UsersSearchQueryPhoneNumberFuzzyFilter struct {
@@ -241,10 +223,7 @@ type UsersSearchQueryPhoneNumberFuzzyFilter struct {
 }
 
 func (q UsersSearchQueryPhoneNumberFuzzyFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":             "phone_number_fuzzy",
-		"phone_number_fuzzy": q.PhoneNumberFuzzy,
-	})
+	return marshalFilter("phone_number_fuzzy", q.PhoneNumberFuzzy)
 }
 
 /* Email Filters */
@@ -254,10 +233,7 @@ type UsersSearchQueryEmailAddressFilter struct {
 }
 
 func (q UsersSearchQueryEmailAddressFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":          "email_address",
-		"email_addresses": q.EmailAddresses,
-	})
+	return marshalFilter("email_address", q.EmailAddresses)
 }
 
 type UsersSearchQueryEmailIDFilter struct {
@@ -265,10 +241,7 @@ type UsersSearchQueryEmailIDFilter struct {
 }
 
 func (q UsersSearchQueryEmailIDFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":    "email_id",
-		"email_ids": q.EmailIDs,
-	})
+	return marshalFilter("email_id", q.EmailIDs)
 }
 
 type UsersSearchQueryEmailVerifiedFilter struct {
@@ -276,10 +249,7 @@ type UsersSearchQueryEmailVerifiedFilter struct {
 }
 
 func (q UsersSearchQueryEmailVerifiedFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":         "email_verified",
-		"email_verified": q.EmailVerified,
-	})
+	return marshalFilter("email_verified", q.EmailVerified)
 }
 
 type UsersSearchQueryEmailAddressFuzzyFilter struct {
@@ -287,10 +257,7 @@ type UsersSearchQueryEmailAddressFuzzyFilter struct {
 }
 
 func (q UsersSearchQueryEmailAddressFuzzyFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":              "email_address_fuzzy",
-		"email_address_fuzzy": q.EmailAddressFuzzy,
-	})
+	return marshalFilter("email_address_fuzzy", q.EmailAddressFuzzy)
 }
 
 /* WebAuthn Filters */
@@ -300,10 +267,15 @@ type UsersSearchQueryWebAuthnRegistrationVerifiedFilter struct {
 }
 
 func (q UsersSearchQueryWebAuthnRegistrationVerifiedFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":                         "webauthn_registration_verified",
-		"webauthn_registration_verified": q.WebAuthnRegistrationVerified,
-	})
+	return marshalFilter("webauthn_registration_verified", q.WebAuthnRegistrationVerified)
+}
+
+type UsersSearchQueryWebAuthnRegistrationIDFilter struct {
+	WebAuthnRegistrationIDs bool
+}
+
+func (q UsersSearchQueryWebAuthnRegistrationIDFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("webauthn_registration_id", q.WebAuthnRegistrationIDs)
 }
 
 /* OAuth Filters */
@@ -313,10 +285,7 @@ type UsersSearchQueryOAuthProviderFilter struct {
 }
 
 func (q UsersSearchQueryOAuthProviderFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"filter":          "oauth_provider",
-		"oauth_providers": q.OAuthProviders,
-	})
+	return marshalFilter("oauth_provider", q.OAuthProviders)
 }
 
 type User struct {
