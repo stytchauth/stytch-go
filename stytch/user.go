@@ -162,8 +162,8 @@ type UsersSearchQueryCreatedAtBetweenFilter struct {
 
 func (q UsersSearchQueryCreatedAtBetweenFilter) MarshalJSON() ([]byte, error) {
 	return marshalFilter("created_at_between", map[string]time.Time{
-		"created_at_greater_than": q.CreatedAtGreaterThan,
-		"created_at_less_than":    q.CreatedAtLessThan,
+		"greater_than": q.CreatedAtGreaterThan,
+		"less_than":    q.CreatedAtLessThan,
 	})
 }
 
@@ -271,7 +271,7 @@ func (q UsersSearchQueryWebAuthnRegistrationVerifiedFilter) MarshalJSON() ([]byt
 }
 
 type UsersSearchQueryWebAuthnRegistrationIDFilter struct {
-	WebAuthnRegistrationIDs bool
+	WebAuthnRegistrationIDs []string
 }
 
 func (q UsersSearchQueryWebAuthnRegistrationIDFilter) MarshalJSON() ([]byte, error) {
