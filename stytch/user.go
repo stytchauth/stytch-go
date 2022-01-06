@@ -156,14 +156,14 @@ func (q UsersSearchQueryCreatedAtLessThanFilter) MarshalJSON() ([]byte, error) {
 }
 
 type UsersSearchQueryCreatedAtBetweenFilter struct {
-	CreatedAtGreaterThan time.Time
-	CreatedAtLessThan    time.Time
+	GreaterThan time.Time
+	LessThan    time.Time
 }
 
 func (q UsersSearchQueryCreatedAtBetweenFilter) MarshalJSON() ([]byte, error) {
 	return marshalFilter("created_at_between", map[string]time.Time{
-		"greater_than": q.CreatedAtGreaterThan,
-		"less_than":    q.CreatedAtLessThan,
+		"greater_than": q.GreaterThan,
+		"less_than":    q.LessThan,
 	})
 }
 
