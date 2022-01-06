@@ -23,6 +23,7 @@ This client library supports all of Stytch's live products:
   - [x] [Email passcodes](https://stytch.com/docs/api/send-otp-by-email)
   - [x] [Session Management (Beta)](https://stytch.com/docs/api/sessions-overview)
   - [x] [WebAuthn (Beta)](https://stytch.com/docs/api/webauthn-overview)
+  - [x] [User Management (Beta)](https://stytch.com/docs/api/users)
 
 ### Example usage
 Create an API client:
@@ -61,6 +62,44 @@ Authenticate the token from the magic link:
 			Options:    stytch.Options{IPMatchRequired: true},
 			Attributes: stytch.Attributes{IPAddress: "10.0.0.0"},
 		})
+```
+
+Get all users
+```go
+    res, err := stytchAPIClient.Users.Search(
+		&stytch.UsersSearchParams{
+			Limit: 1000	
+		})
+```
+
+Search users
+```go
+	res, err := stytchAPIClient.Users.Search(
+		&stytch.UsersSearchParams{
+			Limit: 1000,
+			Query: stytch.UsersSearchQuery{
+				Operator: stytch.UserSearchOperatorOR,
+				Operands: []json.Marshaler{
+					stytch.UsersSearchQueryPhoneVerifiedFilter{true},
+					stytch.UsersSearchQueryEmailVerifiedFilter{true},
+					stytch.UsersSearchQueryWebAuthnRegistrationVerifiedFilter{true},
+				}           
+			}
+		})
+```
+
+Iterate over all pages of users for a search query 
+```go
+	var users []stytch.User
+	iter := stytchAPIClient.Users.SearchAll(&stytch.UsersSearchParams{})
+	for iter.HasNext() {
+		res, err := iter.Next()
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		users = append(users, res...)
+	}
 ```
 
 ## Handling Errors

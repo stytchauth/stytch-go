@@ -56,6 +56,65 @@ func (c *Client) GetPending(
 	return &retVal, err
 }
 
+func (c *Client) Search(
+	body *stytch.UsersSearchParams) (*stytch.UsersSearchResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the search users request body")
+		}
+	}
+
+	var retVal stytch.UsersSearchResponse
+	err = c.C.NewRequest("POST", "/users/search", nil, jsonBody, &retVal)
+	return &retVal, err
+}
+
+type iteratorState string
+
+const (
+	iteratorStatePending    iteratorState = "Pending"
+	iteratorStateInProgress iteratorState = "In Progress"
+	iteratorStateErrored    iteratorState = "Errored"
+	iteratorStateComplete   iteratorState = "Complete"
+)
+
+type UserSearchIterator struct {
+	c     *Client
+	body  *stytch.UsersSearchParams
+	state iteratorState
+}
+
+func (i *UserSearchIterator) HasNext() bool {
+	return i.state == iteratorStatePending || i.state == iteratorStateInProgress
+}
+
+func (i *UserSearchIterator) Next() ([]stytch.User, error) {
+	res, err := i.c.Search(i.body)
+	if err != nil {
+		i.state = iteratorStateErrored
+		return nil, err
+	}
+
+	i.body.Cursor = res.ResultsMetadata.NextCursor
+	if i.body.Cursor == "" {
+		i.state = iteratorStateComplete
+	}
+
+	return res.Results, nil
+}
+
+func (c *Client) SearchAll(body *stytch.UsersSearchParams) *UserSearchIterator {
+	return &UserSearchIterator{
+		c:     c,
+		body:  body,
+		state: iteratorStatePending,
+	}
+}
+
 func (c *Client) Update(
 	userID string, body *stytch.UsersUpdateParams) (*stytch.UsersUpdateResponse, error) {
 	path := "/users/" + userID
