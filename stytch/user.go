@@ -114,9 +114,9 @@ type UsersDeleteWebAuthnRegistrationResponse struct {
 
 /* User Search */
 type UsersSearchParams struct {
-	Limit  int32            `json:"limit,omitempty"`
+	Limit  int32             `json:"limit,omitempty"`
 	Query  *UsersSearchQuery `json:"query,omitempty"`
-	Cursor string           `json:"cursor,omitempty"`
+	Cursor string            `json:"cursor,omitempty"`
 }
 
 type UsersSearchOperator string
