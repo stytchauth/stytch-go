@@ -43,6 +43,11 @@ type OAuthProvider struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type UserTOTP struct {
+	TOTPID string `json:"totp_id,omitempty"`
+	Status string `json:"status,omitempty"`
+}
+
 type UsersCreateParams struct {
 	Email               string     `json:"email,omitempty"`
 	PhoneNumber         string     `json:"phone_number,omitempty"`
@@ -69,6 +74,7 @@ type UsersGetResponse struct {
 	PhoneNumbers          []PhoneNumber          `json:"phone_numbers,omitempty"`
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	OAuthProviders        []OAuthProvider        `json:"providers,omitempty"`
+	TOTPs                 []UserTOTP             `json:"totps,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
 }
@@ -107,6 +113,12 @@ type UsersDeletePhoneNumberResponse struct {
 }
 
 type UsersDeleteWebAuthnRegistrationResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+}
+
+type UsersDeleteTOTPResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
@@ -288,6 +300,24 @@ func (q UsersSearchQueryOAuthProviderFilter) MarshalJSON() ([]byte, error) {
 	return marshalFilter("oauth_provider", q.OAuthProviders)
 }
 
+/* TOTP Filters */
+
+type UsersSearchQueryTOTPIDFilter struct {
+	TOTPIDs []string
+}
+
+func (q UsersSearchQueryTOTPIDFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("totp_id", q.TOTPIDs)
+}
+
+type UsersSearchQueryTOTPStatusFilter struct {
+	TOTPStatus string
+}
+
+func (q UsersSearchQueryTOTPStatusFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("totp_status", q.TOTPStatus)
+}
+
 type User struct {
 	UserID                string                 `json:"user_id,omitempty"`
 	Name                  Name                   `json:"name,omitempty"`
@@ -295,6 +325,7 @@ type User struct {
 	PhoneNumbers          []PhoneNumber          `json:"phone_numbers,omitempty"`
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	OAuthProviders        []OAuthProvider        `json:"providers,omitempty"`
+	TOTPs                 []UserTOTP             `json:"totps,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
 }
@@ -316,6 +347,7 @@ type PendingUsers struct {
 	Name         Name          `json:"name,omitempty"`
 	Emails       []Email       `json:"emails,omitempty"`
 	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
+	TOTPs        []UserTOTP    `json:"totps,omitempty"`
 	Status       string        `json:"status,omitempty"`
 	InvitedAt    string        `json:"invited_at,omitempty"`
 }

@@ -11,6 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v3/stytch/otp/sms"
 	"github.com/stytchauth/stytch-go/v3/stytch/otp/whatsapp"
 	"github.com/stytchauth/stytch-go/v3/stytch/session"
+	"github.com/stytchauth/stytch-go/v3/stytch/totp"
 	"github.com/stytchauth/stytch-go/v3/stytch/user"
 	"github.com/stytchauth/stytch-go/v3/stytch/webauthn"
 )
@@ -20,6 +21,7 @@ type API struct {
 	OAuth      *oauth.Client
 	OTPs       *otp.Client
 	Sessions   *session.Client
+	TOTPs      *totp.Client
 	Users      *user.Client
 	WebAuthn   *webauthn.Client
 }
@@ -37,6 +39,7 @@ func NewAPIClient(env config.Env, projectID string, secret string) *API {
 	}
 	a.OAuth = &oauth.Client{C: client}
 	a.Sessions = &session.Client{C: client}
+	a.TOTPs = &totp.Client{C: client}
 	a.Users = &user.Client{C: client}
 	a.WebAuthn = &webauthn.Client{C: client}
 	return a
