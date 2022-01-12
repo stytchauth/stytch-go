@@ -167,3 +167,12 @@ func (c *Client) DeleteWebAuthnRegistration(
 	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) DeleteTOTP(
+	totpID string) (*stytch.UsersDeleteTOTPResponse, error) {
+	path := "/users/totps/" + totpID
+
+	var retVal stytch.UsersDeleteTOTPResponse
+	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
+}

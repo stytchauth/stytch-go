@@ -44,15 +44,20 @@ type WebAuthnFactor struct {
 	UserAgent              string `json:"user_agent,omitempty"`
 }
 
+type AuthenticatorAppFactor struct {
+	TOTPID string `json:"totp_id,omitempty"`
+}
+
 type AuthenticationFactor struct {
 	Type                string `json:"type,omitempty"`
 	DeliveryMethod      string `json:"delivery_method,omitempty"`
 	LastAuthenticatedAt string `json:"last_authenticated_at,omitempty"`
 
-	EmailFactor       EmailFactor       `json:"email_factor,omitempty"`
-	PhoneNumberFactor PhoneNumberFactor `json:"phone_number_factor,omitempty"`
-	GoogleOAuthFactor GoogleOAuthFactor `json:"google_oauth_factor,omitempty"`
-	WebAuthnFactor    WebAuthnFactor    `json:"webauthn_factor,omitempty"`
+	EmailFactor            EmailFactor            `json:"email_factor,omitempty"`
+	PhoneNumberFactor      PhoneNumberFactor      `json:"phone_number_factor,omitempty"`
+	GoogleOAuthFactor      GoogleOAuthFactor      `json:"google_oauth_factor,omitempty"`
+	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
+	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
 }
 
 /*
