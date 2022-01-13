@@ -47,8 +47,6 @@ Send a magic link by email:
 ```go
 	res, err := stytchAPIClient.MagicLinks.Email.Send(&stytch.MagicLinksEmailSendParams{
 		Email:              "sandbox@stytch.com",
-		LoginMagicLinkURL:  "https://example.com/login",
-		SignupMagicLinkURL: "https://example.com/signup",
 		Attributes:         stytch.Attributes{
 			IPAddress: "10.0.0.0",
 		},
