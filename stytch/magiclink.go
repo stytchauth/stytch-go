@@ -33,8 +33,8 @@ type MagicLinksAuthenticateResponse struct {
 // MAGIC LINK - EMAIL
 type MagicLinksEmailSendParams struct {
 	Email                   string     `json:"email"`
-	LoginMagicLinkURL       string     `json:"login_magic_link_url"`
-	SignupMagicLinkURL      string     `json:"signup_magic_link_url"`
+	LoginMagicLinkURL       string     `json:"login_magic_link_url,omitempty"`
+	SignupMagicLinkURL      string     `json:"signup_magic_link_url,omitempty"`
 	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
@@ -49,8 +49,8 @@ type MagicLinksEmailSendResponse struct {
 
 type MagicLinksEmailLoginOrCreateParams struct {
 	Email                   string     `json:"email"`
-	LoginMagicLinkURL       string     `json:"login_magic_link_url"`
-	SignupMagicLinkURL      string     `json:"signup_magic_link_url"`
+	LoginMagicLinkURL       string     `json:"login_magic_link_url,omitempty"`
+	SignupMagicLinkURL      string     `json:"signup_magic_link_url,omitempty"`
 	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
 	CreateUserAsPending     bool       `json:"create_user_as_pending,omitempty"`
@@ -67,7 +67,7 @@ type MagicLinksEmailLoginOrCreateResponse struct {
 
 type MagicLinksEmailInviteParams struct {
 	Email                   string     `json:"email"`
-	InviteMagicLinkURL      string     `json:"invite_magic_link_url"`
+	InviteMagicLinkURL      string     `json:"invite_magic_link_url,omitempty"`
 	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
 	Name                    Name       `json:"name,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
