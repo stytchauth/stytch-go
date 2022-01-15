@@ -44,8 +44,8 @@ type OAuthProvider struct {
 }
 
 type UserTOTP struct {
-	TOTPID string `json:"totp_id,omitempty"`
-	Status string `json:"status,omitempty"`
+	TOTPID   string `json:"totp_id,omitempty"`
+	Verified bool   `json:"verified,omitempty"`
 }
 
 type UsersCreateParams struct {
@@ -310,12 +310,12 @@ func (q UsersSearchQueryTOTPIDFilter) MarshalJSON() ([]byte, error) {
 	return marshalFilter("totp_id", q.TOTPIDs)
 }
 
-type UsersSearchQueryTOTPStatusFilter struct {
-	TOTPStatus string
+type UsersSearchQueryTOTPVerifiedFilter struct {
+	TOTPVerified bool
 }
 
-func (q UsersSearchQueryTOTPStatusFilter) MarshalJSON() ([]byte, error) {
-	return marshalFilter("totp_status", q.TOTPStatus)
+func (q UsersSearchQueryTOTPVerifiedFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("totp_verified", q.TOTPVerified)
 }
 
 type User struct {

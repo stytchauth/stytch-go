@@ -2,7 +2,7 @@ package stytch
 
 type TOTP struct {
 	TOTPID        string   `json:"totp_id,omitempty"`
-	Status        string   `json:"status,omitempty"`
+	Verified      bool     `json:"verified,omitempty"`
 	RecoveryCodes []string `json:"recovery_codes,omitempty"`
 }
 
