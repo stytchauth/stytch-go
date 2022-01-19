@@ -48,6 +48,10 @@ type AuthenticatorAppFactor struct {
 	TOTPID string `json:"totp_id,omitempty"`
 }
 
+type RecoveryCodeFactor struct {
+	TOTPRecoveryCodeID string `json:"totp_recovery_code_id,omitempty"`
+}
+
 type AuthenticationFactor struct {
 	Type                string `json:"type,omitempty"`
 	DeliveryMethod      string `json:"delivery_method,omitempty"`
@@ -58,6 +62,7 @@ type AuthenticationFactor struct {
 	GoogleOAuthFactor      GoogleOAuthFactor      `json:"google_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
+	RecoveryCodeFactor     RecoveryCodeFactor     `json:"recovery_code_factor,omitempty"`
 }
 
 /*
