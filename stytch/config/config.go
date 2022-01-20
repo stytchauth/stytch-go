@@ -1,6 +1,6 @@
 package config
 
-const APIVersion = "3.10.0"
+const APIVersion = "3.11.0"
 
 type BaseURI string
 
