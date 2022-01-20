@@ -38,6 +38,24 @@ type GoogleOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type MicrosoftOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type AppleOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type GithubOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
 type WebAuthnFactor struct {
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	Domain                 string `json:"domain,omitempty"`
@@ -60,6 +78,9 @@ type AuthenticationFactor struct {
 	EmailFactor            EmailFactor            `json:"email_factor,omitempty"`
 	PhoneNumberFactor      PhoneNumberFactor      `json:"phone_number_factor,omitempty"`
 	GoogleOAuthFactor      GoogleOAuthFactor      `json:"google_oauth_factor,omitempty"`
+	MicrosoftOAuthFactor   MicrosoftOAuthFactor   `json:"microsoft_oauth_factor,omitempty"`
+	AppleOAuthFactor       AppleOAuthFactor       `json:"apple_oauth_factor,omitempty"`
+	GithubOAuthFactor      GithubOAuthFactor      `json:"github_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
 	RecoveryCodeFactor     RecoveryCodeFactor     `json:"recovery_code_factor,omitempty"`
