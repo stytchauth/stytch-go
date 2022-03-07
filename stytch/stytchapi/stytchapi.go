@@ -3,6 +3,7 @@ package stytchapi
 import (
 	"github.com/stytchauth/stytch-go/v3/stytch"
 	"github.com/stytchauth/stytch-go/v3/stytch/config"
+	"github.com/stytchauth/stytch-go/v3/stytch/cryptowallet"
 	"github.com/stytchauth/stytch-go/v3/stytch/magiclink"
 	mle "github.com/stytchauth/stytch-go/v3/stytch/magiclink/email"
 	"github.com/stytchauth/stytch-go/v3/stytch/oauth"
@@ -17,19 +18,21 @@ import (
 )
 
 type API struct {
-	MagicLinks *magiclink.Client
-	OAuth      *oauth.Client
-	OTPs       *otp.Client
-	Sessions   *session.Client
-	TOTPs      *totp.Client
-	Users      *user.Client
-	WebAuthn   *webauthn.Client
+	CryptoWallets *cryptowallet.Client
+	MagicLinks    *magiclink.Client
+	OAuth         *oauth.Client
+	OTPs          *otp.Client
+	Sessions      *session.Client
+	TOTPs         *totp.Client
+	Users         *user.Client
+	WebAuthn      *webauthn.Client
 }
 
 func NewAPIClient(env config.Env, projectID string, secret string) *API {
 	a := &API{}
 	client := stytch.New(env, projectID, secret)
 
+	a.CryptoWallets = &cryptowallet.Client{C: client}
 	a.MagicLinks = &magiclink.Client{C: client, Email: &mle.Client{C: client}}
 	a.OTPs = &otp.Client{
 		C:        client,
