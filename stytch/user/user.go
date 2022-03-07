@@ -176,3 +176,12 @@ func (c *Client) DeleteTOTP(
 	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) DeleteCryptoWallet(
+	cryptoWalletID string) (*stytch.UsersDeleteCryptoWalletResponse, error) {
+	path := "/users/crypto_wallets/" + cryptoWalletID
+
+	var retVal stytch.UsersDeleteCryptoWalletResponse
+	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
+}
