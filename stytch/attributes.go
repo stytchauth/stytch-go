@@ -76,6 +76,12 @@ type RecoveryCodeFactor struct {
 	TOTPRecoveryCodeID string `json:"totp_recovery_code_id,omitempty"`
 }
 
+type CryptoWalletFactor struct {
+	CryptoWalletID      string `json:"crypto_wallet_id,omitempty"`
+	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
+	CryptoWalletType    string `json:"crypto_wallet_type,omitempty"`
+}
+
 type AuthenticationFactor struct {
 	Type                string `json:"type,omitempty"`
 	DeliveryMethod      string `json:"delivery_method,omitempty"`
@@ -91,6 +97,7 @@ type AuthenticationFactor struct {
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
 	RecoveryCodeFactor     RecoveryCodeFactor     `json:"recovery_code_factor,omitempty"`
+	CryptoWalletFactor     CryptoWalletFactor     `json:"crypto_wallet_factor,omitempty"`
 }
 
 /*

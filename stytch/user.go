@@ -31,6 +31,11 @@ type PhoneNumberString struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 }
 
+type CryptoWalletString struct {
+	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
+	CryptoWalletType    string `json:"crypto_wallet_type,omitempty"`
+}
+
 type WebAuthnRegistration struct {
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	Domain                 string `json:"domain,omitempty"`
@@ -46,6 +51,13 @@ type OAuthProvider struct {
 type UserTOTP struct {
 	TOTPID   string `json:"totp_id,omitempty"`
 	Verified bool   `json:"verified,omitempty"`
+}
+
+type CryptoWallet struct {
+	CryptoWalletID      string `json:"crypto_wallet_id,omitempty"`
+	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
+	CryptoWalletType    string `json:"crypto_wallet_type,omitempty"`
+	Verified            bool   `json:"verified,omitempty"`
 }
 
 type UsersCreateParams struct {
@@ -75,23 +87,26 @@ type UsersGetResponse struct {
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	OAuthProviders        []OAuthProvider        `json:"providers,omitempty"`
 	TOTPs                 []UserTOTP             `json:"totps,omitempty"`
+	CryptoWallets         []CryptoWallet         `json:"crypto_wallets,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
 }
 
 type UsersUpdateParams struct {
-	Name         Name                `json:"name,omitempty"`
-	Emails       []EmailString       `json:"emails,omitempty"`
-	PhoneNumbers []PhoneNumberString `json:"phone_numbers,omitempty"`
-	Attributes   Attributes          `json:"attributes,omitempty"`
+	Name          Name                 `json:"name,omitempty"`
+	Emails        []EmailString        `json:"emails,omitempty"`
+	PhoneNumbers  []PhoneNumberString  `json:"phone_numbers,omitempty"`
+	CryptoWallets []CryptoWalletString `json:"crypto_wallets,omitempty"`
+	Attributes    Attributes           `json:"attributes,omitempty"`
 }
 
 type UsersUpdateResponse struct {
-	RequestID    string        `json:"request_id,omitempty"`
-	StatusCode   int           `json:"status_code,omitempty"`
-	UserID       string        `json:"user_id,omitempty"`
-	Emails       []Email       `json:"emails,omitempty"`
-	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
+	RequestID     string         `json:"request_id,omitempty"`
+	StatusCode    int            `json:"status_code,omitempty"`
+	UserID        string         `json:"user_id,omitempty"`
+	Emails        []Email        `json:"emails,omitempty"`
+	PhoneNumbers  []PhoneNumber  `json:"phone_numbers,omitempty"`
+	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
 }
 
 type UsersDeleteResponse struct {
@@ -119,6 +134,12 @@ type UsersDeleteWebAuthnRegistrationResponse struct {
 }
 
 type UsersDeleteTOTPResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+}
+
+type UsersDeleteCryptoWalletResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
@@ -290,6 +311,32 @@ func (q UsersSearchQueryWebAuthnRegistrationIDFilter) MarshalJSON() ([]byte, err
 	return marshalFilter("webauthn_registration_id", q.WebAuthnRegistrationIDs)
 }
 
+/* Crypto Wallet Filters */
+
+type UsersSearchQueryCryptoWalletIDFilter struct {
+	CryptoWalletIDs []string
+}
+
+func (q UsersSearchQueryCryptoWalletIDFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("crypto_wallet_id", q.CryptoWalletIDs)
+}
+
+type UsersSearchQueryCryptoWalletAddressFilter struct {
+	CryptoWalletAddresses []string
+}
+
+func (q UsersSearchQueryCryptoWalletAddressFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("crypto_wallet_address", q.CryptoWalletAddresses)
+}
+
+type UsersSearchQueryCryptoWalletVerifiedFilter struct {
+	CryptoWalletVerified bool
+}
+
+func (q UsersSearchQueryCryptoWalletVerifiedFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("crypto_wallet_verified", q.CryptoWalletVerified)
+}
+
 /* OAuth Filters */
 
 type UsersSearchQueryOAuthProviderFilter struct {
@@ -343,13 +390,14 @@ type UsersSearchResponse struct {
 /* End User Search */
 
 type PendingUsers struct {
-	UserID       string        `json:"user_id,omitempty"`
-	Name         Name          `json:"name,omitempty"`
-	Emails       []Email       `json:"emails,omitempty"`
-	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
-	TOTPs        []UserTOTP    `json:"totps,omitempty"`
-	Status       string        `json:"status,omitempty"`
-	InvitedAt    string        `json:"invited_at,omitempty"`
+	UserID        string         `json:"user_id,omitempty"`
+	Name          Name           `json:"name,omitempty"`
+	Emails        []Email        `json:"emails,omitempty"`
+	PhoneNumbers  []PhoneNumber  `json:"phone_numbers,omitempty"`
+	TOTPs         []UserTOTP     `json:"totps,omitempty"`
+	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
+	Status        string         `json:"status,omitempty"`
+	InvitedAt     string         `json:"invited_at,omitempty"`
 }
 
 type UsersGetPendingParams struct {
