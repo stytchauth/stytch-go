@@ -47,6 +47,8 @@ type WebAuthnRegistration struct {
 type OAuthProvider struct {
 	ProviderType    string `json:"provider_type,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
+	ProfilePictureURL string `json:"profile_picture_url,omitempty"`
+	Locale string `json:"locale,omitempty"`
 }
 
 type UserTOTP struct {
