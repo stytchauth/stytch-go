@@ -7,6 +7,12 @@ linters-settings:
     local-prefixes: github.com/stytchauth/stytch-go/stytch
   lll:
     line-length: 100
+issues:
+  exclude-rules:
+    # Ignore comments with long urls
+    - linters:
+        - lll
+      source: "^\\s*//\\s+https:"
 linters:
   enable:
     - vet

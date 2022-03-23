@@ -70,6 +70,9 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
+// Validation options in GoJWT are currently unexported. Once they're exported, we
+// can define this as a Valid() function, see
+// https://github.com/golang-jwt/jwt/blob/1096e506e671d6d6fe134cc997bbd475937392c8/validator_option.go#L9-L11 //nolint:lll
 func (c Claims) IsValid(projectID string) error {
 	vErr := new(jwt.ValidationError)
 	if !c.verifyIssuer(projectID) {
