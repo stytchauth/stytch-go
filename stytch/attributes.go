@@ -1,5 +1,7 @@
 package stytch
 
+import "github.com/golang-jwt/jwt/v4"
+
 /*
  * Structure for the custom type Attributes
  */
@@ -86,6 +88,24 @@ type AuthenticationFactor struct {
 	Type                string `json:"type,omitempty"`
 	DeliveryMethod      string `json:"delivery_method,omitempty"`
 	LastAuthenticatedAt string `json:"last_authenticated_at,omitempty"`
+
+	EmailFactor            EmailFactor            `json:"email_factor,omitempty"`
+	PhoneNumberFactor      PhoneNumberFactor      `json:"phone_number_factor,omitempty"`
+	GoogleOAuthFactor      GoogleOAuthFactor      `json:"google_oauth_factor,omitempty"`
+	MicrosoftOAuthFactor   MicrosoftOAuthFactor   `json:"microsoft_oauth_factor,omitempty"`
+	AppleOAuthFactor       AppleOAuthFactor       `json:"apple_oauth_factor,omitempty"`
+	GithubOAuthFactor      GithubOAuthFactor      `json:"github_oauth_factor,omitempty"`
+	FacebookOAuthFactor    FacebookOAuthFactor    `json:"facebook_oauth_factor,omitempty"`
+	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
+	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
+	RecoveryCodeFactor     RecoveryCodeFactor     `json:"recovery_code_factor,omitempty"`
+	CryptoWalletFactor     CryptoWalletFactor     `json:"crypto_wallet_factor,omitempty"`
+}
+
+type JWTAuthenticationFactor struct {
+	Type                string           `json:"type,omitempty"`
+	DeliveryMethod      string           `json:"delivery_method,omitempty"`
+	LastAuthenticatedAt *jwt.NumericDate `json:"last_authenticated_at,omitempty"`
 
 	EmailFactor            EmailFactor            `json:"email_factor,omitempty"`
 	PhoneNumberFactor      PhoneNumberFactor      `json:"phone_number_factor,omitempty"`
