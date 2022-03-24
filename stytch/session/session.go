@@ -7,8 +7,8 @@ import (
 
 	"github.com/MicahParks/keyfunc"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/stytchauth/stytch-go/v3/stytch"
-	"github.com/stytchauth/stytch-go/v3/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v4/stytch"
+	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
 )
 
 type Client struct {
