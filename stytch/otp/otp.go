@@ -3,11 +3,11 @@ package otp
 import (
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v3/stytch"
-	"github.com/stytchauth/stytch-go/v3/stytch/otp/email"
-	"github.com/stytchauth/stytch-go/v3/stytch/otp/sms"
-	"github.com/stytchauth/stytch-go/v3/stytch/otp/whatsapp"
-	"github.com/stytchauth/stytch-go/v3/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v4/stytch"
+	"github.com/stytchauth/stytch-go/v4/stytch/otp/email"
+	"github.com/stytchauth/stytch-go/v4/stytch/otp/sms"
+	"github.com/stytchauth/stytch-go/v4/stytch/otp/whatsapp"
+	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
 )
 
 type Client struct {

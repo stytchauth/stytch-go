@@ -7,7 +7,7 @@ It pairs well with the Stytch [Web SDK](https://www.npmjs.com/package/@stytch/st
 ## Install
 
 ```console
-$ go get github.com/stytchauth/stytch-go/v3
+$ go get github.com/stytchauth/stytch-go/v4
 ```
 
 ## Usage
@@ -33,8 +33,8 @@ Create an API client:
 import (
 	"os"
 
-	"github.com/stytchauth/stytch-go/v3/stytch"
-	"github.com/stytchauth/stytch-go/v3/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v4/stytch"
+	"github.com/stytchauth/stytch-go/v4/stytch/stytchapi"
 )
 
 stytchAPIClient := stytchapi.NewAPIClient(
