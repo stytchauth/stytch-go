@@ -30,13 +30,10 @@ func (c *Client) Get(
 
 func (c *Client) GetJWKS(
 	body *stytch.SessionsGetJWKSParams) (*stytch.SessionsGetJWKSResponse, error) {
-	queryParams := make(map[string]string)
-	if body != nil {
-		queryParams["project_id"] = body.ProjectID
-	}
+	path := "/sessions/jwks/" + body.ProjectID
 
 	var retVal stytch.SessionsGetJWKSResponse
-	err := c.C.NewRequest("GET", "/sessions/jwks", queryParams, nil, &retVal)
+	err := c.C.NewRequest("GET", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
