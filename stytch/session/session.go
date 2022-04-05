@@ -54,7 +54,7 @@ func (c *Client) AuthenticateJWT(
 	if claims.IsValid(c.C.Config.BasicAuthProjectID()) != nil {
 		// If JWT is invalid, return error
 		return nil, fmt.Errorf("JWT is invalid or session claims do not match parameters")
-	} else if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).After(time.Now()) {
+	} else if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).After(time.Now().UTC()) {
 		// If JWT is valid and the token is less than maxTokenAge old,
 		// assume that it's valid and return the session
 		session := marshalJWTIntoSession(claims)
