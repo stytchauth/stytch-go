@@ -14,7 +14,8 @@ type Client struct {
 }
 
 func (c *Client) Authenticate(
-	body *stytch.OAuthAuthenticateParams) (*stytch.OAuthAuthenticateResponse, error) {
+	body *stytch.OAuthAuthenticateParams,
+) (*stytch.OAuthAuthenticateResponse, error) {
 	path := "/oauth/authenticate"
 
 	var jsonBody []byte

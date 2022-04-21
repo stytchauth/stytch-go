@@ -12,7 +12,8 @@ type Client struct {
 }
 
 func (c *Client) Create(body *stytch.TOTPsCreateParams) (
-	*stytch.TOTPsCreateResponse, error) {
+	*stytch.TOTPsCreateResponse, error,
+) {
 	path := "/totps"
 
 	var jsonBody []byte
@@ -32,7 +33,8 @@ func (c *Client) Create(body *stytch.TOTPsCreateParams) (
 }
 
 func (c *Client) Authenticate(body *stytch.TOTPsAuthenticateParams) (
-	*stytch.TOTPsAuthenticateResponse, error) {
+	*stytch.TOTPsAuthenticateResponse, error,
+) {
 	path := "/totps/authenticate"
 
 	var jsonBody []byte
@@ -52,7 +54,8 @@ func (c *Client) Authenticate(body *stytch.TOTPsAuthenticateParams) (
 }
 
 func (c *Client) RecoveryCodes(body *stytch.TOTPsRecoveryCodesParams) (
-	*stytch.TOTPsRecoveryCodesResponse, error) {
+	*stytch.TOTPsRecoveryCodesResponse, error,
+) {
 	path := "/totps/recovery_codes"
 
 	var jsonBody []byte
@@ -72,7 +75,8 @@ func (c *Client) RecoveryCodes(body *stytch.TOTPsRecoveryCodesParams) (
 }
 
 func (c *Client) Recover(body *stytch.TOTPsRecoverParams) (
-	*stytch.TOTPsRecoverResponse, error) {
+	*stytch.TOTPsRecoverResponse, error,
+) {
 	path := "/totps/recover"
 
 	var jsonBody []byte

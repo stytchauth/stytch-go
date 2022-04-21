@@ -37,7 +37,8 @@ func (c *Client) Get(userID string) (*stytch.UsersGetResponse, error) {
 }
 
 func (c *Client) GetPending(
-	body *stytch.UsersGetPendingParams) (*stytch.UsersGetPendingResponse, error) {
+	body *stytch.UsersGetPendingParams,
+) (*stytch.UsersGetPendingResponse, error) {
 	var queryParams map[string]string
 	if body != nil {
 		limitString := ""
@@ -57,7 +58,8 @@ func (c *Client) GetPending(
 }
 
 func (c *Client) Search(
-	body *stytch.UsersSearchParams) (*stytch.UsersSearchResponse, error) {
+	body *stytch.UsersSearchParams,
+) (*stytch.UsersSearchResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -116,7 +118,8 @@ func (c *Client) SearchAll(body *stytch.UsersSearchParams) *UserSearchIterator {
 }
 
 func (c *Client) Update(
-	userID string, body *stytch.UsersUpdateParams) (*stytch.UsersUpdateResponse, error) {
+	userID string, body *stytch.UsersUpdateParams,
+) (*stytch.UsersUpdateResponse, error) {
 	path := "/users/" + userID
 
 	var jsonBody []byte
@@ -151,7 +154,8 @@ func (c *Client) DeleteEmail(emailID string) (*stytch.UsersDeleteEmailResponse, 
 }
 
 func (c *Client) DeletePhoneNumber(
-	phoneID string) (*stytch.UsersDeletePhoneNumberResponse, error) {
+	phoneID string,
+) (*stytch.UsersDeletePhoneNumberResponse, error) {
 	path := "/users/phone_numbers/" + phoneID
 
 	var retVal stytch.UsersDeletePhoneNumberResponse
@@ -160,7 +164,8 @@ func (c *Client) DeletePhoneNumber(
 }
 
 func (c *Client) DeleteWebAuthnRegistration(
-	webAuthnRegistration string) (*stytch.UsersDeleteWebAuthnRegistrationResponse, error) {
+	webAuthnRegistration string,
+) (*stytch.UsersDeleteWebAuthnRegistrationResponse, error) {
 	path := "/users/webauthn_registrations/" + webAuthnRegistration
 
 	var retVal stytch.UsersDeleteWebAuthnRegistrationResponse
@@ -169,7 +174,8 @@ func (c *Client) DeleteWebAuthnRegistration(
 }
 
 func (c *Client) DeleteTOTP(
-	totpID string) (*stytch.UsersDeleteTOTPResponse, error) {
+	totpID string,
+) (*stytch.UsersDeleteTOTPResponse, error) {
 	path := "/users/totps/" + totpID
 
 	var retVal stytch.UsersDeleteTOTPResponse
@@ -178,7 +184,8 @@ func (c *Client) DeleteTOTP(
 }
 
 func (c *Client) DeleteCryptoWallet(
-	cryptoWalletID string) (*stytch.UsersDeleteCryptoWalletResponse, error) {
+	cryptoWalletID string,
+) (*stytch.UsersDeleteCryptoWalletResponse, error) {
 	path := "/users/crypto_wallets/" + cryptoWalletID
 
 	var retVal stytch.UsersDeleteCryptoWalletResponse

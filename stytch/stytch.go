@@ -36,7 +36,8 @@ func New(env config.Env, projectID string, secret string) *Client {
 
 // newRequest is used by Call to generate and Do a http.Request
 func (c *Client) NewRequest(method string, path string, queryParams map[string]string,
-	body []byte, v interface{}) error {
+	body []byte, v interface{},
+) error {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}

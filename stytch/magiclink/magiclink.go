@@ -14,7 +14,8 @@ type Client struct {
 }
 
 func (c *Client) Create(
-	body *stytch.MagicLinksCreateParams) (*stytch.MagicLinksCreateResponse, error) {
+	body *stytch.MagicLinksCreateParams,
+) (*stytch.MagicLinksCreateResponse, error) {
 	path := "/magic_links"
 
 	var jsonBody []byte
@@ -34,7 +35,8 @@ func (c *Client) Create(
 }
 
 func (c *Client) Authenticate(
-	body *stytch.MagicLinksAuthenticateParams) (*stytch.MagicLinksAuthenticateResponse, error) {
+	body *stytch.MagicLinksAuthenticateParams,
+) (*stytch.MagicLinksAuthenticateResponse, error) {
 	path := "/magic_links/authenticate"
 
 	var jsonBody []byte

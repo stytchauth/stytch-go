@@ -30,7 +30,8 @@ func (c *Client) Send(body *stytch.OTPsEmailSendParams) (*stytch.OTPsEmailSendRe
 }
 
 func (c *Client) LoginOrCreate(
-	body *stytch.OTPsEmailLoginOrCreateParams) (*stytch.OTPsEmailLoginOrCreateResponse, error) {
+	body *stytch.OTPsEmailLoginOrCreateParams,
+) (*stytch.OTPsEmailLoginOrCreateResponse, error) {
 	path := "/otps/email/login_or_create"
 
 	var jsonBody []byte
