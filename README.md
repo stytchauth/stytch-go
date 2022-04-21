@@ -37,11 +37,14 @@ import (
 	"github.com/stytchauth/stytch-go/v4/stytch/stytchapi"
 )
 
-stytchAPIClient := stytchapi.NewAPIClient(
+stytchAPIClient, err := stytchapi.NewAPIClient(
 	stytch.EnvTest, // available environments are EnvTest and EnvLive
 	"project-live-c60c0abe-c25a-4472-a9ed-320c6667d317",
 	"secret-live-80JASucyk7z_G8Z-7dVwZVGXL5NT_qGAQ2I=",
 )
+if err != nil {
+	panic(err)
+}
 ```
 
 Send a magic link by email:
