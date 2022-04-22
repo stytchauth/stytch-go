@@ -2,8 +2,6 @@ package stytch
 
 import "time"
 
-type SessionManagementType string
-
 type ProviderType string
 
 const (
@@ -12,6 +10,7 @@ const (
 	ProviderTypeApple     ProviderType = "Apple"
 	ProviderTypeMicrosoft ProviderType = "Microsoft"
 	ProviderTypeGithub    ProviderType = "Github"
+	ProviderTypeGitlab    ProviderType = "GitLab"
 )
 
 type OAuthAuthenticateParams struct {
