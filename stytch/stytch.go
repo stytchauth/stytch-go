@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v4/stytch/config"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v5/stytch/config"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
 
 const (
@@ -36,7 +36,8 @@ func New(env config.Env, projectID string, secret string) *Client {
 
 // newRequest is used by Call to generate and Do a http.Request
 func (c *Client) NewRequest(method string, path string, queryParams map[string]string,
-	body []byte, v interface{}) error {
+	body []byte, v interface{},
+) error {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}

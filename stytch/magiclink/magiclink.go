@@ -3,9 +3,9 @@ package magiclink
 import (
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/magiclink/email"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v5/stytch"
+	"github.com/stytchauth/stytch-go/v5/stytch/magiclink/email"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
 
 type Client struct {
@@ -14,7 +14,8 @@ type Client struct {
 }
 
 func (c *Client) Create(
-	body *stytch.MagicLinksCreateParams) (*stytch.MagicLinksCreateResponse, error) {
+	body *stytch.MagicLinksCreateParams,
+) (*stytch.MagicLinksCreateResponse, error) {
 	path := "/magic_links"
 
 	var jsonBody []byte
@@ -34,7 +35,8 @@ func (c *Client) Create(
 }
 
 func (c *Client) Authenticate(
-	body *stytch.MagicLinksAuthenticateParams) (*stytch.MagicLinksAuthenticateResponse, error) {
+	body *stytch.MagicLinksAuthenticateParams,
+) (*stytch.MagicLinksAuthenticateResponse, error) {
 	path := "/magic_links/authenticate"
 
 	var jsonBody []byte

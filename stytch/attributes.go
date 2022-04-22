@@ -58,6 +58,12 @@ type GithubOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type GitLabOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
 type FacebookOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -95,6 +101,7 @@ type AuthenticationFactor struct {
 	MicrosoftOAuthFactor   MicrosoftOAuthFactor   `json:"microsoft_oauth_factor,omitempty"`
 	AppleOAuthFactor       AppleOAuthFactor       `json:"apple_oauth_factor,omitempty"`
 	GithubOAuthFactor      GithubOAuthFactor      `json:"github_oauth_factor,omitempty"`
+	GitLabOAuthFactor      GitLabOAuthFactor      `json:"gitlab_oauth_factor,omitempty"`
 	FacebookOAuthFactor    FacebookOAuthFactor    `json:"facebook_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`

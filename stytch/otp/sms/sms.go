@@ -3,8 +3,8 @@ package sms
 import (
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v5/stytch"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
 
 type Client struct {
@@ -30,7 +30,8 @@ func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendRespon
 }
 
 func (c *Client) LoginOrCreate(
-	body *stytch.OTPsSMSLoginOrCreateParams) (*stytch.OTPsSMSLoginOrCreateResponse, error) {
+	body *stytch.OTPsSMSLoginOrCreateParams,
+) (*stytch.OTPsSMSLoginOrCreateResponse, error) {
 	path := "/otps/sms/login_or_create"
 
 	var jsonBody []byte

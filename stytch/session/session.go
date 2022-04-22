@@ -7,8 +7,8 @@ import (
 
 	"github.com/MicahParks/keyfunc"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v5/stytch"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
 
 type Client struct {
@@ -17,7 +17,8 @@ type Client struct {
 }
 
 func (c *Client) Get(
-	body *stytch.SessionsGetParams) (*stytch.SessionsGetResponse, error) {
+	body *stytch.SessionsGetParams,
+) (*stytch.SessionsGetResponse, error) {
 	queryParams := make(map[string]string)
 	if body != nil {
 		queryParams["user_id"] = body.UserID
@@ -29,7 +30,8 @@ func (c *Client) Get(
 }
 
 func (c *Client) GetJWKS(
-	body *stytch.SessionsGetJWKSParams) (*stytch.SessionsGetJWKSResponse, error) {
+	body *stytch.SessionsGetJWKSParams,
+) (*stytch.SessionsGetJWKSResponse, error) {
 	path := "/sessions/jwks/" + body.ProjectID
 
 	var retVal stytch.SessionsGetJWKSResponse
@@ -85,7 +87,8 @@ func marshalJWTIntoSession(claims stytch.Claims) stytch.Session {
 }
 
 func (c *Client) Authenticate(
-	body *stytch.SessionsAuthenticateParams) (*stytch.SessionsAuthenticateResponse, error) {
+	body *stytch.SessionsAuthenticateParams,
+) (*stytch.SessionsAuthenticateResponse, error) {
 	path := "/sessions/authenticate"
 
 	var jsonBody []byte
@@ -104,7 +107,8 @@ func (c *Client) Authenticate(
 }
 
 func (c *Client) Revoke(
-	body *stytch.SessionsRevokeParams) (*stytch.SessionsRevokeResponse, error) {
+	body *stytch.SessionsRevokeParams,
+) (*stytch.SessionsRevokeResponse, error) {
 	path := "/sessions/revoke"
 
 	var jsonBody []byte

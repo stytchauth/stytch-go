@@ -3,8 +3,8 @@ package email
 import (
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v5/stytch"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
 
 type Client struct {
@@ -30,7 +30,8 @@ func (c *Client) Send(body *stytch.OTPsEmailSendParams) (*stytch.OTPsEmailSendRe
 }
 
 func (c *Client) LoginOrCreate(
-	body *stytch.OTPsEmailLoginOrCreateParams) (*stytch.OTPsEmailLoginOrCreateResponse, error) {
+	body *stytch.OTPsEmailLoginOrCreateParams,
+) (*stytch.OTPsEmailLoginOrCreateResponse, error) {
 	path := "/otps/email/login_or_create"
 
 	var jsonBody []byte

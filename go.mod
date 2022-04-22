@@ -1,4 +1,4 @@
-module github.com/stytchauth/stytch-go/v4
+module github.com/stytchauth/stytch-go/v5
 
 go 1.15
 

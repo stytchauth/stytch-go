@@ -3,8 +3,8 @@ package email
 import (
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v5/stytch"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
 
 type Client struct {
@@ -12,7 +12,8 @@ type Client struct {
 }
 
 func (c *Client) Send(
-	body *stytch.MagicLinksEmailSendParams) (*stytch.MagicLinksEmailSendResponse, error) {
+	body *stytch.MagicLinksEmailSendParams,
+) (*stytch.MagicLinksEmailSendResponse, error) {
 	path := "/magic_links/email/send"
 
 	var jsonBody []byte
@@ -31,7 +32,8 @@ func (c *Client) Send(
 }
 
 func (c *Client) LoginOrCreate(body *stytch.MagicLinksEmailLoginOrCreateParams) (
-	*stytch.MagicLinksEmailLoginOrCreateResponse, error) {
+	*stytch.MagicLinksEmailLoginOrCreateResponse, error,
+) {
 	path := "/magic_links/email/login_or_create"
 
 	var jsonBody []byte
@@ -50,7 +52,8 @@ func (c *Client) LoginOrCreate(body *stytch.MagicLinksEmailLoginOrCreateParams) 
 }
 
 func (c *Client) Invite(
-	body *stytch.MagicLinksEmailInviteParams) (*stytch.MagicLinksEmailInviteResponse, error) {
+	body *stytch.MagicLinksEmailInviteParams,
+) (*stytch.MagicLinksEmailInviteResponse, error) {
 	path := "/magic_links/email/invite"
 
 	var jsonBody []byte
@@ -69,7 +72,8 @@ func (c *Client) Invite(
 }
 
 func (c *Client) RevokeInvite(body *stytch.MagicLinksEmailRevokeInviteParams) (
-	*stytch.MagicLinksEmailRevokeInviteResponse, error) {
+	*stytch.MagicLinksEmailRevokeInviteResponse, error,
+) {
 	path := "/magic_links/email/revoke_invite"
 
 	var jsonBody []byte
