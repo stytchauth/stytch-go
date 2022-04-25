@@ -2,6 +2,7 @@ package session
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"time"
 
@@ -10,6 +11,8 @@ import (
 	"github.com/stytchauth/stytch-go/v5/stytch"
 	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
+
+var ErrJWTTooOld = errors.New("JWT too old")
 
 type Client struct {
 	C    *stytch.Client
@@ -47,26 +50,42 @@ func (c *Client) AuthenticateJWT(
 		return c.Authenticate(body)
 	}
 
+	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	if errors.Is(err, ErrJWTTooOld) {
+		// If JWT is valid and the token is more than maxTokenAge old,
+		// check with the API to make sure that the session hasn't been revoked
+		return c.Authenticate(body)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return &stytch.SessionsAuthenticateResponse{
+		Session: *session,
+	}, nil
+}
+
+func (c *Client) AuthenticateJWTLocal(
+	token string,
+	maxTokenAge time.Duration,
+) (*stytch.Session, error) {
 	var claims stytch.Claims
-	_, err := jwt.ParseWithClaims(body.SessionJWT, &claims, c.JWKS.Keyfunc)
+	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse JWT: %w", err)
 	}
 
-	if claims.IsValid(c.C.Config.BasicAuthProjectID()) != nil {
+	if err := claims.IsValid(c.C.Config.BasicAuthProjectID()); err != nil {
 		// If JWT is invalid, return error
-		return nil, fmt.Errorf("JWT is invalid or session claims do not match parameters")
-	} else if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).After(time.Now()) {
-		// If JWT is valid and the token is less than maxTokenAge old,
-		// assume that it's valid and return the session
-		session := marshalJWTIntoSession(claims)
-		return &stytch.SessionsAuthenticateResponse{
-			Session: session,
-		}, nil
+		return nil, fmt.Errorf("authenticate JWT: %w", err)
 	}
-	// If JWT is valid and the token is more than maxTokenAge old,
-	// check with the API to make sure that the session hasn't been revoked
-	return c.Authenticate(body)
+	if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
+		// The JWT is valid, but older than the tolerable maximum age.
+		return nil, ErrJWTTooOld
+	}
+
+	session := marshalJWTIntoSession(claims)
+	return &session, nil
 }
 
 func marshalJWTIntoSession(claims stytch.Claims) stytch.Session {
