@@ -100,6 +100,9 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 }
 
 func rsaKey(t *testing.T) *rsa.PrivateKey {
+	// This short key length is fine for test data. We won't actually use the keys for anything.
+	//
+	// #nosec G403
 	key, err := rsa.GenerateKey(rand.Reader, 1024)
 	if err != nil {
 		t.Fatalf("generate test RSA key: %s", err)
