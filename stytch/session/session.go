@@ -95,7 +95,7 @@ func marshalJWTIntoSession(claims stytch.Claims) stytch.Session {
 		authFactorPtrs = append(authFactorPtrs, &factor)
 	}
 	return stytch.Session{
-		SessionID:             claims.RegisteredClaims.ID,
+		SessionID:             claims.StytchSession.ID,
 		UserID:                claims.RegisteredClaims.Subject,
 		StartedAt:             claims.StytchSession.StartedAt,
 		LastAccessedAt:        claims.StytchSession.LastAccessedAt,

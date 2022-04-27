@@ -141,7 +141,6 @@ func sandboxClaims(t *testing.T, iat, exp time.Time) stytch.Claims {
 			},
 		},
 		RegisteredClaims: jwt.RegisteredClaims{
-			ID:        "session-live-e26a0ccb-0dc0-4edb-a4bb-e70210f43555",
 			Issuer:    "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
 			Audience:  []string{"project-test-00000000-0000-0000-0000-000000000000"},
 			Subject:   "user-live-fde03dd1-fff7-4b3c-9b31-ead3fbc224de",
