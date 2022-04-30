@@ -1,6 +1,11 @@
 package stytch
 
-import "github.com/golang-jwt/jwt/v4"
+import (
+	"net"
+	"net/http"
+
+	"github.com/golang-jwt/jwt/v4"
+)
 
 /*
  * Structure for the custom type Attributes
@@ -10,6 +15,25 @@ type Attributes struct {
 	IPAddress string `json:"ip_address,omitempty"`
 	// The user agent of the user.
 	UserAgent string `json:"user_agent,omitempty"`
+}
+
+/*
+ * AttributesFromRequest extracts Attributes from r.
+ */
+func AttributesFromRequest(r *http.Request) Attributes {
+	attr := Attributes{
+		UserAgent: r.Header.Get("User-Agent"),
+	}
+	// Attempt to extract a valid IP address from r.RemoteAddr.
+	host, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		return attr
+	}
+	ip := net.ParseIP(host)
+	if ip != nil {
+		attr.IPAddress = ip.String()
+	}
+	return attr
 }
 
 /*
