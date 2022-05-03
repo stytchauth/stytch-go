@@ -61,6 +61,7 @@ type SessionClaim struct {
 	ID                    string                 `json:"id"`
 	StartedAt             string                 `json:"started_at"`
 	LastAccessedAt        string                 `json:"last_accessed_at"`
+	ExpiresAt             string                 `json:"expires_at"`
 	Attributes            Attributes             `json:"attributes"`
 	AuthenticationFactors []AuthenticationFactor `json:"authentication_factors"`
 }
