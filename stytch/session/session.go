@@ -51,13 +51,9 @@ func (c *Client) AuthenticateJWT(
 	}
 
 	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
-	if errors.Is(err, ErrJWTTooOld) {
-		// If JWT is valid and the token is more than maxTokenAge old,
-		// check with the API to make sure that the session hasn't been revoked
-		return c.Authenticate(body)
-	}
 	if err != nil {
-		return nil, err
+		// JWT couldn't be verified locally. Check with the Stytch API.
+		return c.Authenticate(body)
 	}
 
 	return &stytch.SessionsAuthenticateResponse{
