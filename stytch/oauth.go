@@ -27,6 +27,8 @@ type OAuthAuthenticateResponse struct {
 	ProviderSubject string         `json:"provider_subject,omitempty"`
 	ProviderType    ProviderType   `json:"provider_type,omitempty"`
 	Session         *Session       `json:"session,omitempty"`
+	SessionToken    string         `json:"session_token,omitempty"`
+	SessionJWT      string         `json:"session_jwt,omitempty"`
 	ProviderValues  ProviderValues `json:"provider_values,omitempty"`
 }
 
