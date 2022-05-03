@@ -41,6 +41,7 @@ type WebAuthnRegistration struct {
 	Domain                 string `json:"domain,omitempty"`
 	UserAgent              string `json:"user_agent,omitempty"`
 	Verified               bool   `json:"verified,omitempty"`
+	AuthenticatorType      string `json:"authenticator_type,omitempty"`
 }
 
 type OAuthProvider struct {
