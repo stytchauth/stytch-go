@@ -46,19 +46,19 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		claims := sandboxClaims(t, iat, exp)
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := sessions.AuthenticateJWTLocal(token, 5*time.Minute)
+		s, err := sessions.AuthenticateJWTLocal(token, 10*time.Minute)
 		assert.ErrorIs(t, err, jwt.ErrTokenExpired)
 		assert.Nil(t, s)
 	})
 
 	t.Run("stale JWT", func(t *testing.T) {
-		iat := time.Now().Add(-10 * time.Minute).Truncate(time.Second)
+		iat := time.Now().Add(-3 * time.Minute).Truncate(time.Second)
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxClaims(t, iat, exp)
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := sessions.AuthenticateJWTLocal(token, 5*time.Minute)
+		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
 		assert.ErrorIs(t, err, session.ErrJWTTooOld)
 		assert.Nil(t, s)
 	})
@@ -70,7 +70,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		claims := sandboxClaims(t, iat, exp)
 		token := signJWT(t, keyID, key, claims)
 
-		session, err := sessions.AuthenticateJWTLocal(token, 5*time.Minute)
+		session, err := sessions.AuthenticateJWTLocal(token, 3*time.Minute)
 		require.NoError(t, err)
 
 		expected := &stytch.Session{
@@ -78,7 +78,43 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 			UserID:         "user-live-fde03dd1-fff7-4b3c-9b31-ead3fbc224de",
 			StartedAt:      iat.Format(time.RFC3339),
 			LastAccessedAt: iat.Format(time.RFC3339),
-			ExpiresAt:      exp.String(),
+			ExpiresAt:      exp.Format(time.RFC3339),
+			Attributes: stytch.Attributes{
+				IPAddress: "",
+				UserAgent: "",
+			},
+			AuthenticationFactors: []*stytch.AuthenticationFactor{
+				{
+					Type:                "magic_link",
+					DeliveryMethod:      "email",
+					LastAuthenticatedAt: iat.Format(time.RFC3339),
+					EmailFactor: stytch.EmailFactor{
+						EmailAddress: "sandbox@stytch.com",
+						EmailID:      "email-live-cca9d7d0-11b6-4167-9385-d7e0c9a77418",
+					},
+				},
+			},
+		}
+		assert.Equal(t, expected, session)
+	})
+
+	t.Run("valid JWT (old format)", func(t *testing.T) {
+		iat := time.Now().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaims(t, iat, exp)
+		claims.StytchSession.ExpiresAt = ""
+		token := signJWT(t, keyID, key, claims)
+
+		session, err := sessions.AuthenticateJWTLocal(token, 3*time.Minute)
+		require.NoError(t, err)
+
+		expected := &stytch.Session{
+			SessionID:      "session-live-e26a0ccb-0dc0-4edb-a4bb-e70210f43555",
+			UserID:         "user-live-fde03dd1-fff7-4b3c-9b31-ead3fbc224de",
+			StartedAt:      iat.Format(time.RFC3339),
+			LastAccessedAt: iat.Format(time.RFC3339),
+			ExpiresAt:      iat.Add(5 * time.Minute).Format(time.RFC3339),
 			Attributes: stytch.Attributes{
 				IPAddress: "",
 				UserAgent: "",
@@ -127,6 +163,7 @@ func sandboxClaims(t *testing.T, iat, exp time.Time) stytch.Claims {
 			ID:             "session-live-e26a0ccb-0dc0-4edb-a4bb-e70210f43555",
 			StartedAt:      iat.Format(time.RFC3339),
 			LastAccessedAt: iat.Format(time.RFC3339),
+			ExpiresAt:      exp.Format(time.RFC3339),
 			Attributes:     stytch.Attributes{},
 			AuthenticationFactors: []stytch.AuthenticationFactor{
 				{
@@ -146,7 +183,7 @@ func sandboxClaims(t *testing.T, iat, exp time.Time) stytch.Claims {
 			Subject:   "user-live-fde03dd1-fff7-4b3c-9b31-ead3fbc224de",
 			IssuedAt:  jwt.NewNumericDate(iat),
 			NotBefore: jwt.NewNumericDate(iat),
-			ExpiresAt: jwt.NewNumericDate(exp),
+			ExpiresAt: jwt.NewNumericDate(iat.Add(5 * time.Minute)),
 		},
 	}
 }

@@ -90,12 +90,19 @@ func marshalJWTIntoSession(claims stytch.Claims) stytch.Session {
 		factor := factor
 		authFactorPtrs = append(authFactorPtrs, &factor)
 	}
+
+	// For JWTs that include it, prefer the inner expires_at claim.
+	expiresAt := claims.StytchSession.ExpiresAt
+	if expiresAt == "" {
+		expiresAt = claims.RegisteredClaims.ExpiresAt.Time.Format(time.RFC3339)
+	}
+
 	return stytch.Session{
 		SessionID:             claims.StytchSession.ID,
 		UserID:                claims.RegisteredClaims.Subject,
 		StartedAt:             claims.StytchSession.StartedAt,
 		LastAccessedAt:        claims.StytchSession.LastAccessedAt,
-		ExpiresAt:             claims.RegisteredClaims.ExpiresAt.String(),
+		ExpiresAt:             expiresAt,
 		Attributes:            claims.StytchSession.Attributes,
 		AuthenticationFactors: authFactorPtrs,
 	}
