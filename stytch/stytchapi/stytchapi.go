@@ -27,6 +27,7 @@ type Logger interface {
 }
 
 type API struct {
+	client        *stytch.Client
 	logger        Logger
 	CryptoWallets *cryptowallet.Client
 	MagicLinks    *magiclink.Client
@@ -45,29 +46,30 @@ func WithLogger(logger Logger) Option {
 }
 
 func NewAPIClient(env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
-	a := &API{}
-	client := stytch.New(env, projectID, secret)
+	a := &API{
+		client: stytch.New(env, projectID, secret),
+	}
 	for _, o := range opts {
 		o(a)
 	}
 
-	a.CryptoWallets = &cryptowallet.Client{C: client}
-	a.MagicLinks = &magiclink.Client{C: client, Email: &mle.Client{C: client}}
+	a.CryptoWallets = &cryptowallet.Client{C: a.client}
+	a.MagicLinks = &magiclink.Client{C: a.client, Email: &mle.Client{C: a.client}}
 	a.OTPs = &otp.Client{
-		C:        client,
-		Email:    &otpe.Client{C: client},
-		SMS:      &sms.Client{C: client},
-		WhatsApp: &whatsapp.Client{C: client},
+		C:        a.client,
+		Email:    &otpe.Client{C: a.client},
+		SMS:      &sms.Client{C: a.client},
+		WhatsApp: &whatsapp.Client{C: a.client},
 	}
-	a.OAuth = &oauth.Client{C: client}
-	a.TOTPs = &totp.Client{C: client}
-	a.Users = &user.Client{C: client}
-	a.WebAuthn = &webauthn.Client{C: client}
-	jwks, err := a.instantiateJWKSClient(client)
+	a.OAuth = &oauth.Client{C: a.client}
+	a.TOTPs = &totp.Client{C: a.client}
+	a.Users = &user.Client{C: a.client}
+	a.WebAuthn = &webauthn.Client{C: a.client}
+	jwks, err := a.instantiateJWKSClient(a.client)
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
-	a.Sessions = &session.Client{C: client, JWKS: jwks}
+	a.Sessions = &session.Client{C: a.client, JWKS: jwks}
 	return a, nil
 }
 
