@@ -48,8 +48,8 @@ func WithLogger(logger Logger) Option {
 // WithBaseURI overrides the client base URI determined by the environment.
 //
 // The value derived from stytch.EnvLive or stytch.EnvTest is already correct for production use
-// in the live or test environment, respectively. This is implemented to make it easier to use
-// this client to access development versions of the API.
+// in the Live or Test environment, respectively. This is implemented to make it easier to use
+// this client to access internal development versions of the API.
 func WithBaseURI(uri string) Option {
 	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
 }
