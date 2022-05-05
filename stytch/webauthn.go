@@ -41,6 +41,7 @@ type WebAuthnAuthenticateStartResponse struct {
 type WebAuthnAuthenticateParams struct {
 	PublicKeyCredential    string `json:"public_key_credential,omitempty"`
 	SessionToken           string `json:"session_token,omitempty"`
+	SessionJWT             string `json:"session_jwt,omitempty"`
 	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
 }
 
@@ -50,5 +51,6 @@ type WebAuthnAuthenticateResponse struct {
 	UserID                 string  `json:"user_id,omitempty"`
 	WebAuthnRegistrationID string  `json:"webauthn_registration_id,omitempty"`
 	SessionToken           string  `json:"session_token,omitempty"`
+	SessionJWT             string  `json:"session_jwt,omitempty"`
 	Session                Session `json:"session,omitempty"`
 }

@@ -18,6 +18,7 @@ type MagicLinksAuthenticateParams struct {
 	Options                Options    `json:"options,omitempty"`
 	Attributes             Attributes `json:"attributes,omitempty"`
 	SessionToken           string     `json:"session_token,omitempty"`
+	SessionJWT             string     `json:"session_jwt,omitempty"`
 	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
 }
 
@@ -27,6 +28,7 @@ type MagicLinksAuthenticateResponse struct {
 	UserID       string  `json:"user_id,omitempty"`
 	MethodID     string  `json:"method_id,omitempty"`
 	SessionToken string  `json:"session_token,omitempty"`
+	SessionJWT   string  `json:"session_jwt,omitempty"`
 	Session      Session `json:"session,omitempty"`
 }
 
