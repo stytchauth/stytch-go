@@ -19,6 +19,7 @@ type CryptoWalletAuthenticateParams struct {
 	CryptoWalletType       string `json:"crypto_wallet_type,omitempty"`
 	Signature              string `json:"signature,omitempty"`
 	SessionToken           string `json:"session_token,omitempty"`
+	SessionJWT             string `json:"session_jwt,omitempty"`
 	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
 }
 
@@ -27,5 +28,6 @@ type CryptoWalletAuthenticateResponse struct {
 	StatusCode   int     `json:"status_code,omitempty"`
 	UserID       string  `json:"user_id,omitempty"`
 	SessionToken string  `json:"session_token,omitempty"`
+	SessionJWT   string  `json:"session_jwt,omitempty"`
 	Session      Session `json:"session,omitempty"`
 }

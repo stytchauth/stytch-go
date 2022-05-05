@@ -7,6 +7,7 @@ type OTPsAuthenticateParams struct {
 	Attributes             Attributes `json:"attributes,omitempty"`
 	SessionToken           string     `json:"session_token,omitempty"`
 	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
+	SessionJWT             string     `json:"session_jwt,omitempty"`
 }
 
 type OTPsAuthenticateResponse struct {
@@ -16,6 +17,7 @@ type OTPsAuthenticateResponse struct {
 	MethodID     string  `json:"method_id,omitempty"`
 	SessionToken string  `json:"session_token,omitempty"`
 	Session      Session `json:"session,omitempty"`
+	SessionJWT   string  `json:"session_jwt,omitempty"`
 }
 
 // OTP - SMS
