@@ -36,6 +36,7 @@ type TOTPsAuthenticateResponse struct {
 	SessionToken string  `json:"session_token,omitempty"`
 	SessionJWT   string  `json:"session_jwt,omitempty"`
 	Session      Session `json:"session,omitempty"`
+	User         User    `jspon:"user,omitempty"`
 }
 
 type TOTPsRecoveryCodesParams struct {
@@ -65,4 +66,5 @@ type TOTPsRecoverResponse struct {
 	SessionToken string  `json:"session_token,omitempty"`
 	SessionJWT   string  `json:"session_jwt,omitempty"`
 	Session      Session `json:"session,omitempty"`
+	User         User    `jspon:"user,omitempty"`
 }
