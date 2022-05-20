@@ -53,4 +53,5 @@ type WebAuthnAuthenticateResponse struct {
 	SessionToken           string  `json:"session_token,omitempty"`
 	SessionJWT             string  `json:"session_jwt,omitempty"`
 	Session                Session `json:"session,omitempty"`
+	User                   User    `jspon:"user,omitempty"`
 }
