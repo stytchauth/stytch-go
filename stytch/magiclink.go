@@ -20,6 +20,7 @@ type MagicLinksAuthenticateParams struct {
 	SessionToken           string     `json:"session_token,omitempty"`
 	SessionJWT             string     `json:"session_jwt,omitempty"`
 	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
+	CodeVerifier           string     `json:"code_verifier,omitempty"`
 }
 
 type MagicLinksAuthenticateResponse struct {
@@ -41,6 +42,7 @@ type MagicLinksEmailSendParams struct {
 	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
+	CodeChallenge           string     `json:"code_challenge,omitempty"`
 }
 
 type MagicLinksEmailSendResponse struct {
@@ -58,6 +60,7 @@ type MagicLinksEmailLoginOrCreateParams struct {
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
 	CreateUserAsPending     bool       `json:"create_user_as_pending,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
+	CodeChallenge           string     `json:"code_challenge,omitempty"`
 }
 
 type MagicLinksEmailLoginOrCreateResponse struct {
