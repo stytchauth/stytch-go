@@ -18,7 +18,7 @@ type OTPsAuthenticateResponse struct {
 	SessionToken string  `json:"session_token,omitempty"`
 	Session      Session `json:"session,omitempty"`
 	SessionJWT   string  `json:"session_jwt,omitempty"`
-	User         User    `jspon:"user,omitempty"`
+	User         User    `json:"user,omitempty"`
 }
 
 // OTP - SMS
