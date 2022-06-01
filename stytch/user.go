@@ -78,7 +78,7 @@ type UsersCreateResponse struct {
 	EmailID    string `json:"email_id,omitempty"`
 	PhoneID    string `json:"phone_id,omitempty"`
 	Status     string `json:"status,omitempty"`
-	User       User   `jspon:"user,omitempty"`
+	User       User   `json:"user,omitempty"`
 }
 
 type UsersGetResponse struct {
@@ -111,7 +111,7 @@ type UsersUpdateResponse struct {
 	Emails        []Email        `json:"emails,omitempty"`
 	PhoneNumbers  []PhoneNumber  `json:"phone_numbers,omitempty"`
 	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
-	User          User           `jspon:"user,omitempty"`
+	User          User           `json:"user,omitempty"`
 }
 
 type UsersDeleteResponse struct {
@@ -124,35 +124,35 @@ type UsersDeleteEmailResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
-	User       User   `jspon:"user,omitempty"`
+	User       User   `json:"user,omitempty"`
 }
 
 type UsersDeletePhoneNumberResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
-	User       User   `jspon:"user,omitempty"`
+	User       User   `json:"user,omitempty"`
 }
 
 type UsersDeleteWebAuthnRegistrationResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
-	User       User   `jspon:"user,omitempty"`
+	User       User   `json:"user,omitempty"`
 }
 
 type UsersDeleteTOTPResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
-	User       User   `jspon:"user,omitempty"`
+	User       User   `json:"user,omitempty"`
 }
 
 type UsersDeleteCryptoWalletResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
-	User       User   `jspon:"user,omitempty"`
+	User       User   `json:"user,omitempty"`
 }
 
 /* User Search */
