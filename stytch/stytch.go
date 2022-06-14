@@ -47,7 +47,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 
 	req, err := http.NewRequest(method, path, bytes.NewReader(body))
 	if err != nil {
-		return fmt.Errorf("error creating a new http request: %w", err)
+		return fmt.Errorf("error creating http request: %w", err)
 	}
 
 	// add query params
@@ -71,7 +71,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return fmt.Errorf("error sending a new http request: %w", err)
+		return fmt.Errorf("error sending http request: %w", err)
 	}
 	defer func() {
 		res.Body.Close()
@@ -80,7 +80,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 	// Successful response
 	if res.StatusCode == 200 || res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
-			return fmt.Errorf("error decoding a new http request: %w", err)
+			return fmt.Errorf("error decoding http request: %w", err)
 		}
 		return nil
 	}
@@ -88,7 +88,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 	// Attempt to unmarshal into Stytch error format
 	var stytchErr stytcherror.Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
-		return fmt.Errorf("error decoding a new http request: %w", err)
+		return fmt.Errorf("error decoding http request: %w", err)
 	}
 	stytchErr.StatusCode = res.StatusCode
 	return stytchErr
