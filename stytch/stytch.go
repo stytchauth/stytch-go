@@ -81,7 +81,6 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 	if res.StatusCode == 200 || res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
 			return fmt.Errorf("error decoding a new http request: %w", err)
-
 		}
 		return nil
 	}
@@ -90,7 +89,6 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 	var stytchErr stytcherror.Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
 		return fmt.Errorf("error decoding a new http request: %w", err)
-
 	}
 	stytchErr.StatusCode = res.StatusCode
 	return stytchErr
