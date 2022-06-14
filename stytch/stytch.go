@@ -16,20 +16,9 @@ const (
 	EnvLive = config.EnvLive
 )
 
-type Logger interface {
-	Printf(format string, v ...interface{})
-}
-
 type Client struct {
 	Config     *config.Config
 	HTTPClient *http.Client
-	logger     Logger
-}
-
-type Option func(*Client)
-
-func WithLogger(logger Logger) Option {
-	return func(client *Client) { client.logger = logger }
 }
 
 func New(env config.Env, projectID string, secret string) *Client {
@@ -82,9 +71,6 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		if c.logger != nil {
-			c.logger.Printf("There was an error with sending the http request\nError: %s", err.Error())
-		}
 		return stytcherror.NewClientLibraryError("Oops, something seems to have gone " +
 			"wrong sending the http request")
 	}
