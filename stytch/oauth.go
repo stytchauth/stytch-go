@@ -18,7 +18,7 @@ type OAuthAuthenticateParams struct {
 	SessionToken           string `json:"session_token,omitempty"`
 	SessionJWT             string `json:"session_jwt,omitempty"`
 	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
-	CodeVerifier           string `json:"code_verifier"`
+	CodeVerifier           string `json:"code_verifier,omitempty"`
 }
 
 type OAuthAuthenticateResponse struct {
