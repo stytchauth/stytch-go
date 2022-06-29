@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 
@@ -39,6 +40,27 @@ func New(env config.Env, projectID string, secret string) *Client {
 func (c *Client) NewRequest(method string, path string, queryParams map[string]string,
 	body []byte, v interface{},
 ) error {
+	b, err := c.RawRequest(method, path, queryParams, body)
+	if err != nil {
+		return err
+	}
+
+	if err = json.Unmarshal(b, v); err != nil {
+		return fmt.Errorf("error decoding http request: %w", err)
+	}
+	return nil
+}
+
+// RawRequest sends the request and returns the successful response body as bytes. If the response
+// is an error, the response body will be parsed and returned as (nil, stytcherror.Error).
+//
+// Prefer using NewRequest (which unmarshals the response JSON) unless you need the actual bytes.
+func (c *Client) RawRequest(
+	method string,
+	path string,
+	queryParams map[string]string,
+	body []byte,
+) ([]byte, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
@@ -47,7 +69,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 
 	req, err := http.NewRequest(method, path, bytes.NewReader(body))
 	if err != nil {
-		return fmt.Errorf("error creating http request: %w", err)
+		return nil, fmt.Errorf("error creating http request: %w", err)
 	}
 
 	// add query params
@@ -71,7 +93,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return fmt.Errorf("error sending http request: %w", err)
+		return nil, fmt.Errorf("error sending http request: %w", err)
 	}
 	defer func() {
 		res.Body.Close()
@@ -79,17 +101,14 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 
 	// Successful response
 	if res.StatusCode == 200 || res.StatusCode == 201 {
-		if err = json.NewDecoder(res.Body).Decode(v); err != nil {
-			return fmt.Errorf("error decoding http request: %w", err)
-		}
-		return nil
+		return io.ReadAll(res.Body)
 	}
 
 	// Attempt to unmarshal into Stytch error format
 	var stytchErr stytcherror.Error
 	if err = json.NewDecoder(res.Body).Decode(&stytchErr); err != nil {
-		return fmt.Errorf("error decoding http request: %w", err)
+		return nil, fmt.Errorf("error decoding http request: %w", err)
 	}
 	stytchErr.StatusCode = res.StatusCode
-	return stytchErr
+	return nil, stytchErr
 }

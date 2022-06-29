@@ -48,7 +48,6 @@ func TestNewClient(t *testing.T) {
 			http.Error(w, "Bad Request", http.StatusBadRequest)
 			return
 		}))
-		_ = srv
 
 		client, err := stytchapi.NewAPIClient(
 			config.Env("anything"),

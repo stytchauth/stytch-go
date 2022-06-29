@@ -3,6 +3,9 @@ package session_test
 import (
 	"crypto/rand"
 	"crypto/rsa"
+	"net/http"
+	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 
@@ -13,6 +16,7 @@ import (
 	"github.com/stytchauth/stytch-go/v5/stytch"
 	"github.com/stytchauth/stytch-go/v5/stytch/config"
 	"github.com/stytchauth/stytch-go/v5/stytch/session"
+	"github.com/stytchauth/stytch-go/v5/stytch/stytchapi"
 )
 
 func TestAuthenticateJWTLocal(t *testing.T) {
@@ -133,6 +137,103 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		}
 		assert.Equal(t, expected, session)
 	})
+}
+
+func TestAuthenticateWithClaims(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Handle the async JWKS fetch.
+		if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
+			w.Write([]byte(`{"keys": []}`))
+			return
+		}
+
+		// This is the test request
+		if r.URL.Path == "/sessions/authenticate" {
+			// There are  many other fields in this response, but these are the only ones we need
+			// for this test.
+			w.Write([]byte(`{
+			  "session": {
+			    "expires_at": "2022-06-29T19:53:48Z",
+			    "last_accessed_at": "2022-06-29T17:54:13Z",
+			    "session_id": "session-test-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+			    "started_at": "2022-06-29T17:53:48Z",
+			    "user_id": "user-test-00000000-0000-0000-0000-000000000000",
+
+			    "custom_claims": {
+			      "https://my-app.example.net/custom-claim": {
+			        "number": 1,
+			        "array": [1, "foo", null],
+			        "nested": {
+			          "data": "here"
+			        }
+			      }
+			    }
+			  }
+			}`))
+			return
+		}
+
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}))
+
+	client, err := stytchapi.NewAPIClient(
+		config.Env("anything"),
+		"project-test-00000000-0000-0000-0000-000000000000",
+		"secret-test-11111111-1111-1111-1111-111111111111",
+		stytchapi.WithBaseURI(srv.URL),
+	)
+	require.NoError(t, err)
+
+	req := &stytch.SessionsAuthenticateParams{
+		SessionToken: "fake session token",
+	}
+
+	{
+		var claims map[string]interface{}
+		_, err := client.Sessions.AuthenticateWithClaims(req, &claims)
+		require.NoError(t, err)
+
+		type object = map[string]interface{}
+		expected := object{
+			"https://my-app.example.net/custom-claim": object{
+				// Remember that numbers without specified types unmarshal as float64.
+				"number": float64(1),
+				"array":  []interface{}{float64(1), "foo", nil},
+				"nested": object{
+					"data": "here",
+				},
+			},
+		}
+		assert.Equal(t, expected, claims)
+	}
+
+	type MyAppClaims struct {
+		Number int
+		Array  []interface{}
+		Nested struct {
+			Data string
+		}
+	}
+
+	type Claims struct {
+		MyApp MyAppClaims `json:"https://my-app.example.net/custom-claim"`
+	}
+
+	{
+		var claims Claims
+		_, err = client.Sessions.AuthenticateWithClaims(req, &claims)
+		require.NoError(t, err)
+		expected := Claims{
+			MyApp: MyAppClaims{
+				Number: 1,
+				// Remember that numbers without specified types unmarshal as float64.
+				Array:  []interface{}{float64(1), "foo", nil},
+				Nested: struct{ Data string }{Data: "here"},
+			},
+		}
+		assert.Equal(t, expected, claims)
+	}
 }
 
 func rsaKey(t *testing.T) *rsa.PrivateKey {

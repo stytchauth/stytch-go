@@ -128,6 +128,60 @@ func (c *Client) Authenticate(
 	return &retVal, err
 }
 
+func (c *Client) AuthenticateWithClaims(
+	body *stytch.SessionsAuthenticateParams,
+	claims interface{},
+) (*stytch.SessionsAuthenticateResponse, error) {
+	path := "/sessions/authenticate"
+
+	// TODO: Depending on the actual shape of the response, we might need different wrapping.
+	type ClaimsWrapper struct {
+		Session struct {
+			Claims interface{} `json:"custom_claims"`
+		} `json:"session"`
+	}
+
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the /sessions/authenticate request body")
+		}
+	}
+
+	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	if err != nil {
+		return nil, err
+	}
+
+	// Unmarshal the same body twice to extract different parts. This is nicer than returning the
+	// custom claims as `map[string]interface{}` because the caller doesn't need type assertions
+	// to use the claims.
+
+	// First extract the Stytch data.
+	var retVal stytch.SessionsAuthenticateResponse
+	if err := json.Unmarshal(b, &retVal); err != nil {
+		return nil, fmt.Errorf("unmarshal SessionsAuthenticateResponse: %w", err)
+	}
+
+	// Then extract the custom claims. Build a claims wrapper using the caller's `claims` value so
+	// the unmarshal fills it.
+	wrapper := ClaimsWrapper{
+		Session: struct {
+			Claims interface{} `json:"custom_claims"`
+		}{
+			Claims: claims,
+		},
+	}
+	if err := json.Unmarshal(b, &wrapper); err != nil {
+		return nil, fmt.Errorf("unmarshal custom claims: %w", err)
+	}
+
+	return &retVal, err
+}
+
 func (c *Client) Revoke(
 	body *stytch.SessionsRevokeParams,
 ) (*stytch.SessionsRevokeResponse, error) {

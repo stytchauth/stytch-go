@@ -14,13 +14,14 @@ type MagicLinksCreateResponse struct {
 }
 
 type MagicLinksAuthenticateParams struct {
-	Token                  string     `json:"token,omitempty"`
-	Options                Options    `json:"options,omitempty"`
-	Attributes             Attributes `json:"attributes,omitempty"`
-	SessionToken           string     `json:"session_token,omitempty"`
-	SessionJWT             string     `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
-	CodeVerifier           string     `json:"code_verifier,omitempty"`
+	Token                  string      `json:"token,omitempty"`
+	Options                Options     `json:"options,omitempty"`
+	Attributes             Attributes  `json:"attributes,omitempty"`
+	SessionToken           string      `json:"session_token,omitempty"`
+	SessionJWT             string      `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32       `json:"session_duration_minutes,omitempty"`
+	CodeVerifier           string      `json:"code_verifier,omitempty"`
+	CustomClaims           interface{} `json:"custom_claims,omitempty"`
 }
 
 type MagicLinksAuthenticateResponse struct {
