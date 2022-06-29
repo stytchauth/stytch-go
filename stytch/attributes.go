@@ -138,4 +138,11 @@ type Session struct {
 	ExpiresAt             string                  `json:"expires_at,omitempty"`
 	Attributes            Attributes              `json:"attributes,omitempty"`
 	AuthenticationFactors []*AuthenticationFactor `json:"authentication_factors,omitempty"`
+	CustomClaims          interface{}             `json:"custom_claims"`
+}
+
+type ClaimsWrapper struct {
+	Session struct {
+		Claims interface{} `json:"custom_claims"`
+	} `json:"session"`
 }

@@ -61,6 +61,26 @@ func (c *Client) AuthenticateJWT(
 	}, nil
 }
 
+func (c *Client) AuthenticateJWTWithClaims(
+	maxTokenAge time.Duration,
+	body *stytch.SessionsAuthenticateParams,
+	claims interface{},
+) (*stytch.SessionsAuthenticateResponse, error) {
+	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
+		return c.AuthenticateWithClaims(body, claims)
+	}
+
+	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	if err != nil {
+		// JWT couldn't be verified locally. Check with the Stytch API.
+		return c.Authenticate(body)
+	}
+
+	return &stytch.SessionsAuthenticateResponse{
+		Session: *session,
+	}, nil
+}
+
 func (c *Client) AuthenticateJWTLocal(
 	token string,
 	maxTokenAge time.Duration,
@@ -134,13 +154,6 @@ func (c *Client) AuthenticateWithClaims(
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	path := "/sessions/authenticate"
 
-	// TODO: Depending on the actual shape of the response, we might need different wrapping.
-	type ClaimsWrapper struct {
-		Session struct {
-			Claims interface{} `json:"custom_claims"`
-		} `json:"session"`
-	}
-
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -156,10 +169,6 @@ func (c *Client) AuthenticateWithClaims(
 		return nil, err
 	}
 
-	// Unmarshal the same body twice to extract different parts. This is nicer than returning the
-	// custom claims as `map[string]interface{}` because the caller doesn't need type assertions
-	// to use the claims.
-
 	// First extract the Stytch data.
 	var retVal stytch.SessionsAuthenticateResponse
 	if err := json.Unmarshal(b, &retVal); err != nil {
@@ -168,7 +177,7 @@ func (c *Client) AuthenticateWithClaims(
 
 	// Then extract the custom claims. Build a claims wrapper using the caller's `claims` value so
 	// the unmarshal fills it.
-	wrapper := ClaimsWrapper{
+	wrapper := stytch.ClaimsWrapper{
 		Session: struct {
 			Claims interface{} `json:"custom_claims"`
 		}{
@@ -178,7 +187,7 @@ func (c *Client) AuthenticateWithClaims(
 	if err := json.Unmarshal(b, &wrapper); err != nil {
 		return nil, fmt.Errorf("unmarshal custom claims: %w", err)
 	}
-
+	retVal.Session.CustomClaims = wrapper.Session.Claims
 	return &retVal, err
 }
 

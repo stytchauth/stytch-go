@@ -5,7 +5,7 @@ const APIVersion = "5.6.2"
 type BaseURI string
 
 const (
-	BaseURITest BaseURI = "https://test.stytch.com/v1"
+	BaseURITest BaseURI = "https://test.nikhil.dev.stytch.com/v1"
 	BaseURILive BaseURI = "https://api.stytch.com/v1"
 )
 
