@@ -61,6 +61,26 @@ func (c *Client) AuthenticateJWT(
 	}, nil
 }
 
+func (c *Client) AuthenticateJWTWithClaims(
+	maxTokenAge time.Duration,
+	body *stytch.SessionsAuthenticateParams,
+	claims interface{},
+) (*stytch.SessionsAuthenticateResponse, error) {
+	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
+		return c.AuthenticateWithClaims(body, claims)
+	}
+
+	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	if err != nil {
+		// JWT couldn't be verified locally. Check with the Stytch API.
+		return c.Authenticate(body)
+	}
+
+	return &stytch.SessionsAuthenticateResponse{
+		Session: *session,
+	}, nil
+}
+
 func (c *Client) AuthenticateJWTLocal(
 	token string,
 	maxTokenAge time.Duration,
@@ -125,6 +145,47 @@ func (c *Client) Authenticate(
 
 	var retVal stytch.SessionsAuthenticateResponse
 	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	return &retVal, err
+}
+
+func (c *Client) AuthenticateWithClaims(
+	body *stytch.SessionsAuthenticateParams,
+	claims interface{},
+) (*stytch.SessionsAuthenticateResponse, error) {
+	path := "/sessions/authenticate"
+
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the /sessions/authenticate request body")
+		}
+	}
+
+	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	if err != nil {
+		return nil, err
+	}
+
+	// First extract the Stytch data.
+	var retVal stytch.SessionsAuthenticateResponse
+	if err := json.Unmarshal(b, &retVal); err != nil {
+		return nil, fmt.Errorf("unmarshal SessionsAuthenticateResponse: %w", err)
+	}
+
+	// Then extract the custom claims. Build a claims wrapper using the caller's `claims` value so
+	// the unmarshal fills it.
+	wrapper := stytch.SessionWrapper{
+		Session: stytch.ClaimsWrapper{
+			Claims: claims,
+		},
+	}
+	if err := json.Unmarshal(b, &wrapper); err != nil {
+		return nil, fmt.Errorf("unmarshal custom claims: %w", err)
+	}
+	retVal.Session.CustomClaims = wrapper.Session.Claims
 	return &retVal, err
 }
 

@@ -138,4 +138,15 @@ type Session struct {
 	ExpiresAt             string                  `json:"expires_at,omitempty"`
 	Attributes            Attributes              `json:"attributes,omitempty"`
 	AuthenticationFactors []*AuthenticationFactor `json:"authentication_factors,omitempty"`
+	CustomClaims          interface{}             `json:"custom_claims"`
+}
+
+// SessionWrapper wraps a session object with a custom_claims field
+// so that we can unmarshal custom claims from authenticate responses
+type SessionWrapper struct {
+	Session ClaimsWrapper `json:"session"`
+}
+
+type ClaimsWrapper struct {
+	Claims interface{} `json:"custom_claims"`
 }
