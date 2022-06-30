@@ -189,7 +189,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 		SessionToken: "fake session token",
 	}
 
-	{
+	t.Run("marshaling claims into a map", func(t *testing.T) {
 		var claims map[string]interface{}
 		_, err := client.Sessions.AuthenticateWithClaims(req, &claims)
 		require.NoError(t, err)
@@ -206,34 +206,35 @@ func TestAuthenticateWithClaims(t *testing.T) {
 			},
 		}
 		assert.Equal(t, expected, claims)
-	}
-
-	type MyAppClaims struct {
-		Number int
-		Array  []interface{}
-		Nested struct {
-			Data string
+	})
+	t.Run("marshaling claims into a struct", func(t *testing.T) {
+		type MyAppClaims struct {
+			Number int
+			Array  []interface{}
+			Nested struct {
+				Data string
+			}
 		}
-	}
 
-	type Claims struct {
-		MyApp MyAppClaims `json:"https://my-app.example.net/custom-claim"`
-	}
-
-	{
-		var claims Claims
-		_, err = client.Sessions.AuthenticateWithClaims(req, &claims)
-		require.NoError(t, err)
-		expected := Claims{
-			MyApp: MyAppClaims{
-				Number: 1,
-				// Remember that numbers without specified types unmarshal as float64.
-				Array:  []interface{}{float64(1), "foo", nil},
-				Nested: struct{ Data string }{Data: "here"},
-			},
+		type Claims struct {
+			MyApp MyAppClaims `json:"https://my-app.example.net/custom-claim"`
 		}
-		assert.Equal(t, expected, claims)
-	}
+
+		{
+			var claims Claims
+			_, err = client.Sessions.AuthenticateWithClaims(req, &claims)
+			require.NoError(t, err)
+			expected := Claims{
+				MyApp: MyAppClaims{
+					Number: 1,
+					// Remember that numbers without specified types unmarshal as float64.
+					Array:  []interface{}{float64(1), "foo", nil},
+					Nested: struct{ Data string }{Data: "here"},
+				},
+			}
+			assert.Equal(t, expected, claims)
+		}
+	})
 }
 
 func rsaKey(t *testing.T) *rsa.PrivateKey {

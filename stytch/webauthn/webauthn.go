@@ -117,10 +117,8 @@ func (c *Client) AuthenticateWithClaims(
 
 	// Then extract the custom claims. Build a claims wrapper using the caller's `claims` value so
 	// the unmarshal fills it.
-	wrapper := stytch.ClaimsWrapper{
-		Session: struct {
-			Claims interface{} `json:"custom_claims"`
-		}{
+	wrapper := stytch.SessionWrapper{
+		Session: stytch.ClaimsWrapper{
 			Claims: claims,
 		},
 	}

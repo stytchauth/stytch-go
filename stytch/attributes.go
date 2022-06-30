@@ -141,8 +141,12 @@ type Session struct {
 	CustomClaims          interface{}             `json:"custom_claims"`
 }
 
+// SessionWrapper wraps a session object with a custom_claims field
+// so that we can unmarshal custom claims from authenticate responses
+type SessionWrapper struct {
+	Session ClaimsWrapper `json:"session"`
+}
+
 type ClaimsWrapper struct {
-	Session struct {
-		Claims interface{} `json:"custom_claims"`
-	} `json:"session"`
+	Claims interface{} `json:"custom_claims"`
 }
