@@ -50,6 +50,9 @@ func (c *Client) Authenticate(body *stytch.CryptoWalletAuthenticateParams,
 	return &retVal, err
 }
 
+// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See session_test.go for an example
 func (c *Client) AuthenticateWithClaims(
 	body *stytch.CryptoWalletAuthenticateParams,
 	claims interface{},

@@ -1,9 +1,10 @@
 package stytch
 
 type PasswordsCreateParams struct {
-	Email                  string `json:"email"`
-	Password               string `json:"password"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
+	Email                  string                 `json:"email"`
+	Password               string                 `json:"password"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type PasswordsCreateResponse struct {
@@ -18,11 +19,12 @@ type PasswordsCreateResponse struct {
 }
 
 type PasswordsAuthenticateParams struct {
-	Email                  string `json:"email"`
-	Password               string `json:"password"`
-	SessionToken           string `json:"session_token,omitempty"`
-	SessionJWT             string `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
+	Email                  string                 `json:"email"`
+	Password               string                 `json:"password"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type PasswordsAuthenticateResponse struct {
@@ -95,14 +97,15 @@ type PasswordEmailResetStartResponse struct {
 }
 
 type PasswordEmailResetParams struct {
-	Token                  string     `json:"token,omitempty"`
-	Password               string     `json:"password,omitempty"`
-	SessionToken           string     `json:"session_token,omitempty"`
-	SessionJWT             string     `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32      `json:"session_duration_minutes,omitempty"`
-	Options                Options    `json:"options,omitempty"`
-	Attributes             Attributes `json:"attributes,omitempty"`
-	CodeVerifier           string     `json:"code_verifier,omitempty"`
+	Token                  string                 `json:"token,omitempty"`
+	Password               string                 `json:"password,omitempty"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
+	Options                Options                `json:"options,omitempty"`
+	Attributes             Attributes             `json:"attributes,omitempty"`
+	CodeVerifier           string                 `json:"code_verifier,omitempty"`
 }
 
 type PasswordEmailResetResponse struct {

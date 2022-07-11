@@ -37,9 +37,10 @@ type Key struct {
 }
 
 type SessionsAuthenticateParams struct {
-	SessionToken           string `json:"session_token,omitempty"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
-	SessionJWT             string `json:"session_jwt,omitempty"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type SessionsAuthenticateResponse struct {

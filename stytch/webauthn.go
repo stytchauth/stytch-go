@@ -39,10 +39,11 @@ type WebAuthnAuthenticateStartResponse struct {
 }
 
 type WebAuthnAuthenticateParams struct {
-	PublicKeyCredential    string `json:"public_key_credential,omitempty"`
-	SessionToken           string `json:"session_token,omitempty"`
-	SessionJWT             string `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
+	PublicKeyCredential    string                 `json:"public_key_credential,omitempty"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type WebAuthnAuthenticateResponse struct {

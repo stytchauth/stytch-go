@@ -21,11 +21,12 @@ type TOTPsCreateResponse struct {
 }
 
 type TOTPsAuthenticateParams struct {
-	UserID                 string `json:"user_id"`
-	TOTPCode               string `json:"totp_code"`
-	SessionToken           string `json:"session_token,omitempty"`
-	SessionJWT             string `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
+	UserID                 string                 `json:"user_id"`
+	TOTPCode               string                 `json:"totp_code"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type TOTPsAuthenticateResponse struct {
@@ -51,11 +52,12 @@ type TOTPsRecoveryCodesResponse struct {
 }
 
 type TOTPsRecoverParams struct {
-	UserID                 string `json:"user_id"`
-	RecoveryCode           string `json:"recovery_code"`
-	SessionToken           string `json:"session_token,omitempty"`
-	SessionJWT             string `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
+	UserID                 string                 `json:"user_id"`
+	RecoveryCode           string                 `json:"recovery_code"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type TOTPsRecoverResponse struct {
