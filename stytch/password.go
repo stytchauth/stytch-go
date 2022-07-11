@@ -55,11 +55,11 @@ type Feedback struct {
 }
 
 type PasswordsMigrateParams struct {
-	Email       string `json:"email"`
-	Hash        string `json:"hash"`
-	HashType    string `json:"hash_type"`
-	PrependSalt string `json:"prepend_salt,omitempty"`
-	AppendSalt  string `json:"append_salt,omitempty"`
+	Email       string   `json:"email"`
+	Hash        string   `json:"hash"`
+	HashType    HashType `json:"hash_type"`
+	PrependSalt string   `json:"prepend_salt,omitempty"`
+	AppendSalt  string   `json:"append_salt,omitempty"`
 }
 
 type PasswordsMigrateResponse struct {
@@ -69,6 +69,12 @@ type PasswordsMigrateResponse struct {
 	EmailID     string `json:"email_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
 }
+
+type HashType string
+
+const (
+	HashTypeBcrypt HashType = "bcrypt"
+)
 
 // PASSWORD - EMAIL
 type PasswordEmailResetStartParams struct {
