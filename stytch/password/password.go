@@ -76,7 +76,7 @@ func (c *Client) StrengthCheck(
 	return &retVal, err
 }
 
-func (c *Client) Migreate(
+func (c *Client) Migrate(
 	body *stytch.PasswordsMigrateParams,
 ) (*stytch.PasswordsMigrateResponse, error) {
 	path := "/passwords/migrate"
