@@ -63,6 +63,11 @@ type CryptoWallet struct {
 	Verified            bool   `json:"verified,omitempty"`
 }
 
+type Password struct {
+	PasswordID    string `json:"password_id,omitempty"`
+	RequiresReset bool   `json:"requires_reset,omitempty"`
+}
+
 type UsersCreateParams struct {
 	Email               string     `json:"email,omitempty"`
 	PhoneNumber         string     `json:"phone_number,omitempty"`
@@ -347,6 +352,14 @@ func (q UsersSearchQueryCryptoWalletVerifiedFilter) MarshalJSON() ([]byte, error
 	return marshalFilter("crypto_wallet_verified", q.CryptoWalletVerified)
 }
 
+type UsersSearchQueryPasswordExistsFilter struct {
+	PasswordExists bool
+}
+
+func (q UsersSearchQueryPasswordExistsFilter) MarshalJSON() ([]byte, error) {
+	return marshalFilter("password_exists", q.PasswordExists)
+}
+
 /* OAuth Filters */
 
 type UsersSearchQueryOAuthProviderFilter struct {
@@ -383,6 +396,7 @@ type User struct {
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	OAuthProviders        []OAuthProvider        `json:"providers,omitempty"`
 	TOTPs                 []UserTOTP             `json:"totps,omitempty"`
+	Password              Password               `json:"password,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
 }
@@ -406,6 +420,7 @@ type PendingUsers struct {
 	PhoneNumbers  []PhoneNumber  `json:"phone_numbers,omitempty"`
 	TOTPs         []UserTOTP     `json:"totps,omitempty"`
 	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
+	Password      Password       `json:"password,omitempty"`
 	Status        string         `json:"status,omitempty"`
 	InvitedAt     string         `json:"invited_at,omitempty"`
 }

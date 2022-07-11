@@ -11,14 +11,15 @@ type OTPsAuthenticateParams struct {
 }
 
 type OTPsAuthenticateResponse struct {
-	RequestID    string  `json:"request_id,omitempty"`
-	StatusCode   int     `json:"status_code,omitempty"`
-	UserID       string  `json:"user_id,omitempty"`
-	MethodID     string  `json:"method_id,omitempty"`
-	SessionToken string  `json:"session_token,omitempty"`
-	Session      Session `json:"session,omitempty"`
-	SessionJWT   string  `json:"session_jwt,omitempty"`
-	User         User    `json:"user,omitempty"`
+	RequestID     string  `json:"request_id,omitempty"`
+	StatusCode    int     `json:"status_code,omitempty"`
+	UserID        string  `json:"user_id,omitempty"`
+	MethodID      string  `json:"method_id,omitempty"`
+	SessionToken  string  `json:"session_token,omitempty"`
+	Session       Session `json:"session,omitempty"`
+	SessionJWT    string  `json:"session_jwt,omitempty"`
+	User          User    `json:"user,omitempty"`
+	ResetSessions bool    `json:"reset_sessions,omitempty"`
 }
 
 // OTP - SMS
