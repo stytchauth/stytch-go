@@ -24,14 +24,15 @@ type MagicLinksAuthenticateParams struct {
 }
 
 type MagicLinksAuthenticateResponse struct {
-	RequestID    string  `json:"request_id,omitempty"`
-	StatusCode   int     `json:"status_code,omitempty"`
-	UserID       string  `json:"user_id,omitempty"`
-	MethodID     string  `json:"method_id,omitempty"`
-	SessionToken string  `json:"session_token,omitempty"`
-	SessionJWT   string  `json:"session_jwt,omitempty"`
-	Session      Session `json:"session,omitempty"`
-	User         User    `json:"user,omitempty"`
+	RequestID     string  `json:"request_id,omitempty"`
+	StatusCode    int     `json:"status_code,omitempty"`
+	UserID        string  `json:"user_id,omitempty"`
+	MethodID      string  `json:"method_id,omitempty"`
+	SessionToken  string  `json:"session_token,omitempty"`
+	SessionJWT    string  `json:"session_jwt,omitempty"`
+	Session       Session `json:"session,omitempty"`
+	User          User    `json:"user,omitempty"`
+	ResetSessions bool    `json:"reset_sessions,omitempty"`
 }
 
 // MAGIC LINK - EMAIL

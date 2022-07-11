@@ -16,6 +16,8 @@ import (
 	otpe "github.com/stytchauth/stytch-go/v5/stytch/otp/email"
 	"github.com/stytchauth/stytch-go/v5/stytch/otp/sms"
 	"github.com/stytchauth/stytch-go/v5/stytch/otp/whatsapp"
+	"github.com/stytchauth/stytch-go/v5/stytch/password"
+	pe "github.com/stytchauth/stytch-go/v5/stytch/password/email"
 	"github.com/stytchauth/stytch-go/v5/stytch/session"
 	"github.com/stytchauth/stytch-go/v5/stytch/totp"
 	"github.com/stytchauth/stytch-go/v5/stytch/user"
@@ -33,6 +35,7 @@ type API struct {
 	MagicLinks    *magiclink.Client
 	OAuth         *oauth.Client
 	OTPs          *otp.Client
+	Passwords     *password.Client
 	Sessions      *session.Client
 	TOTPs         *totp.Client
 	Users         *user.Client
@@ -71,6 +74,7 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 		WhatsApp: &whatsapp.Client{C: a.client},
 	}
 	a.OAuth = &oauth.Client{C: a.client}
+	a.Passwords = &password.Client{C: a.client, Email: &pe.Client{C: a.client}}
 	a.TOTPs = &totp.Client{C: a.client}
 	a.Users = &user.Client{C: a.client}
 	a.WebAuthn = &webauthn.Client{C: a.client}
