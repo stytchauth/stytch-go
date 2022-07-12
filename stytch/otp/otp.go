@@ -40,7 +40,7 @@ func (c *Client) Authenticate(
 
 // AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
 // Pass in a map with the types of values you're expecting so that this function can marshal
-// the claims from the response. See ExampleClient_AuthenticateWithClaims_map, 
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
 	body *stytch.OTPsAuthenticateParams,
