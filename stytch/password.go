@@ -83,7 +83,6 @@ type PasswordEmailResetStartParams struct {
 	Email                          string     `json:"email"`
 	LoginRedirectURL               string     `json:"login_redirect_url,omitempty"`
 	ResetPasswordRedirectURL       string     `json:"reset_password_redirect_url,omitempty"`
-	LoginExpirationMinutes         int32      `json:"login_expiration_minutes,omitempty"`
 	ResetPasswordExpirationMinutes int32      `json:"reset_password_expiration_minutes,omitempty"`
 	Attributes                     Attributes `json:"attributes,omitempty"`
 	CodeChallenge                  string     `json:"code_challenge,omitempty"`
