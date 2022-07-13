@@ -54,6 +54,10 @@ func (c *Client) Authenticate(body *stytch.TOTPsAuthenticateParams) (
 	return &retVal, err
 }
 
+// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
+// ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
 	body *stytch.TOTPsAuthenticateParams,
 	claims interface{},
@@ -140,6 +144,10 @@ func (c *Client) Recover(body *stytch.TOTPsRecoverParams) (
 	return &retVal, err
 }
 
+// RecoverWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
+// ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) RecoverWithClaims(
 	body *stytch.TOTPsRecoverParams,
 	claims interface{},

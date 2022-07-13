@@ -3,6 +3,7 @@ package session_test
 import (
 	"crypto/rand"
 	"crypto/rsa"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -235,6 +236,129 @@ func TestAuthenticateWithClaims(t *testing.T) {
 			assert.Equal(t, expected, claims)
 		}
 	})
+}
+
+func ExampleClient_AuthenticateWithClaims_map() {
+	// If we know that our claims will follow this exact map structure, we can marshal the
+	// custom claims from the response into it
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Handle the async JWKS fetch.
+		if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
+			w.Write([]byte(`{"keys": []}`))
+			return
+		}
+
+		// This is the test request
+		if r.URL.Path == "/sessions/authenticate" {
+			// There are  many other fields in this response, but these are the only ones we need
+			// for this test.
+			w.Write([]byte(`{
+			  "session": {
+			    "expires_at": "2022-06-29T19:53:48Z",
+			    "last_accessed_at": "2022-06-29T17:54:13Z",
+			    "session_id": "session-test-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+			    "started_at": "2022-06-29T17:53:48Z",
+			    "user_id": "user-test-00000000-0000-0000-0000-000000000000",
+
+			    "custom_claims": {
+			      "https://my-app.example.net/custom-claim": {
+			        "claim1": 1,
+			        "claim2": 2,
+			        "claim3": 3
+			      }
+			    }
+			  }
+			}`))
+			return
+		}
+
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}))
+
+	client, _ := stytchapi.NewAPIClient(
+		config.Env("anything"),
+		"project-test-00000000-0000-0000-0000-000000000000",
+		"secret-test-11111111-1111-1111-1111-111111111111",
+		stytchapi.WithBaseURI(srv.URL),
+	)
+
+	// Expecting a map where all the values are maps from strings to integers
+	var mapClaims map[string]map[string]int32
+	_, _ = client.Sessions.AuthenticateWithClaims(&stytch.SessionsAuthenticateParams{
+		SessionToken: "fake session token",
+	}, &mapClaims)
+
+	fmt.Println(mapClaims)
+	// Output: map[https://my-app.example.net/custom-claim:map[claim1:1 claim2:2 claim3:3]]
+}
+
+func ExampleClient_AuthenticateWithClaims_struct() {
+	// When we define a struct that follows the shape of our claims, we can marshal the
+	// custom claims from the response into it
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Handle the async JWKS fetch.
+		if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
+			w.Write([]byte(`{"keys": []}`))
+			return
+		}
+
+		// This is the test request
+		if r.URL.Path == "/sessions/authenticate" {
+			// There are  many other fields in this response, but these are the only ones we need
+			// for this test.
+			w.Write([]byte(`{
+			  "session": {
+			    "expires_at": "2022-06-29T19:53:48Z",
+			    "last_accessed_at": "2022-06-29T17:54:13Z",
+			    "session_id": "session-test-aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+			    "started_at": "2022-06-29T17:53:48Z",
+			    "user_id": "user-test-00000000-0000-0000-0000-000000000000",
+
+			    "custom_claims": {
+			      "https://my-app.example.net/custom-claim": {
+			        "number": 1,
+			        "array": [1, "foo", null],
+			        "nested": {
+			          "data": "here"
+			        }
+			      }
+			    }
+			  }
+			}`))
+			return
+		}
+
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}))
+
+	client, _ := stytchapi.NewAPIClient(
+		config.Env("anything"),
+		"project-test-00000000-0000-0000-0000-000000000000",
+		"secret-test-11111111-1111-1111-1111-111111111111",
+		stytchapi.WithBaseURI(srv.URL),
+	)
+
+	// Expecting claims to follow this exact data structure
+	type MyAppClaims struct {
+		Number int
+		Array  []interface{}
+		Nested struct {
+			Data string
+		}
+	}
+	type StructClaims struct {
+		MyApp MyAppClaims `json:"https://my-app.example.net/custom-claim"`
+	}
+
+	var structClaims StructClaims
+	_, _ = client.Sessions.AuthenticateWithClaims(&stytch.SessionsAuthenticateParams{
+		SessionToken: "fake session token",
+	}, &structClaims)
+
+	fmt.Println(structClaims)
+	// Output: {{1 [1 foo <nil>] {here}}}
 }
 
 func rsaKey(t *testing.T) *rsa.PrivateKey {

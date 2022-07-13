@@ -15,12 +15,13 @@ type CryptoWalletAuthenticateStartResponse struct {
 }
 
 type CryptoWalletAuthenticateParams struct {
-	CryptoWalletAddress    string `json:"crypto_wallet_address,omitempty"`
-	CryptoWalletType       string `json:"crypto_wallet_type,omitempty"`
-	Signature              string `json:"signature,omitempty"`
-	SessionToken           string `json:"session_token,omitempty"`
-	SessionJWT             string `json:"session_jwt,omitempty"`
-	SessionDurationMinutes int32  `json:"session_duration_minutes,omitempty"`
+	CryptoWalletAddress    string                 `json:"crypto_wallet_address,omitempty"`
+	CryptoWalletType       string                 `json:"crypto_wallet_type,omitempty"`
+	Signature              string                 `json:"signature,omitempty"`
+	SessionToken           string                 `json:"session_token,omitempty"`
+	SessionJWT             string                 `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
 }
 
 type CryptoWalletAuthenticateResponse struct {
