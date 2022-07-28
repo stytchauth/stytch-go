@@ -57,16 +57,24 @@ type Feedback struct {
 }
 
 type PasswordsMigrateParams struct {
-	Email                 string   `json:"email"`
-	Hash                  string   `json:"hash"`
-	HashType              HashType `json:"hash_type"`
-	PrependSalt           string   `json:"prepend_salt,omitempty"`
-	AppendSalt            string   `json:"append_salt,omitempty"`
-	Argon2Salt            string   `json:"argon_2_salt,omitempty"`
-	Argon2IterationAmount string   `json:"argon_2_iteration_amount,omitempty"`
-	Argon2Memory          string   `json:"argon_2_memory,omitempty"`
-	Argon2Threads         string   `json:"argon_2_threads,omitempty"`
-	Argon2KeyLength       string   `json:"argon_2_key_length,omitempty"`
+	Email        string       `json:"email"`
+	Hash         string       `json:"hash"`
+	HashType     HashType     `json:"hash_type"`
+	MD5Config    MD5Config    `json:"md_5_config,omitempty"`
+	Argon2Config Argon2Config `json:"argon_2_config,omitempty"`
+}
+
+type MD5Config struct {
+	PrependSalt string `json:"prepend_salt,omitempty"`
+	AppendSalt  string `json:"append_salt,omitempty"`
+}
+
+type Argon2Config struct {
+	Salt            string `json:"salt"`
+	IterationAmount string `json:"iteration_amount"`
+	Memory          string `json:"memory"`
+	Threads         string `json:"threads"`
+	KeyLength       string `json:"key_length"`
 }
 
 type PasswordsMigrateResponse struct {
