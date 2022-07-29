@@ -57,11 +57,24 @@ type Feedback struct {
 }
 
 type PasswordsMigrateParams struct {
-	Email       string   `json:"email"`
-	Hash        string   `json:"hash"`
-	HashType    HashType `json:"hash_type"`
-	PrependSalt string   `json:"prepend_salt,omitempty"`
-	AppendSalt  string   `json:"append_salt,omitempty"`
+	Email        string       `json:"email"`
+	Hash         string       `json:"hash"`
+	HashType     HashType     `json:"hash_type"`
+	MD5Config    MD5Config    `json:"md_5_config,omitempty"`
+	Argon2Config Argon2Config `json:"argon_2_config,omitempty"`
+}
+
+type MD5Config struct {
+	PrependSalt string `json:"prepend_salt,omitempty"`
+	AppendSalt  string `json:"append_salt,omitempty"`
+}
+
+type Argon2Config struct {
+	Salt            string `json:"salt"`
+	IterationAmount string `json:"iteration_amount"`
+	Memory          string `json:"memory"`
+	Threads         string `json:"threads"`
+	KeyLength       string `json:"key_length"`
 }
 
 type PasswordsMigrateResponse struct {
@@ -75,7 +88,10 @@ type PasswordsMigrateResponse struct {
 type HashType string
 
 const (
-	HashTypeBcrypt HashType = "bcrypt"
+	HashTypeBcrypt   HashType = "bcrypt"
+	HashTypeMD5      HashType = "md_5"
+	HashTypeArgon2I  HashType = "argon_2i"
+	HashTypeArgon2ID HashType = "argon_2id"
 )
 
 // PASSWORD - EMAIL
