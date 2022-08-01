@@ -18,6 +18,7 @@ import (
 	"github.com/stytchauth/stytch-go/v5/stytch/otp/whatsapp"
 	"github.com/stytchauth/stytch-go/v5/stytch/password"
 	pe "github.com/stytchauth/stytch-go/v5/stytch/password/email"
+	pep "github.com/stytchauth/stytch-go/v5/stytch/password/existingpassword"
 	"github.com/stytchauth/stytch-go/v5/stytch/session"
 	"github.com/stytchauth/stytch-go/v5/stytch/totp"
 	"github.com/stytchauth/stytch-go/v5/stytch/user"
@@ -74,7 +75,11 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 		WhatsApp: &whatsapp.Client{C: a.client},
 	}
 	a.OAuth = &oauth.Client{C: a.client}
-	a.Passwords = &password.Client{C: a.client, Email: &pe.Client{C: a.client}}
+	a.Passwords = &password.Client{
+		C:                a.client,
+		Email:            &pe.Client{C: a.client},
+		ExistingPassword: &pep.Client{C: a.client},
+	}
 	a.TOTPs = &totp.Client{C: a.client}
 	a.Users = &user.Client{C: a.client}
 	a.WebAuthn = &webauthn.Client{C: a.client}
