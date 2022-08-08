@@ -2,6 +2,7 @@ package session
 
 import (
 	"encoding/json"
+
 	"github.com/stytchauth/stytch-go/v5/stytch"
 	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
 )
