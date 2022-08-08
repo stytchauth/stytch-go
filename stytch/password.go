@@ -62,6 +62,8 @@ type PasswordsMigrateParams struct {
 	HashType     HashType     `json:"hash_type"`
 	MD5Config    MD5Config    `json:"md_5_config,omitempty"`
 	Argon2Config Argon2Config `json:"argon_2_config,omitempty"`
+	SHA1Config   SHA1Config   `json:"sha_1_config,omitempty"`
+	ScryptConfig ScryptConfig `json:"scrypt_config,omitempty"`
 }
 
 type MD5Config struct {
@@ -75,6 +77,19 @@ type Argon2Config struct {
 	Memory          string `json:"memory"`
 	Threads         string `json:"threads"`
 	KeyLength       string `json:"key_length"`
+}
+
+type SHA1Config struct {
+	PrependSalt string `json:"prepend_salt,omitempty"`
+	AppendSalt  string `json:"append_salt,omitempty"`
+}
+
+type ScryptConfig struct {
+	Salt      string `json:"salt"`
+	NValue    string `json:"n_value"`
+	RValue    string `json:"r_value"`
+	PValue    string `json:"p_value"`
+	KeyLength string `json:"key_length"`
 }
 
 type PasswordsMigrateResponse struct {
@@ -92,6 +107,8 @@ const (
 	HashTypeMD5      HashType = "md_5"
 	HashTypeArgon2I  HashType = "argon_2i"
 	HashTypeArgon2ID HashType = "argon_2id"
+	HashTypeSHA1     HashType = "sha_1"
+	HashTypeScrypt   HashType = "scrypt"
 )
 
 // PASSWORD - EMAIL
@@ -152,4 +169,18 @@ type PasswordExistingPasswordResetResponse struct {
 	SessionJWT   string  `json:"session_jwt,omitempty"`
 	Session      Session `json:"session,omitempty"`
 	User         User    `json:"user,omitempty"`
+}
+
+// PASSWORD - SESSION
+type PasswordSessionResetParams struct {
+	Password     string `json:"password,omitempty"`
+	SessionToken string `json:"session_token,omitempty"`
+	SessionJWT   string `json:"session_jwt,omitempty"`
+}
+
+type PasswordSessionResetResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	User       User   `json:"user,omitempty"`
 }

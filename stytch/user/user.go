@@ -192,3 +192,13 @@ func (c *Client) DeleteCryptoWallet(
 	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) DeletePassword(
+	passwordID string,
+) (*stytch.UsersDeletePasswordResponse, error) {
+	path := "/users/passwords/" + passwordID
+
+	var retVal stytch.UsersDeletePasswordResponse
+	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
+}
