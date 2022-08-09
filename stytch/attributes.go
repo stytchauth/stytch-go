@@ -76,6 +76,10 @@ type WebAuthnFactor struct {
 	UserAgent              string `json:"user_agent,omitempty"`
 }
 
+type BiometricFactor struct {
+	BiometricRegistrationID string `json:"biometric_registration_id,omitempty"`
+}
+
 type AuthenticatorAppFactor struct {
 	TOTPID string `json:"totp_id,omitempty"`
 }
@@ -104,6 +108,7 @@ type AuthenticationFactor struct {
 	GitLabOAuthFactor      GitLabOAuthFactor      `json:"gitlab_oauth_factor,omitempty"`
 	FacebookOAuthFactor    FacebookOAuthFactor    `json:"facebook_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
+	BiometricFactor        BiometricFactor        `json:"biometric_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
 	RecoveryCodeFactor     RecoveryCodeFactor     `json:"recovery_code_factor,omitempty"`
 	CryptoWalletFactor     CryptoWalletFactor     `json:"crypto_wallet_factor,omitempty"`
@@ -122,6 +127,7 @@ type JWTAuthenticationFactor struct {
 	GithubOAuthFactor      GithubOAuthFactor      `json:"github_oauth_factor,omitempty"`
 	FacebookOAuthFactor    FacebookOAuthFactor    `json:"facebook_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
+	BiometricFactor        BiometricFactor        `json:"biometric_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
 	RecoveryCodeFactor     RecoveryCodeFactor     `json:"recovery_code_factor,omitempty"`
 	CryptoWalletFactor     CryptoWalletFactor     `json:"crypto_wallet_factor,omitempty"`
