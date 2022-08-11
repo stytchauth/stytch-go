@@ -73,10 +73,10 @@ type MD5Config struct {
 
 type Argon2Config struct {
 	Salt            string `json:"salt"`
-	IterationAmount string `json:"iteration_amount"`
-	Memory          string `json:"memory"`
-	Threads         string `json:"threads"`
-	KeyLength       string `json:"key_length"`
+	IterationAmount int    `json:"iteration_amount"`
+	Memory          int    `json:"memory"`
+	Threads         int    `json:"threads"`
+	KeyLength       int    `json:"key_length"`
 }
 
 type SHA1Config struct {
