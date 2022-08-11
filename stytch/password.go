@@ -179,8 +179,9 @@ type PasswordSessionResetParams struct {
 }
 
 type PasswordSessionResetResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int    `json:"status_code,omitempty"`
-	UserID     string `json:"user_id,omitempty"`
-	User       User   `json:"user,omitempty"`
+	RequestID  string  `json:"request_id,omitempty"`
+	StatusCode int     `json:"status_code,omitempty"`
+	UserID     string  `json:"user_id,omitempty"`
+	User       User    `json:"user,omitempty"`
+	Session    Session `json:"session,omitempty"`
 }
