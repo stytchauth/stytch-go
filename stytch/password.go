@@ -85,11 +85,11 @@ type SHA1Config struct {
 }
 
 type ScryptConfig struct {
-	Salt      string `json:"salt"`
-	NValue    string `json:"n_value"`
-	RValue    string `json:"r_value"`
-	PValue    string `json:"p_value"`
-	KeyLength string `json:"key_length"`
+	Salt       string `json:"salt"`
+	NParameter int    `json:"n_parameter"`
+	RParameter int    `json:"r_parameter"`
+	PParameter int    `json:"p_parameter"`
+	KeyLength  int    `json:"key_length"`
 }
 
 type PasswordsMigrateResponse struct {
