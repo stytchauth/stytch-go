@@ -19,6 +19,7 @@ import (
 	"github.com/stytchauth/stytch-go/v5/stytch/password"
 	pe "github.com/stytchauth/stytch-go/v5/stytch/password/email"
 	pep "github.com/stytchauth/stytch-go/v5/stytch/password/existingpassword"
+	ps "github.com/stytchauth/stytch-go/v5/stytch/password/session"
 	"github.com/stytchauth/stytch-go/v5/stytch/session"
 	"github.com/stytchauth/stytch-go/v5/stytch/totp"
 	"github.com/stytchauth/stytch-go/v5/stytch/user"
@@ -79,6 +80,7 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 		C:                a.client,
 		Email:            &pe.Client{C: a.client},
 		ExistingPassword: &pep.Client{C: a.client},
+		Session:          &ps.Client{C: a.client},
 	}
 	a.TOTPs = &totp.Client{C: a.client}
 	a.Users = &user.Client{C: a.client}
