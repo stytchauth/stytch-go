@@ -160,6 +160,13 @@ type UsersDeleteCryptoWalletResponse struct {
 	User       User   `json:"user,omitempty"`
 }
 
+type UsersDeletePasswordResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	User       User   `json:"user,omitempty"`
+}
+
 /* User Search */
 type UsersSearchParams struct {
 	Limit  int32             `json:"limit,omitempty"`
