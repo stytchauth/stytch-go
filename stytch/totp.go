@@ -18,6 +18,8 @@ type TOTPsCreateResponse struct {
 	TOTPID        string   `json:"totp_id,omitempty"`
 	QRCode        string   `json:"qr_code,omitempty"`
 	RecoveryCodes []string `json:"recovery_codes,omitempty"`
+	User          User     `json:"user,omitempty"`
+	UserID        string   `json:"user_id,omitempty"`
 }
 
 type TOTPsAuthenticateParams struct {
