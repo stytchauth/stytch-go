@@ -146,13 +146,6 @@ type UsersDeleteWebAuthnRegistrationResponse struct {
 	User       User   `json:"user,omitempty"`
 }
 
-type UsersDeleteBiometricRegistrationResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int    `json:"status_code,omitempty"`
-	UserID     string `json:"user_id,omitempty"`
-	User       User   `json:"user,omitempty"`
-}
-
 type UsersDeleteTOTPResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
