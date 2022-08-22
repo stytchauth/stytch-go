@@ -173,6 +173,16 @@ func (c *Client) DeleteWebAuthnRegistration(
 	return &retVal, err
 }
 
+func (c *Client) DeleteBiometricRegistration(
+	biometricRegistrationID string,
+) (*stytch.UsersDeleteBiometricRegistrationResponse, error) {
+	path := "/users/biometric_registrations/" + biometricRegistrationID
+
+	var retVal stytch.UsersDeleteBiometricRegistrationResponse
+	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
+}
+
 func (c *Client) DeleteTOTP(
 	totpID string,
 ) (*stytch.UsersDeleteTOTPResponse, error) {
