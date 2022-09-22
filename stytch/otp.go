@@ -28,6 +28,9 @@ type OTPsSMSSendParams struct {
 	PhoneNumber       string     `json:"phone_number"`
 	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
 	Attributes        Attributes `json:"attributes,omitempty"`
+	UserID            string     `json:"user_id,omitempty"`
+	SessionToken      string     `json:"session_token,omitempty"`
+	SessionJWT        string     `json:"session_jwt,omitempty"`
 }
 
 type OTPsSMSSendResponse struct {
@@ -57,6 +60,9 @@ type OTPsWhatsAppSendParams struct {
 	PhoneNumber       string     `json:"phone_number"`
 	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
 	Attributes        Attributes `json:"attributes,omitempty"`
+	UserID            string     `json:"user_id,omitempty"`
+	SessionToken      string     `json:"session_token,omitempty"`
+	SessionJWT        string     `json:"session_jwt,omitempty"`
 }
 
 type OTPsWhatsAppSendResponse struct {
@@ -86,6 +92,9 @@ type OTPsEmailSendParams struct {
 	Email             string     `json:"email"`
 	ExpirationMinutes int32      `json:"expiration_minutes,omitempty"`
 	Attributes        Attributes `json:"attributes,omitempty"`
+	UserID            string     `json:"user_id,omitempty"`
+	SessionToken      string     `json:"session_token,omitempty"`
+	SessionJWT        string     `json:"session_jwt,omitempty"`
 }
 
 type OTPsEmailSendResponse struct {
