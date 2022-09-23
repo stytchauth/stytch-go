@@ -45,6 +45,9 @@ type MagicLinksEmailSendParams struct {
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
 	CodeChallenge           string     `json:"code_challenge,omitempty"`
+	UserID                  string     `json:"user_id,omitempty"`
+	SessionToken            string     `json:"session_token,omitempty"`
+	SessionJWT              string     `json:"session_jwt,omitempty"`
 }
 
 type MagicLinksEmailSendResponse struct {
