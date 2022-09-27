@@ -4,6 +4,8 @@ type CryptoWalletAuthenticateStartParams struct {
 	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
 	CryptoWalletType    string `json:"crypto_wallet_type,omitempty"`
 	UserID              string `json:"user_id,omitempty"`
+	SessionToken        string `json:"session_token,omitempty"`
+	SessionJWT          string `json:"session_jwt,omitempty"`
 }
 
 type CryptoWalletAuthenticateStartResponse struct {
