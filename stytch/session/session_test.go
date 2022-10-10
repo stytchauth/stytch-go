@@ -144,7 +144,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Handle the async JWKS fetch.
 		if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
-			w.Write([]byte(`{"keys": []}`))
+			_, _ = w.Write([]byte(`{"keys": []}`))
 			return
 		}
 
@@ -152,7 +152,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 		if r.URL.Path == "/sessions/authenticate" {
 			// There are  many other fields in this response, but these are the only ones we need
 			// for this test.
-			w.Write([]byte(`{
+			_, _ = w.Write([]byte(`{
 			  "session": {
 			    "expires_at": "2022-06-29T19:53:48Z",
 			    "last_accessed_at": "2022-06-29T17:54:13Z",
@@ -175,7 +175,6 @@ func TestAuthenticateWithClaims(t *testing.T) {
 		}
 
 		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
 	}))
 
 	client, err := stytchapi.NewAPIClient(
@@ -244,7 +243,7 @@ func ExampleClient_AuthenticateWithClaims_map() {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Handle the async JWKS fetch.
 		if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
-			w.Write([]byte(`{"keys": []}`))
+			_, _ = w.Write([]byte(`{"keys": []}`))
 			return
 		}
 
@@ -252,7 +251,7 @@ func ExampleClient_AuthenticateWithClaims_map() {
 		if r.URL.Path == "/sessions/authenticate" {
 			// There are  many other fields in this response, but these are the only ones we need
 			// for this test.
-			w.Write([]byte(`{
+			_, _ = w.Write([]byte(`{
 			  "session": {
 			    "expires_at": "2022-06-29T19:53:48Z",
 			    "last_accessed_at": "2022-06-29T17:54:13Z",
@@ -273,7 +272,6 @@ func ExampleClient_AuthenticateWithClaims_map() {
 		}
 
 		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
 	}))
 
 	client, _ := stytchapi.NewAPIClient(
@@ -299,7 +297,7 @@ func ExampleClient_AuthenticateWithClaims_struct() {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Handle the async JWKS fetch.
 		if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
-			w.Write([]byte(`{"keys": []}`))
+			_, _ = w.Write([]byte(`{"keys": []}`))
 			return
 		}
 
@@ -307,7 +305,7 @@ func ExampleClient_AuthenticateWithClaims_struct() {
 		if r.URL.Path == "/sessions/authenticate" {
 			// There are  many other fields in this response, but these are the only ones we need
 			// for this test.
-			w.Write([]byte(`{
+			_, _ = w.Write([]byte(`{
 			  "session": {
 			    "expires_at": "2022-06-29T19:53:48Z",
 			    "last_accessed_at": "2022-06-29T17:54:13Z",
@@ -330,7 +328,6 @@ func ExampleClient_AuthenticateWithClaims_struct() {
 		}
 
 		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
 	}))
 
 	client, _ := stytchapi.NewAPIClient(
