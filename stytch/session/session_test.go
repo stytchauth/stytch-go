@@ -14,10 +14,10 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v5/stytch"
-	"github.com/stytchauth/stytch-go/v5/stytch/config"
-	"github.com/stytchauth/stytch-go/v5/stytch/session"
-	"github.com/stytchauth/stytch-go/v5/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v6/stytch"
+	"github.com/stytchauth/stytch-go/v6/stytch/config"
+	"github.com/stytchauth/stytch-go/v6/stytch/session"
+	"github.com/stytchauth/stytch-go/v6/stytch/stytchapi"
 )
 
 func TestAuthenticateJWTLocal(t *testing.T) {

@@ -3,8 +3,8 @@ package email
 import (
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v5/stytch"
-	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v6/stytch"
+	"github.com/stytchauth/stytch-go/v6/stytch/stytcherror"
 )
 
 type Client struct {
