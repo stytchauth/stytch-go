@@ -35,18 +35,17 @@ func TestNewClient(t *testing.T) {
 		srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Handle the async JWKS fetch
 			if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
-				w.Write([]byte(`{"keys": []}`))
+				_, _ = w.Write([]byte(`{"keys": []}`))
 				return
 			}
 
 			// This is the test request
 			if r.URL.Path == "/magic_links/authenticate" {
-				w.Write([]byte(`{}`))
+				_, _ = w.Write([]byte(`{}`))
 				return
 			}
 
 			http.Error(w, "Bad Request", http.StatusBadRequest)
-			return
 		}))
 
 		client, err := stytchapi.NewAPIClient(
