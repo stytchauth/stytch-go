@@ -15,19 +15,17 @@ issues:
       source: "^\\s*//\\s+https:"
 linters:
   enable:
-    - vet
-    - gofmt
-    - goimports
-    - deadcode
-    - varcheck
-    - structcheck
-    - ineffassign
-    - unconvert
-    - misspell
-    - lll
-    - sqlclosecheck
     - bodyclose
-    - gosec
-    - stylecheck
+    - errcheck
+    - gofmt
     - gofumpt
-  disable-all: true
+    - goimports
+    - gosec
+    - gosimple
+    - lll
+    - misspell
+    - sqlclosecheck
+    - staticcheck
+    - stylecheck
+    - unconvert
+    - unused
