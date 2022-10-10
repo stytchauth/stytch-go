@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v5/stytch"
-	"github.com/stytchauth/stytch-go/v5/stytch/password/email"
-	"github.com/stytchauth/stytch-go/v5/stytch/password/existingpassword"
-	"github.com/stytchauth/stytch-go/v5/stytch/password/session"
-	"github.com/stytchauth/stytch-go/v5/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v6/stytch"
+	"github.com/stytchauth/stytch-go/v6/stytch/password/email"
+	"github.com/stytchauth/stytch-go/v6/stytch/password/existingpassword"
+	"github.com/stytchauth/stytch-go/v6/stytch/password/session"
+	"github.com/stytchauth/stytch-go/v6/stytch/stytcherror"
 )
 
 type Client struct {
