@@ -23,16 +23,17 @@ type OAuthAuthenticateParams struct {
 }
 
 type OAuthAuthenticateResponse struct {
-	RequestID       string         `json:"request_id,omitempty"`
-	StatusCode      int            `json:"status_code,omitempty"`
-	UserID          string         `json:"user_id,omitempty"`
-	ProviderSubject string         `json:"provider_subject,omitempty"`
-	ProviderType    ProviderType   `json:"provider_type,omitempty"`
-	Session         *Session       `json:"session,omitempty"`
-	SessionToken    string         `json:"session_token,omitempty"`
-	SessionJWT      string         `json:"session_jwt,omitempty"`
-	ProviderValues  ProviderValues `json:"provider_values,omitempty"`
-	ResetSessions   bool           `json:"reset_sessions,omitempty"`
+	RequestID               string         `json:"request_id,omitempty"`
+	StatusCode              int            `json:"status_code,omitempty"`
+	UserID                  string         `json:"user_id,omitempty"`
+	OAuthUserRegistrationID string         `json:"oauth_user_registration_id,omitempty"`
+	ProviderSubject         string         `json:"provider_subject,omitempty"`
+	ProviderType            ProviderType   `json:"provider_type,omitempty"`
+	Session                 *Session       `json:"session,omitempty"`
+	SessionToken            string         `json:"session_token,omitempty"`
+	SessionJWT              string         `json:"session_jwt,omitempty"`
+	ProviderValues          ProviderValues `json:"provider_values,omitempty"`
+	ResetSessions           bool           `json:"reset_sessions,omitempty"`
 }
 
 type ProviderValues struct {

@@ -45,10 +45,11 @@ type WebAuthnRegistration struct {
 }
 
 type OAuthProvider struct {
-	ProviderType      string `json:"provider_type,omitempty"`
-	ProviderSubject   string `json:"provider_subject,omitempty"`
-	ProfilePictureURL string `json:"profile_picture_url,omitempty"`
-	Locale            string `json:"locale,omitempty"`
+	OAuthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
+	ProviderType            string `json:"provider_type,omitempty"`
+	ProviderSubject         string `json:"provider_subject,omitempty"`
+	ProfilePictureURL       string `json:"profile_picture_url,omitempty"`
+	Locale                  string `json:"locale,omitempty"`
 }
 
 type UserTOTP struct {
@@ -168,6 +169,13 @@ type UsersDeleteCryptoWalletResponse struct {
 }
 
 type UsersDeletePasswordResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	User       User   `json:"user,omitempty"`
+}
+
+type UsersDeleteOAuthRegistrationResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
 	UserID     string `json:"user_id,omitempty"`
