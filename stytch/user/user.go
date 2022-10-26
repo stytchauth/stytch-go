@@ -212,3 +212,13 @@ func (c *Client) DeletePassword(
 	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) DeleteOAuthUserRegistration(
+	oauthUserRegistrationID string,
+) (*stytch.UsersDeleteOAuthRegistrationResponse, error) {
+	path := "/users/oauth/" + oauthUserRegistrationID
+
+	var retVal stytch.UsersDeleteOAuthRegistrationResponse
+	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	return &retVal, err
+}
