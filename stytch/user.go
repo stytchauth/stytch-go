@@ -70,11 +70,13 @@ type Password struct {
 }
 
 type UsersCreateParams struct {
-	Email               string     `json:"email,omitempty"`
-	PhoneNumber         string     `json:"phone_number,omitempty"`
-	Name                Name       `json:"name,omitempty"`
-	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
-	Attributes          Attributes `json:"attributes,omitempty"`
+	Email               string                 `json:"email,omitempty"`
+	PhoneNumber         string                 `json:"phone_number,omitempty"`
+	Name                Name                   `json:"name,omitempty"`
+	CreateUserAsPending bool                   `json:"create_user_as_pending,omitempty"`
+	Attributes          Attributes             `json:"attributes,omitempty"`
+	TrustedMetadata     map[string]interface{} `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata   map[string]interface{} `json:"untrusted_metadata,omitempty"`
 }
 
 type UsersCreateResponse struct {
@@ -100,14 +102,18 @@ type UsersGetResponse struct {
 	CryptoWallets         []CryptoWallet         `json:"crypto_wallets,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
+	TrustedMetadata       map[string]interface{} `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata     map[string]interface{} `json:"untrusted_metadata,omitempty"`
 }
 
 type UsersUpdateParams struct {
-	Name          Name                 `json:"name,omitempty"`
-	Emails        []EmailString        `json:"emails,omitempty"`
-	PhoneNumbers  []PhoneNumberString  `json:"phone_numbers,omitempty"`
-	CryptoWallets []CryptoWalletString `json:"crypto_wallets,omitempty"`
-	Attributes    Attributes           `json:"attributes,omitempty"`
+	Name              Name                   `json:"name,omitempty"`
+	Emails            []EmailString          `json:"emails,omitempty"`
+	PhoneNumbers      []PhoneNumberString    `json:"phone_numbers,omitempty"`
+	CryptoWallets     []CryptoWalletString   `json:"crypto_wallets,omitempty"`
+	Attributes        Attributes             `json:"attributes,omitempty"`
+	TrustedMetadata   map[string]interface{} `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata map[string]interface{} `json:"untrusted_metadata,omitempty"`
 }
 
 type UsersUpdateResponse struct {
@@ -421,6 +427,8 @@ type User struct {
 	Password              Password               `json:"password,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
+	TrustedMetadata       map[string]interface{} `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata     map[string]interface{} `json:"untrusted_metadata,omitempty"`
 }
 
 type UsersSearchResponse struct {
