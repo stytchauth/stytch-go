@@ -31,6 +31,7 @@ type OTPsSMSSendParams struct {
 	UserID            string     `json:"user_id,omitempty"`
 	SessionToken      string     `json:"session_token,omitempty"`
 	SessionJWT        string     `json:"session_jwt,omitempty"`
+	Locale            string     `json:"locale,omitempty"`
 }
 
 type OTPsSMSSendResponse struct {
@@ -45,6 +46,7 @@ type OTPsSMSLoginOrCreateParams struct {
 	ExpirationMinutes   int32      `json:"expiration_minutes,omitempty"`
 	Attributes          Attributes `json:"attributes,omitempty"`
 	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+	Locale              string     `json:"locale,omitempty"`
 }
 
 type OTPsSMSLoginOrCreateResponse struct {
@@ -63,6 +65,7 @@ type OTPsWhatsAppSendParams struct {
 	UserID            string     `json:"user_id,omitempty"`
 	SessionToken      string     `json:"session_token,omitempty"`
 	SessionJWT        string     `json:"session_jwt,omitempty"`
+	Locale            string     `json:"locale,omitempty"`
 }
 
 type OTPsWhatsAppSendResponse struct {
@@ -77,6 +80,7 @@ type OTPsWhatsAppLoginOrCreateParams struct {
 	ExpirationMinutes   int32      `json:"expiration_minutes,omitempty"`
 	Attributes          Attributes `json:"attributes,omitempty"`
 	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+	Locale              string     `json:"locale,omitempty"`
 }
 
 type OTPsWhatsAppLoginOrCreateResponse struct {
@@ -95,6 +99,7 @@ type OTPsEmailSendParams struct {
 	UserID            string     `json:"user_id,omitempty"`
 	SessionToken      string     `json:"session_token,omitempty"`
 	SessionJWT        string     `json:"session_jwt,omitempty"`
+	Locale            string     `json:"locale,omitempty"`
 }
 
 type OTPsEmailSendResponse struct {
@@ -109,6 +114,7 @@ type OTPsEmailLoginOrCreateParams struct {
 	ExpirationMinutes   int32      `json:"expiration_minutes,omitempty"`
 	Attributes          Attributes `json:"attributes,omitempty"`
 	CreateUserAsPending bool       `json:"create_user_as_pending,omitempty"`
+	Locale              string     `json:"locale,omitempty"`
 }
 
 type OTPsEmailLoginOrCreateResponse struct {

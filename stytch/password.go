@@ -119,6 +119,7 @@ type PasswordEmailResetStartParams struct {
 	ResetPasswordExpirationMinutes int32      `json:"reset_password_expiration_minutes,omitempty"`
 	Attributes                     Attributes `json:"attributes,omitempty"`
 	CodeChallenge                  string     `json:"code_challenge,omitempty"`
+	Locale                         string     `json:"locale,omitempty"`
 }
 
 type PasswordEmailResetStartResponse struct {

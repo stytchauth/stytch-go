@@ -48,6 +48,7 @@ type MagicLinksEmailSendParams struct {
 	UserID                  string     `json:"user_id,omitempty"`
 	SessionToken            string     `json:"session_token,omitempty"`
 	SessionJWT              string     `json:"session_jwt,omitempty"`
+	Locale                  string     `json:"locale,omitempty"`
 }
 
 type MagicLinksEmailSendResponse struct {
@@ -66,6 +67,7 @@ type MagicLinksEmailLoginOrCreateParams struct {
 	CreateUserAsPending     bool       `json:"create_user_as_pending,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
 	CodeChallenge           string     `json:"code_challenge,omitempty"`
+	Locale                  string     `json:"locale,omitempty"`
 }
 
 type MagicLinksEmailLoginOrCreateResponse struct {
@@ -82,6 +84,7 @@ type MagicLinksEmailInviteParams struct {
 	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
 	Name                    Name       `json:"name,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
+	Locale                  string     `json:"locale,omitempty"`
 }
 
 type MagicLinksEmailInviteResponse struct {
