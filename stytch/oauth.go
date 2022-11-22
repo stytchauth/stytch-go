@@ -5,12 +5,23 @@ import "time"
 type ProviderType string
 
 const (
-	ProviderTypeGoogle    ProviderType = "Google"
-	ProviderTypeFacebook  ProviderType = "Facebook"
+	ProviderTypeAmazon    ProviderType = "Amazon"
 	ProviderTypeApple     ProviderType = "Apple"
-	ProviderTypeMicrosoft ProviderType = "Microsoft"
+	ProviderTypeBitbucket ProviderType = "Bitbucket"
+	ProviderTypeCoinbase  ProviderType = "Coinbase"
+	ProviderTypeDiscord   ProviderType = "Discord"
+	ProviderTypeFacebook  ProviderType = "Facebook"
+	ProviderTypeFigma     ProviderType = "Figma"
 	ProviderTypeGithub    ProviderType = "Github"
 	ProviderTypeGitlab    ProviderType = "GitLab"
+	ProviderTypeGoogle    ProviderType = "Google"
+	ProviderTypeLinkedIn  ProviderType = "LinkedIn"
+	ProviderTypeMicrosoft ProviderType = "Microsoft"
+	ProviderTypeSlack     ProviderType = "Slack"
+	ProviderTypeSnapchat  ProviderType = "Snapchat"
+	ProviderTypeTikTok    ProviderType = "TikTok"
+	ProviderTypeTwitch    ProviderType = "Twitch"
+	ProviderTypeTwitter   ProviderType = "Twitter"
 )
 
 type OAuthAuthenticateParams struct {
