@@ -70,6 +70,69 @@ type FacebookOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type AmazonOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type BitbucketOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type CoinbaseOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type DiscordOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type FigmaOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type LinkedInOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type SlackOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type SnapchatOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type TikTokOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type TwitchOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type TwitterOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
 type WebAuthnFactor struct {
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	Domain                 string `json:"domain,omitempty"`
@@ -107,6 +170,17 @@ type AuthenticationFactor struct {
 	GithubOAuthFactor      GithubOAuthFactor      `json:"github_oauth_factor,omitempty"`
 	GitLabOAuthFactor      GitLabOAuthFactor      `json:"gitlab_oauth_factor,omitempty"`
 	FacebookOAuthFactor    FacebookOAuthFactor    `json:"facebook_oauth_factor,omitempty"`
+	AmazonOAuthFactor      AmazonOAuthFactor      `json:"amazon_oauth_factor,omitempty"`
+	BitbucketOAuthFactor   BitbucketOAuthFactor   `json:"bitbucket_oauth_factor,omitempty"`
+	CoinbaseOAuthFactor    CoinbaseOAuthFactor    `json:"coinbase_oauth_factor,omitempty"`
+	DiscordOAuthFactor     DiscordOAuthFactor     `json:"discord_oauth_factor,omitempty"`
+	FigmaOAuthFactor       FigmaOAuthFactor       `json:"figma_oauth_factor,omitempty"`
+	LinkedInOAuthFactor    LinkedInOAuthFactor    `json:"linkedin_oauth_factor,omitempty"`
+	SlackOAuthFactor       SlackOAuthFactor       `json:"slack_oauth_factor,omitempty"`
+	SnapchatOAuthFactor    SnapchatOAuthFactor    `json:"snapchat_oauth_factor,omitempty"`
+	TikTokOAuthFactor      TikTokOAuthFactor      `json:"tiktok_oauth_factor,omitempty"`
+	TwitchOAuthFactor      TwitchOAuthFactor      `json:"twitch_oauth_factor,omitempty"`
+	TwitterOAuthFactor     TwitterOAuthFactor     `json:"twitter_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
 	BiometricFactor        BiometricFactor        `json:"biometric_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
@@ -126,6 +200,17 @@ type JWTAuthenticationFactor struct {
 	AppleOAuthFactor       AppleOAuthFactor       `json:"apple_oauth_factor,omitempty"`
 	GithubOAuthFactor      GithubOAuthFactor      `json:"github_oauth_factor,omitempty"`
 	FacebookOAuthFactor    FacebookOAuthFactor    `json:"facebook_oauth_factor,omitempty"`
+	AmazonOAuthFactor      AmazonOAuthFactor      `json:"amazon_oauth_factor,omitempty"`
+	BitbucketOAuthFactor   BitbucketOAuthFactor   `json:"bitbucket_oauth_factor,omitempty"`
+	CoinbaseOAuthFactor    CoinbaseOAuthFactor    `json:"coinbase_oauth_factor,omitempty"`
+	DiscordOAuthFactor     DiscordOAuthFactor     `json:"discord_oauth_factor,omitempty"`
+	FigmaOAuthFactor       FigmaOAuthFactor       `json:"figma_oauth_factor,omitempty"`
+	LinkedInOAuthFactor    LinkedInOAuthFactor    `json:"linkedin_oauth_factor,omitempty"`
+	SlackOAuthFactor       SlackOAuthFactor       `json:"slack_oauth_factor,omitempty"`
+	SnapchatOAuthFactor    SnapchatOAuthFactor    `json:"snapchat_oauth_factor,omitempty"`
+	TikTokOAuthFactor      TikTokOAuthFactor      `json:"tiktok_oauth_factor,omitempty"`
+	TwitchOAuthFactor      TwitchOAuthFactor      `json:"twitch_oauth_factor,omitempty"`
+	TwitterOAuthFactor     TwitterOAuthFactor     `json:"twitter_oauth_factor,omitempty"`
 	WebAuthnFactor         WebAuthnFactor         `json:"webauthn_factor,omitempty"`
 	BiometricFactor        BiometricFactor        `json:"biometric_factor,omitempty"`
 	AuthenticatorAppFactor AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
