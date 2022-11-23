@@ -19,6 +19,7 @@ const (
 	ProviderTypeMicrosoft ProviderType = "Microsoft"
 	ProviderTypeSlack     ProviderType = "Slack"
 	ProviderTypeSnapchat  ProviderType = "Snapchat"
+	ProviderTypeSpotify   ProviderType = "Spotify"
 	ProviderTypeTikTok    ProviderType = "TikTok"
 	ProviderTypeTwitch    ProviderType = "Twitch"
 	ProviderTypeTwitter   ProviderType = "Twitter"

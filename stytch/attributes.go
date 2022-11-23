@@ -117,6 +117,11 @@ type SnapchatOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type SpotifyOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
 type TikTokOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
@@ -178,6 +183,7 @@ type AuthenticationFactor struct {
 	LinkedInOAuthFactor    LinkedInOAuthFactor    `json:"linkedin_oauth_factor,omitempty"`
 	SlackOAuthFactor       SlackOAuthFactor       `json:"slack_oauth_factor,omitempty"`
 	SnapchatOAuthFactor    SnapchatOAuthFactor    `json:"snapchat_oauth_factor,omitempty"`
+	SpotifyOAuthFactor     SpotifyOAuthFactor     `json:"spotify_oauth_factor,omitempty"`
 	TikTokOAuthFactor      TikTokOAuthFactor      `json:"tiktok_oauth_factor,omitempty"`
 	TwitchOAuthFactor      TwitchOAuthFactor      `json:"twitch_oauth_factor,omitempty"`
 	TwitterOAuthFactor     TwitterOAuthFactor     `json:"twitter_oauth_factor,omitempty"`
@@ -208,6 +214,7 @@ type JWTAuthenticationFactor struct {
 	LinkedInOAuthFactor    LinkedInOAuthFactor    `json:"linkedin_oauth_factor,omitempty"`
 	SlackOAuthFactor       SlackOAuthFactor       `json:"slack_oauth_factor,omitempty"`
 	SnapchatOAuthFactor    SnapchatOAuthFactor    `json:"snapchat_oauth_factor,omitempty"`
+	SpotifyOAuthFactor     SpotifyOAuthFactor     `json:"spotify_oauth_factor,omitempty"`
 	TikTokOAuthFactor      TikTokOAuthFactor      `json:"tiktok_oauth_factor,omitempty"`
 	TwitchOAuthFactor      TwitchOAuthFactor      `json:"twitch_oauth_factor,omitempty"`
 	TwitterOAuthFactor     TwitterOAuthFactor     `json:"twitter_oauth_factor,omitempty"`
