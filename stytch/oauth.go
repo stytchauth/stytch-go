@@ -57,7 +57,9 @@ type ProviderValues struct {
 }
 
 type OAuthAttachParams struct {
-	Provider     string `json:"provider,omitempty"`
+	Provider string `json:"provider,omitempty"`
+
+	// Exactly one of UserID, SessionToken, and SessionJWT must be populated.
 	UserID       string `json:"user_id,omitempty"`
 	SessionToken string `json:"session_token,omitempty"`
 	SessionJWT   string `json:"session_jwt,omitempty"`
