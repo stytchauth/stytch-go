@@ -55,3 +55,18 @@ type ProviderValues struct {
 	ExpiresAt    *time.Time `json:"expires_at,omitempty"`
 	Scopes       []string   `json:"scopes,omitempty"`
 }
+
+type OAuthAttachParams struct {
+	Provider string `json:"provider,omitempty"`
+
+	// Exactly one of UserID, SessionToken, and SessionJWT must be populated.
+	UserID       string `json:"user_id,omitempty"`
+	SessionToken string `json:"session_token,omitempty"`
+	SessionJWT   string `json:"session_jwt,omitempty"`
+}
+
+type OAuthAttachResponse struct {
+	RequestID        string `json:"request_id,omitempty"`
+	StatusCode       int    `json:"status_code,omitempty"`
+	OAuthAttachToken string `json:"oauth_attach_token,omitempty"`
+}

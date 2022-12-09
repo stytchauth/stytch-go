@@ -80,3 +80,24 @@ func (c *Client) AuthenticateWithClaims(
 	retVal.Session.CustomClaims = wrapper.Session.Claims
 	return &retVal, err
 }
+
+func (c *Client) Attach(
+	body *stytch.OAuthAttachParams,
+) (*stytch.OAuthAttachResponse, error) {
+	path := "/oauth/attach"
+
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the /oauth/attach request body")
+		}
+	}
+
+	var retVal stytch.OAuthAttachResponse
+	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	return &retVal, err
+}
