@@ -43,6 +43,8 @@ type MagicLinksEmailSendParams struct {
 	SignupMagicLinkURL      string     `json:"signup_magic_link_url,omitempty"`
 	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	LoginTemplateID         string     `json:"login_template_id,omitempty"`
+	SignupTemplateID        string     `json:"signup_template_id,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
 	CodeChallenge           string     `json:"code_challenge,omitempty"`
 	UserID                  string     `json:"user_id,omitempty"`
@@ -64,6 +66,8 @@ type MagicLinksEmailLoginOrCreateParams struct {
 	SignupMagicLinkURL      string     `json:"signup_magic_link_url,omitempty"`
 	LoginExpirationMinutes  int32      `json:"login_expiration_minutes,omitempty"`
 	SignupExpirationMinutes int32      `json:"signup_expiration_minutes,omitempty"`
+	LoginTemplateID         string     `json:"login_template_id,omitempty"`
+	SignupTemplateID        string     `json:"signup_template_id,omitempty"`
 	CreateUserAsPending     bool       `json:"create_user_as_pending,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
 	CodeChallenge           string     `json:"code_challenge,omitempty"`
@@ -82,6 +86,7 @@ type MagicLinksEmailInviteParams struct {
 	Email                   string     `json:"email"`
 	InviteMagicLinkURL      string     `json:"invite_magic_link_url,omitempty"`
 	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
+	TemplateID              string     `json:"template_id,omitempty"`
 	Name                    Name       `json:"name,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
 	Locale                  string     `json:"locale,omitempty"`
