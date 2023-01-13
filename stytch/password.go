@@ -109,6 +109,7 @@ const (
 	HashTypeArgon2ID HashType = "argon_2id"
 	HashTypeSHA1     HashType = "sha_1"
 	HashTypeScrypt   HashType = "scrypt"
+	HashTypePHPass   HashType = "phpass"
 )
 
 // PASSWORD - EMAIL
