@@ -86,7 +86,7 @@ type MagicLinksEmailInviteParams struct {
 	Email                   string     `json:"email"`
 	InviteMagicLinkURL      string     `json:"invite_magic_link_url,omitempty"`
 	InviteExpirationMinutes int32      `json:"invite_expiration_minutes,omitempty"`
-	TemplateID              string     `json:"template_id,omitempty"`
+	InviteTemplateID        string     `json:"invite_template_id,omitempty"`
 	Name                    Name       `json:"name,omitempty"`
 	Attributes              Attributes `json:"attributes,omitempty"`
 	Locale                  string     `json:"locale,omitempty"`
