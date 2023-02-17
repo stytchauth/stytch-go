@@ -43,17 +43,29 @@ type PasswordsStrengthCheckParams struct {
 }
 
 type PasswordsStrengthCheckResponse struct {
-	RequestID        string   `json:"request_id,omitempty"`
-	StatusCode       int      `json:"status_code,omitempty"`
-	ValidPassword    bool     `json:"valid_password,omitempty"`
-	Score            int      `json:"score,omitempty"`
-	BreachedPassword bool     `json:"breached_password,omitempty"`
-	Feedback         Feedback `json:"feedback,omitempty"`
+	RequestID               string   `json:"request_id,omitempty"`
+	StatusCode              int      `json:"status_code,omitempty"`
+	ValidPassword           bool     `json:"valid_password,omitempty"`
+	Score                   int      `json:"score,omitempty"`
+	BreachedPassword        bool     `json:"breached_password,omitempty"`
+	Feedback                Feedback `json:"feedback,omitempty"`
+	StrengthPolicy          string   `json:"strength_policy,omitempty"`
+	BreachDetectionOnCreate bool     `json:"breach_detection_on_create,omitempty"`
 }
 
 type Feedback struct {
-	Warning     string   `json:"warning,omitempty"`
-	Suggestions []string `json:"suggestions,omitempty"`
+	Warning          string           `json:"warning,omitempty"`
+	Suggestions      []string         `json:"suggestions,omitempty"`
+	LUDSRequirements LUDSRequirements `json:"luds_requirements,omitempty"`
+}
+
+type LUDSRequirements struct {
+	HasLowerCase      bool `json:"has_lower_case,omitempty"`
+	HasUpperCase      bool `json:"has_upper_case,omitempty"`
+	HasDigit          bool `json:"has_digit,omitempty"`
+	HasSymbol         bool `json:"has_symbol,omitempty"`
+	MissingComplexity int  `json:"missing_complexity,omitempty"`
+	MissingCharacters int  `json:"missing_characters,omitempty"`
 }
 
 type PasswordsMigrateParams struct {
