@@ -99,6 +99,7 @@ type UsersGetResponse struct {
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	OAuthProviders        []OAuthProvider        `json:"providers,omitempty"`
 	TOTPs                 []UserTOTP             `json:"totps,omitempty"`
+	Password              Password               `json:"password,omitempty"`
 	CryptoWallets         []CryptoWallet         `json:"crypto_wallets,omitempty"`
 	Status                string                 `json:"status,omitempty"`
 	CreatedAt             time.Time              `json:"created_at,omitempty"`
