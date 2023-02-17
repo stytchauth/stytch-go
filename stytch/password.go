@@ -109,6 +109,7 @@ const (
 	HashTypeArgon2ID HashType = "argon_2id"
 	HashTypeSHA1     HashType = "sha_1"
 	HashTypeScrypt   HashType = "scrypt"
+	HashTypePHPass   HashType = "phpass"
 )
 
 // PASSWORD - EMAIL
@@ -117,6 +118,7 @@ type PasswordEmailResetStartParams struct {
 	LoginRedirectURL               string     `json:"login_redirect_url,omitempty"`
 	ResetPasswordRedirectURL       string     `json:"reset_password_redirect_url,omitempty"`
 	ResetPasswordExpirationMinutes int32      `json:"reset_password_expiration_minutes,omitempty"`
+	ResetPasswordTemplateID        string     `json:"reset_password_template_id,omitempty"`
 	Attributes                     Attributes `json:"attributes,omitempty"`
 	CodeChallenge                  string     `json:"code_challenge,omitempty"`
 	Locale                         string     `json:"locale,omitempty"`
