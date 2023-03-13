@@ -54,6 +54,7 @@ type SessionsAuthenticateResponse struct {
 type SessionsRevokeParams struct {
 	SessionID    string `json:"session_id,omitempty"`
 	SessionToken string `json:"session_token,omitempty"`
+	SessionJWT   string `json:"session_jwt,omitempty"`
 }
 
 type SessionsRevokeResponse struct {
