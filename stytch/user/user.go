@@ -13,7 +13,10 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Create(ctx context.Context, body *stytch.UsersCreateParams) (*stytch.UsersCreateResponse, error) {
+func (c *Client) Create(
+	ctx context.Context,
+	body *stytch.UsersCreateParams,
+) (*stytch.UsersCreateResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -29,7 +32,10 @@ func (c *Client) Create(ctx context.Context, body *stytch.UsersCreateParams) (*s
 	return &retVal, err
 }
 
-func (c *Client) Get(ctx context.Context, userID string) (*stytch.UsersGetResponse, error) {
+func (c *Client) Get(
+	ctx context.Context,
+	userID string,
+) (*stytch.UsersGetResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersGetResponse
@@ -142,7 +148,10 @@ func (c *Client) Update(
 	return &retVal, err
 }
 
-func (c *Client) Delete(ctx context.Context, userID string) (*stytch.UsersDeleteResponse, error) {
+func (c *Client) Delete(
+	ctx context.Context,
+	userID string,
+) (*stytch.UsersDeleteResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersDeleteResponse
@@ -150,7 +159,10 @@ func (c *Client) Delete(ctx context.Context, userID string) (*stytch.UsersDelete
 	return &retVal, err
 }
 
-func (c *Client) DeleteEmail(ctx context.Context, emailID string) (*stytch.UsersDeleteEmailResponse, error) {
+func (c *Client) DeleteEmail(
+	ctx context.Context,
+	emailID string,
+) (*stytch.UsersDeleteEmailResponse, error) {
 	path := "/users/emails/" + emailID
 
 	var retVal stytch.UsersDeleteEmailResponse

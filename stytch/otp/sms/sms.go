@@ -12,7 +12,10 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Send(ctx context.Context, body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendResponse, error) {
+func (c *Client) Send(
+	ctx context.Context,
+	body *stytch.OTPsSMSSendParams,
+) (*stytch.OTPsSMSSendResponse, error) {
 	path := "/otps/sms/send"
 
 	var jsonBody []byte
@@ -31,7 +34,8 @@ func (c *Client) Send(ctx context.Context, body *stytch.OTPsSMSSendParams) (*sty
 }
 
 func (c *Client) LoginOrCreate(
-	ctx context.Context, body *stytch.OTPsSMSLoginOrCreateParams,
+	ctx context.Context,
+	body *stytch.OTPsSMSLoginOrCreateParams,
 ) (*stytch.OTPsSMSLoginOrCreateResponse, error) {
 	path := "/otps/sms/login_or_create"
 

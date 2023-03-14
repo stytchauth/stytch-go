@@ -284,9 +284,13 @@ func ExampleClient_AuthenticateWithClaims_map() {
 
 	// Expecting a map where all the values are maps from strings to integers
 	var mapClaims map[string]map[string]int32
-	_, _ = client.Sessions.AuthenticateWithClaims(context.Background(), &stytch.SessionsAuthenticateParams{
-		SessionToken: "fake session token",
-	}, &mapClaims)
+	_, _ = client.Sessions.AuthenticateWithClaims(
+		context.Background(),
+		&stytch.SessionsAuthenticateParams{
+			SessionToken: "fake session token",
+		},
+		&mapClaims,
+	)
 
 	fmt.Println(mapClaims)
 	// Output: map[https://my-app.example.net/custom-claim:map[claim1:1 claim2:2 claim3:3]]
@@ -351,9 +355,13 @@ func ExampleClient_AuthenticateWithClaims_struct() {
 	}
 
 	var structClaims StructClaims
-	_, _ = client.Sessions.AuthenticateWithClaims(context.Background(), &stytch.SessionsAuthenticateParams{
-		SessionToken: "fake session token",
-	}, &structClaims)
+	_, _ = client.Sessions.AuthenticateWithClaims(
+		context.Background(),
+		&stytch.SessionsAuthenticateParams{
+			SessionToken: "fake session token",
+		},
+		&structClaims,
+	)
 
 	fmt.Println(structClaims)
 	// Output: {{1 [1 foo <nil>] {here}}}

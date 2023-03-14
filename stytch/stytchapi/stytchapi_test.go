@@ -1,6 +1,7 @@
 package stytchapi_test
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -56,9 +57,12 @@ func TestNewClient(t *testing.T) {
 		)
 		assert.NoError(t, err)
 
-		_, err = client.MagicLinks.Authenticate(&stytch.MagicLinksAuthenticateParams{
-			Token: "fake-token",
-		})
+		_, err = client.MagicLinks.Authenticate(
+			context.Background(),
+			&stytch.MagicLinksAuthenticateParams{
+				Token: "fake-token",
+			},
+		)
 		assert.NoError(t, err)
 	})
 }
