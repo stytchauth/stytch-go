@@ -25,7 +25,7 @@ func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendRespon
 	}
 
 	var retVal stytch.OTPsSMSSendResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -45,6 +45,6 @@ func (c *Client) LoginOrCreate(
 	}
 
 	var retVal stytch.OTPsSMSLoginOrCreateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

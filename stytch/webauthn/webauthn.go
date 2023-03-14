@@ -27,7 +27,7 @@ func (c *Client) RegisterStart(body *stytch.WebAuthnRegisterStartParams,
 	}
 
 	var retVal stytch.WebAuthnRegisterStartResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -46,7 +46,7 @@ func (c *Client) Register(body *stytch.WebAuthnRegisterParams,
 	}
 
 	var retVal stytch.WebAuthnRegisterResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -65,7 +65,7 @@ func (c *Client) AuthenticateStart(body *stytch.WebAuthnAuthenticateStartParams,
 	}
 
 	var retVal stytch.WebAuthnAuthenticateStartResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -84,7 +84,7 @@ func (c *Client) Authenticate(body *stytch.WebAuthnAuthenticateParams,
 	}
 
 	var retVal stytch.WebAuthnAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -108,7 +108,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}

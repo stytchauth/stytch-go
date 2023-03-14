@@ -28,6 +28,6 @@ func (c *Client) Reset(
 	}
 
 	var retVal stytch.PasswordSessionResetResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

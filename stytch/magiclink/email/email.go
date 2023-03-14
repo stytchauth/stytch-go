@@ -27,7 +27,7 @@ func (c *Client) Send(
 	}
 
 	var retVal stytch.MagicLinksEmailSendResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -47,7 +47,7 @@ func (c *Client) LoginOrCreate(body *stytch.MagicLinksEmailLoginOrCreateParams) 
 	}
 
 	var retVal stytch.MagicLinksEmailLoginOrCreateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -67,7 +67,7 @@ func (c *Client) Invite(
 	}
 
 	var retVal stytch.MagicLinksEmailInviteResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -87,6 +87,6 @@ func (c *Client) RevokeInvite(body *stytch.MagicLinksEmailRevokeInviteParams) (
 	}
 
 	var retVal stytch.MagicLinksEmailRevokeInviteResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

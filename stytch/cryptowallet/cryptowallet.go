@@ -27,7 +27,7 @@ func (c *Client) AuthenticateStart(body *stytch.CryptoWalletAuthenticateStartPar
 	}
 
 	var retVal stytch.CryptoWalletAuthenticateStartResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -46,7 +46,7 @@ func (c *Client) Authenticate(body *stytch.CryptoWalletAuthenticateParams,
 	}
 
 	var retVal stytch.CryptoWalletAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -70,7 +70,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}

@@ -28,7 +28,7 @@ func (c *Client) Get(
 	}
 
 	var retVal stytch.SessionsGetResponse
-	err := c.C.NewRequest("GET", "/sessions", queryParams, nil, &retVal)
+	err := c.C.NewRequest(ctx, "GET", "/sessions", queryParams, nil, &retVal)
 	return &retVal, err
 }
 
@@ -38,7 +38,7 @@ func (c *Client) GetJWKS(
 	path := "/sessions/jwks/" + body.ProjectID
 
 	var retVal stytch.SessionsGetJWKSResponse
-	err := c.C.NewRequest("GET", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "GET", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -144,7 +144,7 @@ func (c *Client) Authenticate(
 	}
 
 	var retVal stytch.SessionsAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -168,7 +168,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}
@@ -209,6 +209,6 @@ func (c *Client) Revoke(
 	}
 
 	var retVal stytch.SessionsRevokeResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

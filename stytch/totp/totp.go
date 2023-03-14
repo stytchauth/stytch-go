@@ -29,7 +29,7 @@ func (c *Client) Create(body *stytch.TOTPsCreateParams) (
 	}
 
 	var retVal stytch.TOTPsCreateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -50,7 +50,7 @@ func (c *Client) Authenticate(body *stytch.TOTPsAuthenticateParams) (
 	}
 
 	var retVal stytch.TOTPsAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -75,7 +75,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (c *Client) RecoveryCodes(body *stytch.TOTPsRecoveryCodesParams) (
 	}
 
 	var retVal stytch.TOTPsRecoveryCodesResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -140,7 +140,7 @@ func (c *Client) Recover(body *stytch.TOTPsRecoverParams) (
 	}
 
 	var retVal stytch.TOTPsRecoverResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -165,7 +165,7 @@ func (c *Client) RecoverWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}

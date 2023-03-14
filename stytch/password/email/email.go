@@ -29,7 +29,7 @@ func (c *Client) ResetStart(
 	}
 
 	var retVal stytch.PasswordEmailResetStartResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -50,7 +50,7 @@ func (c *Client) Reset(
 	}
 
 	var retVal stytch.PasswordEmailResetResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -75,7 +75,7 @@ func (c *Client) ResetWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}

@@ -26,7 +26,7 @@ func (c *Client) Send(body *stytch.OTPsWhatsAppSendParams,
 	}
 
 	var retVal stytch.OTPsWhatsAppSendResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -45,6 +45,6 @@ func (c *Client) LoginOrCreate(body *stytch.OTPsWhatsAppLoginOrCreateParams,
 	}
 
 	var retVal stytch.OTPsWhatsAppLoginOrCreateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

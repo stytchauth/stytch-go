@@ -24,7 +24,7 @@ func (c *Client) Create(body *stytch.UsersCreateParams) (*stytch.UsersCreateResp
 	}
 
 	var retVal stytch.UsersCreateResponse
-	err = c.C.NewRequest("POST", "/users", nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", "/users", nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -32,7 +32,7 @@ func (c *Client) Get(userID string) (*stytch.UsersGetResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersGetResponse
-	err := c.C.NewRequest("GET", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "GET", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -53,7 +53,7 @@ func (c *Client) GetPending(
 	}
 
 	var retVal stytch.UsersGetPendingResponse
-	err := c.C.NewRequest("GET", "/users/pending", queryParams, nil, &retVal)
+	err := c.C.NewRequest(ctx, "GET", "/users/pending", queryParams, nil, &retVal)
 	return &retVal, err
 }
 
@@ -71,7 +71,7 @@ func (c *Client) Search(
 	}
 
 	var retVal stytch.UsersSearchResponse
-	err = c.C.NewRequest("POST", "/users/search", nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", "/users/search", nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -133,7 +133,7 @@ func (c *Client) Update(
 	}
 
 	var retVal stytch.UsersUpdateResponse
-	err = c.C.NewRequest("PUT", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "PUT", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -141,7 +141,7 @@ func (c *Client) Delete(userID string) (*stytch.UsersDeleteResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersDeleteResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -149,7 +149,7 @@ func (c *Client) DeleteEmail(emailID string) (*stytch.UsersDeleteEmailResponse, 
 	path := "/users/emails/" + emailID
 
 	var retVal stytch.UsersDeleteEmailResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -159,7 +159,7 @@ func (c *Client) DeletePhoneNumber(
 	path := "/users/phone_numbers/" + phoneID
 
 	var retVal stytch.UsersDeletePhoneNumberResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -169,7 +169,7 @@ func (c *Client) DeleteWebAuthnRegistration(
 	path := "/users/webauthn_registrations/" + webAuthnRegistration
 
 	var retVal stytch.UsersDeleteWebAuthnRegistrationResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -179,7 +179,7 @@ func (c *Client) DeleteBiometricRegistration(
 	path := "/users/biometric_registrations/" + biometricRegistrationID
 
 	var retVal stytch.UsersDeleteBiometricRegistrationResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -189,7 +189,7 @@ func (c *Client) DeleteTOTP(
 	path := "/users/totps/" + totpID
 
 	var retVal stytch.UsersDeleteTOTPResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -199,7 +199,7 @@ func (c *Client) DeleteCryptoWallet(
 	path := "/users/crypto_wallets/" + cryptoWalletID
 
 	var retVal stytch.UsersDeleteCryptoWalletResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -209,7 +209,7 @@ func (c *Client) DeletePassword(
 	path := "/users/passwords/" + passwordID
 
 	var retVal stytch.UsersDeletePasswordResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
@@ -219,6 +219,6 @@ func (c *Client) DeleteOAuthUserRegistration(
 	path := "/users/oauth/" + oauthUserRegistrationID
 
 	var retVal stytch.UsersDeleteOAuthRegistrationResponse
-	err := c.C.NewRequest("DELETE", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "DELETE", path, nil, nil, &retVal)
 	return &retVal, err
 }
