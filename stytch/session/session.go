@@ -1,6 +1,7 @@
 package session
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -20,6 +21,7 @@ type Client struct {
 }
 
 func (c *Client) Get(
+	ctx context.Context,
 	body *stytch.SessionsGetParams,
 ) (*stytch.SessionsGetResponse, error) {
 	queryParams := make(map[string]string)
@@ -28,32 +30,33 @@ func (c *Client) Get(
 	}
 
 	var retVal stytch.SessionsGetResponse
-	err := c.C.NewRequest("GET", "/sessions", queryParams, nil, &retVal)
+	err := c.C.NewRequest(ctx, "GET", "/sessions", queryParams, nil, &retVal)
 	return &retVal, err
 }
 
 func (c *Client) GetJWKS(
-	body *stytch.SessionsGetJWKSParams,
+	ctx context.Context, body *stytch.SessionsGetJWKSParams,
 ) (*stytch.SessionsGetJWKSResponse, error) {
 	path := "/sessions/jwks/" + body.ProjectID
 
 	var retVal stytch.SessionsGetJWKSResponse
-	err := c.C.NewRequest("GET", path, nil, nil, &retVal)
+	err := c.C.NewRequest(ctx, "GET", path, nil, nil, &retVal)
 	return &retVal, err
 }
 
 func (c *Client) AuthenticateJWT(
+	ctx context.Context,
 	maxTokenAge time.Duration,
 	body *stytch.SessionsAuthenticateParams,
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.Authenticate(body)
+		return c.Authenticate(ctx, body)
 	}
 
 	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(body)
+		return c.Authenticate(ctx, body)
 	}
 
 	return &stytch.SessionsAuthenticateResponse{
@@ -62,18 +65,19 @@ func (c *Client) AuthenticateJWT(
 }
 
 func (c *Client) AuthenticateJWTWithClaims(
+	ctx context.Context,
 	maxTokenAge time.Duration,
 	body *stytch.SessionsAuthenticateParams,
 	claims interface{},
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.AuthenticateWithClaims(body, claims)
+		return c.AuthenticateWithClaims(ctx, body, claims)
 	}
 
 	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(body)
+		return c.Authenticate(ctx, body)
 	}
 
 	return &stytch.SessionsAuthenticateResponse{
@@ -129,6 +133,7 @@ func marshalJWTIntoSession(claims stytch.Claims) stytch.Session {
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.SessionsAuthenticateParams,
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	path := "/sessions/authenticate"
@@ -144,7 +149,7 @@ func (c *Client) Authenticate(
 	}
 
 	var retVal stytch.SessionsAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -153,6 +158,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.SessionsAuthenticateParams,
 	claims interface{},
 ) (*stytch.SessionsAuthenticateResponse, error) {
@@ -168,7 +174,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}
@@ -194,6 +200,7 @@ func (c *Client) AuthenticateWithClaims(
 }
 
 func (c *Client) Revoke(
+	ctx context.Context,
 	body *stytch.SessionsRevokeParams,
 ) (*stytch.SessionsRevokeResponse, error) {
 	path := "/sessions/revoke"
@@ -209,6 +216,6 @@ func (c *Client) Revoke(
 	}
 
 	var retVal stytch.SessionsRevokeResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

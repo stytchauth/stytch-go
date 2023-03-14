@@ -1,6 +1,7 @@
 package sms
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v6/stytch"
@@ -11,7 +12,10 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendResponse, error) {
+func (c *Client) Send(
+	ctx context.Context,
+	body *stytch.OTPsSMSSendParams,
+) (*stytch.OTPsSMSSendResponse, error) {
 	path := "/otps/sms/send"
 
 	var jsonBody []byte
@@ -25,11 +29,12 @@ func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendRespon
 	}
 
 	var retVal stytch.OTPsSMSSendResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
 func (c *Client) LoginOrCreate(
+	ctx context.Context,
 	body *stytch.OTPsSMSLoginOrCreateParams,
 ) (*stytch.OTPsSMSLoginOrCreateResponse, error) {
 	path := "/otps/sms/login_or_create"
@@ -45,6 +50,6 @@ func (c *Client) LoginOrCreate(
 	}
 
 	var retVal stytch.OTPsSMSLoginOrCreateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

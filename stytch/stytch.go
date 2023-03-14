@@ -2,6 +2,7 @@ package stytch
 
 import (
 	"bytes"
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -37,10 +38,14 @@ func New(env config.Env, projectID string, secret string) *Client {
 }
 
 // newRequest is used by Call to generate and Do a http.Request
-func (c *Client) NewRequest(method string, path string, queryParams map[string]string,
+func (c *Client) NewRequest(
+	ctx context.Context,
+	method string,
+	path string,
+	queryParams map[string]string,
 	body []byte, v interface{},
 ) error {
-	b, err := c.RawRequest(method, path, queryParams, body)
+	b, err := c.RawRequest(ctx, method, path, queryParams, body)
 	if err != nil {
 		return err
 	}
@@ -56,6 +61,7 @@ func (c *Client) NewRequest(method string, path string, queryParams map[string]s
 //
 // Prefer using NewRequest (which unmarshals the response JSON) unless you need the actual bytes.
 func (c *Client) RawRequest(
+	ctx context.Context,
 	method string,
 	path string,
 	queryParams map[string]string,
@@ -67,7 +73,7 @@ func (c *Client) RawRequest(
 
 	path = string(c.Config.BaseURI) + path
 
-	req, err := http.NewRequest(method, path, bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(ctx, method, path, bytes.NewReader(body))
 	if err != nil {
 		return nil, fmt.Errorf("error creating http request: %w", err)
 	}

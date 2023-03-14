@@ -1,6 +1,7 @@
 package cryptowallet
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -12,7 +13,9 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) AuthenticateStart(body *stytch.CryptoWalletAuthenticateStartParams,
+func (c *Client) AuthenticateStart(
+	ctx context.Context,
+	body *stytch.CryptoWalletAuthenticateStartParams,
 ) (*stytch.CryptoWalletAuthenticateStartResponse, error) {
 	path := "/crypto_wallets/authenticate/start"
 
@@ -27,11 +30,13 @@ func (c *Client) AuthenticateStart(body *stytch.CryptoWalletAuthenticateStartPar
 	}
 
 	var retVal stytch.CryptoWalletAuthenticateStartResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
-func (c *Client) Authenticate(body *stytch.CryptoWalletAuthenticateParams,
+func (c *Client) Authenticate(
+	ctx context.Context,
+	body *stytch.CryptoWalletAuthenticateParams,
 ) (*stytch.CryptoWalletAuthenticateResponse, error) {
 	path := "/crypto_wallets/authenticate"
 
@@ -46,7 +51,7 @@ func (c *Client) Authenticate(body *stytch.CryptoWalletAuthenticateParams,
 	}
 
 	var retVal stytch.CryptoWalletAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -55,6 +60,7 @@ func (c *Client) Authenticate(body *stytch.CryptoWalletAuthenticateParams,
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.CryptoWalletAuthenticateParams,
 	claims interface{},
 ) (*stytch.CryptoWalletAuthenticateResponse, error) {
@@ -70,7 +76,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}

@@ -1,6 +1,7 @@
 package password
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -19,6 +20,7 @@ type Client struct {
 }
 
 func (c *Client) Create(
+	ctx context.Context,
 	body *stytch.PasswordsCreateParams,
 ) (*stytch.PasswordsCreateResponse, error) {
 	path := "/passwords"
@@ -35,7 +37,7 @@ func (c *Client) Create(
 	}
 
 	var retVal stytch.PasswordsCreateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -44,6 +46,7 @@ func (c *Client) Create(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) CreateWithClaims(
+	ctx context.Context,
 	body *stytch.PasswordsCreateParams,
 	claims interface{},
 ) (*stytch.PasswordsCreateResponse, error) {
@@ -60,7 +63,7 @@ func (c *Client) CreateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}
@@ -86,6 +89,7 @@ func (c *Client) CreateWithClaims(
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.PasswordsAuthenticateParams,
 ) (*stytch.PasswordsAuthenticateResponse, error) {
 	path := "/passwords/authenticate"
@@ -102,7 +106,7 @@ func (c *Client) Authenticate(
 	}
 
 	var retVal stytch.PasswordsAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -111,6 +115,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.PasswordsAuthenticateParams,
 	claims interface{},
 ) (*stytch.PasswordsAuthenticateResponse, error) {
@@ -127,7 +132,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}
@@ -153,6 +158,7 @@ func (c *Client) AuthenticateWithClaims(
 }
 
 func (c *Client) StrengthCheck(
+	ctx context.Context,
 	body *stytch.PasswordsStrengthCheckParams,
 ) (*stytch.PasswordsStrengthCheckResponse, error) {
 	path := "/passwords/strength_check"
@@ -169,11 +175,12 @@ func (c *Client) StrengthCheck(
 	}
 
 	var retVal stytch.PasswordsStrengthCheckResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
 func (c *Client) Migrate(
+	ctx context.Context,
 	body *stytch.PasswordsMigrateParams,
 ) (*stytch.PasswordsMigrateResponse, error) {
 	path := "/passwords/migrate"
@@ -190,6 +197,6 @@ func (c *Client) Migrate(
 	}
 
 	var retVal stytch.PasswordsMigrateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }

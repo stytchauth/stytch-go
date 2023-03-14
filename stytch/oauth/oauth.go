@@ -1,6 +1,7 @@
 package oauth
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -15,6 +16,7 @@ type Client struct {
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.OAuthAuthenticateParams,
 ) (*stytch.OAuthAuthenticateResponse, error) {
 	path := "/oauth/authenticate"
@@ -31,7 +33,7 @@ func (c *Client) Authenticate(
 	}
 
 	var retVal stytch.OAuthAuthenticateResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
 
@@ -40,6 +42,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.OAuthAuthenticateParams,
 	claims interface{},
 ) (*stytch.OAuthAuthenticateResponse, error) {
@@ -56,7 +59,7 @@ func (c *Client) AuthenticateWithClaims(
 		}
 	}
 
-	b, err := c.C.RawRequest("POST", path, nil, jsonBody)
+	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
 	if err != nil {
 		return nil, err
 	}
@@ -82,6 +85,7 @@ func (c *Client) AuthenticateWithClaims(
 }
 
 func (c *Client) Attach(
+	ctx context.Context,
 	body *stytch.OAuthAttachParams,
 ) (*stytch.OAuthAttachResponse, error) {
 	path := "/oauth/attach"
@@ -98,6 +102,6 @@ func (c *Client) Attach(
 	}
 
 	var retVal stytch.OAuthAttachResponse
-	err = c.C.NewRequest("POST", path, nil, jsonBody, &retVal)
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
