@@ -1,6 +1,7 @@
 package totp
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -12,7 +13,7 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Create(body *stytch.TOTPsCreateParams) (
+func (c *Client) Create(ctx context.Context, body *stytch.TOTPsCreateParams) (
 	*stytch.TOTPsCreateResponse, error,
 ) {
 	path := "/totps"
@@ -33,7 +34,7 @@ func (c *Client) Create(body *stytch.TOTPsCreateParams) (
 	return &retVal, err
 }
 
-func (c *Client) Authenticate(body *stytch.TOTPsAuthenticateParams) (
+func (c *Client) Authenticate(ctx context.Context, body *stytch.TOTPsAuthenticateParams) (
 	*stytch.TOTPsAuthenticateResponse, error,
 ) {
 	path := "/totps/authenticate"
@@ -59,6 +60,7 @@ func (c *Client) Authenticate(body *stytch.TOTPsAuthenticateParams) (
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.TOTPsAuthenticateParams,
 	claims interface{},
 ) (*stytch.TOTPsAuthenticateResponse, error) {
@@ -102,7 +104,7 @@ func (c *Client) AuthenticateWithClaims(
 	return &retVal, err
 }
 
-func (c *Client) RecoveryCodes(body *stytch.TOTPsRecoveryCodesParams) (
+func (c *Client) RecoveryCodes(ctx context.Context, body *stytch.TOTPsRecoveryCodesParams) (
 	*stytch.TOTPsRecoveryCodesResponse, error,
 ) {
 	path := "/totps/recovery_codes"
@@ -123,7 +125,7 @@ func (c *Client) RecoveryCodes(body *stytch.TOTPsRecoveryCodesParams) (
 	return &retVal, err
 }
 
-func (c *Client) Recover(body *stytch.TOTPsRecoverParams) (
+func (c *Client) Recover(ctx context.Context, body *stytch.TOTPsRecoverParams) (
 	*stytch.TOTPsRecoverResponse, error,
 ) {
 	path := "/totps/recover"
@@ -149,6 +151,7 @@ func (c *Client) Recover(body *stytch.TOTPsRecoverParams) (
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) RecoverWithClaims(
+	ctx context.Context,
 	body *stytch.TOTPsRecoverParams,
 	claims interface{},
 ) (*stytch.TOTPsRecoverResponse, error) {

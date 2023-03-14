@@ -1,6 +1,7 @@
 package session
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -20,6 +21,7 @@ type Client struct {
 }
 
 func (c *Client) Get(
+	ctx context.Context,
 	body *stytch.SessionsGetParams,
 ) (*stytch.SessionsGetResponse, error) {
 	queryParams := make(map[string]string)
@@ -33,7 +35,7 @@ func (c *Client) Get(
 }
 
 func (c *Client) GetJWKS(
-	body *stytch.SessionsGetJWKSParams,
+	ctx context.Context, body *stytch.SessionsGetJWKSParams,
 ) (*stytch.SessionsGetJWKSResponse, error) {
 	path := "/sessions/jwks/" + body.ProjectID
 
@@ -43,17 +45,18 @@ func (c *Client) GetJWKS(
 }
 
 func (c *Client) AuthenticateJWT(
+	ctx context.Context,
 	maxTokenAge time.Duration,
 	body *stytch.SessionsAuthenticateParams,
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.Authenticate(body)
+		return c.Authenticate(ctx, body)
 	}
 
 	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(body)
+		return c.Authenticate(ctx, body)
 	}
 
 	return &stytch.SessionsAuthenticateResponse{
@@ -62,18 +65,19 @@ func (c *Client) AuthenticateJWT(
 }
 
 func (c *Client) AuthenticateJWTWithClaims(
+	ctx context.Context,
 	maxTokenAge time.Duration,
 	body *stytch.SessionsAuthenticateParams,
 	claims interface{},
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.AuthenticateWithClaims(body, claims)
+		return c.AuthenticateWithClaims(ctx, body, claims)
 	}
 
 	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(body)
+		return c.Authenticate(ctx, body)
 	}
 
 	return &stytch.SessionsAuthenticateResponse{
@@ -129,6 +133,7 @@ func marshalJWTIntoSession(claims stytch.Claims) stytch.Session {
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.SessionsAuthenticateParams,
 ) (*stytch.SessionsAuthenticateResponse, error) {
 	path := "/sessions/authenticate"
@@ -153,6 +158,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.SessionsAuthenticateParams,
 	claims interface{},
 ) (*stytch.SessionsAuthenticateResponse, error) {
@@ -194,6 +200,7 @@ func (c *Client) AuthenticateWithClaims(
 }
 
 func (c *Client) Revoke(
+	ctx context.Context,
 	body *stytch.SessionsRevokeParams,
 ) (*stytch.SessionsRevokeResponse, error) {
 	path := "/sessions/revoke"

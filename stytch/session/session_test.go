@@ -1,6 +1,7 @@
 package session_test
 
 import (
+	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"fmt"
@@ -191,7 +192,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 
 	t.Run("marshaling claims into a map", func(t *testing.T) {
 		var claims map[string]interface{}
-		_, err := client.Sessions.AuthenticateWithClaims(req, &claims)
+		_, err := client.Sessions.AuthenticateWithClaims(context.Background(), req, &claims)
 		require.NoError(t, err)
 
 		type object = map[string]interface{}
@@ -222,7 +223,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 
 		{
 			var claims Claims
-			_, err = client.Sessions.AuthenticateWithClaims(req, &claims)
+			_, err = client.Sessions.AuthenticateWithClaims(context.Background(), req, &claims)
 			require.NoError(t, err)
 			expected := Claims{
 				MyApp: MyAppClaims{
@@ -283,7 +284,7 @@ func ExampleClient_AuthenticateWithClaims_map() {
 
 	// Expecting a map where all the values are maps from strings to integers
 	var mapClaims map[string]map[string]int32
-	_, _ = client.Sessions.AuthenticateWithClaims(&stytch.SessionsAuthenticateParams{
+	_, _ = client.Sessions.AuthenticateWithClaims(context.Background(), &stytch.SessionsAuthenticateParams{
 		SessionToken: "fake session token",
 	}, &mapClaims)
 
@@ -350,7 +351,7 @@ func ExampleClient_AuthenticateWithClaims_struct() {
 	}
 
 	var structClaims StructClaims
-	_, _ = client.Sessions.AuthenticateWithClaims(&stytch.SessionsAuthenticateParams{
+	_, _ = client.Sessions.AuthenticateWithClaims(context.Background(), &stytch.SessionsAuthenticateParams{
 		SessionToken: "fake session token",
 	}, &structClaims)
 

@@ -1,6 +1,7 @@
 package oauth
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -15,6 +16,7 @@ type Client struct {
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.OAuthAuthenticateParams,
 ) (*stytch.OAuthAuthenticateResponse, error) {
 	path := "/oauth/authenticate"
@@ -40,6 +42,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.OAuthAuthenticateParams,
 	claims interface{},
 ) (*stytch.OAuthAuthenticateResponse, error) {
@@ -82,6 +85,7 @@ func (c *Client) AuthenticateWithClaims(
 }
 
 func (c *Client) Attach(
+	ctx context.Context,
 	body *stytch.OAuthAttachParams,
 ) (*stytch.OAuthAttachResponse, error) {
 	path := "/oauth/attach"

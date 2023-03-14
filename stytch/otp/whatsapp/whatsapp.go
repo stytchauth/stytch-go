@@ -1,6 +1,7 @@
 package whatsapp
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v6/stytch"
@@ -11,7 +12,9 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Send(body *stytch.OTPsWhatsAppSendParams,
+func (c *Client) Send(
+	ctx context.Context,
+	body *stytch.OTPsWhatsAppSendParams,
 ) (*stytch.OTPsWhatsAppSendResponse, error) {
 	path := "/otps/whatsapp/send"
 
@@ -30,7 +33,9 @@ func (c *Client) Send(body *stytch.OTPsWhatsAppSendParams,
 	return &retVal, err
 }
 
-func (c *Client) LoginOrCreate(body *stytch.OTPsWhatsAppLoginOrCreateParams,
+func (c *Client) LoginOrCreate(
+	ctx context.Context,
+	body *stytch.OTPsWhatsAppLoginOrCreateParams,
 ) (*stytch.OTPsWhatsAppLoginOrCreateResponse, error) {
 	path := "/otps/whatsapp/login_or_create"
 

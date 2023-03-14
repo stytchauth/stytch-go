@@ -1,6 +1,7 @@
 package email
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v6/stytch"
@@ -12,6 +13,7 @@ type Client struct {
 }
 
 func (c *Client) Send(
+	ctx context.Context,
 	body *stytch.MagicLinksEmailSendParams,
 ) (*stytch.MagicLinksEmailSendResponse, error) {
 	path := "/magic_links/email/send"
@@ -31,7 +33,10 @@ func (c *Client) Send(
 	return &retVal, err
 }
 
-func (c *Client) LoginOrCreate(body *stytch.MagicLinksEmailLoginOrCreateParams) (
+func (c *Client) LoginOrCreate(
+	ctx context.Context,
+	body *stytch.MagicLinksEmailLoginOrCreateParams,
+) (
 	*stytch.MagicLinksEmailLoginOrCreateResponse, error,
 ) {
 	path := "/magic_links/email/login_or_create"
@@ -52,6 +57,7 @@ func (c *Client) LoginOrCreate(body *stytch.MagicLinksEmailLoginOrCreateParams) 
 }
 
 func (c *Client) Invite(
+	ctx context.Context,
 	body *stytch.MagicLinksEmailInviteParams,
 ) (*stytch.MagicLinksEmailInviteResponse, error) {
 	path := "/magic_links/email/invite"
@@ -71,7 +77,10 @@ func (c *Client) Invite(
 	return &retVal, err
 }
 
-func (c *Client) RevokeInvite(body *stytch.MagicLinksEmailRevokeInviteParams) (
+func (c *Client) RevokeInvite(
+	ctx context.Context,
+	body *stytch.MagicLinksEmailRevokeInviteParams,
+) (
 	*stytch.MagicLinksEmailRevokeInviteResponse, error,
 ) {
 	path := "/magic_links/email/revoke_invite"

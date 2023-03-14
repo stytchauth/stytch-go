@@ -1,6 +1,7 @@
 package user
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -12,7 +13,7 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Create(body *stytch.UsersCreateParams) (*stytch.UsersCreateResponse, error) {
+func (c *Client) Create(ctx context.Context, body *stytch.UsersCreateParams) (*stytch.UsersCreateResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -28,7 +29,7 @@ func (c *Client) Create(body *stytch.UsersCreateParams) (*stytch.UsersCreateResp
 	return &retVal, err
 }
 
-func (c *Client) Get(userID string) (*stytch.UsersGetResponse, error) {
+func (c *Client) Get(ctx context.Context, userID string) (*stytch.UsersGetResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersGetResponse
@@ -37,6 +38,7 @@ func (c *Client) Get(userID string) (*stytch.UsersGetResponse, error) {
 }
 
 func (c *Client) GetPending(
+	ctx context.Context,
 	body *stytch.UsersGetPendingParams,
 ) (*stytch.UsersGetPendingResponse, error) {
 	var queryParams map[string]string
@@ -58,6 +60,7 @@ func (c *Client) GetPending(
 }
 
 func (c *Client) Search(
+	ctx context.Context,
 	body *stytch.UsersSearchParams,
 ) (*stytch.UsersSearchResponse, error) {
 	var jsonBody []byte
@@ -94,8 +97,8 @@ func (i *UserSearchIterator) HasNext() bool {
 	return i.state == iteratorStatePending || i.state == iteratorStateInProgress
 }
 
-func (i *UserSearchIterator) Next() ([]stytch.User, error) {
-	res, err := i.c.Search(i.body)
+func (i *UserSearchIterator) Next(ctx context.Context) ([]stytch.User, error) {
+	res, err := i.c.Search(ctx, i.body)
 	if err != nil {
 		i.state = iteratorStateErrored
 		return nil, err
@@ -118,7 +121,9 @@ func (c *Client) SearchAll(body *stytch.UsersSearchParams) *UserSearchIterator {
 }
 
 func (c *Client) Update(
-	userID string, body *stytch.UsersUpdateParams,
+	ctx context.Context,
+	userID string,
+	body *stytch.UsersUpdateParams,
 ) (*stytch.UsersUpdateResponse, error) {
 	path := "/users/" + userID
 
@@ -137,7 +142,7 @@ func (c *Client) Update(
 	return &retVal, err
 }
 
-func (c *Client) Delete(userID string) (*stytch.UsersDeleteResponse, error) {
+func (c *Client) Delete(ctx context.Context, userID string) (*stytch.UsersDeleteResponse, error) {
 	path := "/users/" + userID
 
 	var retVal stytch.UsersDeleteResponse
@@ -145,7 +150,7 @@ func (c *Client) Delete(userID string) (*stytch.UsersDeleteResponse, error) {
 	return &retVal, err
 }
 
-func (c *Client) DeleteEmail(emailID string) (*stytch.UsersDeleteEmailResponse, error) {
+func (c *Client) DeleteEmail(ctx context.Context, emailID string) (*stytch.UsersDeleteEmailResponse, error) {
 	path := "/users/emails/" + emailID
 
 	var retVal stytch.UsersDeleteEmailResponse
@@ -154,6 +159,7 @@ func (c *Client) DeleteEmail(emailID string) (*stytch.UsersDeleteEmailResponse, 
 }
 
 func (c *Client) DeletePhoneNumber(
+	ctx context.Context,
 	phoneID string,
 ) (*stytch.UsersDeletePhoneNumberResponse, error) {
 	path := "/users/phone_numbers/" + phoneID
@@ -164,6 +170,7 @@ func (c *Client) DeletePhoneNumber(
 }
 
 func (c *Client) DeleteWebAuthnRegistration(
+	ctx context.Context,
 	webAuthnRegistration string,
 ) (*stytch.UsersDeleteWebAuthnRegistrationResponse, error) {
 	path := "/users/webauthn_registrations/" + webAuthnRegistration
@@ -174,6 +181,7 @@ func (c *Client) DeleteWebAuthnRegistration(
 }
 
 func (c *Client) DeleteBiometricRegistration(
+	ctx context.Context,
 	biometricRegistrationID string,
 ) (*stytch.UsersDeleteBiometricRegistrationResponse, error) {
 	path := "/users/biometric_registrations/" + biometricRegistrationID
@@ -184,6 +192,7 @@ func (c *Client) DeleteBiometricRegistration(
 }
 
 func (c *Client) DeleteTOTP(
+	ctx context.Context,
 	totpID string,
 ) (*stytch.UsersDeleteTOTPResponse, error) {
 	path := "/users/totps/" + totpID
@@ -194,6 +203,7 @@ func (c *Client) DeleteTOTP(
 }
 
 func (c *Client) DeleteCryptoWallet(
+	ctx context.Context,
 	cryptoWalletID string,
 ) (*stytch.UsersDeleteCryptoWalletResponse, error) {
 	path := "/users/crypto_wallets/" + cryptoWalletID
@@ -204,6 +214,7 @@ func (c *Client) DeleteCryptoWallet(
 }
 
 func (c *Client) DeletePassword(
+	ctx context.Context,
 	passwordID string,
 ) (*stytch.UsersDeletePasswordResponse, error) {
 	path := "/users/passwords/" + passwordID
@@ -214,6 +225,7 @@ func (c *Client) DeletePassword(
 }
 
 func (c *Client) DeleteOAuthUserRegistration(
+	ctx context.Context,
 	oauthUserRegistrationID string,
 ) (*stytch.UsersDeleteOAuthRegistrationResponse, error) {
 	path := "/users/oauth/" + oauthUserRegistrationID

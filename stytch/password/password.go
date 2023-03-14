@@ -1,6 +1,7 @@
 package password
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -19,6 +20,7 @@ type Client struct {
 }
 
 func (c *Client) Create(
+	ctx context.Context,
 	body *stytch.PasswordsCreateParams,
 ) (*stytch.PasswordsCreateResponse, error) {
 	path := "/passwords"
@@ -44,6 +46,7 @@ func (c *Client) Create(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) CreateWithClaims(
+	ctx context.Context,
 	body *stytch.PasswordsCreateParams,
 	claims interface{},
 ) (*stytch.PasswordsCreateResponse, error) {
@@ -86,6 +89,7 @@ func (c *Client) CreateWithClaims(
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.PasswordsAuthenticateParams,
 ) (*stytch.PasswordsAuthenticateResponse, error) {
 	path := "/passwords/authenticate"
@@ -111,6 +115,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.PasswordsAuthenticateParams,
 	claims interface{},
 ) (*stytch.PasswordsAuthenticateResponse, error) {
@@ -153,6 +158,7 @@ func (c *Client) AuthenticateWithClaims(
 }
 
 func (c *Client) StrengthCheck(
+	ctx context.Context,
 	body *stytch.PasswordsStrengthCheckParams,
 ) (*stytch.PasswordsStrengthCheckResponse, error) {
 	path := "/passwords/strength_check"
@@ -174,6 +180,7 @@ func (c *Client) StrengthCheck(
 }
 
 func (c *Client) Migrate(
+	ctx context.Context,
 	body *stytch.PasswordsMigrateParams,
 ) (*stytch.PasswordsMigrateResponse, error) {
 	path := "/passwords/migrate"

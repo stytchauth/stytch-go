@@ -1,6 +1,7 @@
 package session
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v6/stytch"
@@ -12,6 +13,7 @@ type Client struct {
 }
 
 func (c *Client) Reset(
+	ctx context.Context,
 	body *stytch.PasswordSessionResetParams,
 ) (*stytch.PasswordSessionResetResponse, error) {
 	path := "/passwords/session/reset"

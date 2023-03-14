@@ -1,6 +1,7 @@
 package sms
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v6/stytch"
@@ -11,7 +12,7 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendResponse, error) {
+func (c *Client) Send(ctx context.Context, body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendResponse, error) {
 	path := "/otps/sms/send"
 
 	var jsonBody []byte
@@ -30,7 +31,7 @@ func (c *Client) Send(body *stytch.OTPsSMSSendParams) (*stytch.OTPsSMSSendRespon
 }
 
 func (c *Client) LoginOrCreate(
-	body *stytch.OTPsSMSLoginOrCreateParams,
+	ctx context.Context, body *stytch.OTPsSMSLoginOrCreateParams,
 ) (*stytch.OTPsSMSLoginOrCreateResponse, error) {
 	path := "/otps/sms/login_or_create"
 

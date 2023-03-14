@@ -1,6 +1,7 @@
 package existingpassword
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -13,6 +14,7 @@ type Client struct {
 }
 
 func (c *Client) Reset(
+	ctx context.Context,
 	body *stytch.PasswordExistingPasswordResetParams,
 ) (*stytch.PasswordExistingPasswordResetResponse, error) {
 	path := "/passwords/existing_password/reset"
@@ -38,6 +40,7 @@ func (c *Client) Reset(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) ResetWithClaims(
+	ctx context.Context,
 	body *stytch.PasswordExistingPasswordResetParams,
 	claims interface{},
 ) (*stytch.PasswordExistingPasswordResetResponse, error) {

@@ -1,6 +1,7 @@
 package webauthn
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -12,7 +13,9 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) RegisterStart(body *stytch.WebAuthnRegisterStartParams,
+func (c *Client) RegisterStart(
+	ctx context.Context,
+	body *stytch.WebAuthnRegisterStartParams,
 ) (*stytch.WebAuthnRegisterStartResponse, error) {
 	path := "/webauthn/register/start"
 
@@ -31,7 +34,9 @@ func (c *Client) RegisterStart(body *stytch.WebAuthnRegisterStartParams,
 	return &retVal, err
 }
 
-func (c *Client) Register(body *stytch.WebAuthnRegisterParams,
+func (c *Client) Register(
+	ctx context.Context,
+	body *stytch.WebAuthnRegisterParams,
 ) (*stytch.WebAuthnRegisterResponse, error) {
 	path := "/webauthn/register"
 
@@ -50,7 +55,9 @@ func (c *Client) Register(body *stytch.WebAuthnRegisterParams,
 	return &retVal, err
 }
 
-func (c *Client) AuthenticateStart(body *stytch.WebAuthnAuthenticateStartParams,
+func (c *Client) AuthenticateStart(
+	ctx context.Context,
+	body *stytch.WebAuthnAuthenticateStartParams,
 ) (*stytch.WebAuthnAuthenticateStartResponse, error) {
 	path := "/webauthn/authenticate/start"
 
@@ -69,7 +76,9 @@ func (c *Client) AuthenticateStart(body *stytch.WebAuthnAuthenticateStartParams,
 	return &retVal, err
 }
 
-func (c *Client) Authenticate(body *stytch.WebAuthnAuthenticateParams,
+func (c *Client) Authenticate(
+	ctx context.Context,
+	body *stytch.WebAuthnAuthenticateParams,
 ) (*stytch.WebAuthnAuthenticateResponse, error) {
 	path := "/webauthn/authenticate"
 
@@ -93,6 +102,7 @@ func (c *Client) Authenticate(body *stytch.WebAuthnAuthenticateParams,
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.WebAuthnAuthenticateParams,
 	claims interface{},
 ) (*stytch.WebAuthnAuthenticateResponse, error) {

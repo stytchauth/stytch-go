@@ -1,6 +1,7 @@
 package email
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v6/stytch"
@@ -11,7 +12,10 @@ type Client struct {
 	C *stytch.Client
 }
 
-func (c *Client) Send(body *stytch.OTPsEmailSendParams) (*stytch.OTPsEmailSendResponse, error) {
+func (c *Client) Send(
+	ctx context.Context,
+	body *stytch.OTPsEmailSendParams,
+) (*stytch.OTPsEmailSendResponse, error) {
 	path := "/otps/email/send"
 
 	var jsonBody []byte
@@ -30,6 +34,7 @@ func (c *Client) Send(body *stytch.OTPsEmailSendParams) (*stytch.OTPsEmailSendRe
 }
 
 func (c *Client) LoginOrCreate(
+	ctx context.Context,
 	body *stytch.OTPsEmailLoginOrCreateParams,
 ) (*stytch.OTPsEmailLoginOrCreateResponse, error) {
 	path := "/otps/email/login_or_create"

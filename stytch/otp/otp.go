@@ -1,6 +1,7 @@
 package otp
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -19,6 +20,7 @@ type Client struct {
 }
 
 func (c *Client) Authenticate(
+	ctx context.Context,
 	body *stytch.OTPsAuthenticateParams,
 ) (*stytch.OTPsAuthenticateResponse, error) {
 	path := "/otps/authenticate"
@@ -43,6 +45,7 @@ func (c *Client) Authenticate(
 // the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
 // ExampleClient_AuthenticateWithClaims_struct for examples
 func (c *Client) AuthenticateWithClaims(
+	ctx context.Context,
 	body *stytch.OTPsAuthenticateParams,
 	claims interface{},
 ) (*stytch.OTPsAuthenticateResponse, error) {
