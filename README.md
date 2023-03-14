@@ -50,17 +50,21 @@ if err != nil {
 
 Send a magic link by email:
 ```go
-	res, err := stytchAPIClient.MagicLinks.Email.Send(&stytch.MagicLinksEmailSendParams{
-		Email:              "sandbox@stytch.com",
-		Attributes:         stytch.Attributes{
-			IPAddress: "10.0.0.0",
-		},
-    })
+	res, err := stytchAPIClient.MagicLinks.Email.Send(
+		context.Background(),
+		&stytch.MagicLinksEmailSendParams{
+		    Email:              "sandbox@stytch.com",
+		    Attributes:         stytch.Attributes{
+			    IPAddress: "10.0.0.0",
+		    },
+        },
+    )
 ```
 
 Authenticate the token from the magic link:
 ```go
 	res, err := stytchAPIClient.MagicLinks.Authenticate(
+		context.Background(),
 		&stytch.MagicLinksAuthenticateParams{
 			Token:      "DOYoip3rvIMMW5lgItikFK-Ak1CfMsgjuiCyI7uuU94=",
 			Options:    stytch.Options{IPMatchRequired: true},
@@ -71,6 +75,7 @@ Authenticate the token from the magic link:
 Get all users
 ```go
     res, err := stytchAPIClient.Users.Search(
+		context.Background(),
 		&stytch.UsersSearchParams{
 			Limit: 1000	
 		})
@@ -79,6 +84,7 @@ Get all users
 Search users
 ```go
 	res, err := stytchAPIClient.Users.Search(
+		context.Background(),
 		&stytch.UsersSearchParams{
 			Limit: 1000,
 			Query: stytch.UsersSearchQuery{
@@ -97,7 +103,7 @@ Iterate over all pages of users for a search query
 	var users []stytch.User
 	iter := stytchAPIClient.Users.SearchAll(&stytch.UsersSearchParams{})
 	for iter.HasNext() {
-		res, err := iter.Next()
+		res, err := iter.Next(context.Background())
 		if err != nil {
 			fmt.Println(err)
 			return nil, err
