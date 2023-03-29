@@ -3,8 +3,11 @@ package stytch
 type PasswordsCreateParams struct {
 	Email                  string                 `json:"email"`
 	Password               string                 `json:"password"`
+	Name                   Name                   `json:"name,omitempty"`
 	SessionDurationMinutes int32                  `json:"session_duration_minutes,omitempty"`
 	SessionCustomClaims    map[string]interface{} `json:"session_custom_claims,omitempty"`
+	TrustedMetadata        map[string]interface{} `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata      map[string]interface{} `json:"untrusted_metadata,omitempty"`
 }
 
 type PasswordsCreateResponse struct {
@@ -69,13 +72,16 @@ type LUDSRequirements struct {
 }
 
 type PasswordsMigrateParams struct {
-	Email        string       `json:"email"`
-	Hash         string       `json:"hash"`
-	HashType     HashType     `json:"hash_type"`
-	MD5Config    MD5Config    `json:"md_5_config,omitempty"`
-	Argon2Config Argon2Config `json:"argon_2_config,omitempty"`
-	SHA1Config   SHA1Config   `json:"sha_1_config,omitempty"`
-	ScryptConfig ScryptConfig `json:"scrypt_config,omitempty"`
+	Email             string                 `json:"email"`
+	Name              Name                   `json:"name,omitempty"`
+	TrustedMetadata   map[string]interface{} `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata map[string]interface{} `json:"untrusted_metadata,omitempty"`
+	Hash              string                 `json:"hash"`
+	HashType          HashType               `json:"hash_type"`
+	MD5Config         MD5Config              `json:"md_5_config,omitempty"`
+	Argon2Config      Argon2Config           `json:"argon_2_config,omitempty"`
+	SHA1Config        SHA1Config             `json:"sha_1_config,omitempty"`
+	ScryptConfig      ScryptConfig           `json:"scrypt_config,omitempty"`
 }
 
 type MD5Config struct {
