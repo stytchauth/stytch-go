@@ -8,9 +8,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stytchauth/stytch-go/v6/stytch"
-	"github.com/stytchauth/stytch-go/v6/stytch/config"
-	"github.com/stytchauth/stytch-go/v6/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v7/stytch"
+	"github.com/stytchauth/stytch-go/v7/stytch/config"
+	"github.com/stytchauth/stytch-go/v7/stytch/stytchapi"
 )
 
 func TestNewClient(t *testing.T) {

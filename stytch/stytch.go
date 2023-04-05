@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v6/stytch/config"
-	"github.com/stytchauth/stytch-go/v6/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v7/stytch/config"
+	"github.com/stytchauth/stytch-go/v7/stytch/stytcherror"
 )
 
 const (
