@@ -9,8 +9,8 @@ import (
 
 	"github.com/MicahParks/keyfunc"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/stytchauth/stytch-go/v6/stytch"
-	"github.com/stytchauth/stytch-go/v6/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v7/stytch"
+	"github.com/stytchauth/stytch-go/v7/stytch/stytcherror"
 )
 
 var ErrJWTTooOld = errors.New("JWT too old")

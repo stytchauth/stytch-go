@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v6/stytch/config"
+	"github.com/stytchauth/stytch-go/v7/stytch/config"
 )
 
 type Error struct {

@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v6/stytch"
-	"github.com/stytchauth/stytch-go/v6/stytch/otp/email"
-	"github.com/stytchauth/stytch-go/v6/stytch/otp/sms"
-	"github.com/stytchauth/stytch-go/v6/stytch/otp/whatsapp"
-	"github.com/stytchauth/stytch-go/v6/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v7/stytch"
+	"github.com/stytchauth/stytch-go/v7/stytch/otp/email"
+	"github.com/stytchauth/stytch-go/v7/stytch/otp/sms"
+	"github.com/stytchauth/stytch-go/v7/stytch/otp/whatsapp"
+	"github.com/stytchauth/stytch-go/v7/stytch/stytcherror"
 )
 
 type Client struct {
