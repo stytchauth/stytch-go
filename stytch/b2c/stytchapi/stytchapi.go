@@ -115,7 +115,9 @@ func (a *API) instantiateJWKSClient(client *stytch.Client) (*keyfunc.JWKS, error
 		RefreshTimeout:    10 * time.Second,
 		RefreshUnknownKID: true,
 	}
-	jwkURL := string(client.Config.GetBaseURI()) +
-		fmt.Sprintf("/sessions/jwks/%s", client.Config.BasicAuthProjectID())
-	return keyfunc.Get(jwkURL, jwkOptions)
+
+	baseURI := client.Config.GetBaseURI()
+	projectID := client.Config.BasicAuthProjectID()
+	jwksURL := fmt.Sprintf("%s/sessions/jwks/%s", baseURI, projectID)
+	return keyfunc.Get(jwksURL, jwkOptions)
 }
