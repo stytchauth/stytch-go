@@ -1,11 +1,12 @@
 package b2c
 
 import (
+	"errors"
 	"strings"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/shared"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type Key = shared.Key
@@ -67,25 +68,45 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-// Validation options in GoJWT are currently unexported. Once they're exported, we
-// can define this as a Valid() function, see
-// https://github.com/golang-jwt/jwt/blob/1096e506e671d6d6fe134cc997bbd475937392c8/validator_option.go#L9-L11 //nolint:lll
+// IsValid returns an error if there is an issuer or audience mismatch in the claims.
+//
+// Deprecated: JWT claims are validated when the token is parsed. There is no need to call this method.
 func (c Claims) IsValid(projectID string) error {
-	vErr := new(jwt.ValidationError)
+	var errs []error
+
 	if !c.verifyIssuer(projectID) {
-		vErr.Inner = jwt.ErrTokenInvalidIssuer
-		vErr.Errors |= jwt.ValidationErrorIssuer
+		errs = append(errs, jwt.ErrTokenInvalidIssuer)
 	}
 
 	if !c.verifyAudience(projectID) {
-		vErr.Inner = jwt.ErrTokenInvalidAudience
-		vErr.Errors |= jwt.ValidationErrorAudience
+		errs = append(errs, jwt.ErrTokenInvalidAudience)
 	}
 
-	if vErr.Errors == 0 {
+	if len(errs) == 0 {
 		return nil
 	}
-	return vErr
+	return multiError{errs}
+}
+
+type multiError struct {
+	errs []error
+}
+
+func (me multiError) Error() string {
+	var msgs []string
+	for _, err := range me.errs {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, ", ")
+}
+
+func (me multiError) Is(target error) bool {
+	for _, err := range me.errs {
+		if errors.Is(err, target) {
+			return true
+		}
+	}
+	return false
 }
 
 func (c *Claims) verifyIssuer(cmp string) bool {

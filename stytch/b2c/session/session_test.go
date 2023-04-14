@@ -15,8 +15,8 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/session"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
 
-	"github.com/MicahParks/keyfunc"
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/MicahParks/keyfunc/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stytchauth/stytch-go/v8/stytch"
@@ -39,7 +39,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	key := rsaKey(t)
 	keyID := "jwk-test-22222222-2222-2222-2222-222222222222"
 	jwks := keyfunc.NewGiven(map[string]keyfunc.GivenKey{
-		keyID: keyfunc.NewGivenRSA(&key.PublicKey),
+		keyID: keyfunc.NewGivenRSA(&key.PublicKey, keyfunc.GivenKeyOptions{Algorithm: "RS256"}),
 	})
 
 	sessions := &session.Client{
@@ -68,6 +68,34 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 
 		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
 		assert.ErrorIs(t, err, session.ErrJWTTooOld)
+		assert.Nil(t, s)
+	})
+
+	t.Run("incorrect audience", func(t *testing.T) {
+		iat := time.Now().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaims(t, iat, exp)
+		claims.Audience = jwt.ClaimStrings{"not this project"}
+
+		token := signJWT(t, keyID, key, claims)
+
+		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
+		assert.Nil(t, s)
+	})
+
+	t.Run("incorrect issuer", func(t *testing.T) {
+		iat := time.Now().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaims(t, iat, exp)
+		claims.Issuer = "not this project"
+
+		token := signJWT(t, keyID, key, claims)
+
+		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
 		assert.Nil(t, s)
 	})
 
@@ -237,6 +265,66 @@ func TestAuthenticateWithClaims(t *testing.T) {
 			}
 			assert.Equal(t, expected, claims)
 		}
+	})
+}
+
+func TestClaims_IsValid(t *testing.T) {
+	// TODO(v9): Remove this method. It is no longer needed.
+	t.Run("matching issuer and audience", func(t *testing.T) {
+		claims := b2c.Claims{
+			RegisteredClaims: jwt.RegisteredClaims{
+				Issuer:   "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
+				Audience: jwt.ClaimStrings{"project-test-00000000-0000-0000-0000-000000000000"},
+			},
+		}
+
+		//nolint:staticcheck // SA1019 deprecated
+		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
+
+		assert.NoError(t, err)
+	})
+
+	t.Run("mismatched issuer", func(t *testing.T) {
+		claims := b2c.Claims{
+			RegisteredClaims: jwt.RegisteredClaims{
+				Issuer:   "stytch.com/project-test-11111111-1111-1111-1111-111111111111",
+				Audience: jwt.ClaimStrings{"project-test-00000000-0000-0000-0000-000000000000"},
+			},
+		}
+
+		//nolint:staticcheck // SA1019 deprecated
+		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
+
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
+	})
+
+	t.Run("mismatched audience", func(t *testing.T) {
+		claims := b2c.Claims{
+			RegisteredClaims: jwt.RegisteredClaims{
+				Issuer:   "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
+				Audience: jwt.ClaimStrings{"project-test-11111111-1111-1111-1111-111111111111"},
+			},
+		}
+
+		//nolint:staticcheck // SA1019 deprecated
+		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
+
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
+	})
+
+	t.Run("both issuer and audience mismatch identifies as either error", func(t *testing.T) {
+		claims := b2c.Claims{
+			RegisteredClaims: jwt.RegisteredClaims{
+				Issuer:   "stytch.com/project-test-11111111-1111-1111-1111-111111111111",
+				Audience: jwt.ClaimStrings{"project-test-22222222-2222-2222-2222-222222222222"},
+			},
+		}
+
+		//nolint:staticcheck // SA1019 deprecated
+		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
+
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
 	})
 }
 
