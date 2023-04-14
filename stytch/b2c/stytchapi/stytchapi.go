@@ -22,7 +22,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/user"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/webauthn"
 
-	"github.com/MicahParks/keyfunc"
+	"github.com/MicahParks/keyfunc/v2"
 	"github.com/stytchauth/stytch-go/v8/stytch"
 	"github.com/stytchauth/stytch-go/v8/stytch/config"
 )

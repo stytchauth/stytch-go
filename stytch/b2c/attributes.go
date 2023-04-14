@@ -1,6 +1,6 @@
 package b2c
 
-import "github.com/golang-jwt/jwt/v4"
+import "github.com/golang-jwt/jwt/v5"
 
 /*
  * Structure for the custom type Attributes

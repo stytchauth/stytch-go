@@ -9,8 +9,8 @@ import (
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
 
-	"github.com/MicahParks/keyfunc"
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/MicahParks/keyfunc/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v8/stytch"
 	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
 )
@@ -92,15 +92,15 @@ func (c *Client) AuthenticateJWTLocal(
 	maxTokenAge time.Duration,
 ) (*b2c.Session, error) {
 	var claims b2c.Claims
-	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc)
+
+	aud := c.C.Config.BasicAuthProjectID()
+	iss := fmt.Sprintf("stytch.com/%s", c.C.Config.BasicAuthProjectID())
+
+	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse JWT: %w", err)
 	}
 
-	if err := claims.IsValid(c.C.Config.BasicAuthProjectID()); err != nil {
-		// If JWT is invalid, return error
-		return nil, fmt.Errorf("authenticate JWT: %w", err)
-	}
 	if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
 		// The JWT is valid, but older than the tolerable maximum age.
 		return nil, ErrJWTTooOld

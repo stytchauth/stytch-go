@@ -1,11 +1,9 @@
 package b2c
 
 import (
-	"strings"
-
 	"github.com/stytchauth/stytch-go/v8/stytch/shared"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type Key = shared.Key
@@ -65,34 +63,4 @@ type SessionClaim struct {
 type Claims struct {
 	StytchSession SessionClaim `json:"https://stytch.com/session"`
 	jwt.RegisteredClaims
-}
-
-// Validation options in GoJWT are currently unexported. Once they're exported, we
-// can define this as a Valid() function, see
-// https://github.com/golang-jwt/jwt/blob/1096e506e671d6d6fe134cc997bbd475937392c8/validator_option.go#L9-L11 //nolint:lll
-func (c Claims) IsValid(projectID string) error {
-	vErr := new(jwt.ValidationError)
-	if !c.verifyIssuer(projectID) {
-		vErr.Inner = jwt.ErrTokenInvalidIssuer
-		vErr.Errors |= jwt.ValidationErrorIssuer
-	}
-
-	if !c.verifyAudience(projectID) {
-		vErr.Inner = jwt.ErrTokenInvalidAudience
-		vErr.Errors |= jwt.ValidationErrorAudience
-	}
-
-	if vErr.Errors == 0 {
-		return nil
-	}
-	return vErr
-}
-
-func (c *Claims) verifyIssuer(cmp string) bool {
-	issuerSplit := strings.Split(c.RegisteredClaims.Issuer, "/")
-	return len(issuerSplit) == 2 && issuerSplit[1] == cmp
-}
-
-func (c *Claims) verifyAudience(cmp string) bool {
-	return len(c.RegisteredClaims.Audience) == 1 && c.RegisteredClaims.Audience[0] == cmp
 }

@@ -15,8 +15,8 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/session"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
 
-	"github.com/MicahParks/keyfunc"
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/MicahParks/keyfunc/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stytchauth/stytch-go/v8/stytch"
@@ -39,7 +39,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	key := rsaKey(t)
 	keyID := "jwk-test-22222222-2222-2222-2222-222222222222"
 	jwks := keyfunc.NewGiven(map[string]keyfunc.GivenKey{
-		keyID: keyfunc.NewGivenRSA(&key.PublicKey),
+		keyID: keyfunc.NewGivenRSA(&key.PublicKey, keyfunc.GivenKeyOptions{Algorithm: "RS256"}),
 	})
 
 	sessions := &session.Client{
@@ -68,6 +68,34 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 
 		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
 		assert.ErrorIs(t, err, session.ErrJWTTooOld)
+		assert.Nil(t, s)
+	})
+
+	t.Run("incorrect audience", func(t *testing.T) {
+		iat := time.Now().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaims(t, iat, exp)
+		claims.Audience = jwt.ClaimStrings{"not this project"}
+
+		token := signJWT(t, keyID, key, claims)
+
+		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
+		assert.Nil(t, s)
+	})
+
+	t.Run("incorrect issuer", func(t *testing.T) {
+		iat := time.Now().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaims(t, iat, exp)
+		claims.Issuer = "not this project"
+
+		token := signJWT(t, keyID, key, claims)
+
+		s, err := sessions.AuthenticateJWTLocal(token, 1*time.Minute)
+		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
 		assert.Nil(t, s)
 	})
 
