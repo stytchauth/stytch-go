@@ -2,6 +2,7 @@ package stytchapi_test
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -9,8 +10,10 @@ import (
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
+	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/stytchauth/stytch-go/v8/stytch"
 	"github.com/stytchauth/stytch-go/v8/stytch/config"
 )
@@ -49,4 +52,55 @@ func TestNewClient(t *testing.T) {
 		)
 		assert.NoError(t, err)
 	})
+
+	t.Run("custom HTTP client", func(t *testing.T) {
+		// This custom HTTP client intercepts all outbound requests and responds to them with a
+		// fictional Stytch-like error.
+		httpClient := &http.Client{
+			Transport: RoundTripperFunc(func(r *http.Request) (*http.Response, error) {
+				// Handle the JWKS fetch that happens during setup.
+				if r.URL.Path == "/v1/sessions/jwks/project-test-00000000-0000-0000-0000-000000000000" {
+					resp := &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(`{"keys": []}`)),
+					}
+					return resp, nil
+				}
+
+				// Everything else is an error.
+				resp := &http.Response{
+					StatusCode: http.StatusTeapot,
+					Body: io.NopCloser(strings.NewReader(
+						`{"status_code": 418, "error_type": "teapot", "error_message": "I'm a teapot!"}`,
+					)),
+				}
+				return resp, nil
+			}),
+		}
+
+		client, err := stytchapi.NewAPIClient(
+			stytch.EnvTest,
+			"project-test-00000000-0000-0000-0000-000000000000",
+			"secret-test-11111111-1111-1111-1111-111111111111",
+			stytchapi.WithHTTPClient(httpClient),
+		)
+		require.NoError(t, err)
+
+		_, err = client.MagicLinks.Authenticate(
+			context.Background(),
+			&b2c.MagicLinksAuthenticateParams{},
+		)
+
+		var stytchErr stytcherror.Error
+		if assert.ErrorAs(t, err, &stytchErr) {
+			assert.Equal(t, stytcherror.Type("teapot"), stytchErr.ErrorType)
+			assert.Equal(t, stytcherror.Message("I'm a teapot!"), stytchErr.ErrorMessage)
+		}
+	})
+}
+
+type RoundTripperFunc func(*http.Request) (*http.Response, error)
+
+func (r RoundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
+	return r(req)
 }

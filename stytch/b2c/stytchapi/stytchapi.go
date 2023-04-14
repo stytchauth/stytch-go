@@ -3,6 +3,7 @@ package stytchapi
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/cryptowallet"
@@ -49,6 +50,12 @@ type Option func(*API)
 
 func WithLogger(logger Logger) Option {
 	return func(api *API) { api.logger = logger }
+}
+
+// WithHTTPClient overrides the HTTP client used by the API client. The default value is
+// &http.Client{}.
+func WithHTTPClient(client *http.Client) Option {
+	return func(api *API) { api.client.HTTPClient = client }
 }
 
 // WithBaseURI overrides the client base URI determined by the environment.
