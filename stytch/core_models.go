@@ -172,6 +172,13 @@ type UsersSearchQueryCreatedAtGreaterThanFilter struct {
 	CreatedAtGreaterThan time.Time
 }
 
+func marshalFilter(filterName string, filterValue interface{}) ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"filter_name":  filterName,
+		"filter_value": filterValue,
+	})
+}
+
 func (q UsersSearchQueryCreatedAtGreaterThanFilter) MarshalJSON() ([]byte, error) {
 	return marshalFilter("created_at_greater_than", q.CreatedAtGreaterThan)
 }
@@ -394,4 +401,49 @@ type PendingUser struct {
 	Password      Password       `json:"password,omitempty"`
 	Status        string         `json:"status,omitempty"`
 	InvitedAt     string         `json:"invited_at,omitempty"`
+}
+
+type Member struct{}
+
+type Organization struct{}
+
+type DiscoveredOrganization struct{}
+
+type MemberSession struct{}
+
+type LudsFeedback struct{}
+
+type ZxcvbnFeedback struct{}
+
+type ProviderValues struct {
+	AccessToken  string     `json:"access_token,omitempty"`
+	RefreshToken string     `json:"refresh_token,omitempty"`
+	IDToken      string     `json:"id_token,omitempty"`
+	ExpiresAt    *time.Time `json:"expires_at,omitempty"`
+	Scopes       []string   `json:"scopes,omitempty"`
+}
+
+type ExternalSearchQuery struct{}
+
+type ResultsMetadata struct {
+	NextCursor string `json:"next_cursor,omitempty"`
+	Total      int    `json:"total,omitempty"`
+}
+
+type JWK struct{}
+
+type OIDCConnection struct{}
+
+type SAMLConnection struct{}
+
+type TOTP struct {
+	TOTPID        string   `json:"totp_id,omitempty"`
+	Verified      bool     `json:"verified,omitempty"`
+	RecoveryCodes []string `json:"recovery_codes,omitempty"`
+}
+
+type Birthday struct {
+	Month int32 `json:"month"`
+	Day   int32 `json:"day"`
+	Year  int32 `json:"year"`
 }
