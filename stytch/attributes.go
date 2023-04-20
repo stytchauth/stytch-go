@@ -106,6 +106,12 @@ type LinkedInOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
+type SalesforceOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
 type SlackOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -181,6 +187,7 @@ type AuthenticationFactor struct {
 	DiscordOAuthFactor     DiscordOAuthFactor     `json:"discord_oauth_factor,omitempty"`
 	FigmaOAuthFactor       FigmaOAuthFactor       `json:"figma_oauth_factor,omitempty"`
 	LinkedInOAuthFactor    LinkedInOAuthFactor    `json:"linkedin_oauth_factor,omitempty"`
+	SalesforceOAuthFactor  SalesforceOAuthFactor  `json:"salesforce_oauth_factor,omitempty"`
 	SlackOAuthFactor       SlackOAuthFactor       `json:"slack_oauth_factor,omitempty"`
 	SnapchatOAuthFactor    SnapchatOAuthFactor    `json:"snapchat_oauth_factor,omitempty"`
 	SpotifyOAuthFactor     SpotifyOAuthFactor     `json:"spotify_oauth_factor,omitempty"`
@@ -212,6 +219,7 @@ type JWTAuthenticationFactor struct {
 	DiscordOAuthFactor     DiscordOAuthFactor     `json:"discord_oauth_factor,omitempty"`
 	FigmaOAuthFactor       FigmaOAuthFactor       `json:"figma_oauth_factor,omitempty"`
 	LinkedInOAuthFactor    LinkedInOAuthFactor    `json:"linkedin_oauth_factor,omitempty"`
+	SalesforceOAuthFactor  SalesforceOAuthFactor  `json:"salesforce_oauth_factor,omitempty"`
 	SlackOAuthFactor       SlackOAuthFactor       `json:"slack_oauth_factor,omitempty"`
 	SnapchatOAuthFactor    SnapchatOAuthFactor    `json:"snapchat_oauth_factor,omitempty"`
 	SpotifyOAuthFactor     SpotifyOAuthFactor     `json:"spotify_oauth_factor,omitempty"`
