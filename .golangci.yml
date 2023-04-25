@@ -6,7 +6,7 @@ linters-settings:
   goimports:
     local-prefixes: github.com/stytchauth/stytch-go/stytch
   lll:
-    line-length: 100
+    line-length: 150
 issues:
   exclude-rules:
     # Ignore comments with long urls
