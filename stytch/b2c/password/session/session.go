@@ -3,6 +3,7 @@ package session
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
 
 	"github.com/stytchauth/stytch-go/v7/stytch"

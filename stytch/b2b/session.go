@@ -1,4 +1,3 @@
 package b2b
 
-type MemberSession struct {
-}
+type MemberSession struct{}

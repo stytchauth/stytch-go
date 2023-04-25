@@ -3,6 +3,8 @@ package stytchapi
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/stytchauth/stytch-go/v7/stytch/b2c/cryptowallet"
 	"github.com/stytchauth/stytch-go/v7/stytch/b2c/magiclink"
 	mle "github.com/stytchauth/stytch-go/v7/stytch/b2c/magiclink/email"
@@ -19,7 +21,6 @@ import (
 	"github.com/stytchauth/stytch-go/v7/stytch/b2c/totp"
 	"github.com/stytchauth/stytch-go/v7/stytch/b2c/user"
 	"github.com/stytchauth/stytch-go/v7/stytch/b2c/webauthn"
-	"time"
 
 	"github.com/MicahParks/keyfunc"
 	"github.com/stytchauth/stytch-go/v7/stytch"

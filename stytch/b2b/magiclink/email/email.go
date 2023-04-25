@@ -3,6 +3,7 @@ package email
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/stytchauth/stytch-go/v7/stytch"
 	"github.com/stytchauth/stytch-go/v7/stytch/b2b"
 	"github.com/stytchauth/stytch-go/v7/stytch/stytcherror"

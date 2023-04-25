@@ -5,14 +5,15 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"fmt"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c/session"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c/stytchapi"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v7/stytch/b2c/session"
+	"github.com/stytchauth/stytch-go/v7/stytch/b2c/stytchapi"
 
 	"github.com/MicahParks/keyfunc"
 	"github.com/golang-jwt/jwt/v4"

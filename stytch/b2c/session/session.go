@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
 	"time"
+
+	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
 
 	"github.com/MicahParks/keyfunc"
 	"github.com/golang-jwt/jwt/v4"

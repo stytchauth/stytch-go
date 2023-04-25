@@ -2,12 +2,13 @@ package stytchapi_test
 
 import (
 	"context"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c/stytchapi"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v7/stytch/b2c/stytchapi"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stytchauth/stytch-go/v7/stytch"
