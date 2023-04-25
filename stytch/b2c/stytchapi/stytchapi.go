@@ -67,7 +67,7 @@ func WithBaseURI(uri string) Option {
 	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
 }
 
-func NewAPIClient(env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
+func NewAPIClient(ctx context.Context, env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	a := &API{
 		client: stytch.New(env, projectID, secret),
 	}
@@ -93,7 +93,7 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 	a.TOTPs = &totp.Client{C: a.client}
 	a.Users = &user.Client{C: a.client}
 	a.WebAuthn = &webauthn.Client{C: a.client}
-	jwks, err := a.instantiateJWKSClient(a.client)
+	jwks, err := a.instantiateJWKSClient(ctx, a.client)
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
@@ -101,10 +101,19 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 	return a, nil
 }
 
-func (a *API) instantiateJWKSClient(client *stytch.Client) (*keyfunc.JWKS, error) {
+func (a *API) instantiateJWKSClient(ctx context.Context, client *stytch.Client) (*keyfunc.JWKS, error) {
+	// The context given in the keyfunc Options applies throughout the lifetime of the JWKS
+	// fetcher. The context we were given here is _only_ for init, so we arrange to cancel the
+	// JWKS context manually if we couldn't start in time.
+	jwksCtx, jwksCancel := context.WithCancel(ctx)
+
 	jwkOptions := keyfunc.Options{
 		Client: client.HTTPClient,
-		Ctx:    context.Background(),
+
+		// This is the context for ongoing background JWKS fetches. If the keyfunc starts in time,
+		// it should run until API.Close is called.
+		Ctx: jwksCtx,
+
 		RefreshErrorHandler: func(err error) {
 			if a.logger != nil {
 				a.logger.Printf("There was an error with the jwt.Keyfunc\nError: %s", err.Error())
@@ -119,5 +128,32 @@ func (a *API) instantiateJWKSClient(client *stytch.Client) (*keyfunc.JWKS, error
 	baseURI := client.Config.GetBaseURI()
 	projectID := client.Config.BasicAuthProjectID()
 	jwksURL := fmt.Sprintf("%s/sessions/jwks/%s", baseURI, projectID)
-	return keyfunc.Get(jwksURL, jwkOptions)
+
+	type Res struct {
+		jwks *keyfunc.JWKS
+		err  error
+	}
+	res := make(chan Res)
+	go func() {
+		jwks, err := keyfunc.Get(jwksURL, jwkOptions)
+		res <- Res{jwks, err}
+	}()
+
+	select {
+	case <-ctx.Done():
+		// Couldn't start in time, clean up the JWKS.
+		jwksCancel()
+		return nil, ctx.Err()
+	case res := <-res:
+		// JWKS setup finished first, _do not_ cancel its context. Let it continue fetching in the
+		// background.
+		_ = jwksCancel // lostcancel
+
+		return res.jwks, res.err
+	}
+}
+
+// Close stops the background JWKS fetch for the API client.
+func (a *API) Close() {
+	a.Sessions.JWKS.EndBackground()
 }

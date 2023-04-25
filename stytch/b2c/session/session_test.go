@@ -209,6 +209,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 	}))
 
 	client, err := stytchapi.NewAPIClient(
+		context.Background(),
 		config.Env("anything"),
 		"project-test-00000000-0000-0000-0000-000000000000",
 		"secret-test-11111111-1111-1111-1111-111111111111",
@@ -306,6 +307,7 @@ func ExampleClient_AuthenticateWithClaims_map() {
 	}))
 
 	client, _ := stytchapi.NewAPIClient(
+		context.Background(),
 		config.Env("anything"),
 		"project-test-00000000-0000-0000-0000-000000000000",
 		"secret-test-11111111-1111-1111-1111-111111111111",
@@ -366,6 +368,7 @@ func ExampleClient_AuthenticateWithClaims_struct() {
 	}))
 
 	client, _ := stytchapi.NewAPIClient(
+		context.Background(),
 		config.Env("anything"),
 		"project-test-00000000-0000-0000-0000-000000000000",
 		"secret-test-11111111-1111-1111-1111-111111111111",
