@@ -61,8 +61,75 @@ type OrganizationSearchParams struct {
 
 type OrganizationSearchResponse struct {
 	RequestID       string          `json:"request_id,omitempty"`
+	StatusCode      int             `json:"status_code,omitempty"`
 	Organizations   []Organization  `json:"organizations,omitempty"`
 	ResultsMetadata ResultsMetadata `json:"results_metadata,omitempty"`
+}
+
+// MEMBERS
+
+type OrganizationMemberCreateParams struct {
+	EmailAddress          string         `json:"email_address,omitempty"`
+	Name                  string         `json:"name,omitempty"`
+	TrustedMetadata       map[string]any `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata     map[string]any `json:"untrusted_metadata,omitempty"`
+	CreateMemberAsPending bool           `json:"create_member_as_pending,omitempty"`
+	IsBreakglass          bool           `json:"is_breakglass,omitempty"`
+}
+
+type OrganizationMemberCreateResponse struct {
+	RequestID    string       `json:"request_id,omitempty"`
+	StatusCode   int          `json:"status_code,omitempty"`
+	MemberID     string       `json:"member_id,omitempty"`
+	Member       Member       `json:"member,omitempty"`
+	Organization Organization `json:"organization,omitempty"`
+}
+
+type OrganizationMemberUpdateParams struct {
+	Name              string         `json:"name,omitempty"`
+	TrustedMetadata   map[string]any `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+	IsBreakglass      bool           `json:"is_breakglass,omitempty"`
+}
+type OrganizationMemberUpdateResponse struct {
+	RequestID    string       `json:"request_id,omitempty"`
+	StatusCode   int          `json:"status_code,omitempty"`
+	MemberID     string       `json:"member_id,omitempty"`
+	Member       Member       `json:"member,omitempty"`
+	Organization Organization `json:"organization,omitempty"`
+}
+
+type OrganizationMemberDeleteResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
+	MemberID   string `json:"member_id,omitempty"`
+}
+
+type OrganizationMemberSearchParams struct {
+	Cursor          string            `json:"cursor,omitempty"`
+	Limit           uint32            `json:"limit,omitempty"`
+	Query           MemberSearchQuery `json:"query,omitempty"`
+	OrganizationIds []string          `json:"organization_ids,omitempty"`
+}
+
+type OrganizationMemberSearchResponse struct {
+	RequestID       string          `json:"request_id,omitempty"`
+	StatusCode      int             `json:"status_code,omitempty"`
+	Members         []Member        `json:"members,omitempty"`
+	ResultsMetadata ResultsMetadata `json:"results_metadata,omitempty"`
+}
+
+type OrganizationMemberGetParams struct {
+	MemberID     string `json:"member_id,omitempty"`
+	EmailAddress string `json:"email_address,omitempty"`
+}
+
+type OrganizationMemberGetResponse struct {
+	RequestID    string       `json:"request_id,omitempty"`
+	StatusCode   int          `json:"status_code,omitempty"`
+	MemberID     string       `json:"member_id,omitempty"`
+	Member       Member       `json:"member,omitempty"`
+	Organization Organization `json:"organization,omitempty"`
 }
 
 type Organization struct {
@@ -111,18 +178,23 @@ type SSORegistrations struct {
 }
 
 type OrganizationSearchQuery struct {
-	Operator OrganizationSearchOperator `json:"operator,omitempty"`
-	Operands []json.Marshaler           `json:"operands,omitempty"`
+	Operator SearchOperator   `json:"operator,omitempty"`
+	Operands []json.Marshaler `json:"operands,omitempty"`
 }
 
-type OrganizationSearchOperator string
+type SearchOperator string
 
 const (
-	OrganizationSearchOperatorOR  OrganizationSearchOperator = "OR"
-	OrganizationSearchOperatorAND OrganizationSearchOperator = "AND"
+	SearchOperatorOR  SearchOperator = "OR"
+	SearchOperatorAND SearchOperator = "AND"
 )
 
 type ResultsMetadata struct {
 	Total      int    `json:"total,omitempty"`
 	NextCursor string `json:"next_cursor,omitempty"`
+}
+
+type MemberSearchQuery struct {
+	Operator SearchOperator   `json:"operator,omitempty"`
+	Operands []json.Marshaler `json:"operands,omitempty"`
 }
