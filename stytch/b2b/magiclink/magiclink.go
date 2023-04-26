@@ -29,7 +29,7 @@ func (c *Client) Authenticate(
 		if err != nil {
 			return nil, stytcherror.NewClientLibraryError(
 				"Oops, something seems to have gone wrong " +
-					"marshalling the /magic_links/authenticate request body")
+					"marshalling the /b2b/magic_links/authenticate request body")
 		}
 	}
 
