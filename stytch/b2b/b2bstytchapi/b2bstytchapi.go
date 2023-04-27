@@ -2,6 +2,7 @@ package b2bstytchapi
 
 import (
 	"github.com/stytchauth/stytch-go/v7/stytch"
+	"github.com/stytchauth/stytch-go/v7/stytch/b2b/discovery"
 	"github.com/stytchauth/stytch-go/v7/stytch/b2b/magiclink"
 	mle "github.com/stytchauth/stytch-go/v7/stytch/b2b/magiclink/email"
 	"github.com/stytchauth/stytch-go/v7/stytch/b2b/organization"
@@ -19,6 +20,7 @@ type API struct {
 	MagicLinks   *magiclink.Client
 	Organization *organization.Client
 	Session      *session.Client
+	Discovery    *discovery.Client
 }
 
 type Option func(*API)
@@ -47,5 +49,6 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 	a.MagicLinks = &magiclink.Client{C: a.client, Email: &mle.Client{C: a.client}}
 	a.Organization = &organization.Client{C: a.client}
 	a.Session = &session.Client{C: a.client}
+	a.Discovery = &discovery.Client{C: a.client}
 	return a, nil
 }
