@@ -37,3 +37,25 @@ func (c *Client) Authenticate(
 	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) DiscoveryAuthenticate(
+	ctx context.Context,
+	body *b2b.MagicLinksDiscoveryAuthenticateParams,
+) (*b2b.MagicLinksEmailDiscoverySendResponse, error) {
+	path := "/b2b/magic_links/discovery/authenticate"
+
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the /b2b/magic_links/discovery/authenticate request body")
+		}
+	}
+
+	var retVal b2b.MagicLinksEmailDiscoverySendResponse
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
+	return &retVal, err
+}

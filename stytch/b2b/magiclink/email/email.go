@@ -35,3 +35,49 @@ func (c *Client) LoginOrSignup(
 	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) Invite(
+	ctx context.Context,
+	body *b2b.MagicLinksEmailInviteParams,
+) (
+	*b2b.MagicLinksEmailInviteResponse, error,
+) {
+	path := "/b2b/magic_links/email/invite"
+
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the /b2b/magic_links/email/invite request body")
+		}
+	}
+
+	var retVal b2b.MagicLinksEmailInviteResponse
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
+	return &retVal, err
+}
+
+func (c *Client) DiscoverySend(
+	ctx context.Context,
+	body *b2b.MagicLinksEmailDiscoverySendParams,
+) (
+	*b2b.MagicLinksEmailDiscoverySendResponse, error,
+) {
+	path := "/b2b/magic_links/email/discovery/send"
+
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
+				"marshalling the /b2b/magic_links/email/discovery/send request body")
+		}
+	}
+
+	var retVal b2b.MagicLinksEmailDiscoverySendResponse
+	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
+	return &retVal, err
+}

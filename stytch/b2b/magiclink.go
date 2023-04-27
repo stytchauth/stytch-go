@@ -23,6 +23,19 @@ type MagicLinksAuthenticateResponse struct {
 	Organization   Organization  `json:"organization,omitempty"`
 }
 
+type MagicLinksDiscoveryAuthenticateParams struct {
+	DiscoveryMagicLinksToken string `json:"discovery_magic_links_token"`
+	PKCECodeVerifier         string `json:"pkce_code_verifier,omitempty"`
+}
+
+type MagicLinksDiscoveryAuthenticateResponse struct {
+	RequestID                string                   `json:"request_id,omitempty"`
+	StatusCode               int                      `json:"status_code,omitempty"`
+	IntermediateSessionToken string                   `json:"intermediate_session_token,omitempty"`
+	EmailAddress             string                   `json:"email_address,omitempty"`
+	DiscoveredOrganizations  []DiscoveredOrganization `json:"discovered_organizations,omitempty"`
+}
+
 // MAGIC LINK - EMAIL
 type MagicLinksEmailLoginOrSignupParams struct {
 	OrganizationID         string `json:"organization_id"`
@@ -43,4 +56,36 @@ type MagicLinksEmailLoginOrSignupResponse struct {
 	MemberCreated bool         `json:"member_created,omitempty"`
 	Member        Member       `json:"member,omitempty"`
 	Organization  Organization `json:"organization,omitempty"`
+}
+
+type MagicLinksEmailInviteParams struct {
+	OrganizationID    string         `json:"organization_id"`
+	EmailAddress      string         `json:"email_address"`
+	InviteRedirectURL string         `json:"invite_redirect_url,omitempty"`
+	InvitedByMemberID string         `json:"invited_by_member_id,omitempty"`
+	Name              string         `json:"name,omitempty"`
+	TrustedMetadata   map[string]any `json:"trusted_metadata,omitempty"`
+	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+	InviteTemplateID  string         `json:"invite_template_id,omitempty"`
+	Locale            string         `json:"locale,omitempty"`
+}
+type MagicLinksEmailInviteResponse struct {
+	RequestID    string       `json:"request_id,omitempty"`
+	StatusCode   int          `json:"status_code,omitempty"`
+	MemberID     string       `json:"member_id,omitempty"`
+	Member       Member       `json:"member,omitempty"`
+	Organization Organization `json:"organization,omitempty"`
+}
+
+type MagicLinksEmailDiscoverySendParams struct {
+	EmailAddress         string `json:"email_address"`
+	DiscoveryRedirectURL string `json:"discovery_redirect_url,omitempty"`
+	PkceCodeChallenge    string `json:"pkce_code_challenge,omitempty"`
+	LoginTemplateID      string `json:"login_template_id,omitempty"`
+	Locale               string `json:"locale,omitempty"`
+}
+
+type MagicLinksEmailDiscoverySendResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int    `json:"status_code,omitempty"`
 }
