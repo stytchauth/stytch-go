@@ -7,12 +7,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c/stytchapi"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stytchauth/stytch-go/v7/stytch"
-	"github.com/stytchauth/stytch-go/v7/stytch/config"
+	"github.com/stytchauth/stytch-go/v8/stytch"
+	"github.com/stytchauth/stytch-go/v8/stytch/config"
 )
 
 func TestNewClient(t *testing.T) {

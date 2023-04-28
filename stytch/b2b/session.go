@@ -1,6 +1,6 @@
 package b2b
 
-import "github.com/stytchauth/stytch-go/v7/stytch/b2c"
+import "github.com/stytchauth/stytch-go/v8/stytch/b2c"
 
 type SessionGetParams struct {
 	OrganizationID string `json:"organization_id"`

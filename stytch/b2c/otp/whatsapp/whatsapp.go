@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v7/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
 
-	"github.com/stytchauth/stytch-go/v7/stytch"
-	"github.com/stytchauth/stytch-go/v7/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v8/stytch"
+	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
 )
 
 type Client struct {

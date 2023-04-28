@@ -1,13 +1,13 @@
 package b2bstytchapi
 
 import (
-	"github.com/stytchauth/stytch-go/v7/stytch"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2b/discovery"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2b/magiclink"
-	mle "github.com/stytchauth/stytch-go/v7/stytch/b2b/magiclink/email"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2b/organization"
-	"github.com/stytchauth/stytch-go/v7/stytch/b2b/session"
-	"github.com/stytchauth/stytch-go/v7/stytch/config"
+	"github.com/stytchauth/stytch-go/v8/stytch"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink"
+	mle "github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink/email"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organization"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/session"
+	"github.com/stytchauth/stytch-go/v8/stytch/config"
 )
 
 type Logger interface {
