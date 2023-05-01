@@ -7,6 +7,9 @@ import (
 	mle "github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink/email"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organization"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/session"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/oidc"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/saml"
 	"github.com/stytchauth/stytch-go/v8/stytch/config"
 )
 
@@ -21,6 +24,7 @@ type API struct {
 	Organization *organization.Client
 	Session      *session.Client
 	Discovery    *discovery.Client
+	SSO          *sso.Client
 }
 
 type Option func(*API)
@@ -50,5 +54,6 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 	a.Organization = &organization.Client{C: a.client}
 	a.Session = &session.Client{C: a.client}
 	a.Discovery = &discovery.Client{C: a.client}
+	a.SSO = &sso.Client{C: a.client, OIDC: &oidc.Client{C: a.client}, SAML: &saml.Client{C: a.client}}
 	return a, nil
 }
