@@ -1,53 +1,53 @@
 package b2b
 
 type X509Certificate struct {
-	CertificateID string `json:"certificate_id"`
-	Certificate   string `json:"certificate"`
-	Issuer        string `json:"issuer"`
-	CreatedAt     string `json:"created_at"`
-	ExpiresAt     string `json:"expires_at"`
+	CertificateID string `json:"certificate_id,omitempty"`
+	Certificate   string `json:"certificate,omitempty"`
+	Issuer        string `json:"issuer,omitempty"`
+	CreatedAt     string `json:"created_at,omitempty"`
+	ExpiresAt     string `json:"expires_at,omitempty"`
 }
 
 type OIDCConnection struct {
-	OrganizationID   string `json:"organization_id"`
-	ConnectionID     string `json:"connection_id"`
-	Status           string `json:"status"`
-	DisplayName      string `json:"display_name"`
-	RedirectURL      string `json:"redirect_url"`
-	ClientID         string `json:"client_id"`
-	ClientSecret     string `json:"client_secret"`
-	Issuer           string `json:"issuer"`
-	AuthorizationURL string `json:"authorization_url"`
-	TokenURL         string `json:"token_url"`
-	UserinfoURL      string `json:"userinfo_url"`
-	JwksURL          string `json:"jwks_url"`
+	OrganizationID   string `json:"organization_id,omitempty"`
+	ConnectionID     string `json:"connection_id,omitempty"`
+	Status           string `json:"status,omitempty"`
+	DisplayName      string `json:"display_name,omitempty"`
+	RedirectURL      string `json:"redirect_url,omitempty"`
+	ClientID         string `json:"client_id,omitempty"`
+	ClientSecret     string `json:"client_secret,omitempty"`
+	Issuer           string `json:"issuer,omitempty"`
+	AuthorizationURL string `json:"authorization_url,omitempty"`
+	TokenURL         string `json:"token_url,omitempty"`
+	UserinfoURL      string `json:"userinfo_url,omitempty"`
+	JwksURL          string `json:"jwks_url,omitempty"`
 }
 
 type SAMLConnection struct {
-	OrganizationID           string            `json:"organization_id"`
-	ConnectionID             string            `json:"connection_id"`
-	Status                   string            `json:"status"`
-	AttributeMapping         map[string]string `json:"attribute_mapping"`
-	IdpEntityID              string            `json:"idp_entity_id"`
-	DisplayName              string            `json:"display_name"`
-	IdpSsoURL                string            `json:"idp_sso_url"`
-	AcsURL                   string            `json:"acs_url"`
-	AudienceURI              string            `json:"audience_uri"`
-	SigningCertificates      []X509Certificate `json:"signing_certificates"`
-	VerificationCertificates []X509Certificate `json:"verification_certificates"`
+	OrganizationID           string            `json:"organization_id,omitempty"`
+	ConnectionID             string            `json:"connection_id,omitempty"`
+	Status                   string            `json:"status,omitempty"`
+	AttributeMapping         map[string]string `json:"attribute_mapping,omitempty"`
+	IdpEntityID              string            `json:"idp_entity_id,omitempty"`
+	DisplayName              string            `json:"display_name,omitempty"`
+	IdpSsoURL                string            `json:"idp_sso_url,omitempty"`
+	AcsURL                   string            `json:"acs_url,omitempty"`
+	AudienceURI              string            `json:"audience_uri,omitempty"`
+	SigningCertificates      []X509Certificate `json:"signing_certificates,omitempty"`
+	VerificationCertificates []X509Certificate `json:"verification_certificates,omitempty"`
 }
 
 type SSOGetConnectionsResponse struct {
-	RequestID       string           `json:"request_id"`
-	StatusCode      int              `json:"status_code"`
-	SAMLConnections []SAMLConnection `json:"saml_connections"`
-	OIDCConnections []OIDCConnection `json:"oidc_connections"`
+	RequestID       string           `json:"request_id,omitempty"`
+	StatusCode      int              `json:"status_code,omitempty"`
+	SAMLConnections []SAMLConnection `json:"saml_connections,omitempty"`
+	OIDCConnections []OIDCConnection `json:"oidc_connections,omitempty"`
 }
 
 type SSODeleteConnectionResponse struct {
-	RequestID    string `json:"request_id"`
-	StatusCode   int    `json:"status_code"`
-	ConnectionID string `json:"connection_id"`
+	RequestID    string `json:"request_id,omitempty"`
+	StatusCode   int    `json:"status_code,omitempty"`
+	ConnectionID string `json:"connection_id,omitempty"`
 }
 
 type SSOAuthenticateParams struct {
@@ -74,19 +74,16 @@ type SSOAuthenticateResponse struct {
 }
 
 type OIDCCreateConnectionParams struct {
-	OrganizationID string `json:"organization_id"`
-	DisplayName    string `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
 }
 
 type OIDCCreateConnectionResponse struct {
 	RequestID  string         `json:"request_id,omitempty"`
 	StatusCode int            `json:"status_code,omitempty"`
-	Connection OIDCConnection `json:"connection"`
+	Connection OIDCConnection `json:"connection,omitempty"`
 }
 
 type OIDCUpdateConnectionParams struct {
-	OrganizationID   string `json:"organization_id"`
-	ConnectionID     string `json:"connection_id"`
 	DisplayName      string `json:"display_name,omitempty"`
 	ClientID         string `json:"client_id,omitempty"`
 	ClientSecret     string `json:"client_secret,omitempty"`
@@ -100,23 +97,20 @@ type OIDCUpdateConnectionParams struct {
 type OIDCUpdateConnectionResponse struct {
 	RequestID  string         `json:"request_id,omitempty"`
 	StatusCode int            `json:"status_code,omitempty"`
-	Connection OIDCConnection `json:"connection"`
+	Connection OIDCConnection `json:"connection,omitempty"`
 }
 
 type SAMLCreateConnectionParams struct {
-	OrganizationID string `json:"organization_id"`
-	DisplayName    string `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
 }
 
 type SAMLCreateConnectionResponse struct {
 	RequestID  string         `json:"request_id,omitempty"`
 	StatusCode int            `json:"status_code,omitempty"`
-	Connection SAMLConnection `json:"connection"`
+	Connection SAMLConnection `json:"connection,omitempty"`
 }
 
 type SAMLUpdateConnectionParams struct {
-	OrganizationID   string            `json:"organization_id"`
-	ConnectionID     string            `json:"connection_id"`
 	IdpEntityID      string            `json:"idp_entity_id,omitempty"`
 	DisplayName      string            `json:"display_name,omitempty"`
 	AttributeMapping map[string]string `json:"attribute_mapping,omitempty"`
@@ -127,11 +121,11 @@ type SAMLUpdateConnectionParams struct {
 type SAMLUpdateConnectionResponse struct {
 	RequestID  string         `json:"request_id,omitempty"`
 	StatusCode int            `json:"status_code,omitempty"`
-	Connection SAMLConnection `json:"connection"`
+	Connection SAMLConnection `json:"connection,omitempty"`
 }
 
 type SAMLDeleteVerificationCertificateResponse struct {
 	RequestID     string `json:"request_id,omitempty"`
 	StatusCode    int    `json:"status_code,omitempty"`
-	CertificateID string `json:"certificate_id"`
+	CertificateID string `json:"certificate_id,omitempty"`
 }

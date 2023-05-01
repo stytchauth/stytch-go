@@ -15,17 +15,20 @@ type Client struct {
 
 func (c *Client) Create(
 	ctx context.Context,
+	organizationID string,
 	body *b2b.SAMLCreateConnectionParams,
 ) (*b2b.SAMLCreateConnectionResponse, error) {
-	path := "/b2b/sso/saml/" + body.OrganizationID
+	path := "/b2b/sso/saml/" + organizationID
 
 	var jsonBody []byte
 	var err error
-	jsonBody, err = json.Marshal(body)
-	if err != nil {
-		return nil, stytcherror.NewClientLibraryError(
-			"Oops, something seems to have gone wrong " +
-				"marshalling the SAML Create request body")
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the SAML Create request body")
+		}
 	}
 
 	var retVal b2b.SAMLCreateConnectionResponse
@@ -35,17 +38,21 @@ func (c *Client) Create(
 
 func (c *Client) Update(
 	ctx context.Context,
+	organizationID string,
+	connectionID string,
 	body *b2b.SAMLUpdateConnectionParams,
 ) (*b2b.SAMLUpdateConnectionResponse, error) {
-	path := "/b2b/sso/saml/" + body.OrganizationID + "/connections/" + body.ConnectionID
+	path := "/b2b/sso/saml/" + organizationID + "/connections/" + connectionID
 
 	var jsonBody []byte
 	var err error
-	jsonBody, err = json.Marshal(body)
-	if err != nil {
-		return nil, stytcherror.NewClientLibraryError(
-			"Oops, something seems to have gone wrong " +
-				"marshalling the SAML Update request body")
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the SAML Update request body")
+		}
 	}
 
 	var retVal b2b.SAMLUpdateConnectionResponse

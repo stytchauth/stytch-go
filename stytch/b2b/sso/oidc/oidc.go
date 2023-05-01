@@ -15,17 +15,20 @@ type Client struct {
 
 func (c *Client) Create(
 	ctx context.Context,
+	organizationID string,
 	body *b2b.OIDCCreateConnectionParams,
 ) (*b2b.OIDCCreateConnectionResponse, error) {
-	path := "/b2b/sso/oidc/" + body.OrganizationID
+	path := "/b2b/sso/oidc/" + organizationID
 
 	var jsonBody []byte
 	var err error
-	jsonBody, err = json.Marshal(body)
-	if err != nil {
-		return nil, stytcherror.NewClientLibraryError(
-			"Oops, something seems to have gone wrong " +
-				"marshalling the OIDC Create request body")
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the OIDC Create request body")
+		}
 	}
 
 	var retVal b2b.OIDCCreateConnectionResponse
@@ -35,17 +38,21 @@ func (c *Client) Create(
 
 func (c *Client) Update(
 	ctx context.Context,
+	organizationID string,
+	connectionID string,
 	body *b2b.OIDCUpdateConnectionParams,
 ) (*b2b.OIDCUpdateConnectionResponse, error) {
-	path := "/b2b/sso/oidc/" + body.OrganizationID + "/connections/" + body.ConnectionID
+	path := "/b2b/sso/oidc/" + organizationID + "/connections/" + connectionID
 
 	var jsonBody []byte
 	var err error
-	jsonBody, err = json.Marshal(body)
-	if err != nil {
-		return nil, stytcherror.NewClientLibraryError(
-			"Oops, something seems to have gone wrong " +
-				"marshalling the OIDC Update request body")
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError(
+				"Oops, something seems to have gone wrong " +
+					"marshalling the OIDC Update request body")
+		}
 	}
 
 	var retVal b2b.OIDCUpdateConnectionResponse
