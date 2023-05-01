@@ -1,5 +1,7 @@
 package b2c
 
+import "github.com/stytchauth/stytch-go/v8/stytch/shared"
+
 type PasswordsCreateParams struct {
 	Email                  string                 `json:"email"`
 	Password               string                 `json:"password"`
@@ -77,37 +79,11 @@ type PasswordsMigrateParams struct {
 	TrustedMetadata   map[string]interface{} `json:"trusted_metadata,omitempty"`
 	UntrustedMetadata map[string]interface{} `json:"untrusted_metadata,omitempty"`
 	Hash              string                 `json:"hash"`
-	HashType          HashType               `json:"hash_type"`
-	MD5Config         MD5Config              `json:"md_5_config,omitempty"`
-	Argon2Config      Argon2Config           `json:"argon_2_config,omitempty"`
-	SHA1Config        SHA1Config             `json:"sha_1_config,omitempty"`
-	ScryptConfig      ScryptConfig           `json:"scrypt_config,omitempty"`
-}
-
-type MD5Config struct {
-	PrependSalt string `json:"prepend_salt,omitempty"`
-	AppendSalt  string `json:"append_salt,omitempty"`
-}
-
-type Argon2Config struct {
-	Salt            string `json:"salt"`
-	IterationAmount int    `json:"iteration_amount"`
-	Memory          int    `json:"memory"`
-	Threads         int    `json:"threads"`
-	KeyLength       int    `json:"key_length"`
-}
-
-type SHA1Config struct {
-	PrependSalt string `json:"prepend_salt,omitempty"`
-	AppendSalt  string `json:"append_salt,omitempty"`
-}
-
-type ScryptConfig struct {
-	Salt       string `json:"salt"`
-	NParameter int    `json:"n_parameter"`
-	RParameter int    `json:"r_parameter"`
-	PParameter int    `json:"p_parameter"`
-	KeyLength  int    `json:"key_length"`
+	HashType          shared.HashType        `json:"hash_type"`
+	MD5Config         shared.MD5Config       `json:"md_5_config,omitempty"`
+	Argon2Config      shared.Argon2Config    `json:"argon_2_config,omitempty"`
+	SHA1Config        shared.SHA1Config      `json:"sha_1_config,omitempty"`
+	ScryptConfig      shared.ScryptConfig    `json:"scrypt_config,omitempty"`
 }
 
 type PasswordsMigrateResponse struct {
@@ -117,18 +93,6 @@ type PasswordsMigrateResponse struct {
 	EmailID     string `json:"email_id,omitempty"`
 	UserCreated bool   `json:"user_created,omitempty"`
 }
-
-type HashType string
-
-const (
-	HashTypeBcrypt   HashType = "bcrypt"
-	HashTypeMD5      HashType = "md_5"
-	HashTypeArgon2I  HashType = "argon_2i"
-	HashTypeArgon2ID HashType = "argon_2id"
-	HashTypeSHA1     HashType = "sha_1"
-	HashTypeScrypt   HashType = "scrypt"
-	HashTypePHPass   HashType = "phpass"
-)
 
 // PASSWORD - EMAIL
 type PasswordEmailResetStartParams struct {
