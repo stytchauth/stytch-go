@@ -60,7 +60,7 @@ func (c *Client) Update(
 	return &retVal, err
 }
 
-func (c *Client) Delete(
+func (c *Client) DeleteVerificationCertificate(
 	ctx context.Context,
 	organizationID string,
 	connectionID string,
