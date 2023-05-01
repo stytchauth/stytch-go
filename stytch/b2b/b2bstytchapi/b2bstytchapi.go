@@ -6,6 +6,10 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink"
 	mle "github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink/email"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organization"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2b/password"
+	pe "github.com/stytchauth/stytch-go/v8/stytch/b2b/password/email"
+	pep "github.com/stytchauth/stytch-go/v8/stytch/b2b/password/existingpassword"
+	ps "github.com/stytchauth/stytch-go/v8/stytch/b2b/password/session"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/session"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/oidc"
@@ -23,6 +27,7 @@ type API struct {
 	MagicLinks   *magiclink.Client
 	Organization *organization.Client
 	Session      *session.Client
+	Passwords    *password.Client
 	Discovery    *discovery.Client
 	SSO          *sso.Client
 }
@@ -53,6 +58,12 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 	a.MagicLinks = &magiclink.Client{C: a.client, Email: &mle.Client{C: a.client}}
 	a.Organization = &organization.Client{C: a.client}
 	a.Session = &session.Client{C: a.client}
+	a.Passwords = &password.Client{
+		C:                a.client,
+		Email:            &pe.Client{C: a.client},
+		Session:          &ps.Client{C: a.client},
+		ExistingPassword: &pep.Client{C: a.client},
+	}
 	a.Discovery = &discovery.Client{C: a.client}
 	a.SSO = &sso.Client{C: a.client, OIDC: &oidc.Client{C: a.client}, SAML: &saml.Client{C: a.client}}
 	return a, nil
