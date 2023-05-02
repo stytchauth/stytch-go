@@ -1,6 +1,8 @@
 package b2b
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 type OrganizationCreateParams struct {
 	OrganizationName     string         `json:"organization_name"`
@@ -197,4 +199,159 @@ type ResultsMetadata struct {
 type MemberSearchQuery struct {
 	Operator SearchOperator   `json:"operator,omitempty"`
 	Operands []json.Marshaler `json:"operands,omitempty"`
+}
+
+func marshalFilter(filterName string, filterValue interface{}) ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"filter_name":  filterName,
+		"filter_value": filterValue,
+	})
+}
+
+// Organization Search Filters
+
+type OrganizationSearchOrganizationIDsQuery struct {
+	OrganizationIDs []string
+}
+
+func (q OrganizationSearchOrganizationIDsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_ids", q.OrganizationIDs)
+}
+
+type OrganizationSearchOrganizationSlugsQuery struct {
+	OrganizationSlugs []string
+}
+
+func (q OrganizationSearchOrganizationSlugsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_slugs", q.OrganizationSlugs)
+}
+
+type OrganizationSearchOrganizationNameFuzzyQuery struct {
+	OrganizationNameFuzzy string
+}
+
+func (q OrganizationSearchOrganizationNameFuzzyQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_name_fuzzy", q.OrganizationNameFuzzy)
+}
+
+type OrganizationSearchOrganizationSlugFuzzyQuery struct {
+	OrganizationSlugFuzzy string
+}
+
+func (q OrganizationSearchOrganizationSlugFuzzyQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_slug_fuzzy", q.OrganizationSlugFuzzy)
+}
+
+type OrganizationSearchMemberEmailsQuery struct {
+	MemberEmails []string
+}
+
+func (q OrganizationSearchMemberEmailsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_emails", q.MemberEmails)
+}
+
+type OrganizationSearchMemberEmailFuzzyQuery struct {
+	MemberEmailFuzzy string
+}
+
+func (q OrganizationSearchMemberEmailFuzzyQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_email_fuzzy", q.MemberEmailFuzzy)
+}
+
+type OrganizationSearchAllowedDomainsQuery struct {
+	AllowedDomains []string
+}
+
+func (q OrganizationSearchAllowedDomainsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("allowed_domains", q.AllowedDomains)
+}
+
+type OrganizationSearchAllowedDomainFuzzyQuery struct {
+	AllowedDomainFuzzy string
+}
+
+func (q OrganizationSearchAllowedDomainFuzzyQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("allowed_domain_fuzzy", q.AllowedDomainFuzzy)
+}
+
+// Member Search Filters
+
+type MemberSearchMemberIDsQuery struct {
+	MemberIDs []string
+}
+
+func (q MemberSearchMemberIDsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_ids", q.MemberIDs)
+}
+
+type MemberSearchMemberEmailsQuery struct {
+	MemberEmails []string
+}
+
+func (q MemberSearchMemberEmailsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_emails", q.MemberEmails)
+}
+
+type MemberSearchMemberEmailFuzzyQuery struct {
+	MemberEmailFuzzy string
+}
+
+func (q MemberSearchMemberEmailFuzzyQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_email_fuzzy", q.MemberEmailFuzzy)
+}
+
+type MemberSearchMemberIsBreakglassQuery struct {
+	MemberIsBreakglass bool
+}
+
+func (q MemberSearchMemberIsBreakglassQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_is_breakglass", q.MemberIsBreakglass)
+}
+
+type MemberSearchMemberPasswordExistsQuery struct {
+	MemberPasswordExists bool
+}
+
+func (q MemberSearchMemberPasswordExistsQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("member_password_exists", q.MemberPasswordExists)
+}
+
+type MemberSearchOrganizationIDQuery struct {
+	OrganizationID string
+}
+
+func (q MemberSearchOrganizationIDQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_id", q.OrganizationID)
+}
+
+type MemberSearchOrganizationSlugQuery struct {
+	OrganizationSlug string
+}
+
+func (q MemberSearchOrganizationSlugQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_slug", q.OrganizationSlug)
+}
+
+type MemberSearchOrganizationSlugFuzzyQuery struct {
+	OrganizationSlugFuzzy string
+}
+
+func (q MemberSearchOrganizationSlugFuzzyQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("organization_slug_fuzzy", q.OrganizationSlugFuzzy)
+}
+
+type MemberSearchStatusQuery struct {
+	Status string
+}
+
+func (q MemberSearchStatusQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("status", q.Status)
+}
+
+type MemberSearchStatusesQuery struct {
+	Statuses []string
+}
+
+func (q MemberSearchStatusesQuery) MarshalJSON() ([]byte, error) {
+	return marshalFilter("statuses", q.Statuses)
 }
