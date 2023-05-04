@@ -45,6 +45,7 @@ func (c *Client) Get(
 	return &retVal, err
 }
 
+// Deprecated: Use Search or SearchAll with UsersSearchQueryStatusFilter{Status: "pending"} instead.
 func (c *Client) GetPending(
 	ctx context.Context,
 	body *b2c.UsersGetPendingParams,
