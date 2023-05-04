@@ -85,3 +85,15 @@ func (c *Client) Migrate(
 	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) Delete(
+	ctx context.Context,
+	organizationID string,
+	memberPasswordID string,
+) (*b2b.PasswordsDeleteResponse, error) {
+	path := "/b2b/organizations/" + organizationID + "/members/passwords/" + memberPasswordID
+
+	var retVal b2b.PasswordsDeleteResponse
+	err := c.C.NewRequest(ctx, "POST", path, nil, nil, &retVal)
+	return &retVal, err
+}
