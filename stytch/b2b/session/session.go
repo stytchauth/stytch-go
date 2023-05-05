@@ -95,3 +95,13 @@ func (c *Client) Exchange(
 	err = c.C.NewRequest(ctx, "POST", path, nil, jsonBody, &retVal)
 	return &retVal, err
 }
+
+func (c *Client) GetJWKS(
+	ctx context.Context, body *b2b.SessionsGetJWKSParams,
+) (*b2b.SessionsGetJWKSResponse, error) {
+	path := "/b2b/sessions/jwks/" + body.ProjectID
+
+	var retVal b2b.SessionsGetJWKSResponse
+	err := c.C.NewRequest(ctx, "GET", path, nil, nil, &retVal)
+	return &retVal, err
+}

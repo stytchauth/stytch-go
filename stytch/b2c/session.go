@@ -3,8 +3,12 @@ package b2c
 import (
 	"strings"
 
+	"github.com/stytchauth/stytch-go/v8/stytch/shared"
+
 	"github.com/golang-jwt/jwt/v4"
 )
+
+type Key = shared.Key
 
 type SessionsGetParams struct {
 	UserID string `json:"user_id"`
@@ -22,18 +26,6 @@ type SessionsGetJWKSParams struct {
 type SessionsGetJWKSResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	Keys      []Key  `json:"keys,omitempty"`
-}
-
-type Key struct {
-	Typ     string   `json:"kty"`
-	Use     string   `json:"use"`
-	KeyOps  []string `json:"key_ops"`
-	Alg     string   `json:"alg"`
-	KeyID   string   `json:"kid"`
-	X5C     []string `json:"x5c"`
-	X5TS256 string   `json:"x5tS256"`
-	N       string   `json:"n"`
-	E       string   `json:"e"`
 }
 
 type SessionsAuthenticateParams struct {

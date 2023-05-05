@@ -3,6 +3,7 @@ package b2b
 import "github.com/stytchauth/stytch-go/v8/stytch/shared"
 
 type PasswordsAuthenticateParams struct {
+	OrganizationID         string                 `json:"organization_id,omitempty"`
 	EmailAddress           string                 `json:"email_address"`
 	Password               string                 `json:"password"`
 	SessionToken           string                 `json:"session_token,omitempty"`
@@ -68,6 +69,14 @@ type PasswordsMigrateParams struct {
 }
 
 type PasswordsMigrateResponse struct {
+	RequestID   string `json:"request_id,omitempty"`
+	StatusCode  int    `json:"status_code,omitempty"`
+	UserID      string `json:"user_id,omitempty"`
+	EmailID     string `json:"email_id,omitempty"`
+	UserCreated bool   `json:"user_created,omitempty"`
+}
+
+type PasswordsDeleteResponse struct {
 	RequestID   string `json:"request_id,omitempty"`
 	StatusCode  int    `json:"status_code,omitempty"`
 	UserID      string `json:"user_id,omitempty"`

@@ -19,7 +19,6 @@ linters:
     - errcheck
     - gofmt
     - gofumpt
-    - goimports
     - gosec
     - gosimple
     - lll
