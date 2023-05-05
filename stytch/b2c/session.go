@@ -8,6 +8,8 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+type Key = shared.Key
+
 type SessionsGetParams struct {
 	UserID string `json:"user_id"`
 }
@@ -22,8 +24,8 @@ type SessionsGetJWKSParams struct {
 }
 
 type SessionsGetJWKSResponse struct {
-	RequestID string       `json:"request_id,omitempty"`
-	Keys      []shared.Key `json:"keys,omitempty"`
+	RequestID string `json:"request_id,omitempty"`
+	Keys      []Key  `json:"keys,omitempty"`
 }
 
 type SessionsAuthenticateParams struct {

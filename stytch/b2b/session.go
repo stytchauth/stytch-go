@@ -5,6 +5,8 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/shared"
 )
 
+type Key = shared.Key
+
 type SessionGetParams struct {
 	OrganizationID string `json:"organization_id"`
 	MemberID       string `json:"member_id"`
@@ -50,8 +52,8 @@ type SessionsGetJWKSParams struct {
 }
 
 type SessionsGetJWKSResponse struct {
-	RequestID string       `json:"request_id,omitempty"`
-	Keys      []shared.Key `json:"keys,omitempty"`
+	RequestID string `json:"request_id,omitempty"`
+	Keys      []Key  `json:"keys,omitempty"`
 }
 
 type SessionExchangeParams struct {
