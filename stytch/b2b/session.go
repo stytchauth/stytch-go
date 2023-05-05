@@ -1,6 +1,9 @@
 package b2b
 
-import "github.com/stytchauth/stytch-go/v8/stytch/b2c"
+import (
+	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v8/stytch/shared"
+)
 
 type SessionGetParams struct {
 	OrganizationID string `json:"organization_id"`
@@ -40,6 +43,15 @@ type SessionRevokeParams struct {
 type SessionRevokeResponse struct {
 	RequestID  string `json:"request_id,omitempty"`
 	StatusCode int    `json:"status_code,omitempty"`
+}
+
+type SessionsGetJWKSParams struct {
+	ProjectID string `json:"project_id"`
+}
+
+type SessionsGetJWKSResponse struct {
+	RequestID string       `json:"request_id,omitempty"`
+	Keys      []shared.Key `json:"keys,omitempty"`
 }
 
 type SessionExchangeParams struct {
