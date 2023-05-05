@@ -2,6 +2,7 @@ package b2c
 
 import (
 	"strings"
+
 	"github.com/stytchauth/stytch-go/v8/stytch/shared"
 
 	"github.com/golang-jwt/jwt/v4"
