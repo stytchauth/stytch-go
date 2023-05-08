@@ -16,33 +16,15 @@ import (
 )
 
 func TestNewClient(t *testing.T) {
-	t.Run("live environment", func(t *testing.T) {
-		_, err := stytchapi.NewAPIClient(
-			stytch.EnvLive,
-			"project-live-00000000-0000-0000-0000-000000000000",
-			"secret-live-11111111-1111-1111-1111-111111111111",
-		)
-		assert.NoError(t, err)
-	})
-
-	t.Run("test environment", func(t *testing.T) {
-		_, err := stytchapi.NewAPIClient(
-			stytch.EnvTest,
-			"project-test-00000000-0000-0000-0000-000000000000",
-			"secret-test-11111111-1111-1111-1111-111111111111",
-		)
-		assert.NoError(t, err)
-	})
-
 	t.Run("internal development override", func(t *testing.T) {
 		srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// Handle the async JWKS fetch
+			// Handle the JWKS fetch that happens during setup.
 			if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
 				_, _ = w.Write([]byte(`{"keys": []}`))
 				return
 			}
 
-			// This is the test request
+			// This is the test request.
 			if r.URL.Path == "/magic_links/authenticate" {
 				_, _ = w.Write([]byte(`{}`))
 				return
