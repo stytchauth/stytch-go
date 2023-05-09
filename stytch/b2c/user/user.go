@@ -3,7 +3,6 @@ package user
 import (
 	"context"
 	"encoding/json"
-	"strconv"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
 
@@ -42,29 +41,6 @@ func (c *Client) Get(
 
 	var retVal b2c.UsersGetResponse
 	err := c.C.NewRequest(ctx, "GET", path, nil, nil, &retVal)
-	return &retVal, err
-}
-
-// Deprecated: Use Search or SearchAll with UsersSearchQueryStatusFilter{Status: "pending"} instead.
-func (c *Client) GetPending(
-	ctx context.Context,
-	body *b2c.UsersGetPendingParams,
-) (*b2c.UsersGetPendingResponse, error) {
-	var queryParams map[string]string
-	if body != nil {
-		limitString := ""
-		if body.Limit != 0 {
-			limitString = strconv.Itoa(int(body.Limit))
-		}
-
-		queryParams = map[string]string{
-			"limit":             limitString,
-			"starting_after_id": body.StartingAfterID,
-		}
-	}
-
-	var retVal b2c.UsersGetPendingResponse
-	err := c.C.NewRequest(ctx, "GET", "/users/pending", queryParams, nil, &retVal)
 	return &retVal, err
 }
 
