@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/oidc"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/saml"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/oidc"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/saml"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type Client struct {

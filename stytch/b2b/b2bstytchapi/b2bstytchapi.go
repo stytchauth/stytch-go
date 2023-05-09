@@ -1,20 +1,20 @@
 package b2bstytchapi
 
 import (
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/discovery"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink"
-	mle "github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink/email"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organization"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/password"
-	pe "github.com/stytchauth/stytch-go/v8/stytch/b2b/password/email"
-	pep "github.com/stytchauth/stytch-go/v8/stytch/b2b/password/existingpassword"
-	ps "github.com/stytchauth/stytch-go/v8/stytch/b2b/password/session"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/session"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/oidc"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/saml"
-	"github.com/stytchauth/stytch-go/v8/stytch/config"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/magiclink"
+	mle "github.com/stytchauth/stytch-go/v9/stytch/b2b/magiclink/email"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organization"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/password"
+	pe "github.com/stytchauth/stytch-go/v9/stytch/b2b/password/email"
+	pep "github.com/stytchauth/stytch-go/v9/stytch/b2b/password/existingpassword"
+	ps "github.com/stytchauth/stytch-go/v9/stytch/b2b/password/session"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/session"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/oidc"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/saml"
+	"github.com/stytchauth/stytch-go/v9/stytch/config"
 )
 
 type Logger interface {

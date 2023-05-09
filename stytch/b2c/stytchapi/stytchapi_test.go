@@ -9,14 +9,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2c/stytchapi"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/config"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/config"
 )
 
 func TestNewClient(t *testing.T) {

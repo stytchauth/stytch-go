@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2c"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 var ErrJWTTooOld = errors.New("JWT too old")

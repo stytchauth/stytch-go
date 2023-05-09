@@ -1,8 +1,8 @@
 package b2b
 
 import (
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
-	"github.com/stytchauth/stytch-go/v8/stytch/shared"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v9/stytch/shared"
 )
 
 type Key = shared.Key

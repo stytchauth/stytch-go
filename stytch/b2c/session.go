@@ -1,7 +1,7 @@
 package b2c
 
 import (
-	"github.com/stytchauth/stytch-go/v8/stytch/shared"
+	"github.com/stytchauth/stytch-go/v9/stytch/shared"
 
 	"github.com/golang-jwt/jwt/v5"
 )

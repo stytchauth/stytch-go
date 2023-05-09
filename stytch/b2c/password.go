@@ -1,6 +1,6 @@
 package b2c
 
-import "github.com/stytchauth/stytch-go/v8/stytch/shared"
+import "github.com/stytchauth/stytch-go/v9/stytch/shared"
 
 type PasswordsCreateParams struct {
 	Email                  string                 `json:"email"`

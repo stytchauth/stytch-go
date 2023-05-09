@@ -1,6 +1,6 @@
 package b2b
 
-import "github.com/stytchauth/stytch-go/v8/stytch/shared"
+import "github.com/stytchauth/stytch-go/v9/stytch/shared"
 
 type PasswordsAuthenticateParams struct {
 	OrganizationID         string                 `json:"organization_id,omitempty"`

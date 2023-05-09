@@ -1,4 +1,4 @@
-module github.com/stytchauth/stytch-go/v8
+module github.com/stytchauth/stytch-go/v9
 
 go 1.18
 
