@@ -32,13 +32,14 @@ This client library supports all of Stytch's live products:
 Create an API client:
 ```go
 import (
-	"os"
+	"context"
 
 	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
 )
 
 stytchAPIClient, err := stytchapi.NewAPIClient(
+	context.Background(),
 	stytch.EnvTest, // available environments are EnvTest and EnvLive
 	"project-live-c60c0abe-c25a-4472-a9ed-320c6667d317",
 	"secret-live-80JASucyk7z_G8Z-7dVwZVGXL5NT_qGAQ2I=",
@@ -53,12 +54,12 @@ Send a magic link by email:
 	res, err := stytchAPIClient.MagicLinks.Email.Send(
 		context.Background(),
 		&stytch.MagicLinksEmailSendParams{
-		    Email:              "sandbox@stytch.com",
-		    Attributes:         stytch.Attributes{
-			    IPAddress: "10.0.0.0",
-		    },
-        },
-    )
+			Email: "sandbox@stytch.com",
+			Attributes: stytch.Attributes{
+				IPAddress: "10.0.0.0",
+			},
+		},
+	)
 ```
 
 Authenticate the token from the magic link:
@@ -77,7 +78,7 @@ Get all users
     res, err := stytchAPIClient.Users.Search(
 		context.Background(),
 		&stytch.UsersSearchParams{
-			Limit: 1000	
+			Limit: 1000
 		})
 ```
 
@@ -93,12 +94,12 @@ Search users
 					stytch.UsersSearchQueryPhoneVerifiedFilter{true},
 					stytch.UsersSearchQueryEmailVerifiedFilter{true},
 					stytch.UsersSearchQueryWebAuthnRegistrationVerifiedFilter{true},
-				}           
+				}
 			}
 		})
 ```
 
-Iterate over all pages of users for a search query 
+Iterate over all pages of users for a search query
 ```go
 	var users []stytch.User
 	iter := stytchAPIClient.Users.SearchAll(&stytch.UsersSearchParams{})
