@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
@@ -128,6 +129,44 @@ func TestNewClient(t *testing.T) {
 			stytchapi.WithHTTPClient(httpClient),
 		)
 		require.NoError(t, err)
+	})
+
+	t.Run("cancelable init context", func(t *testing.T) {
+		delay := 10 * time.Millisecond
+
+		// This timeout is less than the HTTP response will take, so client setup will error
+		// because this context was canceled.
+		ctx, cancel := context.WithTimeout(context.Background(), delay)
+		defer cancel()
+
+		// This custom HTTP client waits until just after the context deadline expires before
+		// returning a response. Track whether the "server" actually got a chance to respond.
+		didRespond := false
+		httpClient := &http.Client{
+			Transport: RoundTripperFunc(func(r *http.Request) (*http.Response, error) {
+				time.Sleep(2 * delay)
+
+				didRespond = true
+
+				resp := &http.Response{
+					StatusCode: http.StatusTeapot,
+					Body: io.NopCloser(strings.NewReader(
+						`{"status_code": 418, "error_type": "teapot", "error_message": "I'm a teapot!"}`,
+					)),
+				}
+				return resp, nil
+			}),
+		}
+
+		_, err := stytchapi.NewAPIClientWithContext(
+			ctx,
+			stytch.EnvTest,
+			"project-test-00000000-0000-0000-0000-000000000000",
+			"secret-test-11111111-1111-1111-1111-111111111111",
+			stytchapi.WithHTTPClient(httpClient),
+		)
+		assert.ErrorIs(t, err, context.DeadlineExceeded)
+		assert.False(t, didRespond, "HTTP client should not have received a response")
 	})
 }
 
