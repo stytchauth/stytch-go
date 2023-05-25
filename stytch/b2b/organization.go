@@ -115,10 +115,11 @@ type OrganizationMemberSearchParams struct {
 }
 
 type OrganizationMemberSearchResponse struct {
-	RequestID       string          `json:"request_id,omitempty"`
-	StatusCode      int             `json:"status_code,omitempty"`
-	Members         []Member        `json:"members,omitempty"`
-	ResultsMetadata ResultsMetadata `json:"results_metadata,omitempty"`
+	RequestID       string                  `json:"request_id,omitempty"`
+	StatusCode      int                     `json:"status_code,omitempty"`
+	Members         []Member                `json:"members,omitempty"`
+	Organizations   map[string]Organization `json:"organizations,omitempty"`
+	ResultsMetadata ResultsMetadata         `json:"results_metadata,omitempty"`
 }
 
 type OrganizationMemberGetParams struct {
