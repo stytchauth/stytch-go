@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/cryptowallet"
@@ -65,6 +66,22 @@ func WithHTTPClient(client *http.Client) Option {
 // this client to access internal development versions of the API.
 func WithBaseURI(uri string) Option {
 	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
+}
+
+// NewClient returns a Stytch API client that uses the provided credentials.
+//
+// It detects the environment from the given projectID. You are still free to pass WithBaseURI as an option if you wish
+// to override this behavior, but the intention is to provide a simpler interface for creating a client since it's
+// extremely rare that developers would want to use something other than the detected environment.
+func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
+	var detectedEnv config.Env
+	if strings.HasPrefix(projectID, "project-live-") {
+		detectedEnv = config.EnvLive
+	} else {
+		detectedEnv = config.EnvTest
+	}
+
+	return NewAPIClient(detectedEnv, projectID, secret, opts...)
 }
 
 // NewAPIClient returns a Stytch API client that uses the provided credentials.
