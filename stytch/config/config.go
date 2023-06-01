@@ -1,7 +1,5 @@
 package config
 
-const APIVersion = "8.4.0"
-
 type BaseURI string
 
 const (
