@@ -38,8 +38,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
 )
 
-stytchAPIClient, err := stytchapi.NewAPIClient(
-	stytch.EnvTest, // available environments are EnvTest and EnvLive
+stytchAPIClient, err := stytchapi.NewClient(
 	"project-live-c60c0abe-c25a-4472-a9ed-320c6667d317",
 	"secret-live-80JASucyk7z_G8Z-7dVwZVGXL5NT_qGAQ2I=",
 )
