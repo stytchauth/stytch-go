@@ -16,7 +16,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/config"
 )
 
 func TestNewClient(t *testing.T) {
@@ -37,8 +36,7 @@ func TestNewClient(t *testing.T) {
 			http.Error(w, "Bad Request", http.StatusBadRequest)
 		}))
 
-		client, err := stytchapi.NewAPIClient(
-			config.Env("anything"),
+		client, err := stytchapi.NewClient(
 			"project-test-00000000-0000-0000-0000-000000000000",
 			"secret-test-11111111-1111-1111-1111-111111111111",
 			stytchapi.WithBaseURI(srv.URL),
@@ -79,8 +77,7 @@ func TestNewClient(t *testing.T) {
 			}),
 		}
 
-		client, err := stytchapi.NewAPIClient(
-			stytch.EnvTest,
+		client, err := stytchapi.NewClient(
 			"project-test-00000000-0000-0000-0000-000000000000",
 			"secret-test-11111111-1111-1111-1111-111111111111",
 			stytchapi.WithHTTPClient(httpClient),
@@ -122,8 +119,7 @@ func TestNewClient(t *testing.T) {
 			}),
 		}
 
-		_, err := stytchapi.NewAPIClient(
-			stytch.EnvTest,
+		_, err := stytchapi.NewClient(
 			"project-test-00000000-0000-0000-0000-000000000000",
 			"secret-test-11111111-1111-1111-1111-111111111111",
 			stytchapi.WithHTTPClient(httpClient),

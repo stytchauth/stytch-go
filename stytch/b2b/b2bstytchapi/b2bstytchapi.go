@@ -1,6 +1,8 @@
 package b2bstytchapi
 
 import (
+	"strings"
+
 	"github.com/stytchauth/stytch-go/v8/stytch"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/discovery"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/magiclink"
@@ -47,6 +49,27 @@ func WithBaseURI(uri string) Option {
 	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
 }
 
+// NewClient returns a Stytch API client that uses the provided credentials.
+//
+// It detects the environment from the given projectID. You are still free to pass WithBaseURI as an option if you wish
+// to override this behavior, but the intention is to provide a simpler interface for creating a client since it's
+// extremely rare that developers would want to use something other than the detected environment.
+func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
+	var detectedEnv config.Env
+	if strings.HasPrefix(projectID, "project-live-") {
+		detectedEnv = config.EnvLive
+	} else {
+		detectedEnv = config.EnvTest
+	}
+
+	return NewAPIClient(detectedEnv, projectID, secret, opts...)
+}
+
+// NewAPIClient returns a Stytch API client that uses the provided credentials.
+//
+// Deprecated: This method requires explicitly supplying a config.Env instead of detecting it automatically, which can
+// lead to bugs when the env does not match what's expected from the given projectID. Use NewClient instead and supply a
+// WithBaseURI if you need to explicitly override the client's BaseURI (typically only done for internal development).
 func NewAPIClient(env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	a := &API{
 		client: stytch.New(env, projectID, secret),

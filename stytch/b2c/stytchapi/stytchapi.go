@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/cryptowallet"
@@ -33,17 +34,18 @@ type Logger interface {
 }
 
 type API struct {
-	client        *stytch.Client
-	logger        Logger
-	CryptoWallets *cryptowallet.Client
-	MagicLinks    *magiclink.Client
-	OAuth         *oauth.Client
-	OTPs          *otp.Client
-	Passwords     *password.Client
-	Sessions      *session.Client
-	TOTPs         *totp.Client
-	Users         *user.Client
-	WebAuthn      *webauthn.Client
+	client                *stytch.Client
+	logger                Logger
+	initializationContext context.Context
+	CryptoWallets         *cryptowallet.Client
+	MagicLinks            *magiclink.Client
+	OAuth                 *oauth.Client
+	OTPs                  *otp.Client
+	Passwords             *password.Client
+	Sessions              *session.Client
+	TOTPs                 *totp.Client
+	Users                 *user.Client
+	WebAuthn              *webauthn.Client
 }
 
 type Option func(*API)
@@ -67,7 +69,37 @@ func WithBaseURI(uri string) Option {
 	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
 }
 
+// WithInitializationContext overrides the context used during initialization.
+//
+// The context argument is used only during client setup and can be used to cancel client
+// creation. After the client is created and returned, canceling the context has no effect.
+// It is preferred to use this function over the less flexible NewAPIClientWithContext function,
+// which will be deprecated in a future MAJOR release.
+func WithInitializationContext(ctx context.Context) Option {
+	return func(api *API) { api.initializationContext = ctx }
+}
+
+// NewClient returns a Stytch API client that uses the provided credentials.
+//
+// It detects the environment from the given projectID. You are still free to pass WithBaseURI as an option if you wish
+// to override this behavior, but the intention is to provide a simpler interface for creating a client since it's
+// extremely rare that developers would want to use something other than the detected environment.
+func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
+	var detectedEnv config.Env
+	if strings.HasPrefix(projectID, "project-live-") {
+		detectedEnv = config.EnvLive
+	} else {
+		detectedEnv = config.EnvTest
+	}
+
+	return NewAPIClient(detectedEnv, projectID, secret, opts...)
+}
+
 // NewAPIClient returns a Stytch API client that uses the provided credentials.
+//
+// Deprecated: This method requires explicitly supplying a config.Env instead of detecting it automatically, which can
+// lead to bugs when the env does not match what's expected from the given projectID. Use NewClient instead and supply a
+// WithBaseURI if you need to explicitly override the client's BaseURI (typically only done for internal development).
 func NewAPIClient(env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	return NewAPIClientWithContext(context.Background(), env, projectID, secret, opts...)
 }
@@ -78,9 +110,16 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 // The context argument is used only during client setup and can be used to cancel client
 // creation. After the client is created and returned by this function, canceling the context has
 // no effect.
+//
+// Deprecated: This method requires explicitly supplying a config.Env instead of detecting it automatically, which can
+// lead to bugs when the env does not match what's expected from the given projectID. Use NewClient instead and supply a
+// WithBaseURI if you need to explicitly override the client's BaseURI (typically only done for internal development).
+// To supply your own context, additionally use the WithInitializationContext option to provide the same functionality
+// as this function.
 func NewAPIClientWithContext(ctx context.Context, env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	a := &API{
-		client: stytch.New(env, projectID, secret),
+		client:                stytch.New(env, projectID, secret),
+		initializationContext: ctx,
 	}
 	for _, o := range opts {
 		o(a)
@@ -104,7 +143,7 @@ func NewAPIClientWithContext(ctx context.Context, env config.Env, projectID stri
 	a.TOTPs = &totp.Client{C: a.client}
 	a.Users = &user.Client{C: a.client}
 	a.WebAuthn = &webauthn.Client{C: a.client}
-	jwks, err := a.instantiateJWKSClient(ctx, a.client)
+	jwks, err := a.instantiateJWKSClient(a.initializationContext, a.client)
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
