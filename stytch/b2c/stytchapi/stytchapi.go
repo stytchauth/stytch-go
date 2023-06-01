@@ -97,8 +97,9 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 
 // NewAPIClient returns a Stytch API client that uses the provided credentials.
 //
-// It is highly recommended to use NewClient instead of this function since it will automatically detect the correct
-// Stytch environment from the provided projectID. This function will be deprecated in a future MAJOR release.
+// Deprecated: This method requires explicitly supplying a config.Env instead of detecting it automatically, which can
+// lead to bugs when the env does not match what's expected from the given projectID. Use NewClient instead and supply a
+// WithBaseURI if you need to explicitly override the client's BaseURI (typically only done for internal development).
 func NewAPIClient(env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	return NewAPIClientWithContext(context.Background(), env, projectID, secret, opts...)
 }
@@ -110,10 +111,11 @@ func NewAPIClient(env config.Env, projectID string, secret string, opts ...Optio
 // creation. After the client is created and returned by this function, canceling the context has
 // no effect.
 //
-// It is highly recommended to use NewClient instead of this function since it will automatically detect the correct
-// Stytch environment from the provided projectID. If you wish to supply your own context, NewClient can be used in
-// conjunction with the WithInitializationContext option to provide the same functionality as this function. This
-// function will be deprecated in a future MAJOR release.
+// Deprecated: This method requires explicitly supplying a config.Env instead of detecting it automatically, which can
+// lead to bugs when the env does not match what's expected from the given projectID. Use NewClient instead and supply a
+// WithBaseURI if you need to explicitly override the client's BaseURI (typically only done for internal development).
+// To supply your own context, additionally use the WithInitializationContext option to provide the same functionality
+// as this function.
 func NewAPIClientWithContext(ctx context.Context, env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	a := &API{
 		client:                stytch.New(env, projectID, secret),

@@ -67,8 +67,9 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 
 // NewAPIClient returns a Stytch API client that uses the provided credentials.
 //
-// It is highly recommended to use NewClient instead of this function since it will automatically detect the correct
-// Stytch environment from the provided projectID. This function will be deprecated in a future MAJOR release.
+// Deprecated: This method requires explicitly supplying a config.Env instead of detecting it automatically, which can
+// lead to bugs when the env does not match what's expected from the given projectID. Use NewClient instead and supply a
+// WithBaseURI if you need to explicitly override the client's BaseURI (typically only done for internal development).
 func NewAPIClient(env config.Env, projectID string, secret string, opts ...Option) (*API, error) {
 	a := &API{
 		client: stytch.New(env, projectID, secret),
