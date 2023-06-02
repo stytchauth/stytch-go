@@ -6,3 +6,10 @@ help:
 .PHONY: lint
 lint:
 	golangci-lint run --fix
+
+.PHONY: test
+test:
+	go test ./stytch/...
+
+.PHONY: tests
+tests: test # A useful alias
