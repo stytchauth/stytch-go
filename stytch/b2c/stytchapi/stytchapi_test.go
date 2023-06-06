@@ -9,26 +9,25 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c"
+	"github.com/stytchauth/stytch-go/v8/stytch/b2c/magiclinks"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2c/stytchapi"
 	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v8/stytch"
 )
 
 func TestNewClient(t *testing.T) {
 	t.Run("internal development override", func(t *testing.T) {
 		srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Handle the JWKS fetch that happens during setup.
-			if strings.HasPrefix(r.URL.Path, "/sessions/jwks/") {
+			if strings.HasPrefix(r.URL.Path, "/v1/sessions/jwks/") {
 				_, _ = w.Write([]byte(`{"keys": []}`))
 				return
 			}
 
 			// This is the test request.
-			if r.URL.Path == "/magic_links/authenticate" {
+			if r.URL.Path == "/v1/magic_links/authenticate" {
 				_, _ = w.Write([]byte(`{}`))
 				return
 			}
@@ -45,7 +44,7 @@ func TestNewClient(t *testing.T) {
 
 		_, err = client.MagicLinks.Authenticate(
 			context.Background(),
-			&b2c.MagicLinksAuthenticateParams{
+			&magiclinks.AuthenticateParams{
 				Token: "fake-token",
 			},
 		)
@@ -86,7 +85,7 @@ func TestNewClient(t *testing.T) {
 
 		_, err = client.MagicLinks.Authenticate(
 			context.Background(),
-			&b2c.MagicLinksAuthenticateParams{},
+			&magiclinks.AuthenticateParams{},
 		)
 
 		var stytchErr stytcherror.Error
@@ -154,12 +153,11 @@ func TestNewClient(t *testing.T) {
 			}),
 		}
 
-		_, err := stytchapi.NewAPIClientWithContext(
-			ctx,
-			stytch.EnvTest,
+		_, err := stytchapi.NewClient(
 			"project-test-00000000-0000-0000-0000-000000000000",
 			"secret-test-11111111-1111-1111-1111-111111111111",
 			stytchapi.WithHTTPClient(httpClient),
+			stytchapi.WithInitializationContext(ctx),
 		)
 		assert.ErrorIs(t, err, context.DeadlineExceeded)
 		assert.False(t, didRespond, "HTTP client should not have received a response")
