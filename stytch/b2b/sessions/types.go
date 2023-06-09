@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c/sessions"
+	"github.com/stytchauth/stytch-go/v8/stytch/consumer/sessions"
 )
 
 // AuthenticateParams: Request type for `Authenticate`.

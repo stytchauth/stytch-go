@@ -9,7 +9,7 @@ package passwords
 import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2c/passwords"
+	"github.com/stytchauth/stytch-go/v8/stytch/consumer/passwords"
 )
 
 // AuthenticateParams: Request type for `Authenticate`.
