@@ -209,14 +209,19 @@ func marshalJWTIntoSession(claims sessions.Claims) (*sessions.Session, error) {
 	if err != nil {
 		return nil, err
 	}
+	started = started.UTC()
+
 	accessed, err := time.Parse(time.RFC3339, claims.StytchSession.LastAccessedAt)
 	if err != nil {
 		return nil, err
 	}
+	accessed = accessed.UTC()
+
 	expires, err := time.Parse(time.RFC3339, expiresAt)
 	if err != nil {
 		return nil, err
 	}
+	expires = expires.UTC()
 
 	return &sessions.Session{
 		SessionID:             claims.StytchSession.ID,

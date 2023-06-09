@@ -47,7 +47,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	sessionClient.JWKS = jwks
 
 	t.Run("expired JWT", func(t *testing.T) {
-		iat := time.Now().Add(-time.Hour).Truncate(time.Second)
+		iat := time.Now().UTC().Add(-time.Hour).Truncate(time.Second)
 		exp := iat.Add(time.Minute)
 
 		claims := sandboxClaims(t, iat, exp)
@@ -59,7 +59,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	})
 
 	t.Run("stale JWT", func(t *testing.T) {
-		iat := time.Now().Add(-3 * time.Minute).Truncate(time.Second)
+		iat := time.Now().UTC().Add(-3 * time.Minute).Truncate(time.Second)
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxClaims(t, iat, exp)
@@ -71,7 +71,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	})
 
 	t.Run("incorrect audience", func(t *testing.T) {
-		iat := time.Now().Truncate(time.Second)
+		iat := time.Now().UTC().Truncate(time.Second)
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxClaims(t, iat, exp)
@@ -85,7 +85,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	})
 
 	t.Run("incorrect issuer", func(t *testing.T) {
-		iat := time.Now().Truncate(time.Second)
+		iat := time.Now().UTC().Truncate(time.Second)
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxClaims(t, iat, exp)
@@ -99,7 +99,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	})
 
 	t.Run("valid JWT", func(t *testing.T) {
-		iat := time.Now().Truncate(time.Second)
+		iat := time.Now().UTC().Truncate(time.Second)
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxClaims(t, iat, exp)
@@ -134,7 +134,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	})
 
 	t.Run("valid JWT (old format)", func(t *testing.T) {
-		iat := time.Now().Truncate(time.Second)
+		iat := time.Now().UTC().Truncate(time.Second)
 		exp := iat.Add(time.Hour)
 		sessionExp := iat.Add(5 * time.Minute)
 
