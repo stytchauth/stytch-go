@@ -47,6 +47,7 @@ type OAuthAuthenticateResponse struct {
 	SessionJWT              string         `json:"session_jwt,omitempty"`
 	ProviderValues          ProviderValues `json:"provider_values,omitempty"`
 	ResetSessions           bool           `json:"reset_sessions,omitempty"`
+	User                    User           `json:"user,omitempty"`
 }
 
 type ProviderValues struct {
