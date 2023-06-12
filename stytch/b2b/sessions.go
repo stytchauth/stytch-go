@@ -142,9 +142,9 @@ func (c *SessionsClient) Exchange(
 // GetJWKS: Get the JSON Web Key Set (JWKS) for a project.
 func (c *SessionsClient) GetJWKS(
 	ctx context.Context,
-	body *sessions.JWKSParams,
-) (*sessions.JWKSResponse, error) {
-	var retVal sessions.JWKSResponse
+	body *sessions.GetJWKSParams,
+) (*sessions.GetJWKSResponse, error) {
+	var retVal sessions.GetJWKSResponse
 	err := c.C.NewRequest(
 		ctx,
 		"GET",

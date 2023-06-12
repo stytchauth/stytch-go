@@ -89,6 +89,13 @@ type ExchangeParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
+// GetJWKSParams: Request type for `GetJWKS`.
+// Fields:
+//   - ProjectID: The `project_id` to get the JWKS for.
+type GetJWKSParams struct {
+	ProjectID string `json:"project_id,omitempty"`
+}
+
 // GetParams: Request type for `Get`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -98,13 +105,6 @@ type ExchangeParams struct {
 type GetParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	MemberID       string `json:"member_id,omitempty"`
-}
-
-// JWKSParams: Request type for `GetJWKS`.
-// Fields:
-//   - ProjectID: The `project_id` to get the JWKS for.
-type JWKSParams struct {
-	ProjectID string `json:"project_id,omitempty"`
 }
 
 // MemberSession: Fields:
@@ -195,6 +195,21 @@ type ExchangeResponse struct {
 	MemberSession MemberSession              `json:"member_session,omitempty"`
 }
 
+// GetJWKSResponse: Response type for `GetJWKS`.
+// Fields:
+//   - Keys: The JWK
+//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
+//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
+//     debug an issue.
+//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+//     are server errors.
+type GetJWKSResponse struct {
+	Keys       []sessions.JWK `json:"keys,omitempty"`
+	RequestID  string         `json:"request_id,omitempty"`
+	StatusCode int32          `json:"status_code,omitempty"`
+}
+
 // GetResponse: Response type for `Get`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -208,21 +223,6 @@ type GetResponse struct {
 	RequestID      string          `json:"request_id,omitempty"`
 	MemberSessions []MemberSession `json:"member_sessions,omitempty"`
 	StatusCode     int32           `json:"status_code,omitempty"`
-}
-
-// JWKSResponse: Response type for `GetJWKS`.
-// Fields:
-//   - Keys: The JWK
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
-type JWKSResponse struct {
-	Keys       []sessions.JWK `json:"keys,omitempty"`
-	RequestID  string         `json:"request_id,omitempty"`
-	StatusCode int32          `json:"status_code,omitempty"`
 }
 
 // RevokeResponse: Response type for `Revoke`.
