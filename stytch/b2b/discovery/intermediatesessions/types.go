@@ -43,11 +43,14 @@ import (
 //     delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 //     `exp`, `nbf`, `iat`, `jti`) will be ignored.
 //     Total custom claims size cannot exceed four kilobytes.
+//
+//   - Locale: (no documentation yet)
 type ExchangeParams struct {
 	IntermediateSessionToken string         `json:"intermediate_session_token,omitempty"`
 	OrganizationID           string         `json:"organization_id,omitempty"`
 	SessionDurationMinutes   int32          `json:"session_duration_minutes,omitempty"`
 	SessionCustomClaims      map[string]any `json:"session_custom_claims,omitempty"`
+	Locale                   string         `json:"locale,omitempty"`
 }
 
 // ExchangeResponse: Response type for `Exchange`.
