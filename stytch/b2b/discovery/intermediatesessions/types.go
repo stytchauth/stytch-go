@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
 )
 
-// ExchangeParams: Request type for `Exchange`.
+// ExchangeParams: Request type for `IntermediateSessions.Exchange`.
 // Fields:
 //
 //   - IntermediateSessionToken: The Intermediate Session Token. This token does not belong to a specific
@@ -53,7 +53,7 @@ type ExchangeParams struct {
 	Locale                   string         `json:"locale,omitempty"`
 }
 
-// ExchangeResponse: Response type for `Exchange`.
+// ExchangeResponse: Response type for `IntermediateSessions.Exchange`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

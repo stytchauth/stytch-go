@@ -13,7 +13,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// AttachParams: Request type for `Attach`.
+// AttachParams: Request type for `OAuth.Attach`.
 // Fields:
 //   - Provider: The OAuth provider's name.
 //   - UserID: The unique ID of a specific User.
@@ -26,7 +26,7 @@ type AttachParams struct {
 	SessionJWT   string `json:"session_jwt,omitempty"`
 }
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `OAuth.Authenticate`.
 // Fields:
 //
 //   - Token: The token to authenticate.
@@ -95,7 +95,7 @@ type ProviderValues struct {
 	ExpiresAt    *time.Time `json:"expires_at,omitempty"`
 }
 
-// AttachResponse: Response type for `Attach`.
+// AttachResponse: Response type for `OAuth.Attach`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -111,7 +111,7 @@ type AttachResponse struct {
 	StatusCode       int32  `json:"status_code,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `OAuth.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -130,6 +130,13 @@ type AttachResponse struct {
 //
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 //
+//   - ProviderValues: The `provider_values` object lists relevant identifiers, values, and scopes for a
+//     given OAuth provider. For example this object will include a provider's `access_token` that you can use
+//     to access the provider's API for a given user.
+//
+//     Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
+//     returned by Microsoft.
+//
 //   - ResetSessions: Indicates if all other of the User's Sessions need to be reset. You should check this
 //     field if you aren't using Stytch's Session product. If you are using Stytch's Session product, we revoke
 //     the User's other sessions for you.
@@ -145,13 +152,6 @@ type AttachResponse struct {
 //
 //     See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 //
-//   - ProviderValues: The `provider_values` object lists relevant identifiers, values, and scopes for a
-//     given OAuth provider. For example this object will include a provider's `access_token` that you can use
-//     to access the provider's API for a given user.
-//
-//     Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
-//     returned by Microsoft.
-//
 //   - User: The `user` object affected by this API call. See the [Get user
 //     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 type AuthenticateResponse struct {
@@ -161,10 +161,10 @@ type AuthenticateResponse struct {
 	ProviderType            string           `json:"provider_type,omitempty"`
 	SessionToken            string           `json:"session_token,omitempty"`
 	SessionJWT              string           `json:"session_jwt,omitempty"`
+	ProviderValues          ProviderValues   `json:"provider_values,omitempty"`
 	ResetSessions           bool             `json:"reset_sessions,omitempty"`
 	OauthUserRegistrationID string           `json:"oauth_user_registration_id,omitempty"`
 	StatusCode              int32            `json:"status_code,omitempty"`
 	UserSession             sessions.Session `json:"user_session,omitempty"`
-	ProviderValues          ProviderValues   `json:"provider_values,omitempty"`
 	User                    users.User       `json:"user,omitempty"`
 }

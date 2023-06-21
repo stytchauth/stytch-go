@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/attribute"
 )
 
-// LoginOrCreateParams: Request type for `LoginOrCreate`.
+// LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
 // Fields:
 //
 //   - Email: The email address of the user to send the one-time passcode to. You may use
@@ -57,7 +57,7 @@ type LoginOrCreateParams struct {
 	SignupTemplateID    string               `json:"signup_template_id,omitempty"`
 }
 
-// SendParams: Request type for `Send`.
+// SendParams: Request type for `Email.Send`.
 // Fields:
 //
 //   - Email: The email address of the user to send the one-time passcode to. You may use
@@ -104,7 +104,7 @@ type SendParams struct {
 	SignupTemplateID  string               `json:"signup_template_id,omitempty"`
 }
 
-// LoginOrCreateResponse: Response type for `LoginOrCreate`.
+// LoginOrCreateResponse: Response type for `Email.LoginOrCreate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -124,7 +124,7 @@ type LoginOrCreateResponse struct {
 	StatusCode  int32  `json:"status_code,omitempty"`
 }
 
-// SendResponse: Response type for `Send`.
+// SendResponse: Response type for `Email.Send`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

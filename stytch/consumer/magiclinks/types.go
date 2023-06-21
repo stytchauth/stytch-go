@@ -12,7 +12,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `MagicLinks.Authenticate`.
 // Fields:
 //
 //   - Token: The token to authenticate.
@@ -59,7 +59,7 @@ type AuthenticateParams struct {
 	CodeVerifier           string               `json:"code_verifier,omitempty"`
 }
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `MagicLinks.Create`.
 // Fields:
 //   - UserID: The unique ID of a specific User.
 //   - ExpirationMinutes: Set the expiration for the Magic Link `token` in minutes. By default, it expires
@@ -81,7 +81,7 @@ type Options struct {
 	UserAgentMatchRequired bool `json:"user_agent_match_required,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `MagicLinks.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -123,7 +123,7 @@ type AuthenticateResponse struct {
 	Session       sessions.Session `json:"session,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `MagicLinks.Create`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

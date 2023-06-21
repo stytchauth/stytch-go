@@ -25,7 +25,7 @@ type Argon2Config struct {
 	KeyLength       int32  `json:"key_length,omitempty"`
 }
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `Passwords.Authenticate`.
 // Fields:
 //
 //   - Email: The email address of the end user.
@@ -65,7 +65,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `Passwords.Create`.
 // Fields:
 //
 //   - Email: The email address of the end user.
@@ -155,7 +155,7 @@ type MD5Config struct {
 	AppendSalt  string `json:"append_salt,omitempty"`
 }
 
-// MigrateParams: Request type for `Migrate`.
+// MigrateParams: Request type for `Passwords.Migrate`.
 // Fields:
 //   - Email: The email address of the end user.
 //   - Hash: The password hash. For a Scrypt hash, the hash needs to be a base64 encoded string.
@@ -213,7 +213,7 @@ type ScryptConfig struct {
 	KeyLength  int32  `json:"key_length,omitempty"`
 }
 
-// StrengthCheckParams: Request type for `StrengthCheck`.
+// StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
 // Fields:
 //   - Password: The password of the user
 //   - Email: The email address of the end user.
@@ -222,7 +222,7 @@ type StrengthCheckParams struct {
 	Email    string `json:"email,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `Passwords.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -256,7 +256,7 @@ type AuthenticateResponse struct {
 	Session      sessions.Session `json:"session,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `Passwords.Create`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -293,7 +293,7 @@ type CreateResponse struct {
 	Session      sessions.Session `json:"session,omitempty"`
 }
 
-// MigrateResponse: Response type for `Migrate`.
+// MigrateResponse: Response type for `Passwords.Migrate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -316,7 +316,7 @@ type MigrateResponse struct {
 	StatusCode  int32      `json:"status_code,omitempty"`
 }
 
-// StrengthCheckResponse: Response type for `StrengthCheck`.
+// StrengthCheckResponse: Response type for `Passwords.StrengthCheck`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

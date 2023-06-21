@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// ResetParams: Request type for `Reset`.
+// ResetParams: Request type for `ExistingPassword.Reset`.
 // Fields:
 //
 //   - Email: The email address of the end user.
@@ -54,7 +54,7 @@ type ResetParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// ResetResponse: Response type for `Reset`.
+// ResetResponse: Response type for `ExistingPassword.Reset`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log

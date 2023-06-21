@@ -12,7 +12,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/passwords"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `Passwords.Authenticate`.
 // Fields:
 //
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -79,7 +79,7 @@ type LudsFeedback struct {
 	MissingCharacters int32 `json:"missing_characters,omitempty"`
 }
 
-// MigrateParams: Request type for `Migrate`.
+// MigrateParams: Request type for `Passwords.Migrate`.
 // Fields:
 //   - EmailAddress: The email address of the Member.
 //   - Hash: The password hash. For a Scrypt hash, the hash needs to be a base64 encoded string.
@@ -114,7 +114,7 @@ type MigrateParams struct {
 	UntrustedMetadata map[string]any         `json:"untrusted_metadata,omitempty"`
 }
 
-// StrengthCheckParams: Request type for `StrengthCheck`.
+// StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
 // Fields:
 //   - Password: The password to authenticate.
 //   - EmailAddress: The email address of the Member.
@@ -133,7 +133,7 @@ type ZxcvbnFeedback struct {
 	Suggestions []string `json:"suggestions,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `Passwords.Authenticate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -161,7 +161,7 @@ type AuthenticateResponse struct {
 	MemberSession  sessions.MemberSession     `json:"member_session,omitempty"`
 }
 
-// MigrateResponse: Response type for `Migrate`.
+// MigrateResponse: Response type for `Passwords.Migrate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -183,7 +183,7 @@ type MigrateResponse struct {
 	StatusCode    int32                      `json:"status_code,omitempty"`
 }
 
-// StrengthCheckResponse: Response type for `StrengthCheck`.
+// StrengthCheckResponse: Response type for `Passwords.StrengthCheck`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

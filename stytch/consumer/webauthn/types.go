@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `WebAuthn.Authenticate`.
 // Fields:
 //
 //   - PublicKeyCredential: The response of the
@@ -49,7 +49,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// AuthenticateStartParams: Request type for `AuthenticateStart`.
+// AuthenticateStartParams: Request type for `WebAuthn.AuthenticateStart`.
 // Fields:
 //   - UserID: The `user_id` of an active user the WebAuthn registration should be tied to.
 //   - Domain: The domain for WebAuthn. Defaults to `window.location.hostname`.
@@ -58,7 +58,7 @@ type AuthenticateStartParams struct {
 	Domain string `json:"domain,omitempty"`
 }
 
-// RegisterParams: Request type for `Register`.
+// RegisterParams: Request type for `WebAuthn.Register`.
 // Fields:
 //   - UserID: The `user_id` of an active user the WebAuthn registration should be tied to.
 //   - PublicKeyCredential: The response of the
@@ -68,7 +68,7 @@ type RegisterParams struct {
 	PublicKeyCredential string `json:"public_key_credential,omitempty"`
 }
 
-// RegisterStartParams: Request type for `RegisterStart`.
+// RegisterStartParams: Request type for `WebAuthn.RegisterStart`.
 // Fields:
 //   - UserID: The `user_id` of an active user the WebAuthn registration should be tied to.
 //   - Domain: The domain for WebAuthn. Defaults to `window.location.hostname`.
@@ -82,7 +82,7 @@ type RegisterStartParams struct {
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `WebAuthn.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -119,7 +119,7 @@ type AuthenticateResponse struct {
 	Session                sessions.Session `json:"session,omitempty"`
 }
 
-// AuthenticateStartResponse: Response type for `AuthenticateStart`.
+// AuthenticateStartResponse: Response type for `WebAuthn.AuthenticateStart`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -136,7 +136,7 @@ type AuthenticateStartResponse struct {
 	StatusCode                        int32  `json:"status_code,omitempty"`
 }
 
-// RegisterResponse: Response type for `Register`.
+// RegisterResponse: Response type for `WebAuthn.Register`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -153,7 +153,7 @@ type RegisterResponse struct {
 	StatusCode             int32  `json:"status_code,omitempty"`
 }
 
-// RegisterStartResponse: Response type for `RegisterStart`.
+// RegisterStartResponse: Response type for `WebAuthn.RegisterStart`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

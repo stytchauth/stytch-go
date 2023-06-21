@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `MagicLinks.Authenticate`.
 // Fields:
 //
 //   - MagicLinksToken: The Email Magic Link token to authenticate.
@@ -62,7 +62,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `MagicLinks.Authenticate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -78,11 +78,11 @@ type AuthenticateParams struct {
 //   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
 //   - SessionToken: A secret token for a given Stytch Session.
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
+//   - MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 //   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
-//   - MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 type AuthenticateResponse struct {
 	RequestID      string                     `json:"request_id,omitempty"`
 	MemberID       string                     `json:"member_id,omitempty"`
@@ -92,7 +92,7 @@ type AuthenticateResponse struct {
 	Member         organizations.Member       `json:"member,omitempty"`
 	SessionToken   string                     `json:"session_token,omitempty"`
 	SessionJWT     string                     `json:"session_jwt,omitempty"`
+	MemberSession  sessions.MemberSession     `json:"member_session,omitempty"`
 	Organization   organizations.Organization `json:"organization,omitempty"`
 	StatusCode     int32                      `json:"status_code,omitempty"`
-	MemberSession  sessions.MemberSession     `json:"member_session,omitempty"`
 }

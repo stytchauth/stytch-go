@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
 )
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `Members.Create`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -43,7 +43,7 @@ type CreateParams struct {
 	IsBreakglass          bool           `json:"is_breakglass,omitempty"`
 }
 
-// DeleteParams: Request type for `Delete`.
+// DeleteParams: Request type for `Members.Delete`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -54,7 +54,7 @@ type DeleteParams struct {
 	MemberID       string `json:"member_id,omitempty"`
 }
 
-// DeletePasswordParams: Request type for `DeletePassword`.
+// DeletePasswordParams: Request type for `Members.DeletePassword`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -64,7 +64,7 @@ type DeletePasswordParams struct {
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 }
 
-// GetParams: Request type for `Get`.
+// GetParams: Request type for `Members.Get`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -81,7 +81,7 @@ type OrganizationsEntry struct {
 	Value organizations.Organization `json:"value,omitempty"`
 }
 
-// SearchParams: Request type for `Search`.
+// SearchParams: Request type for `Members.Search`.
 // Fields:
 //   - OrganizationIds: An array of organization_ids. At least one value is required.
 //   - Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited
@@ -103,7 +103,7 @@ type SearchParams struct {
 	Query           organizations.SearchQuery `json:"query,omitempty"`
 }
 
-// UpdateParams: Request type for `Update`.
+// UpdateParams: Request type for `Members.Update`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -131,7 +131,7 @@ type UpdateParams struct {
 	IsBreakglass      bool           `json:"is_breakglass,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `Members.Create`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -150,7 +150,7 @@ type CreateResponse struct {
 	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
-// DeletePasswordResponse: Response type for `DeletePassword`.
+// DeletePasswordResponse: Response type for `Members.DeletePassword`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -169,7 +169,7 @@ type DeletePasswordResponse struct {
 	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
-// DeleteResponse: Response type for `Delete`.
+// DeleteResponse: Response type for `Members.Delete`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -184,7 +184,7 @@ type DeleteResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Get`.
+// GetResponse: Response type for `Members.Get`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -203,7 +203,7 @@ type GetResponse struct {
 	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
-// SearchResponse: Response type for `Search`.
+// SearchResponse: Response type for `Members.Search`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -225,7 +225,7 @@ type SearchResponse struct {
 	StatusCode      int32                         `json:"status_code,omitempty"`
 }
 
-// UpdateResponse: Response type for `Update`.
+// UpdateResponse: Response type for `Members.Update`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

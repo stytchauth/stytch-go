@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso"
 )
 
-// CreateConnectionParams: Request type for `CreateConnection`.
+// CreateConnectionParams: Request type for `OIDC.CreateConnection`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -20,7 +20,7 @@ type CreateConnectionParams struct {
 	DisplayName    string `json:"display_name,omitempty"`
 }
 
-// UpdateConnectionParams: Request type for `UpdateConnection`.
+// UpdateConnectionParams: Request type for `OIDC.UpdateConnection`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -54,7 +54,7 @@ type UpdateConnectionParams struct {
 	JwksURL          string `json:"jwks_url,omitempty"`
 }
 
-// CreateConnectionResponse: Response type for `CreateConnection`.
+// CreateConnectionResponse: Response type for `OIDC.CreateConnection`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -70,7 +70,7 @@ type CreateConnectionResponse struct {
 	Connection sso.OIDCConnection `json:"connection,omitempty"`
 }
 
-// UpdateConnectionResponse: Response type for `UpdateConnection`.
+// UpdateConnectionResponse: Response type for `OIDC.UpdateConnection`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

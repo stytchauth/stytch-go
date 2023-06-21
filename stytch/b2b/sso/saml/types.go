@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso"
 )
 
-// CreateConnectionParams: Request type for `CreateConnection`.
+// CreateConnectionParams: Request type for `SAML.CreateConnection`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -20,7 +20,7 @@ type CreateConnectionParams struct {
 	DisplayName    string `json:"display_name,omitempty"`
 }
 
-// DeleteVerificationCertificateParams: Request type for `DeleteVerificationCertificate`.
+// DeleteVerificationCertificateParams: Request type for `SAML.DeleteVerificationCertificate`.
 // Fields:
 //   - OrganizationID: The organization ID that the SAML connection belongs to.
 //   - ConnectionID: The ID of the SAML connection.
@@ -31,7 +31,7 @@ type DeleteVerificationCertificateParams struct {
 	CertificateID  string `json:"certificate_id,omitempty"`
 }
 
-// UpdateConnectionParams: Request type for `UpdateConnection`.
+// UpdateConnectionParams: Request type for `SAML.UpdateConnection`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -56,7 +56,7 @@ type UpdateConnectionParams struct {
 	IdpSsoURL        string         `json:"idp_sso_url,omitempty"`
 }
 
-// CreateConnectionResponse: Response type for `CreateConnection`.
+// CreateConnectionResponse: Response type for `SAML.CreateConnection`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -72,7 +72,7 @@ type CreateConnectionResponse struct {
 	Connection sso.SAMLConnection `json:"connection,omitempty"`
 }
 
-// DeleteVerificationCertificateResponse: Response type for `DeleteVerificationCertificate`.
+// DeleteVerificationCertificateResponse: Response type for `SAML.DeleteVerificationCertificate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -87,7 +87,7 @@ type DeleteVerificationCertificateResponse struct {
 	StatusCode    int32  `json:"status_code,omitempty"`
 }
 
-// UpdateConnectionResponse: Response type for `UpdateConnection`.
+// UpdateConnectionResponse: Response type for `SAML.UpdateConnection`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

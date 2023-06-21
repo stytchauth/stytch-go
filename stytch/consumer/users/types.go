@@ -21,7 +21,7 @@ type BiometricRegistration struct {
 	Verified                bool   `json:"verified,omitempty"`
 }
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `Users.Create`.
 // Fields:
 //   - Email: The email address of the end user.
 //   - Name: The name of the user. Each field in the name object is optional.
@@ -67,63 +67,63 @@ type CryptoWallet struct {
 	Verified            bool   `json:"verified,omitempty"`
 }
 
-// DeleteBiometricRegistrationParams: Request type for `DeleteBiometricRegistration`.
+// DeleteBiometricRegistrationParams: Request type for `Users.DeleteBiometricRegistration`.
 // Fields:
 //   - BiometricRegistrationID: The `biometric_registration_id` to be deleted.
 type DeleteBiometricRegistrationParams struct {
 	BiometricRegistrationID string `json:"biometric_registration_id,omitempty"`
 }
 
-// DeleteCryptoWalletParams: Request type for `DeleteCryptoWallet`.
+// DeleteCryptoWalletParams: Request type for `Users.DeleteCryptoWallet`.
 // Fields:
 //   - CryptoWalletID: The `crypto_wallet_id` to be deleted.
 type DeleteCryptoWalletParams struct {
 	CryptoWalletID string `json:"crypto_wallet_id,omitempty"`
 }
 
-// DeleteEmailParams: Request type for `DeleteEmail`.
+// DeleteEmailParams: Request type for `Users.DeleteEmail`.
 // Fields:
 //   - EmailID: The `email_id` to be deleted.
 type DeleteEmailParams struct {
 	EmailID string `json:"email_id,omitempty"`
 }
 
-// DeleteOAuthRegistrationParams: Request type for `DeleteOAuthRegistration`.
+// DeleteOAuthRegistrationParams: Request type for `Users.DeleteOAuthRegistration`.
 // Fields:
 //   - OauthUserRegistrationID: The `oauth_user_registration_id` to be deleted.
 type DeleteOAuthRegistrationParams struct {
 	OauthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
 }
 
-// DeleteParams: Request type for `Delete`.
+// DeleteParams: Request type for `Users.Delete`.
 // Fields:
 //   - UserID: The unique ID of a specific User.
 type DeleteParams struct {
 	UserID string `json:"user_id,omitempty"`
 }
 
-// DeletePasswordParams: Request type for `DeletePassword`.
+// DeletePasswordParams: Request type for `Users.DeletePassword`.
 // Fields:
 //   - PasswordID: The `password_id` to be deleted.
 type DeletePasswordParams struct {
 	PasswordID string `json:"password_id,omitempty"`
 }
 
-// DeletePhoneNumberParams: Request type for `DeletePhoneNumber`.
+// DeletePhoneNumberParams: Request type for `Users.DeletePhoneNumber`.
 // Fields:
 //   - PhoneID: The `phone_id` to be deleted.
 type DeletePhoneNumberParams struct {
 	PhoneID string `json:"phone_id,omitempty"`
 }
 
-// DeleteTOTPParams: Request type for `DeleteTOTP`.
+// DeleteTOTPParams: Request type for `Users.DeleteTOTP`.
 // Fields:
 //   - TotpID: The `totp_id` to be deleted.
 type DeleteTOTPParams struct {
 	TotpID string `json:"totp_id,omitempty"`
 }
 
-// DeleteWebAuthnRegistrationParams: Request type for `DeleteWebAuthnRegistration`.
+// DeleteWebAuthnRegistrationParams: Request type for `Users.DeleteWebAuthnRegistration`.
 // Fields:
 //   - WebauthnRegistrationID: The `webauthn_registration_id` to be deleted.
 type DeleteWebAuthnRegistrationParams struct {
@@ -141,7 +141,7 @@ type Email struct {
 	Verified bool   `json:"verified,omitempty"`
 }
 
-// GetParams: Request type for `Get`.
+// GetParams: Request type for `Users.Get`.
 // Fields:
 //   - UserID: The unique ID of a specific User.
 type GetParams struct {
@@ -204,7 +204,7 @@ type ResultsMetadata struct {
 	NextCursor string `json:"next_cursor,omitempty"`
 }
 
-// SearchParams: Request type for `Search`.
+// SearchParams: Request type for `Users.Search`.
 // Fields:
 //   - Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited
 //     to 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
@@ -248,7 +248,7 @@ type TOTP struct {
 	Verified bool   `json:"verified,omitempty"`
 }
 
-// UpdateParams: Request type for `Update`.
+// UpdateParams: Request type for `Users.Update`.
 // Fields:
 //   - UserID: The unique ID of a specific User.
 //   - Name: The name of the user. Each field in the name object is optional.
@@ -326,7 +326,7 @@ type WebAuthnRegistration struct {
 	AuthenticatorType      string `json:"authenticator_type,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `Users.Create`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -350,7 +350,7 @@ type CreateResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteBiometricRegistrationResponse: Response type for `DeleteBiometricRegistration`.
+// DeleteBiometricRegistrationResponse: Response type for `Users.DeleteBiometricRegistration`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -368,7 +368,7 @@ type DeleteBiometricRegistrationResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteCryptoWalletResponse: Response type for `DeleteCryptoWallet`.
+// DeleteCryptoWalletResponse: Response type for `Users.DeleteCryptoWallet`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -386,7 +386,7 @@ type DeleteCryptoWalletResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteEmailResponse: Response type for `DeleteEmail`.
+// DeleteEmailResponse: Response type for `Users.DeleteEmail`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -404,7 +404,7 @@ type DeleteEmailResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteOAuthRegistrationResponse: Response type for `DeleteOAuthRegistration`.
+// DeleteOAuthRegistrationResponse: Response type for `Users.DeleteOAuthRegistration`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -422,7 +422,7 @@ type DeleteOAuthRegistrationResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeletePasswordResponse: Response type for `DeletePassword`.
+// DeletePasswordResponse: Response type for `Users.DeletePassword`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -440,7 +440,7 @@ type DeletePasswordResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeletePhoneNumberResponse: Response type for `DeletePhoneNumber`.
+// DeletePhoneNumberResponse: Response type for `Users.DeletePhoneNumber`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -458,7 +458,7 @@ type DeletePhoneNumberResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteResponse: Response type for `Delete`.
+// DeleteResponse: Response type for `Users.Delete`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -473,7 +473,7 @@ type DeleteResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteTOTPResponse: Response type for `DeleteTOTP`.
+// DeleteTOTPResponse: Response type for `Users.DeleteTOTP`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -491,7 +491,7 @@ type DeleteTOTPResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// DeleteWebAuthnRegistrationResponse: Response type for `DeleteWebAuthnRegistration`.
+// DeleteWebAuthnRegistrationResponse: Response type for `Users.DeleteWebAuthnRegistration`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -509,7 +509,7 @@ type DeleteWebAuthnRegistrationResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Get`.
+// GetResponse: Response type for `Users.Get`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -558,7 +558,7 @@ type GetResponse struct {
 	UntrustedMetadata      map[string]any          `json:"untrusted_metadata,omitempty"`
 }
 
-// SearchResponse: Response type for `Search`.
+// SearchResponse: Response type for `Users.Search`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -576,7 +576,7 @@ type SearchResponse struct {
 	StatusCode      int32           `json:"status_code,omitempty"`
 }
 
-// UpdateResponse: Response type for `Update`.
+// UpdateResponse: Response type for `Users.Update`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

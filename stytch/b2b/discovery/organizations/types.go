@@ -12,7 +12,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
 )
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `Organizations.Create`.
 // Fields:
 //
 //   - IntermediateSessionToken: The Intermediate Session Token. This token does not belong to a specific
@@ -123,7 +123,7 @@ type CreateParams struct {
 	AllowedAuthMethods       []string       `json:"allowed_auth_methods,omitempty"`
 }
 
-// ListParams: Request type for `List`.
+// ListParams: Request type for `Organizations.List`.
 // Fields:
 //   - IntermediateSessionToken: The Intermediate Session Token. This token does not belong to a specific
 //     instance of a member, but may be exchanged for an existing Member Session or used to create a new
@@ -136,7 +136,7 @@ type ListParams struct {
 	SessionJWT               string `json:"session_jwt,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `Organizations.Create`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -161,7 +161,7 @@ type CreateResponse struct {
 	Organization  organizations.Organization `json:"organization,omitempty"`
 }
 
-// ListResponse: Response type for `List`.
+// ListResponse: Response type for `Organizations.List`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log

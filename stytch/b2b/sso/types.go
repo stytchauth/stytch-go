@@ -13,7 +13,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `SSO.Authenticate`.
 // Fields:
 //
 //   - SsoToken: The token to authenticate.
@@ -56,7 +56,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// DeleteConnectionParams: Request type for `DeleteConnection`.
+// DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
 // Fields:
 //   - OrganizationID: The organization ID that the SSO connection belongs to.
 //   - ConnectionID: The ID of the SSO connection. Both SAML and OIDC connection IDs can be provided.
@@ -65,7 +65,7 @@ type DeleteConnectionParams struct {
 	ConnectionID   string `json:"connection_id,omitempty"`
 }
 
-// GetConnectionsParams: Request type for `GetConnections`.
+// GetConnectionsParams: Request type for `SSO.GetConnections`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -107,7 +107,7 @@ type X509Certificate struct {
 	ExpiresAt     *time.Time `json:"expires_at,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `SSO.Authenticate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -140,7 +140,7 @@ type AuthenticateResponse struct {
 	MemberSession  sessions.MemberSession     `json:"member_session,omitempty"`
 }
 
-// DeleteConnectionResponse: Response type for `DeleteConnection`.
+// DeleteConnectionResponse: Response type for `SSO.DeleteConnection`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -155,7 +155,7 @@ type DeleteConnectionResponse struct {
 	StatusCode   int32  `json:"status_code,omitempty"`
 }
 
-// GetConnectionsResponse: Response type for `GetConnections`.
+// GetConnectionsResponse: Response type for `SSO.GetConnections`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

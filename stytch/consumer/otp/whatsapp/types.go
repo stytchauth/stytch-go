@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/attribute"
 )
 
-// LoginOrCreateParams: Request type for `LoginOrCreate`.
+// LoginOrCreateParams: Request type for `Whatsapp.LoginOrCreate`.
 // Fields:
 //
 //   - PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164
@@ -47,7 +47,7 @@ type LoginOrCreateParams struct {
 	Locale              string               `json:"locale,omitempty"`
 }
 
-// SendParams: Request type for `Send`.
+// SendParams: Request type for `Whatsapp.Send`.
 // Fields:
 //
 //   - PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164
@@ -84,7 +84,7 @@ type SendParams struct {
 	SessionJWT        string               `json:"session_jwt,omitempty"`
 }
 
-// LoginOrCreateResponse: Response type for `LoginOrCreate`.
+// LoginOrCreateResponse: Response type for `Whatsapp.LoginOrCreate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -104,7 +104,7 @@ type LoginOrCreateResponse struct {
 	StatusCode  int32  `json:"status_code,omitempty"`
 }
 
-// SendResponse: Response type for `Send`.
+// SendResponse: Response type for `Whatsapp.Send`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

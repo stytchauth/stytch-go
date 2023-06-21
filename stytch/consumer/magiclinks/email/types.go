@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// InviteParams: Request type for `Invite`.
+// InviteParams: Request type for `Email.Invite`.
 // Fields:
 //
 //   - Email: The email address of the User to send the invite Magic Link to.
@@ -51,7 +51,7 @@ type InviteParams struct {
 	Locale                  string               `json:"locale,omitempty"`
 }
 
-// LoginOrCreateParams: Request type for `LoginOrCreate`.
+// LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
 // Fields:
 //
 //   - Email: The email address of the end user.
@@ -117,14 +117,14 @@ type LoginOrCreateParams struct {
 	Locale                  string               `json:"locale,omitempty"`
 }
 
-// RevokeInviteParams: Request type for `RevokeInvite`.
+// RevokeInviteParams: Request type for `Email.RevokeInvite`.
 // Fields:
 //   - Email: The email of the user.
 type RevokeInviteParams struct {
 	Email string `json:"email,omitempty"`
 }
 
-// SendParams: Request type for `Send`.
+// SendParams: Request type for `Email.Send`.
 // Fields:
 //
 //   - Email: The email address of the User to send the Magic Link to.
@@ -190,7 +190,7 @@ type SendParams struct {
 	SignupTemplateID        string               `json:"signup_template_id,omitempty"`
 }
 
-// InviteResponse: Response type for `Invite`.
+// InviteResponse: Response type for `Email.Invite`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -207,7 +207,7 @@ type InviteResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// LoginOrCreateResponse: Response type for `LoginOrCreate`.
+// LoginOrCreateResponse: Response type for `Email.LoginOrCreate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -227,7 +227,7 @@ type LoginOrCreateResponse struct {
 	StatusCode  int32  `json:"status_code,omitempty"`
 }
 
-// RevokeInviteResponse: Response type for `RevokeInvite`.
+// RevokeInviteResponse: Response type for `Email.RevokeInvite`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -240,7 +240,7 @@ type RevokeInviteResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// SendResponse: Response type for `Send`.
+// SendResponse: Response type for `Email.Send`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

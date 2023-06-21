@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
 )
 
-// ResetParams: Request type for `Reset`.
+// ResetParams: Request type for `Sessions.Reset`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -25,7 +25,7 @@ type ResetParams struct {
 	SessionJWT     string `json:"session_jwt,omitempty"`
 }
 
-// ResetResponse: Response type for `Reset`.
+// ResetResponse: Response type for `Sessions.Reset`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

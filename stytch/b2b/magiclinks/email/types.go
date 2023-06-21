@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
 )
 
-// InviteParams: Request type for `Invite`.
+// InviteParams: Request type for `Email.Invite`.
 // Fields:
 //
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -63,7 +63,7 @@ type InviteParams struct {
 	Locale            string         `json:"locale,omitempty"`
 }
 
-// LoginOrSignupParams: Request type for `LoginOrSignup`.
+// LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
 // Fields:
 //
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -116,7 +116,7 @@ type LoginOrSignupParams struct {
 	Locale            string `json:"locale,omitempty"`
 }
 
-// InviteResponse: Response type for `Invite`.
+// InviteResponse: Response type for `Email.Invite`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -135,7 +135,7 @@ type InviteResponse struct {
 	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
-// LoginOrSignupResponse: Response type for `LoginOrSignup`.
+// LoginOrSignupResponse: Response type for `Email.LoginOrSignup`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

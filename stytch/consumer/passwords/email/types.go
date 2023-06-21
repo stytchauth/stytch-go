@@ -13,7 +13,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// ResetParams: Request type for `Reset`.
+// ResetParams: Request type for `Email.Reset`.
 // Fields:
 //
 //   - Token: The token to authenticate.
@@ -63,7 +63,7 @@ type ResetParams struct {
 	Options                magiclinks.Options   `json:"options,omitempty"`
 }
 
-// ResetStartParams: Request type for `ResetStart`.
+// ResetStartParams: Request type for `Email.ResetStart`.
 // Fields:
 //
 //   - Email: The email of the User that requested the password reset.
@@ -119,7 +119,7 @@ type ResetStartParams struct {
 	ResetPasswordTemplateID        string               `json:"reset_password_template_id,omitempty"`
 }
 
-// ResetResponse: Response type for `Reset`.
+// ResetResponse: Response type for `Email.Reset`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -153,7 +153,7 @@ type ResetResponse struct {
 	Session      sessions.Session `json:"session,omitempty"`
 }
 
-// ResetStartResponse: Response type for `ResetStart`.
+// ResetStartResponse: Response type for `Email.ResetStart`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

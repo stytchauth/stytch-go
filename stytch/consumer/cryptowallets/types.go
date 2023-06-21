@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `CryptoWallets.Authenticate`.
 // Fields:
 //
 //   - CryptoWalletType: The type of wallet to authenticate. Currently `ethereum` and `solana` are
@@ -56,7 +56,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// AuthenticateStartParams: Request type for `AuthenticateStart`.
+// AuthenticateStartParams: Request type for `CryptoWallets.AuthenticateStart`.
 // Fields:
 //   - CryptoWalletType: The type of wallet to authenticate. Currently `ethereum` and `solana` are
 //     supported. Wallets for any EVM-compatible chains (such as Polygon or BSC) are also supported and are
@@ -73,7 +73,7 @@ type AuthenticateStartParams struct {
 	SessionJWT          string `json:"session_jwt,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `CryptoWallets.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -107,7 +107,7 @@ type AuthenticateResponse struct {
 	Session      sessions.Session `json:"session,omitempty"`
 }
 
-// AuthenticateStartResponse: Response type for `AuthenticateStart`.
+// AuthenticateStartResponse: Response type for `CryptoWallets.AuthenticateStart`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

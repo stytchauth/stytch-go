@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `TOTPs.Authenticate`.
 // Fields:
 //
 //   - UserID: The `user_id` of an active user the TOTP registration should be tied to.
@@ -51,7 +51,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `TOTPs.Create`.
 // Fields:
 //   - UserID: The `user_id` of an active user the TOTP registration should be tied to.
 //   - ExpirationMinutes: The expiration for the TOTP instance. If the newly created TOTP is not
@@ -62,7 +62,7 @@ type CreateParams struct {
 	ExpirationMinutes int32  `json:"expiration_minutes,omitempty"`
 }
 
-// RecoverParams: Request type for `Recover`.
+// RecoverParams: Request type for `TOTPs.Recover`.
 // Fields:
 //
 //   - UserID: The `user_id` of an active user the TOTP registration should be tied to.
@@ -102,7 +102,7 @@ type RecoverParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// RecoveryCodesParams: Request type for `RecoveryCodes`.
+// RecoveryCodesParams: Request type for `TOTPs.RecoveryCodes`.
 // Fields:
 //   - UserID: The `user_id` of an active user the TOTP registration should be tied to.
 type RecoveryCodesParams struct {
@@ -120,7 +120,7 @@ type TOTP struct {
 	RecoveryCodes []string `json:"recovery_codes,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `TOTPs.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -157,7 +157,7 @@ type AuthenticateResponse struct {
 	Session      sessions.Session `json:"session,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `TOTPs.Create`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -184,7 +184,7 @@ type CreateResponse struct {
 	User          users.User `json:"user,omitempty"`
 }
 
-// RecoverResponse: Response type for `Recover`.
+// RecoverResponse: Response type for `TOTPs.Recover`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -221,7 +221,7 @@ type RecoverResponse struct {
 	Session      sessions.Session `json:"session,omitempty"`
 }
 
-// RecoveryCodesResponse: Response type for `RecoveryCodes`.
+// RecoveryCodesResponse: Response type for `TOTPs.RecoveryCodes`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

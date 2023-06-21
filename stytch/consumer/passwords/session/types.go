@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// ResetParams: Request type for `Reset`.
+// ResetParams: Request type for `Sessions.Reset`.
 // Fields:
 //   - Password: The password of the user
 //   - SessionToken: The `session_token` associated with a User's existing Session.
@@ -22,7 +22,7 @@ type ResetParams struct {
 	SessionJWT   string `json:"session_jwt,omitempty"`
 }
 
-// ResetResponse: Response type for `Reset`.
+// ResetResponse: Response type for `Sessions.Reset`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log

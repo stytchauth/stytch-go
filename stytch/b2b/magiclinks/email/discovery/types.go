@@ -6,7 +6,7 @@ package discovery
 // or your changes may be overwritten later!
 // !!!
 
-// SendParams: Request type for `Send`.
+// SendParams: Request type for `Discovery.Send`.
 // Fields:
 //
 //   - EmailAddress: The email address of the Member.
@@ -42,7 +42,7 @@ type SendParams struct {
 	Locale               string `json:"locale,omitempty"`
 }
 
-// SendResponse: Response type for `Send`.
+// SendResponse: Response type for `Discovery.Send`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

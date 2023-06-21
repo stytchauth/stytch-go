@@ -27,7 +27,7 @@ type AppleOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `Sessions.Authenticate`.
 // Fields:
 //
 //   - SessionToken: The session token to authenticate.
@@ -136,14 +136,14 @@ type FigmaOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
-// GetJWKSParams: Request type for `GetJWKS`.
+// GetJWKSParams: Request type for `Sessions.GetJWKS`.
 // Fields:
 //   - ProjectID: The `project_id` to get the JWKS for.
 type GetJWKSParams struct {
 	ProjectID string `json:"project_id,omitempty"`
 }
 
-// GetParams: Request type for `Get`.
+// GetParams: Request type for `Sessions.Get`.
 // Fields:
 //   - UserID: The `user_id` to get active Sessions for.
 type GetParams struct {
@@ -203,7 +203,7 @@ type RecoveryCodeFactor struct {
 	TotpRecoveryCodeID string `json:"totp_recovery_code_id,omitempty"`
 }
 
-// RevokeParams: Request type for `Revoke`.
+// RevokeParams: Request type for `Sessions.Revoke`.
 // Fields:
 //   - SessionID: The `session_id` to revoke.
 //   - SessionToken: The session token to revoke.
@@ -293,7 +293,7 @@ type WebAuthnFactor struct {
 	UserAgent              string `json:"user_agent,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `Sessions.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -324,7 +324,7 @@ type AuthenticateResponse struct {
 	Session      Session    `json:"session,omitempty"`
 }
 
-// GetJWKSResponse: Response type for `GetJWKS`.
+// GetJWKSResponse: Response type for `Sessions.GetJWKS`.
 // Fields:
 //   - Keys: The JWK
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -339,7 +339,7 @@ type GetJWKSResponse struct {
 	StatusCode int32  `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Get`.
+// GetResponse: Response type for `Sessions.Get`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -354,7 +354,7 @@ type GetResponse struct {
 	StatusCode int32     `json:"status_code,omitempty"`
 }
 
-// RevokeResponse: Response type for `Revoke`.
+// RevokeResponse: Response type for `Sessions.Revoke`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

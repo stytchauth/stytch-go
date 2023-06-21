@@ -14,7 +14,7 @@ type ActiveSSOConnection struct {
 	DisplayName  string `json:"display_name,omitempty"`
 }
 
-// CreateParams: Request type for `Create`.
+// CreateParams: Request type for `Organizations.Create`.
 // Fields:
 //
 //   - OrganizationName: The name of the Organization.
@@ -87,7 +87,7 @@ type CreateParams struct {
 	AllowedAuthMethods   []string       `json:"allowed_auth_methods,omitempty"`
 }
 
-// DeleteParams: Request type for `Delete`.
+// DeleteParams: Request type for `Organizations.Delete`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -95,7 +95,7 @@ type DeleteParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
-// GetParams: Request type for `Get`.
+// GetParams: Request type for `Organizations.Get`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -144,9 +144,9 @@ type Member struct {
 type OAuthRegistration struct {
 	ProviderType              string `json:"provider_type,omitempty"`
 	ProviderSubject           string `json:"provider_subject,omitempty"`
+	MemberOauthRegistrationID string `json:"member_oauth_registration_id,omitempty"`
 	ProfilePictureURL         string `json:"profile_picture_url,omitempty"`
 	Locale                    string `json:"locale,omitempty"`
-	MemberOauthRegistrationID string `json:"member_oauth_registration_id,omitempty"`
 }
 
 // Organization: Fields:
@@ -260,7 +260,7 @@ type SSORegistration struct {
 	SsoAttributes  map[string]any `json:"sso_attributes,omitempty"`
 }
 
-// SearchParams: Request type for `Search`.
+// SearchParams: Request type for `Organizations.Search`.
 // Fields:
 //   - Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited
 //     to 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
@@ -295,7 +295,7 @@ type SearchQuery struct {
 	Operands []map[string]any `json:"operands,omitempty"`
 }
 
-// UpdateParams: Request type for `Update`.
+// UpdateParams: Request type for `Organizations.Update`.
 // Fields:
 //
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -382,22 +382,22 @@ type UpdateParams struct {
 	AllowedAuthMethods                   []string       `json:"allowed_auth_methods,omitempty"`
 }
 
-// CreateResponse: Response type for `Create`.
+// CreateResponse: Response type for `Organizations.Create`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
 //     debug an issue.
+//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 type CreateResponse struct {
 	RequestID    string       `json:"request_id,omitempty"`
-	StatusCode   int32        `json:"status_code,omitempty"`
 	Organization Organization `json:"organization,omitempty"`
+	StatusCode   int32        `json:"status_code,omitempty"`
 }
 
-// DeleteResponse: Response type for `Delete`.
+// DeleteResponse: Response type for `Organizations.Delete`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -413,22 +413,22 @@ type DeleteResponse struct {
 	StatusCode     int32  `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Get`.
+// GetResponse: Response type for `Organizations.Get`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
 //     debug an issue.
+//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 type GetResponse struct {
 	RequestID    string       `json:"request_id,omitempty"`
-	StatusCode   int32        `json:"status_code,omitempty"`
 	Organization Organization `json:"organization,omitempty"`
+	StatusCode   int32        `json:"status_code,omitempty"`
 }
 
-// SearchResponse: Response type for `Search`.
+// SearchResponse: Response type for `Organizations.Search`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -447,7 +447,7 @@ type SearchResponse struct {
 	StatusCode      int32           `json:"status_code,omitempty"`
 }
 
-// UpdateResponse: Response type for `Update`.
+// UpdateResponse: Response type for `Organizations.Update`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

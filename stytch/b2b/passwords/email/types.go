@@ -11,7 +11,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
 )
 
-// ResetParams: Request type for `Reset`.
+// ResetParams: Request type for `Email.Reset`.
 // Fields:
 //
 //   - PasswordResetToken: The password reset token to authenticate.
@@ -65,7 +65,7 @@ type ResetParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// ResetStartParams: Request type for `ResetStart`.
+// ResetStartParams: Request type for `Email.ResetStart`.
 // Fields:
 //
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -118,7 +118,7 @@ type ResetStartParams struct {
 	ResetPasswordTemplateID        string `json:"reset_password_template_id,omitempty"`
 }
 
-// ResetResponse: Response type for `Reset`.
+// ResetResponse: Response type for `Email.Reset`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -148,7 +148,7 @@ type ResetResponse struct {
 	MemberSession  sessions.MemberSession     `json:"member_session,omitempty"`
 }
 
-// ResetStartResponse: Response type for `ResetStart`.
+// ResetStartResponse: Response type for `Email.ResetStart`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you

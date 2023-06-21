@@ -13,7 +13,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `OTPs.Authenticate`.
 // Fields:
 //
 //   - MethodID: The `email_id` or `phone_id` involved in the given authentication.
@@ -59,7 +59,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any       `json:"session_custom_claims,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `OTPs.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log

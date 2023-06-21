@@ -10,7 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/discovery"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `Discovery.Authenticate`.
 // Fields:
 //   - DiscoveryMagicLinksToken: The Discovery Email Magic Link token to authenticate.
 //   - PkceCodeVerifier: A base64url encoded one time secret used to validate that the request starts and
@@ -20,7 +20,7 @@ type AuthenticateParams struct {
 	PkceCodeVerifier         string `json:"pkce_code_verifier,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `Discovery.Authenticate`.
 // Fields:
 //
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log

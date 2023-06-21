@@ -13,7 +13,7 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/consumer/sessions"
 )
 
-// AuthenticateParams: Request type for `Authenticate`.
+// AuthenticateParams: Request type for `Sessions.Authenticate`.
 // Fields:
 //
 //   - SessionToken: A secret token for a given Stytch Session.
@@ -49,7 +49,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// ExchangeParams: Request type for `Exchange`.
+// ExchangeParams: Request type for `Sessions.Exchange`.
 // Fields:
 //
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
@@ -89,14 +89,14 @@ type ExchangeParams struct {
 	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 }
 
-// GetJWKSParams: Request type for `GetJWKS`.
+// GetJWKSParams: Request type for `Sessions.GetJWKS`.
 // Fields:
 //   - ProjectID: The `project_id` to get the JWKS for.
 type GetJWKSParams struct {
 	ProjectID string `json:"project_id,omitempty"`
 }
 
-// GetParams: Request type for `Get`.
+// GetParams: Request type for `Sessions.Get`.
 // Fields:
 //   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
 //     is critical to perform operations on an Organization, so be sure to preserve this value.
@@ -110,29 +110,29 @@ type GetParams struct {
 // MemberSession: Fields:
 //   - MemberSessionID: Globally unique UUID that identifies a specific Session.
 //   - MemberID: Globally unique UUID that identifies a specific Member.
-//   - AuthenticationFactors: An array of different authentication factors that have initiated a Session.
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
 //   - StartedAt: The timestamp when the Session was created. Values conform to the RFC 3339 standard and
 //     are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 //   - LastAccessedAt: The timestamp when the Session was last accessed. Values conform to the RFC 3339
 //     standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 //   - ExpiresAt: The timestamp when the Session expires. Values conform to the RFC 3339 standard and are
 //     expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+//   - AuthenticationFactors: An array of different authentication factors that have initiated a Session.
 //   - CustomClaims: The custom claims map for a Session. Claims can be added to a session during a
 //     Sessions authenticate call.
+//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
+//     is critical to perform operations on an Organization, so be sure to preserve this value.
 type MemberSession struct {
 	MemberSessionID       string                          `json:"member_session_id,omitempty"`
 	MemberID              string                          `json:"member_id,omitempty"`
-	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
-	OrganizationID        string                          `json:"organization_id,omitempty"`
 	StartedAt             *time.Time                      `json:"started_at,omitempty"`
 	LastAccessedAt        *time.Time                      `json:"last_accessed_at,omitempty"`
 	ExpiresAt             *time.Time                      `json:"expires_at,omitempty"`
+	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
 	CustomClaims          map[string]any                  `json:"custom_claims,omitempty"`
+	OrganizationID        string                          `json:"organization_id,omitempty"`
 }
 
-// RevokeParams: Request type for `Revoke`.
+// RevokeParams: Request type for `Sessions.Revoke`.
 // Fields:
 //   - MemberSessionID: Globally unique UUID that identifies a specific Session in the Stytch API. The
 //     `member_session_id` is critical to perform operations on an Session, so be sure to preserve this value.
@@ -147,11 +147,12 @@ type RevokeParams struct {
 	MemberID        string `json:"member_id,omitempty"`
 }
 
-// AuthenticateResponse: Response type for `Authenticate`.
+// AuthenticateResponse: Response type for `Sessions.Authenticate`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
 //     debug an issue.
+//   - MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 //   - SessionToken: A secret token for a given Stytch Session.
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 //   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
@@ -159,23 +160,23 @@ type RevokeParams struct {
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
-//   - MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 type AuthenticateResponse struct {
 	RequestID     string                     `json:"request_id,omitempty"`
+	MemberSession MemberSession              `json:"member_session,omitempty"`
 	SessionToken  string                     `json:"session_token,omitempty"`
 	SessionJWT    string                     `json:"session_jwt,omitempty"`
 	Member        organizations.Member       `json:"member,omitempty"`
 	Organization  organizations.Organization `json:"organization,omitempty"`
 	StatusCode    int32                      `json:"status_code,omitempty"`
-	MemberSession MemberSession              `json:"member_session,omitempty"`
 }
 
-// ExchangeResponse: Response type for `Exchange`.
+// ExchangeResponse: Response type for `Sessions.Exchange`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
 //     debug an issue.
 //   - MemberID: Globally unique UUID that identifies a specific Member.
+//   - MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 //   - SessionToken: A secret token for a given Stytch Session.
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 //   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
@@ -183,19 +184,18 @@ type AuthenticateResponse struct {
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
-//   - MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 type ExchangeResponse struct {
 	RequestID     string                     `json:"request_id,omitempty"`
 	MemberID      string                     `json:"member_id,omitempty"`
+	MemberSession MemberSession              `json:"member_session,omitempty"`
 	SessionToken  string                     `json:"session_token,omitempty"`
 	SessionJWT    string                     `json:"session_jwt,omitempty"`
 	Member        organizations.Member       `json:"member,omitempty"`
 	Organization  organizations.Organization `json:"organization,omitempty"`
 	StatusCode    int32                      `json:"status_code,omitempty"`
-	MemberSession MemberSession              `json:"member_session,omitempty"`
 }
 
-// GetJWKSResponse: Response type for `GetJWKS`.
+// GetJWKSResponse: Response type for `Sessions.GetJWKS`.
 // Fields:
 //   - Keys: The JWK
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
@@ -210,7 +210,7 @@ type GetJWKSResponse struct {
 	StatusCode int32          `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Get`.
+// GetResponse: Response type for `Sessions.Get`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -225,7 +225,7 @@ type GetResponse struct {
 	StatusCode     int32           `json:"status_code,omitempty"`
 }
 
-// RevokeResponse: Response type for `Revoke`.
+// RevokeResponse: Response type for `Sessions.Revoke`.
 // Fields:
 //   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
 //     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
