@@ -228,8 +228,8 @@ type SalesforceOAuthFactor struct {
 //   - SessionID: A unique identifier for a specific Session.
 //   - UserID: The unique ID of the affected User.
 //   - AuthenticationFactors: An array of different authentication factors that have initiated a Session.
-//   - StartedAt: The timestamp of the Session's creation. Values conform to the RFC 3339 standard and are
-//     expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+//   - StartedAt: The timestamp when the Session was created. Values conform to the RFC 3339 standard and
+//     are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 //   - LastAccessedAt: The timestamp when the Session was last accessed. Values conform to the RFC 3339
 //     standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 //   - ExpiresAt: The timestamp when the Session expires. Values conform to the RFC 3339 standard and are
@@ -305,7 +305,7 @@ type WebAuthnFactor struct {
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 //
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

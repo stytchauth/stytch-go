@@ -98,7 +98,7 @@ type RegisterStartParams struct {
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 //
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

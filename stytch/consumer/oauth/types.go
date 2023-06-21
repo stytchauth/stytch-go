@@ -153,7 +153,7 @@ type AttachResponse struct {
 //     returned by Microsoft.
 //
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 type AuthenticateResponse struct {
 	RequestID               string           `json:"request_id,omitempty"`
 	UserID                  string           `json:"user_id,omitempty"`

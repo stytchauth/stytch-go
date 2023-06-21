@@ -97,7 +97,7 @@ type Options struct {
 //   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 //
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //
 //   - ResetSessions: Indicates if all other of the User's Sessions need to be reset. You should check this
 //     field if you aren't using Stytch's Session product. If you are using Stytch's Session product, we revoke

@@ -336,7 +336,7 @@ type WebAuthnRegistration struct {
 //   - Status: The status of the User. The possible values are `pending` and `active`.
 //   - PhoneID: The unique ID for the phone nunmber.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -357,7 +357,7 @@ type CreateResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -375,7 +375,7 @@ type DeleteBiometricRegistrationResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -393,7 +393,7 @@ type DeleteCryptoWalletResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -411,7 +411,7 @@ type DeleteEmailResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -429,7 +429,7 @@ type DeleteOAuthRegistrationResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -447,7 +447,7 @@ type DeletePasswordResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -480,7 +480,7 @@ type DeleteResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -498,7 +498,7 @@ type DeleteTOTPResponse struct {
 //     debug an issue.
 //   - UserID: The unique ID of the affected User.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.
@@ -586,7 +586,7 @@ type SearchResponse struct {
 //   - PhoneNumbers: An array of phone number objects linked to the User.
 //   - CryptoWallets: An array contains a list of all crypto wallets for a given User in the Stytch API.
 //   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://invalid.dev.stytch.com/docs/api/get-user) for complete response field details.
+//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 //   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 //     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 //     are server errors.

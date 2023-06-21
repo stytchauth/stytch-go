@@ -25,9 +25,9 @@ func NewMagicLinksDiscoveryClient(c *stytch.Client) *MagicLinksDiscoveryClient {
 	}
 }
 
-// Authenticate: Authenticates the discovery Magic Link token and exchanges it for an Intermediate Session
-// Token. Intermediate Session Tokens can be used for various
-// [Discovery](https://stytch.com/docs/b2b/api/discovery-overview) login flows and are valid for 10 minutes.
+// Authenticate: Authenticates the Discovery Magic Link token and exchanges it for an Intermediate Session
+// Token. Intermediate Session Tokens can be used for various Discovery login flows and are valid for 10
+// minutes.
 func (c *MagicLinksDiscoveryClient) Authenticate(
 	ctx context.Context,
 	body *discovery.AuthenticateParams,
