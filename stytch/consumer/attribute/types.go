@@ -6,10 +6,10 @@ package attribute
 // or your changes may be overwritten later!
 // !!!
 
-// Attributes: Fields:
-//   - IPAddress: The IP address of the user.
-//   - UserAgent: The user agent of the User.
+// Attributes:
 type Attributes struct {
+	// IPAddress: The IP address of the user.
 	IPAddress string `json:"ip_address,omitempty"`
+	// UserAgent: The user agent of the User.
 	UserAgent string `json:"user_agent,omitempty"`
 }

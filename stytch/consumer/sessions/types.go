@@ -28,30 +28,25 @@ type AppleOAuthFactor struct {
 }
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
-// Fields:
-//
-//   - SessionToken: The session token to authenticate.
-//
-//   - SessionDurationMinutes: Set the session lifetime to be this many minutes from now; minimum of 5 and
-//     a maximum of 527040 minutes (366 days). Note that a successful authentication will continue to extend
-//     the session this many minutes.
-//
-//   - SessionJWT: The JWT to authenticate. You may provide a JWT that has expired according to its `exp`
-//     claim and needs to be refreshed. If the signature is valid and the underlying session is still active
-//     then Stytch will return a new JWT.
-//
-//   - SessionCustomClaims: Add a custom claims map to the Session being authenticated. Claims are only
-//     created if a Session is initialized by providing a value in `session_duration_minutes`. Claims will be
-//     included on the Session object and in the JWT. To update a key in an existing Session, supply a new
-//     value. To delete a key, supply a null value.
-//
-//     Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
-//     ignored. Total custom claims size cannot exceed four kilobytes.
 type AuthenticateParams struct {
-	SessionToken           string         `json:"session_token,omitempty"`
-	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
-	SessionJWT             string         `json:"session_jwt,omitempty"`
-	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
+	// SessionToken: The session token to authenticate.
+	SessionToken string `json:"session_token,omitempty"`
+	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now; minimum of 5 and a
+	// maximum of 527040 minutes (366 days). Note that a successful authentication will continue to extend the
+	// session this many minutes.
+	SessionDurationMinutes int32 `json:"session_duration_minutes,omitempty"`
+	// SessionJWT: The JWT to authenticate. You may provide a JWT that has expired according to its `exp` claim
+	// and needs to be refreshed. If the signature is valid and the underlying session is still active then
+	// Stytch will return a new JWT.
+	SessionJWT string `json:"session_jwt,omitempty"`
+	// SessionCustomClaims: Add a custom claims map to the Session being authenticated. Claims are only created
+	// if a Session is initialized by providing a value in `session_duration_minutes`. Claims will be included
+	// on the Session object and in the JWT. To update a key in an existing Session, supply a new value. To
+	// delete a key, supply a null value.
+	//
+	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
+	// ignored. Total custom claims size cannot exceed four kilobytes.
+	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
 }
 type AuthenticationFactor struct {
 	Type                      AuthenticationFactorType           `json:"type,omitempty"`
@@ -137,16 +132,14 @@ type FigmaOAuthFactor struct {
 }
 
 // GetJWKSParams: Request type for `Sessions.GetJWKS`.
-// Fields:
-//   - ProjectID: The `project_id` to get the JWKS for.
 type GetJWKSParams struct {
+	// ProjectID: The `project_id` to get the JWKS for.
 	ProjectID string `json:"project_id,omitempty"`
 }
 
 // GetParams: Request type for `Sessions.Get`.
-// Fields:
-//   - UserID: The `user_id` to get active Sessions for.
 type GetParams struct {
+	// UserID: The `user_id` to get active Sessions for.
 	UserID string `json:"user_id,omitempty"`
 }
 type GitLabOAuthFactor struct {
@@ -204,14 +197,13 @@ type RecoveryCodeFactor struct {
 }
 
 // RevokeParams: Request type for `Sessions.Revoke`.
-// Fields:
-//   - SessionID: The `session_id` to revoke.
-//   - SessionToken: The session token to revoke.
-//   - SessionJWT: A JWT for the session to revoke.
 type RevokeParams struct {
-	SessionID    string `json:"session_id,omitempty"`
+	// SessionID: The `session_id` to revoke.
+	SessionID string `json:"session_id,omitempty"`
+	// SessionToken: The session token to revoke.
 	SessionToken string `json:"session_token,omitempty"`
-	SessionJWT   string `json:"session_jwt,omitempty"`
+	// SessionJWT: A JWT for the session to revoke.
+	SessionJWT string `json:"session_jwt,omitempty"`
 }
 type SAMLSSOFactor struct {
 	ID         string `json:"id,omitempty"`
@@ -224,28 +216,28 @@ type SalesforceOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
-// Session: Fields:
-//   - SessionID: A unique identifier for a specific Session.
-//   - UserID: The unique ID of the affected User.
-//   - AuthenticationFactors: An array of different authentication factors that have initiated a Session.
-//   - StartedAt: The timestamp when the Session was created. Values conform to the RFC 3339 standard and
-//     are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
-//   - LastAccessedAt: The timestamp when the Session was last accessed. Values conform to the RFC 3339
-//     standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
-//   - ExpiresAt: The timestamp when the Session expires. Values conform to the RFC 3339 standard and are
-//     expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
-//   - Attributes: Provided attributes help with fraud detection.
-//   - CustomClaims: The custom claims map for a Session. Claims can be added to a session during a
-//     Sessions authenticate call.
+// Session:
 type Session struct {
-	SessionID             string                 `json:"session_id,omitempty"`
-	UserID                string                 `json:"user_id,omitempty"`
+	// SessionID: A unique identifier for a specific Session.
+	SessionID string `json:"session_id,omitempty"`
+	// UserID: The unique ID of the affected User.
+	UserID string `json:"user_id,omitempty"`
+	// AuthenticationFactors: An array of different authentication factors that have initiated a Session.
 	AuthenticationFactors []AuthenticationFactor `json:"authentication_factors,omitempty"`
-	StartedAt             *time.Time             `json:"started_at,omitempty"`
-	LastAccessedAt        *time.Time             `json:"last_accessed_at,omitempty"`
-	ExpiresAt             *time.Time             `json:"expires_at,omitempty"`
-	Attributes            attribute.Attributes   `json:"attributes,omitempty"`
-	CustomClaims          map[string]any         `json:"custom_claims,omitempty"`
+	// StartedAt: The timestamp when the Session was created. Values conform to the RFC 3339 standard and are
+	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	// LastAccessedAt: The timestamp when the Session was last accessed. Values conform to the RFC 3339
+	// standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	LastAccessedAt *time.Time `json:"last_accessed_at,omitempty"`
+	// ExpiresAt: The timestamp when the Session expires. Values conform to the RFC 3339 standard and are
+	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	// Attributes: Provided attributes help with fraud detection.
+	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
+	// authenticate call.
+	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 }
 type ShopifyOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
@@ -294,77 +286,68 @@ type WebAuthnFactor struct {
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.
-// Fields:
-//
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//
-//   - SessionToken: A secret token for a given Stytch Session.
-//
-//   - SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
-//
-//   - User: The `user` object affected by this API call. See the [Get user
-//     endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
-//
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
-//
-//   - Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate
-//     call, you'll receive a full Session object in the response.
-//
-//     See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 type AuthenticateResponse struct {
-	RequestID    string     `json:"request_id,omitempty"`
-	SessionToken string     `json:"session_token,omitempty"`
-	SessionJWT   string     `json:"session_jwt,omitempty"`
-	User         users.User `json:"user,omitempty"`
-	StatusCode   int32      `json:"status_code,omitempty"`
-	Session      Session    `json:"session,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// SessionToken: A secret token for a given Stytch Session.
+	SessionToken string `json:"session_token,omitempty"`
+	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
+	SessionJWT string `json:"session_jwt,omitempty"`
+	// User: The `user` object affected by this API call. See the [Get user
+	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	User users.User `json:"user,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
+	// you'll receive a full Session object in the response.
+	//
+	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//
+	Session Session `json:"session,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
-// Fields:
-//   - Keys: The JWK
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type GetJWKSResponse struct {
-	Keys       []JWK  `json:"keys,omitempty"`
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	// Keys: The JWK
+	Keys []JWK `json:"keys,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Sessions.Get`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - Sessions: An array of Session objects.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type GetResponse struct {
-	RequestID  string    `json:"request_id,omitempty"`
-	Sessions   []Session `json:"sessions,omitempty"`
-	StatusCode int32     `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// Sessions: An array of Session objects.
+	Sessions []Session `json:"sessions,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // RevokeResponse: Response type for `Sessions.Revoke`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type RevokeResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 type AuthenticationFactorDeliveryMethod string

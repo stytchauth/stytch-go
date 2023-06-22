@@ -67,8 +67,9 @@ func (c *SSOClient) DeleteConnection(
 // Authenticate a user given a token.
 // This endpoint verifies that the user completed the SSO Authentication flow by verifying that the token
 // is valid and hasn't expired.
-// To initiate a Stytch session for the user while authenticating their SSO token, include the
-// `session_duration_minutes` param.
+// Provide the `session_duration_minutes` parameter to set the lifetime of the session.
+// If the `session_duration_minutes` parameter is not specified, a Stytch session will be created with a 60
+// minute duration.
 // To link this authentication event to an existing Stytch session, include either the `session_token` or
 // `session_jwt` param.
 func (c *SSOClient) Authenticate(

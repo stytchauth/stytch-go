@@ -11,70 +11,66 @@ import (
 )
 
 // CreateParams: Request type for `Members.Create`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - EmailAddress: The email address of the Member.
-//   - Name: The name of the Member.
-//   - TrustedMetadata: An arbitrary JSON object for storing application-specific data or
-//     identity-provider-specific data.
-//   - UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
-//     directly by the
-//     frontend SDK, and should not be used to store critical information. See the [Metadata
-//     resource](https://stytch.com/docs/b2b/api/metadata)
-//     for complete field behavior details.
-//   - CreateMemberAsPending: Flag for whether or not to save a Member as `pending` or `active` in Stytch.
-//     It defaults to false. If true, new Members will be created with status `pending` in Stytch's backend.
-//     Their status will remain `pending` and they will continue to receive signup email templates for every
-//     Email Magic Link until that Member authenticates and becomes `active`. If false, new Members will be
-//     created with status `active`.
-//   - IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to
-//     authenticate into an Organization by bypassing the Organization's settings. A break glass account is
-//     typically used for emergency purposes to gain access outside of normal authentication procedures. Refer
-//     to the [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods`
-//     fields for more details.
 type CreateParams struct {
-	OrganizationID        string         `json:"organization_id,omitempty"`
-	EmailAddress          string         `json:"email_address,omitempty"`
-	Name                  string         `json:"name,omitempty"`
-	TrustedMetadata       map[string]any `json:"trusted_metadata,omitempty"`
-	UntrustedMetadata     map[string]any `json:"untrusted_metadata,omitempty"`
-	CreateMemberAsPending bool           `json:"create_member_as_pending,omitempty"`
-	IsBreakglass          bool           `json:"is_breakglass,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// EmailAddress: The email address of the Member.
+	EmailAddress string `json:"email_address,omitempty"`
+	// Name: The name of the Member.
+	Name string `json:"name,omitempty"`
+	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
+	// identity-provider-specific data.
+	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
+	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
+	// directly by the
+	//   frontend SDK, and should not be used to store critical information. See the [Metadata
+	// resource](https://stytch.com/docs/b2b/api/metadata)
+	//   for complete field behavior details.
+	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+	// CreateMemberAsPending: Flag for whether or not to save a Member as `pending` or `active` in Stytch. It
+	// defaults to false. If true, new Members will be created with status `pending` in Stytch's backend. Their
+	// status will remain `pending` and they will continue to receive signup email templates for every Email
+	// Magic Link until that Member authenticates and becomes `active`. If false, new Members will be created
+	// with status `active`.
+	CreateMemberAsPending bool `json:"create_member_as_pending,omitempty"`
+	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
+	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
+	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
+	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
+	// more details.
+	IsBreakglass bool `json:"is_breakglass,omitempty"`
 }
 
 // DeleteParams: Request type for `Members.Delete`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to
-//     perform operations on a Member, so be sure to preserve this value.
 type DeleteParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
 }
 
 // DeletePasswordParams: Request type for `Members.DeletePassword`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - MemberPasswordID: Globally unique UUID that identifies a Member's password.
 type DeletePasswordParams struct {
-	OrganizationID   string `json:"organization_id,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// MemberPasswordID: Globally unique UUID that identifies a Member's password.
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 }
 
 // GetParams: Request type for `Members.Get`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to
-//     perform operations on a Member, so be sure to preserve this value.
-//   - EmailAddress: The email address of the Member.
 type GetParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
-	EmailAddress   string `json:"email_address,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
+	// EmailAddress: The email address of the Member.
+	EmailAddress string `json:"email_address,omitempty"`
 }
 type OrganizationsEntry struct {
 	Key   string                     `json:"key,omitempty"`
@@ -82,164 +78,156 @@ type OrganizationsEntry struct {
 }
 
 // SearchParams: Request type for `Members.Search`.
-// Fields:
-//   - OrganizationIds: An array of organization_ids. At least one value is required.
-//   - Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited
-//     to 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
-//     using the `cursor`. If you receive a response that includes a non-null `next_cursor` in the
-//     `results_metadata` object, repeat the search call with the `next_cursor` value set to the `cursor` field
-//     to retrieve the next page of results. Continue to make search calls until the `next_cursor` in the
-//     response is null.
-//   - Limit: The number of search results to return per page. The default limit is 100. A maximum of 1000
-//     results can be returned by a single search request. If the total size of your result set is greater than
-//     one page size, you must paginate the response. See the `cursor` field.
-//   - Query: The optional query object contains the operator, i.e. `AND` or `OR`, and the operands that
-//     will filter your results. Only an operator is required. If you include no operands, no filtering will be
-//     applied. If you include no query object, it will return all Organizations with no filtering applied.
 type SearchParams struct {
-	OrganizationIds []string                  `json:"organization_ids,omitempty"`
-	Cursor          string                    `json:"cursor,omitempty"`
-	Limit           uint32                    `json:"limit,omitempty"`
-	Query           organizations.SearchQuery `json:"query,omitempty"`
+	// OrganizationIds: An array of organization_ids. At least one value is required.
+	OrganizationIds []string `json:"organization_ids,omitempty"`
+	// Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited to
+	// 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
+	// using the `cursor`. If you receive a response that includes a non-null `next_cursor` in the
+	// `results_metadata` object, repeat the search call with the `next_cursor` value set to the `cursor` field
+	// to retrieve the next page of results. Continue to make search calls until the `next_cursor` in the
+	// response is null.
+	Cursor string `json:"cursor,omitempty"`
+	// Limit: The number of search results to return per page. The default limit is 100. A maximum of 1000
+	// results can be returned by a single search request. If the total size of your result set is greater than
+	// one page size, you must paginate the response. See the `cursor` field.
+	Limit uint32 `json:"limit,omitempty"`
+	// Query: The optional query object contains the operator, i.e. `AND` or `OR`, and the operands that will
+	// filter your results. Only an operator is required. If you include no operands, no filtering will be
+	// applied. If you include no query object, it will return all Organizations with no filtering applied.
+	Query organizations.SearchQuery `json:"query,omitempty"`
 }
 
 // UpdateParams: Request type for `Members.Update`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to
-//     perform operations on a Member, so be sure to preserve this value.
-//   - Name: The name of the Member.
-//   - TrustedMetadata: An arbitrary JSON object for storing application-specific data or
-//     identity-provider-specific data.
-//   - UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
-//     directly by the
-//     frontend SDK, and should not be used to store critical information. See the [Metadata
-//     resource](https://stytch.com/docs/b2b/api/metadata)
-//     for complete field behavior details.
-//   - IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to
-//     authenticate into an Organization by bypassing the Organization's settings. A break glass account is
-//     typically used for emergency purposes to gain access outside of normal authentication procedures. Refer
-//     to the [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods`
-//     fields for more details.
 type UpdateParams struct {
-	OrganizationID    string         `json:"organization_id,omitempty"`
-	MemberID          string         `json:"member_id,omitempty"`
-	Name              string         `json:"name,omitempty"`
-	TrustedMetadata   map[string]any `json:"trusted_metadata,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
+	// Name: The name of the Member.
+	Name string `json:"name,omitempty"`
+	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
+	// identity-provider-specific data.
+	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
+	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
+	// directly by the
+	//   frontend SDK, and should not be used to store critical information. See the [Metadata
+	// resource](https://stytch.com/docs/b2b/api/metadata)
+	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
-	IsBreakglass      bool           `json:"is_breakglass,omitempty"`
+	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
+	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
+	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
+	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
+	// more details.
+	IsBreakglass bool `json:"is_breakglass,omitempty"`
 }
 
 // CreateResponse: Response type for `Members.Create`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - MemberID: Globally unique UUID that identifies a specific Member.
-//   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type CreateResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // DeletePasswordResponse: Response type for `Members.DeletePassword`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - MemberID: Globally unique UUID that identifies a specific Member.
-//   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type DeletePasswordResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // DeleteResponse: Response type for `Members.Delete`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - MemberID: Globally unique UUID that identifies a specific Member.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type DeleteResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	MemberID   string `json:"member_id,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Members.Get`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - MemberID: Globally unique UUID that identifies a specific Member.
-//   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type GetResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // SearchResponse: Response type for `Members.Search`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - Members: An array of [Member objects](member-object).
-//   - ResultsMetadata: The search `results_metadata` object contains metadata relevant to your specific
-//     query like `total` and `next_cursor`.
-//   - Organizations: A map from `organization_id` to [Organization
-//     object](https://stytch.com/docs/b2b/api/organization-object). The map only contains the Organizations
-//     that the Members belongs to.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type SearchResponse struct {
-	RequestID       string                        `json:"request_id,omitempty"`
-	Members         []organizations.Member        `json:"members,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// Members: An array of [Member objects](member-object).
+	Members []organizations.Member `json:"members,omitempty"`
+	// ResultsMetadata: The search `results_metadata` object contains metadata relevant to your specific query
+	// like `total` and `next_cursor`.
 	ResultsMetadata organizations.ResultsMetadata `json:"results_metadata,omitempty"`
-	Organizations   []OrganizationsEntry          `json:"organizations,omitempty"`
-	StatusCode      int32                         `json:"status_code,omitempty"`
+	// Organizations: A map from `organization_id` to [Organization
+	// object](https://stytch.com/docs/b2b/api/organization-object). The map only contains the Organizations
+	// that the Members belongs to.
+	Organizations []OrganizationsEntry `json:"organizations,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // UpdateResponse: Response type for `Members.Update`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - MemberID: Globally unique UUID that identifies a specific Member.
-//   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
 type UpdateResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }

@@ -11,81 +11,76 @@ import (
 )
 
 // CreateConnectionParams: Request type for `OIDC.CreateConnection`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - DisplayName: A human-readable display name for the connection.
 type CreateConnectionParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	DisplayName    string `json:"display_name,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
 }
 
 // UpdateConnectionParams: Request type for `OIDC.UpdateConnection`.
-// Fields:
-//   - OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id`
-//     is critical to perform operations on an Organization, so be sure to preserve this value.
-//   - ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
-//   - DisplayName: A human-readable display name for the connection.
-//   - ClientID: The OAuth2.0 client ID used to authenticate login attempts. This will be provided by the
-//     IdP.
-//   - ClientSecret: The secret belonging to the OAuth2.0 client used to authenticate login attempts. This
-//     will be provided by the IdP.
-//   - Issuer: A case-sensitive `https://` URL that uniquely identifies the IdP. This will be provided by
-//     the IdP.
-//   - AuthorizationURL: The location of the URL that starts an OAuth login at the IdP. This will be
-//     provided by the IdP.
-//   - TokenURL: The location of the URL that issues OAuth2.0 access tokens and OIDC ID tokens. This will
-//     be provided by the IdP.
-//   - UserinfoURL: The location of the IDP's [UserInfo
-//     Endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo). This will be provided by the
-//     IdP.
-//   - JwksURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP.
-//     This will be provided by the IdP.
 type UpdateConnectionParams struct {
-	OrganizationID   string `json:"organization_id,omitempty"`
-	ConnectionID     string `json:"connection_id,omitempty"`
-	DisplayName      string `json:"display_name,omitempty"`
-	ClientID         string `json:"client_id,omitempty"`
-	ClientSecret     string `json:"client_secret,omitempty"`
-	Issuer           string `json:"issuer,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// ClientID: The OAuth2.0 client ID used to authenticate login attempts. This will be provided by the IdP.
+	ClientID string `json:"client_id,omitempty"`
+	// ClientSecret: The secret belonging to the OAuth2.0 client used to authenticate login attempts. This will
+	// be provided by the IdP.
+	ClientSecret string `json:"client_secret,omitempty"`
+	// Issuer: A case-sensitive `https://` URL that uniquely identifies the IdP. This will be provided by the
+	// IdP.
+	Issuer string `json:"issuer,omitempty"`
+	// AuthorizationURL: The location of the URL that starts an OAuth login at the IdP. This will be provided
+	// by the IdP.
 	AuthorizationURL string `json:"authorization_url,omitempty"`
-	TokenURL         string `json:"token_url,omitempty"`
-	UserinfoURL      string `json:"userinfo_url,omitempty"`
-	JwksURL          string `json:"jwks_url,omitempty"`
+	// TokenURL: The location of the URL that issues OAuth2.0 access tokens and OIDC ID tokens. This will be
+	// provided by the IdP.
+	TokenURL string `json:"token_url,omitempty"`
+	// UserinfoURL: The location of the IDP's [UserInfo
+	// Endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo). This will be provided by the
+	// IdP.
+	UserinfoURL string `json:"userinfo_url,omitempty"`
+	// JwksURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
+	// will be provided by the IdP.
+	JwksURL string `json:"jwks_url,omitempty"`
 }
 
 // CreateConnectionResponse: Response type for `OIDC.CreateConnection`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
-//   - Connection: The `OIDC Connection` object affected by this API call. See the [OIDC Connection
-//     Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response field details.
 type CreateConnectionResponse struct {
-	RequestID  string             `json:"request_id,omitempty"`
-	StatusCode int32              `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// Connection: The `OIDC Connection` object affected by this API call. See the [OIDC Connection
+	// Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response field details.
 	Connection sso.OIDCConnection `json:"connection,omitempty"`
 }
 
 // UpdateConnectionResponse: Response type for `OIDC.UpdateConnection`.
-// Fields:
-//   - RequestID: Globally unique UUID that is returned with every API call. This value is important to log
-//     for debugging purposes; we may ask for this value to help identify a specific API call when helping you
-//     debug an issue.
-//   - StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-//     patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-//     are server errors.
-//   - Connection: The `OIDC Connection` object affected by this API call. See the [OIDC Connection
-//     Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response field details.
-//   - Warning: If it is not possible to resolve the well-known metadata document from the OIDC issuer,
-//     this field will explain what went wrong if the request is successful otherwise. In other words, even if
-//     the overall request succeeds, there could be relevant warnings related to the connection update.
 type UpdateConnectionResponse struct {
-	RequestID  string             `json:"request_id,omitempty"`
-	StatusCode int32              `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// Connection: The `OIDC Connection` object affected by this API call. See the [OIDC Connection
+	// Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response field details.
 	Connection sso.OIDCConnection `json:"connection,omitempty"`
-	Warning    string             `json:"warning,omitempty"`
+	// Warning: If it is not possible to resolve the well-known metadata document from the OIDC issuer, this
+	// field will explain what went wrong if the request is successful otherwise. In other words, even if the
+	// overall request succeeds, there could be relevant warnings related to the connection update.
+	Warning string `json:"warning,omitempty"`
 }

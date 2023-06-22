@@ -29,7 +29,7 @@ func NewOAuthClient(c *stytch.Client) *OAuthClient {
 // the returned `oauth_attach_token` to the same provider's OAuth Start endpoint to treat this OAuth flow
 // as a login for that user instead of a signup for a new user.
 //
-// Exactly one of `user_id`, `session_token`, and `session_jwt` must be provided to identify the target
+// Exactly one of `user_id`, `session_token`, or `session_jwt` must be provided to identify the target
 // Stytch User.
 //
 // This is an optional step in the OAuth flow. Stytch can often determine whether to create a new user or

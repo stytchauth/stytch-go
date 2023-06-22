@@ -10,27 +10,26 @@ import (
 	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
 )
 
-// DiscoveredOrganization: Fields:
-//   - MemberAuthenticated: Indicates whether or not the discovery magic link initiated session is valid
-//     for the organization's allowed auth method settings.
-//     If not, the member needs to perform additional authentication before logging in - such as password or
-//     SSO auth.
-//   - Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-//   - Membership: Information about the membership.
+// DiscoveredOrganization:
 type DiscoveredOrganization struct {
-	MemberAuthenticated bool                       `json:"member_authenticated,omitempty"`
-	Organization        organizations.Organization `json:"organization,omitempty"`
-	Membership          Membership                 `json:"membership,omitempty"`
+	// MemberAuthenticated: Indicates whether or not the discovery magic link initiated session is valid for
+	// the organization's allowed auth method settings.
+	//   If not, the member needs to perform additional authentication before logging in - such as password or
+	// SSO auth.
+	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
+	Organization organizations.Organization `json:"organization,omitempty"`
+	// Membership: Information about the membership.
+	Membership Membership `json:"membership,omitempty"`
 }
 
-// Membership: Fields:
-//   - Type: Either `active_member`, `pending_member`, `invited_member`, or
-//     `eligible_to_join_by_email_domain`
-//   - Details: An object containing additional metadata about the membership, if available.
-//   - Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
-//     null if one does not.
+// Membership:
 type Membership struct {
-	Type    string               `json:"type,omitempty"`
-	Details map[string]any       `json:"details,omitempty"`
-	Member  organizations.Member `json:"member,omitempty"`
+	// Type: Either `active_member`, `pending_member`, `invited_member`, or `eligible_to_join_by_email_domain`
+	Type string `json:"type,omitempty"`
+	// Details: An object containing additional metadata about the membership, if available.
+	Details map[string]any `json:"details,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
+	Member organizations.Member `json:"member,omitempty"`
 }
