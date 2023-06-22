@@ -38,7 +38,7 @@ type LoginOrCreateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale LoginOrCreateRequestLocale `json:"locale,omitempty"`
 }
 
 // SendParams: Request type for `Whatsapp.Send`.
@@ -61,7 +61,7 @@ type SendParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale SendRequestLocale `json:"locale,omitempty"`
 	// UserID: The unique ID of a specific User.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
@@ -103,3 +103,19 @@ type SendResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type LoginOrCreateRequestLocale string
+
+const (
+	LoginOrCreateRequestLocaleEn   LoginOrCreateRequestLocale = "en"
+	LoginOrCreateRequestLocaleEs   LoginOrCreateRequestLocale = "es"
+	LoginOrCreateRequestLocalePtbr LoginOrCreateRequestLocale = "pt-br"
+)
+
+type SendRequestLocale string
+
+const (
+	SendRequestLocaleEn   SendRequestLocale = "en"
+	SendRequestLocaleEs   SendRequestLocale = "es"
+	SendRequestLocalePtbr SendRequestLocale = "pt-br"
+)

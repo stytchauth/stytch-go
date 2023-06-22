@@ -50,7 +50,7 @@ type InviteParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale InviteRequestLocale `json:"locale,omitempty"`
 }
 
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
@@ -94,7 +94,7 @@ type LoginOrSignupParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale LoginOrSignupRequestLocale `json:"locale,omitempty"`
 }
 
 // InviteResponse: Response type for `Email.Invite`.
@@ -135,3 +135,19 @@ type LoginOrSignupResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type InviteRequestLocale string
+
+const (
+	InviteRequestLocaleEn   InviteRequestLocale = "en"
+	InviteRequestLocaleEs   InviteRequestLocale = "es"
+	InviteRequestLocalePtbr InviteRequestLocale = "pt-br"
+)
+
+type LoginOrSignupRequestLocale string
+
+const (
+	LoginOrSignupRequestLocaleEn   LoginOrSignupRequestLocale = "en"
+	LoginOrSignupRequestLocaleEs   LoginOrSignupRequestLocale = "es"
+	LoginOrSignupRequestLocalePtbr LoginOrSignupRequestLocale = "pt-br"
+)

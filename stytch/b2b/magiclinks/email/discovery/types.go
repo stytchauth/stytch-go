@@ -33,7 +33,7 @@ type SendParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale SendRequestLocale `json:"locale,omitempty"`
 }
 
 // SendResponse: Response type for `Discovery.Send`.
@@ -47,3 +47,11 @@ type SendResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type SendRequestLocale string
+
+const (
+	SendRequestLocaleEn   SendRequestLocale = "en"
+	SendRequestLocaleEs   SendRequestLocale = "es"
+	SendRequestLocalePtbr SendRequestLocale = "pt-br"
+)

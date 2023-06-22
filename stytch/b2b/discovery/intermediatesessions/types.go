@@ -42,8 +42,8 @@ type ExchangeParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	Locale              string         `json:"locale,omitempty"`
+	SessionCustomClaims map[string]any        `json:"session_custom_claims,omitempty"`
+	Locale              ExchangeRequestLocale `json:"locale,omitempty"`
 }
 
 // ExchangeResponse: Response type for `IntermediateSessions.Exchange`.
@@ -69,3 +69,11 @@ type ExchangeResponse struct {
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
 }
+
+type ExchangeRequestLocale string
+
+const (
+	ExchangeRequestLocaleEn   ExchangeRequestLocale = "en"
+	ExchangeRequestLocaleEs   ExchangeRequestLocale = "es"
+	ExchangeRequestLocalePtbr ExchangeRequestLocale = "pt-br"
+)

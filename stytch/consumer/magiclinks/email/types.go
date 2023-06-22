@@ -40,7 +40,7 @@ type InviteParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale InviteRequestLocale `json:"locale,omitempty"`
 }
 
 // LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
@@ -93,7 +93,7 @@ type LoginOrCreateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale LoginOrCreateRequestLocale `json:"locale,omitempty"`
 }
 
 // RevokeInviteParams: Request type for `Email.RevokeInvite`.
@@ -146,7 +146,7 @@ type SendParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale SendRequestLocale `json:"locale,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
 	// Magic links - Sign-up.
@@ -214,3 +214,27 @@ type SendResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type InviteRequestLocale string
+
+const (
+	InviteRequestLocaleEn   InviteRequestLocale = "en"
+	InviteRequestLocaleEs   InviteRequestLocale = "es"
+	InviteRequestLocalePtbr InviteRequestLocale = "pt-br"
+)
+
+type LoginOrCreateRequestLocale string
+
+const (
+	LoginOrCreateRequestLocaleEn   LoginOrCreateRequestLocale = "en"
+	LoginOrCreateRequestLocaleEs   LoginOrCreateRequestLocale = "es"
+	LoginOrCreateRequestLocalePtbr LoginOrCreateRequestLocale = "pt-br"
+)
+
+type SendRequestLocale string
+
+const (
+	SendRequestLocaleEn   SendRequestLocale = "en"
+	SendRequestLocaleEs   SendRequestLocale = "es"
+	SendRequestLocalePtbr SendRequestLocale = "pt-br"
+)

@@ -218,7 +218,7 @@ type SearchUsersQuery struct {
 	//   `AND` – all the operand values provided must match.
 	//
 	//   `OR` – the operator will return any matches to at least one of the operand values you supply.
-	Operator string `json:"operator,omitempty"`
+	Operator SearchUsersExternalQueryOperator `json:"operator,omitempty"`
 	// Operands: An array of operand objects that contains all of the filters and values to apply to your
 	// search search query.
 	Operands []map[string]any `json:"operands,omitempty"`
@@ -569,3 +569,10 @@ type UpdateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type SearchUsersExternalQueryOperator string
+
+const (
+	SearchUsersExternalQueryOperatorOR  SearchUsersExternalQueryOperator = "OR"
+	SearchUsersExternalQueryOperatorAND SearchUsersExternalQueryOperator = "AND"
+)

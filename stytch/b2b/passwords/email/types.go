@@ -94,7 +94,7 @@ type ResetStartParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale ResetStartRequestLocale `json:"locale,omitempty"`
 	// ResetPasswordTemplateID: Use a custom template for reset password emails. By default, it will use your
 	// default email template. The template must be a template using our built-in customizations or a custom
 	// HTML email for Magic Links - Reset Password.
@@ -145,3 +145,11 @@ type ResetStartResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type ResetStartRequestLocale string
+
+const (
+	ResetStartRequestLocaleEn   ResetStartRequestLocale = "en"
+	ResetStartRequestLocaleEs   ResetStartRequestLocale = "es"
+	ResetStartRequestLocalePtbr ResetStartRequestLocale = "pt-br"
+)

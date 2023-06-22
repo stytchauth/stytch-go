@@ -79,7 +79,7 @@ type MigrateParams struct {
 	Hash string `json:"hash,omitempty"`
 	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon2i`, `argon2id`, `md_5`, and
 	// `sha_1` are supported.
-	HashType string `json:"hash_type,omitempty"`
+	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
@@ -210,3 +210,15 @@ type StrengthCheckResponse struct {
 	// [zxcvbn](https://stytch.com/docs/passwords#strength-requirements).
 	ZxcvbnFeedback ZxcvbnFeedback `json:"zxcvbn_feedback,omitempty"`
 }
+
+type MigrateRequestHashType string
+
+const (
+	MigrateRequestHashTypeBcrypt   MigrateRequestHashType = "bcrypt"
+	MigrateRequestHashTypeMd5      MigrateRequestHashType = "md_5"
+	MigrateRequestHashTypeArgon2i  MigrateRequestHashType = "argon_2i"
+	MigrateRequestHashTypeArgon2id MigrateRequestHashType = "argon_2id"
+	MigrateRequestHashTypeSha1     MigrateRequestHashType = "sha_1"
+	MigrateRequestHashTypeScrypt   MigrateRequestHashType = "scrypt"
+	MigrateRequestHashTypePhpass   MigrateRequestHashType = "phpass"
+)

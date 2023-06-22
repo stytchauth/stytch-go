@@ -148,7 +148,7 @@ type MigrateParams struct {
 	Hash string `json:"hash,omitempty"`
 	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`, and
 	// `sha_1` are supported.
-	HashType string `json:"hash_type,omitempty"`
+	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
 	Md5Config MD5Config `json:"md_5_config,omitempty"`
 	// Argon2Config: Required parameters if the argon2 hex form, as opposed to the encoded form, is supplied.
@@ -314,3 +314,15 @@ type StrengthCheckResponse struct {
 	// Feedback for how to improve the password's strength [HaveIBeenPwned](https://haveibeenpwned.com/).
 	Feedback Feedback `json:"feedback,omitempty"`
 }
+
+type MigrateRequestHashType string
+
+const (
+	MigrateRequestHashTypeBcrypt   MigrateRequestHashType = "bcrypt"
+	MigrateRequestHashTypeMd5      MigrateRequestHashType = "md_5"
+	MigrateRequestHashTypeArgon2i  MigrateRequestHashType = "argon_2i"
+	MigrateRequestHashTypeArgon2id MigrateRequestHashType = "argon_2id"
+	MigrateRequestHashTypeSha1     MigrateRequestHashType = "sha_1"
+	MigrateRequestHashTypeScrypt   MigrateRequestHashType = "scrypt"
+	MigrateRequestHashTypePhpass   MigrateRequestHashType = "phpass"
+)
