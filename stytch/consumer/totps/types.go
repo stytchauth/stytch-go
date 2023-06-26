@@ -148,15 +148,15 @@ type CreateResponse struct {
 	QrCode string `json:"qr_code,omitempty"`
 	// RecoveryCodes: The recovery codes used to authenticate the user without an authenticator app.
 	RecoveryCodes []string `json:"recovery_codes,omitempty"`
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	User users.User `json:"user,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// User: The `user` object affected by this API call. See the
-	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
-	User users.User `json:"user,omitempty"`
 }
 
 // RecoverResponse: Response type for `TOTPs.Recover`.

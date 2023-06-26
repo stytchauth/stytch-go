@@ -117,6 +117,16 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
+	// ProviderValues: The `provider_values` object lists relevant identifiers, values, and scopes for a given
+	// OAuth provider. For example this object will include a provider's `access_token` that you can use to
+	// access the provider's API for a given user.
+	//
+	//   Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
+	// returned by OIDC complaint identity providers.
+	ProviderValues ProviderValues `json:"provider_values,omitempty"`
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	User users.User `json:"user,omitempty"`
 	// ResetSessions: Indicates if all other of the User's Sessions need to be reset. You should check this
 	// field if you aren't using Stytch's Session product. If you are using Stytch's Session product, we revoke
 	// the User's other sessions for you.
@@ -133,14 +143,4 @@ type AuthenticateResponse struct {
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
 	UserSession sessions.Session `json:"user_session,omitempty"`
-	// ProviderValues: The `provider_values` object lists relevant identifiers, values, and scopes for a given
-	// OAuth provider. For example this object will include a provider's `access_token` that you can use to
-	// access the provider's API for a given user.
-	//
-	//   Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
-	// returned by OIDC complaint identity providers.
-	ProviderValues ProviderValues `json:"provider_values,omitempty"`
-	// User: The `user` object affected by this API call. See the
-	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
-	User users.User `json:"user,omitempty"`
 }
