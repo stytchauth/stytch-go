@@ -218,7 +218,7 @@ type SearchUsersQuery struct {
 	//   `AND` – all the operand values provided must match.
 	//
 	//   `OR` – the operator will return any matches to at least one of the operand values you supply.
-	Operator SearchUsersExternalQueryOperator `json:"operator,omitempty"`
+	Operator SearchUsersQueryOperator `json:"operator,omitempty"`
 	// Operands: An array of operand objects that contains all of the filters and values to apply to your
 	// search search query.
 	Operands []map[string]any `json:"operands,omitempty"`
@@ -323,8 +323,8 @@ type CreateResponse struct {
 	Status string `json:"status,omitempty"`
 	// PhoneID: The unique ID for the phone nunmber.
 	PhoneID string `json:"phone_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -340,8 +340,8 @@ type DeleteBiometricRegistrationResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -357,8 +357,8 @@ type DeleteCryptoWalletResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -374,8 +374,8 @@ type DeleteEmailResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -391,8 +391,8 @@ type DeleteOAuthRegistrationResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -408,8 +408,8 @@ type DeletePasswordResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -425,8 +425,8 @@ type DeletePhoneNumberResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -456,8 +456,8 @@ type DeleteTOTPResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -473,8 +473,8 @@ type DeleteWebAuthnRegistrationResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -561,8 +561,8 @@ type UpdateResponse struct {
 	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
 	// CryptoWallets: An array contains a list of all crypto wallets for a given User in the Stytch API.
 	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -570,9 +570,9 @@ type UpdateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-type SearchUsersExternalQueryOperator string
+type SearchUsersQueryOperator string
 
 const (
-	SearchUsersExternalQueryOperatorOR  SearchUsersExternalQueryOperator = "OR"
-	SearchUsersExternalQueryOperatorAND SearchUsersExternalQueryOperator = "AND"
+	SearchUsersQueryOperatorOR  SearchUsersQueryOperator = "OR"
+	SearchUsersQueryOperatorAND SearchUsersQueryOperator = "AND"
 )

@@ -68,9 +68,9 @@ func (c *WebAuthnClient) RegisterStart(
 // this endpoint as the `public_key_credential` parameter.
 //
 // If the [webauthn-json](https://github.com/github/webauthn-json) library's `create()` method was used,
-// the response can be passed directly to the [register
-// endpoint](https://stytch.com/docs/api/webauthn-register). If not, some fields (the client data and the
-// attestation object) from the
+// the response can be passed directly to the
+// [register endpoint](https://stytch.com/docs/api/webauthn-register). If not, some fields (the client data
+// and the attestation object) from the
 // [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential) response will
 // need to be converted from array buffers to strings and marshalled into JSON.
 func (c *WebAuthnClient) Register(
@@ -138,8 +138,8 @@ func (c *WebAuthnClient) AuthenticateStart(
 // authenticate endpoint.
 //
 // If the [webauthn-json](https://github.com/github/webauthn-json) library's `get()` method was used, the
-// response can be passed directly to the [authenticate
-// endpoint](https://stytch.com/docs/api/webauthn-authenticate). If not some fields from the
+// response can be passed directly to the
+// [authenticate endpoint](https://stytch.com/docs/api/webauthn-authenticate). If not some fields from the
 // [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) response will need to
 // be converted from array buffers to strings and marshalled into JSON.
 func (c *WebAuthnClient) Authenticate(

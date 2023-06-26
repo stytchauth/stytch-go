@@ -85,8 +85,8 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User users.User `json:"user,omitempty"`
 	// ResetSessions: Indicates if all other of the User's Sessions need to be reset. You should check this
 	// field if you aren't using Stytch's Session product. If you are using Stytch's Session product, we revoke

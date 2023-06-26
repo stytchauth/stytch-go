@@ -25,8 +25,8 @@ func NewDiscoveryIntermediateSessionsClient(c *stytch.Client) *DiscoveryIntermed
 	}
 }
 
-// Exchange an Intermediate Session for a fully realized [Member
-// Session](https://stytch.com/docs/b2b/api/session-object) in a desired
+// Exchange an Intermediate Session for a fully realized
+// [Member Session](https://stytch.com/docs/b2b/api/session-object) in a desired
 // [Organization](https://stytch.com/docs/b2b/api/organization-object).
 // This operation consumes the Intermediate Session.
 //

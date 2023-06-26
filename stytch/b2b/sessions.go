@@ -112,8 +112,9 @@ func (c *SessionsClient) Revoke(
 // Exchange: Use this endpoint to exchange a Member's existing session for another session in a different
 // Organization. This can be used to accept an invite, but not to create a new member via domain matching.
 //
-// To create a new member via domain matching, use the [Exchange Intermediate
-// Session](https://stytch.com/docs/b2b/api/exchange-intermediate-session) flow instead.
+// To create a new member via domain matching, use the
+// [Exchange Intermediate Session](https://stytch.com/docs/b2b/api/exchange-intermediate-session) flow
+// instead.
 func (c *SessionsClient) Exchange(
 	ctx context.Context,
 	body *sessions.ExchangeParams,

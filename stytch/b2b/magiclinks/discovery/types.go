@@ -32,8 +32,9 @@ type AuthenticateResponse struct {
 	// EmailAddress: The email address.
 	EmailAddress string `json:"email_address,omitempty"`
 	// DiscoveredOrganizations: An array of `discovered_organization` objects tied to the
-	// `intermediate_session_token`, `session_token`, or `session_jwt`. See the [Discovered Organization
-	// Object](https://stytch.com/docs/b2b/api/discovered-organization-object) for complete details.
+	// `intermediate_session_token`, `session_token`, or `session_jwt`. See the
+	// [Discovered Organization Object](https://stytch.com/docs/b2b/api/discovered-organization-object) for
+	// complete details.
 	//
 	//   Note that Organizations will only appear here under any of the following conditions:
 	//   1. The end user is already a Member of the Organization.

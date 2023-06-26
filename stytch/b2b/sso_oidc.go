@@ -54,9 +54,9 @@ func (c *SSOOIDCClient) CreateConnection(
 
 // UpdateConnection: Updates an existing OIDC connection.
 //
-// When the value of `issuer` changes, Stytch will attempt to retrieve the [OpenID Provider
-// Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) document found at
-// `$/.well-known/openid-configuration`.
+// When the value of `issuer` changes, Stytch will attempt to retrieve the
+// [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
+// document found at `$/.well-known/openid-configuration`.
 // If the metadata document can be retrieved successfully, Stytch will use it to infer the values of
 // `authorization_url`, `token_url`, `jwks_url`, and `userinfo_url`.
 // The `client_id` and `client_secret` values cannot be inferred from the metadata document, and *must* be

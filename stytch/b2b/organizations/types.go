@@ -127,8 +127,8 @@ type Member struct {
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
 	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
 	// directly by the
-	//   frontend SDK, and should not be used to store critical information. See the [Metadata
-	// resource](https://stytch.com/docs/b2b/api/metadata)
+	//   frontend SDK, and should not be used to store critical information. See the
+	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 }
@@ -164,13 +164,13 @@ type Organization struct {
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
 	SsoJitProvisioning string `json:"sso_jit_provisioning,omitempty"`
-	// SsoJitProvisioningAllowedConnections: An array of `connection_id`s that reference [SAML Connection
-	// objects](https://stytch.com/docs/b2b/api/saml-connection-object).
+	// SsoJitProvisioningAllowedConnections: An array of `connection_id`s that reference
+	// [SAML Connection objects](https://stytch.com/docs/b2b/api/saml-connection-object).
 	//   Only these connections will be allowed to JIT provision Members via SSO when `sso_jit_provisioning` is
 	// set to `RESTRICTED`.
 	SsoJitProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
-	// SsoActiveConnections: An array of active [SAML Connection
-	// references](https://stytch.com/docs/b2b/api/saml-connection-object).
+	// SsoActiveConnections: An array of active
+	// [SAML Connection references](https://stytch.com/docs/b2b/api/saml-connection-object).
 	SsoActiveConnections []ActiveSSOConnection `json:"sso_active_connections,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
@@ -267,7 +267,7 @@ type SearchQuery struct {
 	//   `AND` – all the operand values provided must match.
 	//
 	//   `OR` – the operator will return any matches to at least one of the operand values you supply.
-	Operator ExternalSearchQueryOperator `json:"operator,omitempty"`
+	Operator SearchQueryOperator `json:"operator,omitempty"`
 	// Operands: An array of operand objects that contains all of the filters and values to apply to your
 	// search query.
 	Operands []map[string]any `json:"operands,omitempty"`
@@ -302,8 +302,8 @@ type UpdateParams struct {
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
 	SsoJitProvisioning string `json:"sso_jit_provisioning,omitempty"`
-	// SsoJitProvisioningAllowedConnections: An array of `connection_id`s that reference [SAML Connection
-	// objects](https://stytch.com/docs/b2b/api/saml-connection-object).
+	// SsoJitProvisioningAllowedConnections: An array of `connection_id`s that reference
+	// [SAML Connection objects](https://stytch.com/docs/b2b/api/saml-connection-object).
 	//   Only these connections will be allowed to JIT provision Members via SSO when `sso_jit_provisioning` is
 	// set to `RESTRICTED`.
 	SsoJitProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
@@ -424,9 +424,9 @@ type UpdateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-type ExternalSearchQueryOperator string
+type SearchQueryOperator string
 
 const (
-	ExternalSearchQueryOperatorOR  ExternalSearchQueryOperator = "OR"
-	ExternalSearchQueryOperatorAND ExternalSearchQueryOperator = "AND"
+	SearchQueryOperatorOR  SearchQueryOperator = "OR"
+	SearchQueryOperatorAND SearchQueryOperator = "AND"
 )

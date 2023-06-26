@@ -155,8 +155,8 @@ type MigrateParams struct {
 	Argon2Config Argon2Config `json:"argon_2_config,omitempty"`
 	// Sha1Config: Optional parameters for SHA-1 hash types.
 	Sha1Config SHA1Config `json:"sha_1_config,omitempty"`
-	// ScryptConfig: Required parameters if the scrypt is not provided in a [PHC encoded
-	// form](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md#phc-string-format).
+	// ScryptConfig: Required parameters if the scrypt is not provided in a
+	// [PHC encoded form](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md#phc-string-format).
 	ScryptConfig ScryptConfig `json:"scrypt_config,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
@@ -216,8 +216,8 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User users.User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -245,8 +245,8 @@ type CreateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User users.User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -272,8 +272,8 @@ type MigrateResponse struct {
 	EmailID string `json:"email_id,omitempty"`
 	// UserCreated: In `login_or_create` endpoints, this field indicates whether or not a User was just created.
 	UserCreated bool `json:"user_created,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User users.User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

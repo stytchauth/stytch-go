@@ -26,8 +26,8 @@ func NewOTPsEmailClient(c *stytch.Client) *OTPsEmailClient {
 }
 
 // Send a one-time passcode (OTP) to a User using their email. If you'd like to create a user and send them
-// a passcode with one request, use our [log in or create
-// endpoint](https://stytch.com/docs/api/log-in-or-create-user-by-email-otp).
+// a passcode with one request, use our
+// [log in or create endpoint](https://stytch.com/docs/api/log-in-or-create-user-by-email-otp).
 //
 // ### Add an email to an existing user
 // This endpoint also allows you to add a new email to an existing Stytch User. Including a `user_id`,
@@ -38,9 +38,9 @@ func NewOTPsEmailClient(c *stytch.Client) *OTPsEmailClient {
 // OTP. This requirement is in place to prevent account takeover attacks.
 //
 // ### Next steps
-// Collect the OTP which was delivered to the user. Call [Authenticate
-// OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the `phone_id` found
-// in the response as the `method_id`.
+// Collect the OTP which was delivered to the user. Call
+// [Authenticate OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the
+// `phone_id` found in the response as the `method_id`.
 func (c *OTPsEmailClient) Send(
 	ctx context.Context,
 	body *email.SendParams,
@@ -71,9 +71,9 @@ func (c *OTPsEmailClient) Send(
 //
 // ### Next steps
 //
-// Collect the OTP which was delivered to the User. Call [Authenticate
-// OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the `phone_id` found
-// in the response as the `method_id`.
+// Collect the OTP which was delivered to the User. Call
+// [Authenticate OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the
+// `phone_id` found in the response as the `method_id`.
 func (c *OTPsEmailClient) LoginOrCreate(
 	ctx context.Context,
 	body *email.LoginOrCreateParams,

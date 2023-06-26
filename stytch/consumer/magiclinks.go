@@ -60,8 +60,9 @@ func (c *MagicLinksClient) Authenticate(
 //
 // ### Next steps
 // Send the returned `token` value to the end user in a link which directs to your application. When the
-// end user follows your link, collect the token, and call [Authenticate Magic
-// Link](https://stytch.com/docs/api/authenticate-magic-link) to complete authentication.
+// end user follows your link, collect the token, and call
+// [Authenticate Magic Link](https://stytch.com/docs/api/authenticate-magic-link) to complete
+// authentication.
 func (c *MagicLinksClient) Create(
 	ctx context.Context,
 	body *magiclinks.CreateParams,

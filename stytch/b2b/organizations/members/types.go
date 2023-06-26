@@ -24,8 +24,8 @@ type CreateParams struct {
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
 	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
 	// directly by the
-	//   frontend SDK, and should not be used to store critical information. See the [Metadata
-	// resource](https://stytch.com/docs/b2b/api/metadata)
+	//   frontend SDK, and should not be used to store critical information. See the
+	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// CreateMemberAsPending: Flag for whether or not to save a Member as `pending` or `active` in Stytch. It
@@ -72,10 +72,6 @@ type GetParams struct {
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 }
-type OrganizationsEntry struct {
-	Key   string                     `json:"key,omitempty"`
-	Value organizations.Organization `json:"value,omitempty"`
-}
 
 // SearchParams: Request type for `Members.Search`.
 type SearchParams struct {
@@ -113,8 +109,8 @@ type UpdateParams struct {
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
 	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
 	// directly by the
-	//   frontend SDK, and should not be used to store critical information. See the [Metadata
-	// resource](https://stytch.com/docs/b2b/api/metadata)
+	//   frontend SDK, and should not be used to store critical information. See the
+	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
@@ -204,10 +200,10 @@ type SearchResponse struct {
 	// ResultsMetadata: The search `results_metadata` object contains metadata relevant to your specific query
 	// like `total` and `next_cursor`.
 	ResultsMetadata organizations.ResultsMetadata `json:"results_metadata,omitempty"`
-	// Organizations: A map from `organization_id` to [Organization
-	// object](https://stytch.com/docs/b2b/api/organization-object). The map only contains the Organizations
-	// that the Members belongs to.
-	Organizations []OrganizationsEntry `json:"organizations,omitempty"`
+	// Organizations: A map from `organization_id` to
+	// [Organization object](https://stytch.com/docs/b2b/api/organization-object). The map only contains the
+	// Organizations that the Members belongs to.
+	Organizations map[string]organizations.Organization `json:"organizations,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

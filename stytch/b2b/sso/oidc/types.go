@@ -42,9 +42,9 @@ type UpdateConnectionParams struct {
 	// TokenURL: The location of the URL that issues OAuth2.0 access tokens and OIDC ID tokens. This will be
 	// provided by the IdP.
 	TokenURL string `json:"token_url,omitempty"`
-	// UserinfoURL: The location of the IDP's [UserInfo
-	// Endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo). This will be provided by the
-	// IdP.
+	// UserinfoURL: The location of the IDP's
+	// [UserInfo Endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo). This will be
+	// provided by the IdP.
 	UserinfoURL string `json:"userinfo_url,omitempty"`
 	// JwksURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
@@ -61,8 +61,9 @@ type CreateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `OIDC Connection` object affected by this API call. See the [OIDC Connection
-	// Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response field details.
+	// Connection: The `OIDC Connection` object affected by this API call. See the
+	// [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response
+	// field details.
 	Connection sso.OIDCConnection `json:"connection,omitempty"`
 }
 
@@ -76,8 +77,9 @@ type UpdateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `OIDC Connection` object affected by this API call. See the [OIDC Connection
-	// Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response field details.
+	// Connection: The `OIDC Connection` object affected by this API call. See the
+	// [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response
+	// field details.
 	Connection sso.OIDCConnection `json:"connection,omitempty"`
 	// Warning: If it is not possible to resolve the well-known metadata document from the OIDC issuer, this
 	// field will explain what went wrong if the request is successful otherwise. In other words, even if the

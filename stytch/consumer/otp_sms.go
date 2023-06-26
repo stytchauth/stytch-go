@@ -26,8 +26,8 @@ func NewOTPsSmsClient(c *stytch.Client) *OTPsSmsClient {
 }
 
 // Send a one-time passcode (OTP) to a user's phone number. If you'd like to create a user and send them a
-// passcode with one request, use our [log in or
-// create](https://stytch.com/docs/api/log-in-or-create-user-by-sms) endpoint.
+// passcode with one request, use our
+// [log in or create](https://stytch.com/docs/api/log-in-or-create-user-by-sms) endpoint.
 //
 // Note that sending another OTP code before the first has expired will invalidate the first code.
 //
@@ -42,9 +42,9 @@ func NewOTPsSmsClient(c *stytch.Client) *OTPsSmsClient {
 //
 // ### Next steps
 //
-// Collect the OTP which was delivered to the user. Call [Authenticate
-// OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the `phone_id` found
-// in the response as the `method_id`.
+// Collect the OTP which was delivered to the user. Call
+// [Authenticate OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the
+// `phone_id` found in the response as the `method_id`.
 func (c *OTPsSmsClient) Send(
 	ctx context.Context,
 	body *sms.SendParams,
@@ -75,9 +75,9 @@ func (c *OTPsSmsClient) Send(
 //
 // ### Next steps
 //
-// Collect the OTP which was delivered to the User. Call [Authenticate
-// OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the `phone_id` found
-// in the response as the `method_id`.
+// Collect the OTP which was delivered to the User. Call
+// [Authenticate OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the
+// `phone_id` found in the response as the `method_id`.
 func (c *OTPsSmsClient) LoginOrCreate(
 	ctx context.Context,
 	body *sms.LoginOrCreateParams,

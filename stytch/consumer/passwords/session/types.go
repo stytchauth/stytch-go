@@ -29,8 +29,8 @@ type ResetResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// User: The `user` object affected by this API call. See the [Get user
-	// endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
 	User users.User `json:"user,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

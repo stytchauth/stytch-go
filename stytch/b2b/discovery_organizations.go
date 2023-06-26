@@ -58,19 +58,19 @@ func (c *DiscoveryOrganizationsClient) Create(
 	return &retVal, err
 }
 
-// List all possible organization relationships connected to a [Member
-// Session](https://stytch.com/docs/b2b/api/session-object) or Intermediate Session.
+// List all possible organization relationships connected to a
+// [Member Session](https://stytch.com/docs/b2b/api/session-object) or Intermediate Session.
 //
 // When a Member Session is passed in, relationships with a type of `active_member`, `pending_member`, or
 // `invited_member`
-// will be returned, and any membership can be assumed by calling the [Exchange
-// Session](https://stytch.com/docs/b2b/api/exchange-session) endpoint.
+// will be returned, and any membership can be assumed by calling the
+// [Exchange Session](https://stytch.com/docs/b2b/api/exchange-session) endpoint.
 //
 // When an Intermediate Session is passed in, all relationship types - `active_member`, `pending_member`,
 // `invited_member`,
 // and `eligible_to_join_by_email_domain` - will be returned,
-// and any membership can be assumed by calling the [Exchange Intermediate
-// Session](https://stytch.com/docs/b2b/api/exchange-intermediate-session) endpoint.
+// and any membership can be assumed by calling the
+// [Exchange Intermediate Session](https://stytch.com/docs/b2b/api/exchange-intermediate-session) endpoint.
 //
 // This endpoint requires either an `intermediate_session_token`, `session_jwt` or `session_token` be
 // included in the request.

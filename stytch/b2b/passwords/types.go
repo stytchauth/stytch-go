@@ -98,8 +98,8 @@ type MigrateParams struct {
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
 	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
 	// directly by the
-	//   frontend SDK, and should not be used to store critical information. See the [Metadata
-	// resource](https://stytch.com/docs/b2b/api/metadata)
+	//   frontend SDK, and should not be used to store critical information. See the
+	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 }

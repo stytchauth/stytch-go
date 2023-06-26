@@ -45,8 +45,8 @@ type UpdateConnectionParams struct {
 	// `full_name` or `first_name` and `last_name`.
 	AttributeMapping map[string]any `json:"attribute_mapping,omitempty"`
 	// X509Certificate: A certificate that Stytch will use to verify the sign-in assertion sent by the IdP, in
-	// [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format. See our [X509
-	// guide](https://stytch.com/docs/b2b/api/saml-certificates) for more info.
+	// [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format. See our
+	// [X509 guide](https://stytch.com/docs/b2b/api/saml-certificates) for more info.
 	X509Certificate string `json:"x509_certificate,omitempty"`
 	// IdpSsoURL: The URL for which assertions for login requests will be sent. This will be provided by the
 	// IdP.
@@ -63,8 +63,9 @@ type CreateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SAML Connection` object affected by this API call. See the [SAML Connection
-	// Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response field details.
+	// Connection: The `SAML Connection` object affected by this API call. See the
+	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
+	// field details.
 	Connection sso.SAMLConnection `json:"connection,omitempty"`
 }
 
@@ -92,7 +93,8 @@ type UpdateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SAML Connection` object affected by this API call. See the [SAML Connection
-	// Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response field details.
+	// Connection: The `SAML Connection` object affected by this API call. See the
+	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
+	// field details.
 	Connection sso.SAMLConnection `json:"connection,omitempty"`
 }

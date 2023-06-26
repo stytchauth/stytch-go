@@ -26,8 +26,8 @@ func NewMagicLinksEmailClient(c *stytch.Client) *MagicLinksEmailClient {
 }
 
 // Send a magic link to an existing Stytch user using their email address. If you'd like to create a user
-// and send them a magic link by email with one request, use our [log in or create
-// endpoint](https://stytch.com/docs/api/log-in-or-create-user-by-email).
+// and send them a magic link by email with one request, use our
+// [log in or create endpoint](https://stytch.com/docs/api/log-in-or-create-user-by-email).
 //
 // ### Add an email to an existing user
 // This endpoint also allows you to add a new email to an existing Stytch User. Including a `user_id`,
@@ -38,10 +38,11 @@ func NewMagicLinksEmailClient(c *stytch.Client) *MagicLinksEmailClient {
 // magic link. This requirement is in place to prevent account takeover attacks.
 //
 // ### Next steps
-// The user is emailed a magic link which redirects them to the provided [redirect
-// URL](https://stytch.com/docs/magic-links#email-magic-links_redirect-routing). Collect the `token` from
-// the URL query parameters, and call [Authenticate magic
-// link](https://stytch.com/docs/api/authenticate-magic-link) to complete authentication.
+// The user is emailed a magic link which redirects them to the provided
+// [redirect URL](https://stytch.com/docs/magic-links#email-magic-links_redirect-routing). Collect the
+// `token` from the URL query parameters, and call
+// [Authenticate magic link](https://stytch.com/docs/api/authenticate-magic-link) to complete
+// authentication.
 func (c *MagicLinksEmailClient) Send(
 	ctx context.Context,
 	body *email.SendParams,
@@ -73,10 +74,11 @@ func (c *MagicLinksEmailClient) Send(
 // `create_user_as_pending` flag.
 //
 // ### Next steps
-// The User is emailed a Magic Link which redirects them to the provided [redirect
-// URL](https://stytch.com/docs/magic-links#email-magic-links_redirect-routing). Collect the `token` from
-// the URL query parameters and call [Authenticate Magic
-// Link](https://stytch.com/docs/api/authenticate-magic-link) to complete authentication.
+// The User is emailed a Magic Link which redirects them to the provided
+// [redirect URL](https://stytch.com/docs/magic-links#email-magic-links_redirect-routing). Collect the
+// `token` from the URL query parameters and call
+// [Authenticate Magic Link](https://stytch.com/docs/api/authenticate-magic-link) to complete
+// authentication.
 func (c *MagicLinksEmailClient) LoginOrCreate(
 	ctx context.Context,
 	body *email.LoginOrCreateParams,
@@ -106,10 +108,11 @@ func (c *MagicLinksEmailClient) LoginOrCreate(
 // with a `pending` status until they click the Magic Link in the invite email.
 //
 // ### Next steps
-// The User is emailed a Magic Link which redirects them to the provided [redirect
-// URL](https://stytch.com/docs/magic-links#email-magic-links_redirect-routing). Collect the `token` from
-// the URL query parameters and call [Authenticate Magic
-// Link](https://stytch.com/docs/api/authenticate-magic-link) to complete authentication.
+// The User is emailed a Magic Link which redirects them to the provided
+// [redirect URL](https://stytch.com/docs/magic-links#email-magic-links_redirect-routing). Collect the
+// `token` from the URL query parameters and call
+// [Authenticate Magic Link](https://stytch.com/docs/api/authenticate-magic-link) to complete
+// authentication.
 func (c *MagicLinksEmailClient) Invite(
 	ctx context.Context,
 	body *email.InviteParams,
