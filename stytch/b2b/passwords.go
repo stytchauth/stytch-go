@@ -38,9 +38,8 @@ func NewPasswordsClient(c *stytch.Client) *PasswordsClient {
 // [zxcvbn](https://stytch.com/docs/passwords#strength-requirements), the default, your passwords are
 // considered valid if the strength score is >= 3. If you're using
 // [LUDS](https://stytch.com/docs/passwords#strength-requirements), your passwords are considered valid if
-// they meet the requirements that you've set with Stytch. Reach out to
-// [support@stytch.com](mailto:support@stytch.com?subject=Password Strength Configuration) if you'd like to
-// change your password strength configuration.
+// they meet the requirements that you've set with Stytch. You may update your password strength
+// configuration in the [stytch dashboard](https://stytch.com/dashboard/password-strength-config).
 //
 // ## Password feedback
 // The zxcvbn_feedback and luds_feedback objects contains relevant fields for you to relay feedback to
@@ -80,8 +79,8 @@ func (c *PasswordsClient) StrengthCheck(
 }
 
 // Migrate: Adds an existing password to a member's email that doesn't have a password yet. We support
-// migrating members from passwords stored with bcrypt, scrypt, argon2, MD-5, and SHA-1. This endpoint has
-// a rate limit of 100 requests per second.
+// migrating members from passwords stored with bcrypt, scrypt, argon2, MD-5, SHA-1, and PBKDF2. This
+// endpoint has a rate limit of 100 requests per second.
 func (c *PasswordsClient) Migrate(
 	ctx context.Context,
 	body *passwords.MigrateParams,

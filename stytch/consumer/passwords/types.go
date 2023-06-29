@@ -144,10 +144,10 @@ type MD5Config struct {
 type MigrateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
-	// Hash: The password hash. For a Scrypt hash, the hash needs to be a base64 encoded string.
+	// Hash: The password hash. For a Scrypt or PBKDF2 hash, the hash needs to be a base64 encoded string.
 	Hash string `json:"hash,omitempty"`
-	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`, and
-	// `sha_1` are supported.
+	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`,
+	// `sha_1`, and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
 	Md5Config MD5Config `json:"md_5_config,omitempty"`
@@ -158,6 +158,8 @@ type MigrateParams struct {
 	// ScryptConfig: Required parameters if the scrypt is not provided in a
 	// [PHC encoded form](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md#phc-string-format).
 	ScryptConfig ScryptConfig `json:"scrypt_config,omitempty"`
+	// Pbkdf2Config: Required additional parameters for PBKDF2 hash keys.
+	Pbkdf2Config PBKDF2Config `json:"pbkdf_2_config,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
 	// details.
@@ -169,6 +171,16 @@ type MigrateParams struct {
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name users.Name `json:"name,omitempty"`
+}
+
+// PBKDF2Config:
+type PBKDF2Config struct {
+	// Salt: The salt value, which should be in a base64 encoded string form.
+	Salt string `json:"salt,omitempty"`
+	// IterationAmount: The iteration amount.
+	IterationAmount int32 `json:"iteration_amount,omitempty"`
+	// KeyLength: The key length, also known as the hash length.
+	KeyLength int32 `json:"key_length,omitempty"`
 }
 
 // SHA1Config:
@@ -325,4 +337,5 @@ const (
 	MigrateRequestHashTypeSha1     MigrateRequestHashType = "sha_1"
 	MigrateRequestHashTypeScrypt   MigrateRequestHashType = "scrypt"
 	MigrateRequestHashTypePhpass   MigrateRequestHashType = "phpass"
+	MigrateRequestHashTypePbkdf2   MigrateRequestHashType = "pbkdf_2"
 )

@@ -174,7 +174,7 @@ type Password struct {
 
 // PhoneNumber:
 type PhoneNumber struct {
-	// PhoneID: The unique ID for the phone nunmber.
+	// PhoneID: The unique ID for the phone number.
 	PhoneID string `json:"phone_id,omitempty"`
 	// PhoneNumber: The phone number.
 	PhoneNumber string `json:"phone_number,omitempty"`
@@ -321,7 +321,7 @@ type CreateResponse struct {
 	EmailID string `json:"email_id,omitempty"`
 	// Status: The status of the User. The possible values are `pending` and `active`.
 	Status string `json:"status,omitempty"`
-	// PhoneID: The unique ID for the phone nunmber.
+	// PhoneID: The unique ID for the phone number.
 	PhoneID string `json:"phone_id,omitempty"`
 	// User: The `user` object affected by this API call. See the
 	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.

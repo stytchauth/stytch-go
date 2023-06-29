@@ -75,7 +75,8 @@ type CreateParams struct {
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
 	//
-	//     Common domains such as `gmail.com` are not allowed. See the for the full list.
+	//     Common domains such as `gmail.com` are not allowed. See the
+	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:

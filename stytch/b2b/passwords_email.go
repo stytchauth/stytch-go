@@ -34,8 +34,8 @@ func NewPasswordsEmailClient(c *stytch.Client) *PasswordsEmailClient {
 // if the strength score is >= 3. If you're using
 // [LUDS](https://stytch.com/docs/passwords#strength-requirements), your passwords are
 // considered valid if they meet the requirements that you've set with Stytch.
-// Reach out to [support@stytch.com](mailto:support@stytch.com?subject=Password%20strength%20configuration)
-// if you'd like to change your password strength configuration.
+// You may update your password strength configuration in the
+// [stytch dashboard](https://stytch.com/dashboard/password-strength-config).
 func (c *PasswordsEmailClient) ResetStart(
 	ctx context.Context,
 	body *email.ResetStartParams,

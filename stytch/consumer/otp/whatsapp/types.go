@@ -78,7 +78,7 @@ type LoginOrCreateResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// PhoneID: The unique ID for the phone nunmber.
+	// PhoneID: The unique ID for the phone number.
 	PhoneID string `json:"phone_id,omitempty"`
 	// UserCreated: In `login_or_create` endpoints, this field indicates whether or not a User was just created.
 	UserCreated bool `json:"user_created,omitempty"`
@@ -96,7 +96,7 @@ type SendResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// PhoneID: The unique ID for the phone nunmber.
+	// PhoneID: The unique ID for the phone number.
 	PhoneID string `json:"phone_id,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

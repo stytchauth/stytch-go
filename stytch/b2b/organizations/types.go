@@ -42,7 +42,8 @@ type CreateParams struct {
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
 	//
-	//     Common domains such as `gmail.com` are not allowed. See the for the full list.
+	//     Common domains such as `gmail.com` are not allowed. See the
+	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
@@ -132,12 +133,23 @@ type Member struct {
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 }
+
+// OAuthRegistration:
 type OAuthRegistration struct {
-	ProviderType              string `json:"provider_type,omitempty"`
-	ProviderSubject           string `json:"provider_subject,omitempty"`
+	// ProviderType: Denotes the OAuth identity provider that the user has authenticated with, e.g. Google,
+	// Microsoft, GitHub etc.
+	ProviderType string `json:"provider_type,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
+	ProviderSubject string `json:"provider_subject,omitempty"`
+	// MemberOauthRegistrationID: The unique ID of an OAuth registration.
 	MemberOauthRegistrationID string `json:"member_oauth_registration_id,omitempty"`
-	ProfilePictureURL         string `json:"profile_picture_url,omitempty"`
-	Locale                    string `json:"locale,omitempty"`
+	// ProfilePictureURL: If available, the `profile_picture_url` is a url of the User's profile picture set in
+	// OAuth identity the provider that the User has authenticated with, e.g. Google profile picture.
+	ProfilePictureURL string `json:"profile_picture_url,omitempty"`
+	// Locale: If available, the `locale` is the Member's locale set in the OAuth identity provider that the
+	// user has authenticated with.
+	Locale string `json:"locale,omitempty"`
 }
 
 // Organization:
@@ -176,7 +188,8 @@ type Organization struct {
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
 	//
-	//     Common domains such as `gmail.com` are not allowed. See the for the full list.
+	//     Common domains such as `gmail.com` are not allowed. See the
+	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
@@ -233,9 +246,9 @@ type ResultsMetadata struct {
 type SSORegistration struct {
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
 	ConnectionID string `json:"connection_id,omitempty"`
-	// ExternalID: The id given by the identity provider.
+	// ExternalID: The ID of the member given by the identity provider.
 	ExternalID string `json:"external_id,omitempty"`
-	// RegistrationID: The id that registers an SSO connection to a Member upon successful authentication.
+	// RegistrationID: The unique ID of an SSO Registration.
 	RegistrationID string `json:"registration_id,omitempty"`
 	// SsoAttributes: An object for storing SSO attributes brought over from the identity provider.
 	SsoAttributes map[string]any `json:"sso_attributes,omitempty"`
@@ -311,7 +324,8 @@ type UpdateParams struct {
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
 	//
-	//     Common domains such as `gmail.com` are not allowed. See the for the full list.
+	//     Common domains such as `gmail.com` are not allowed. See the
+	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
