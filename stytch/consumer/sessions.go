@@ -84,6 +84,67 @@ func (c *SessionsClient) Authenticate(
 	return &retVal, err
 }
 
+// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
+// ExampleClient_AuthenticateWithClaims_struct for examples
+func (c *SessionsClient) AuthenticateWithClaims(
+	ctx context.Context,
+	body *sessions.AuthenticateParams,
+	claims any,
+) (*sessions.AuthenticateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	b, err := c.C.RawRequest(
+		ctx,
+		"POST",
+		"/v1/sessions/authenticate",
+		nil,
+		jsonBody,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	// First extract the Stytch data.
+	var retVal sessions.AuthenticateResponse
+	if err := json.Unmarshal(b, &retVal); err != nil {
+		return nil, fmt.Errorf("unmarshal sessions.AuthenticateResponse: %w", err)
+	}
+
+	if claims == nil {
+		return &retVal, nil
+	}
+
+	if m, ok := claims.(*map[string]any); ok {
+		*m = retVal.Session.CustomClaims
+		return &retVal, nil
+	}
+
+	// This is where we need to convert claims into a claimsMap
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		Result:  &claims,
+		TagName: "json",
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = decoder.Decode(retVal.Session.CustomClaims)
+	if err != nil {
+		return nil, err
+	}
+
+	return &retVal, err
+}
+
 // Revoke a Session, immediately invalidating all of its session tokens. You can revoke a session in three
 // ways: using its ID, or using one of its session tokens, or one of its JWTs. This endpoint requires
 // exactly one of those to be included in the request. It will return an error if multiple are present.
@@ -232,64 +293,6 @@ func marshalJWTIntoSession(claims sessions.Claims) (*sessions.Session, error) {
 		Attributes:            claims.StytchSession.Attributes,
 		AuthenticationFactors: claims.StytchSession.AuthenticationFactors,
 	}, nil
-}
-
-// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
-// Pass in a map with the types of values you're expecting so that this function can marshal
-// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
-// ExampleClient_AuthenticateWithClaims_struct for examples
-func (c *SessionsClient) AuthenticateWithClaims(
-	ctx context.Context,
-	body *sessions.AuthenticateParams,
-	claims any,
-) (*sessions.AuthenticateResponse, error) {
-	path := "/v1/sessions/authenticate"
-
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, stytcherror.NewClientLibraryError("Oops, something seems to have gone wrong " +
-				"marshalling the /sessions/authenticate request body")
-		}
-	}
-
-	b, err := c.C.RawRequest(ctx, "POST", path, nil, jsonBody)
-	if err != nil {
-		return nil, err
-	}
-
-	// First extract the Stytch data.
-	var retVal sessions.AuthenticateResponse
-	if err := json.Unmarshal(b, &retVal); err != nil {
-		return nil, fmt.Errorf("unmarshal SessionsAuthenticateResponse: %w", err)
-	}
-
-	if claims == nil {
-		return &retVal, nil
-	}
-
-	if m, ok := claims.(*map[string]any); ok {
-		*m = retVal.Session.CustomClaims
-		return &retVal, nil
-	}
-
-	// This is where we need to convert claims into a claimsMap
-	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		Result:  &claims,
-		TagName: "json",
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	err = decoder.Decode(retVal.Session.CustomClaims)
-	if err != nil {
-		return nil, err
-	}
-
-	return &retVal, err
 }
 
 // ENDMANUAL(AuthenticateJWT)
