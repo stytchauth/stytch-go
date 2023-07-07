@@ -144,7 +144,7 @@ type OAuthRegistration struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 	// MemberOauthRegistrationID: The unique ID of an OAuth registration.
 	MemberOauthRegistrationID string `json:"member_oauth_registration_id,omitempty"`
-	// ProfilePictureURL: If available, the `profile_picture_url` is a url of the User's profile picture set in
+	// ProfilePictureURL: If available, the `profile_picture_url` is a URL of the User's profile picture set in
 	// OAuth identity the provider that the User has authenticated with, e.g. Google profile picture.
 	ProfilePictureURL string `json:"profile_picture_url,omitempty"`
 	// Locale: If available, the `locale` is the Member's locale set in the OAuth identity provider that the
