@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/discovery/intermediatesessions"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/discovery/intermediatesessions"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type DiscoveryIntermediateSessionsClient struct {

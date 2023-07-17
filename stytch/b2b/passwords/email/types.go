@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sessions"
 )
 
 // ResetParams: Request type for `Email.Reset`.

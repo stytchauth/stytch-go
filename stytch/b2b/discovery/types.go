@@ -7,7 +7,7 @@ package discovery
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
 )
 
 // DiscoveredOrganization:
