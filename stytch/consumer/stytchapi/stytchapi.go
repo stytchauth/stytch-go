@@ -10,13 +10,12 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/config"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/config"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer"
 )
 
 type Logger interface {
@@ -24,9 +23,13 @@ type Logger interface {
 }
 
 type API struct {
-	client                *stytch.Client
-	logger                Logger
+	projectID string
+	secret    string
+	baseURI   config.BaseURI
+
+	client                stytch.Client
 	initializationContext context.Context
+	logger                Logger
 
 	Users         *consumer.UsersClient
 	Sessions      *consumer.SessionsClient
@@ -45,10 +48,26 @@ func WithLogger(logger Logger) Option {
 	return func(api *API) { api.logger = logger }
 }
 
-// WithHTTPClient overrides the HTTP client used by the API client. The default value is
-// &http.Client{}.
+// WithClient overrides the stytch.Client used by the API client. This is useful for completely mocking out requests by
+// using something like GoMock against the stytch.Client interface to customize the responses you receive from API
+// methods.
+//
+// NOTE: You should not use this in conjunction with WithHTTPClient or WithBaseURI since the latter two assume usage of
+// the default stytch.DefaultClient and this method completely overrides it to use anything conforming to the interface.
+func WithClient(client stytch.Client) Option {
+	return func(api *API) { api.client = client }
+}
+
+// WithHTTPClient overrides the HTTP client used by the API client. The default value is &http.Client{}.
+//
+// NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
+// stytch.Client with one that may not be a stytch.DefaultClient.
 func WithHTTPClient(client *http.Client) Option {
-	return func(api *API) { api.client.HTTPClient = client }
+	return func(api *API) {
+		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
+			defaultClient.HTTPClient = client
+		}
+	}
 }
 
 // WithBaseURI overrides the client base URI determined by the environment.
@@ -56,8 +75,16 @@ func WithHTTPClient(client *http.Client) Option {
 // The value derived from stytch.EnvLive or stytch.EnvTest is already correct for production use
 // in the Live or Test environment, respectively. This is implemented to make it easier to use
 // this client to access internal development versions of the API.
+//
+// NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
+// stytch.Client with one that may not be a stytch.DefaultClient.
 func WithBaseURI(uri string) Option {
-	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
+	return func(api *API) {
+		api.baseURI = config.BaseURI(uri)
+		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
+			defaultClient.Config.BaseURI = config.BaseURI(uri)
+		}
+	}
 }
 
 // WithInitializationContext overrides the context used during initialization.
@@ -76,15 +103,13 @@ func WithInitializationContext(ctx context.Context) Option {
 // to override this behavior, but the intention is to provide a simpler interface for creating a client since it's
 // extremely rare that developers would want to use something other than the detected environment.
 func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
-	var detectedEnv config.Env
-	if strings.HasPrefix(projectID, "project-live-") {
-		detectedEnv = config.EnvLive
-	} else {
-		detectedEnv = config.EnvTest
-	}
-
+	defaultClient := stytch.New(projectID, secret)
 	a := &API{
-		client:                stytch.New(detectedEnv, projectID, secret),
+		projectID: projectID,
+		secret:    secret,
+		baseURI:   defaultClient.Config.BaseURI,
+
+		client:                defaultClient,
 		initializationContext: context.Background(),
 	}
 	for _, o := range opts {
@@ -101,7 +126,11 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
 	// Set up JWKS for local session authentication
-	jwks, err := a.instantiateJWKSClient(a.initializationContext, a.client)
+	httpClient := defaultClient.HTTPClient
+	if realClient, ok := a.client.(*stytch.DefaultClient); ok {
+		httpClient = realClient.HTTPClient
+	}
+	jwks, err := a.instantiateJWKSClient(httpClient)
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
@@ -110,14 +139,14 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	return a, nil
 }
 
-func (a *API) instantiateJWKSClient(ctx context.Context, client *stytch.Client) (*keyfunc.JWKS, error) {
+func (a *API) instantiateJWKSClient(httpClient *http.Client) (*keyfunc.JWKS, error) {
 	// The context given in the keyfunc Options applies throughout the lifetime of the JWKS
 	// fetcher. The context we were given here is _only_ for init, so we arrange to cancel the
 	// JWKS context manually if we couldn't start in time.
-	jwksCtx, jwksCancel := context.WithCancel(ctx)
+	jwksCtx, jwksCancel := context.WithCancel(a.initializationContext)
 
 	jwkOptions := keyfunc.Options{
-		Client: client.HTTPClient,
+		Client: httpClient,
 
 		// This is the context for ongoing background JWKS fetches. If the keyfunc starts in time,
 		// it should run until API.Close is called.
@@ -134,9 +163,7 @@ func (a *API) instantiateJWKSClient(ctx context.Context, client *stytch.Client) 
 		RefreshUnknownKID: true,
 	}
 
-	baseURI := client.Config.GetBaseURI()
-	projectID := client.Config.BasicAuthProjectID()
-	jwksURL := fmt.Sprintf("%s/v1/sessions/jwks/%s", baseURI, projectID)
+	jwksURL := fmt.Sprintf("%s/v1/sessions/jwks/%s", a.baseURI, a.projectID)
 
 	type Res struct {
 		jwks *keyfunc.JWKS
@@ -149,10 +176,10 @@ func (a *API) instantiateJWKSClient(ctx context.Context, client *stytch.Client) 
 	}()
 
 	select {
-	case <-ctx.Done():
+	case <-a.initializationContext.Done():
 		// Couldn't start in time, clean up the JWKS.
 		jwksCancel()
-		return nil, ctx.Err()
+		return nil, a.initializationContext.Err()
 	case res := <-res:
 		// JWKS setup finished first, _do not_ cancel its context. Let it continue fetching in the
 		// background.

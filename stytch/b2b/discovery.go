@@ -7,16 +7,16 @@ package b2b
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v8/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch"
 )
 
 type DiscoveryClient struct {
-	C                    *stytch.Client
+	C                    stytch.Client
 	IntermediateSessions *DiscoveryIntermediateSessionsClient
 	Organizations        *DiscoveryOrganizationsClient
 }
 
-func NewDiscoveryClient(c *stytch.Client) *DiscoveryClient {
+func NewDiscoveryClient(c stytch.Client) *DiscoveryClient {
 	return &DiscoveryClient{
 		C:                    c,
 		IntermediateSessions: NewDiscoveryIntermediateSessionsClient(c),

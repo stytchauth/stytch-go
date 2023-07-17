@@ -9,8 +9,8 @@ package sessions
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
 )
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.

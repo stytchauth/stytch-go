@@ -12,16 +12,16 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/totps"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/totps"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type TOTPsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewTOTPsClient(c *stytch.Client) *TOTPsClient {
+func NewTOTPsClient(c stytch.Client) *TOTPsClient {
 	return &TOTPsClient{
 		C: c,
 	}

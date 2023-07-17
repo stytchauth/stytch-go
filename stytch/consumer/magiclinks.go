@@ -12,17 +12,17 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type MagicLinksClient struct {
-	C     *stytch.Client
+	C     stytch.Client
 	Email *MagicLinksEmailClient
 }
 
-func NewMagicLinksClient(c *stytch.Client) *MagicLinksClient {
+func NewMagicLinksClient(c stytch.Client) *MagicLinksClient {
 	return &MagicLinksClient{
 		C:     c,
 		Email: NewMagicLinksEmailClient(c),

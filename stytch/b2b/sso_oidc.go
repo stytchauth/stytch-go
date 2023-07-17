@@ -11,16 +11,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/oidc"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/oidc"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type SSOOIDCClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewSSOOIDCClient(c *stytch.Client) *SSOOIDCClient {
+func NewSSOOIDCClient(c stytch.Client) *SSOOIDCClient {
 	return &SSOOIDCClient{
 		C: c,
 	}

@@ -15,17 +15,17 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type SessionsClient struct {
-	C    *stytch.Client
+	C    stytch.Client
 	JWKS *keyfunc.JWKS
 }
 
-func NewSessionsClient(c *stytch.Client) *SessionsClient {
+func NewSessionsClient(c stytch.Client) *SessionsClient {
 	return &SessionsClient{
 		C: c,
 	}
@@ -243,8 +243,8 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 ) (*sessions.Session, error) {
 	var claims sessions.Claims
 
-	aud := c.C.Config.BasicAuthProjectID()
-	iss := fmt.Sprintf("stytch.com/%s", c.C.Config.BasicAuthProjectID())
+	aud := c.C.GetConfig().ProjectID
+	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
 
 	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
 	if err != nil {

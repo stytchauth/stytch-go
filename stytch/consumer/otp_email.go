@@ -10,16 +10,16 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/otp/email"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/otp/email"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type OTPsEmailClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewOTPsEmailClient(c *stytch.Client) *OTPsEmailClient {
+func NewOTPsEmailClient(c stytch.Client) *OTPsEmailClient {
 	return &OTPsEmailClient{
 		C: c,
 	}

@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v8/stytch/config"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch/config"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 const (
@@ -19,18 +19,31 @@ const (
 	EnvLive = config.EnvLive
 )
 
-type Client struct {
+type Client interface {
+	NewRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, v interface{}) error
+	RawRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte) ([]byte, error)
+	GetConfig() *config.Config
+}
+
+type DefaultClient struct {
 	Config     *config.Config
 	HTTPClient *http.Client
 }
 
-func New(env config.Env, projectID string, secret string) *Client {
-	stytchClient := new(Client)
+func New(projectID string, secret string) *DefaultClient {
+	var detectedEnv config.Env
+	if strings.HasPrefix(projectID, "project-live-") {
+		detectedEnv = config.EnvLive
+	} else {
+		detectedEnv = config.EnvTest
+	}
+
+	stytchClient := new(DefaultClient)
 	stytchClient.Config = config.New()
 
 	stytchClient.Config.SetBasicAuthProjectID(projectID)
 	stytchClient.Config.SetBasicAuthSecret(secret)
-	stytchClient.Config.SetEnv(env)
+	stytchClient.Config.SetEnv(detectedEnv)
 
 	stytchClient.HTTPClient = &http.Client{}
 
@@ -38,7 +51,7 @@ func New(env config.Env, projectID string, secret string) *Client {
 }
 
 // newRequest is used by Call to generate and Do a http.Request
-func (c *Client) NewRequest(
+func (c *DefaultClient) NewRequest(
 	ctx context.Context,
 	method string,
 	path string,
@@ -60,7 +73,7 @@ func (c *Client) NewRequest(
 // is an error, the response body will be parsed and returned as (nil, stytcherror.Error).
 //
 // Prefer using NewRequest (which unmarshals the response JSON) unless you need the actual bytes.
-func (c *Client) RawRequest(
+func (c *DefaultClient) RawRequest(
 	ctx context.Context,
 	method string,
 	path string,
@@ -117,4 +130,8 @@ func (c *Client) RawRequest(
 	}
 	stytchErr.StatusCode = res.StatusCode
 	return nil, stytchErr
+}
+
+func (c *DefaultClient) GetConfig() *config.Config {
+	return c.Config
 }

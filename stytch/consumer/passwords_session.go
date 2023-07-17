@@ -10,16 +10,16 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/passwords/session"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/passwords/session"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type PasswordsSessionsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewPasswordsSessionsClient(c *stytch.Client) *PasswordsSessionsClient {
+func NewPasswordsSessionsClient(c stytch.Client) *PasswordsSessionsClient {
 	return &PasswordsSessionsClient{
 		C: c,
 	}

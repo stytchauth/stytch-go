@@ -9,11 +9,10 @@ package b2bstytchapi
 import (
 	"context"
 	"net/http"
-	"strings"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b"
-	"github.com/stytchauth/stytch-go/v8/stytch/config"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b"
+	"github.com/stytchauth/stytch-go/v9/stytch/config"
 )
 
 type Logger interface {
@@ -21,9 +20,13 @@ type Logger interface {
 }
 
 type API struct {
-	client                *stytch.Client
-	logger                Logger
+	projectID string
+	secret    string
+	baseURI   config.BaseURI
+
+	client                stytch.Client
 	initializationContext context.Context
+	logger                Logger
 
 	Organizations *b2b.OrganizationsClient
 	Sessions      *b2b.SessionsClient
@@ -39,10 +42,26 @@ func WithLogger(logger Logger) Option {
 	return func(api *API) { api.logger = logger }
 }
 
-// WithHTTPClient overrides the HTTP client used by the API client. The default value is
-// &http.Client{}.
+// WithClient overrides the stytch.Client used by the API client. This is useful for completely mocking out requests by
+// using something like GoMock against the stytch.Client interface to customize the responses you receive from API
+// methods.
+//
+// NOTE: You should not use this in conjunction with WithHTTPClient or WithBaseURI since the latter two assume usage of
+// the default stytch.DefaultClient and this method completely overrides it to use anything conforming to the interface.
+func WithClient(client stytch.Client) Option {
+	return func(api *API) { api.client = client }
+}
+
+// WithHTTPClient overrides the HTTP client used by the API client. The default value is &http.Client{}.
+//
+// NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
+// stytch.Client with one that may not be a stytch.DefaultClient.
 func WithHTTPClient(client *http.Client) Option {
-	return func(api *API) { api.client.HTTPClient = client }
+	return func(api *API) {
+		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
+			defaultClient.HTTPClient = client
+		}
+	}
 }
 
 // WithBaseURI overrides the client base URI determined by the environment.
@@ -50,8 +69,16 @@ func WithHTTPClient(client *http.Client) Option {
 // The value derived from stytch.EnvLive or stytch.EnvTest is already correct for production use
 // in the Live or Test environment, respectively. This is implemented to make it easier to use
 // this client to access internal development versions of the API.
+//
+// NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
+// stytch.Client with one that may not be a stytch.DefaultClient.
 func WithBaseURI(uri string) Option {
-	return func(api *API) { api.client.Config.BaseURI = config.BaseURI(uri) }
+	return func(api *API) {
+		api.baseURI = config.BaseURI(uri)
+		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
+			defaultClient.Config.BaseURI = config.BaseURI(uri)
+		}
+	}
 }
 
 // WithInitializationContext overrides the context used during initialization.
@@ -70,15 +97,13 @@ func WithInitializationContext(ctx context.Context) Option {
 // to override this behavior, but the intention is to provide a simpler interface for creating a client since it's
 // extremely rare that developers would want to use something other than the detected environment.
 func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
-	var detectedEnv config.Env
-	if strings.HasPrefix(projectID, "project-live-") {
-		detectedEnv = config.EnvLive
-	} else {
-		detectedEnv = config.EnvTest
-	}
-
+	defaultClient := stytch.New(projectID, secret)
 	a := &API{
-		client:                stytch.New(detectedEnv, projectID, secret),
+		projectID: projectID,
+		secret:    secret,
+		baseURI:   defaultClient.Config.BaseURI,
+
+		client:                defaultClient,
 		initializationContext: context.Background(),
 	}
 	for _, o := range opts {

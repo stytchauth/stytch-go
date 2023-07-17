@@ -11,16 +11,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/organizations/members"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations/members"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type OrganizationsMembersClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewOrganizationsMembersClient(c *stytch.Client) *OrganizationsMembersClient {
+func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient {
 	return &OrganizationsMembersClient{
 		C: c,
 	}

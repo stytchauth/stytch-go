@@ -11,16 +11,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type SessionsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewSessionsClient(c *stytch.Client) *SessionsClient {
+func NewSessionsClient(c stytch.Client) *SessionsClient {
 	return &SessionsClient{
 		C: c,
 	}

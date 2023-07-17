@@ -11,16 +11,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/users"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type UsersClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewUsersClient(c *stytch.Client) *UsersClient {
+func NewUsersClient(c stytch.Client) *UsersClient {
 	return &UsersClient{
 		C: c,
 	}

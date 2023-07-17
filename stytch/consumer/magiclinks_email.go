@@ -10,16 +10,16 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/magiclinks/email"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/magiclinks/email"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type MagicLinksEmailClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewMagicLinksEmailClient(c *stytch.Client) *MagicLinksEmailClient {
+func NewMagicLinksEmailClient(c stytch.Client) *MagicLinksEmailClient {
 	return &MagicLinksEmailClient{
 		C: c,
 	}

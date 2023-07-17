@@ -10,19 +10,19 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/passwords"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/passwords"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type PasswordsClient struct {
-	C                *stytch.Client
+	C                stytch.Client
 	Email            *PasswordsEmailClient
 	Sessions         *PasswordsSessionsClient
 	ExistingPassword *PasswordsExistingPasswordClient
 }
 
-func NewPasswordsClient(c *stytch.Client) *PasswordsClient {
+func NewPasswordsClient(c stytch.Client) *PasswordsClient {
 	return &PasswordsClient{
 		C:                c,
 		Email:            NewPasswordsEmailClient(c),

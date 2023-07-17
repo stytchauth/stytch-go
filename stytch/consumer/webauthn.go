@@ -12,16 +12,16 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/consumer/webauthn"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/webauthn"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type WebAuthnClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewWebAuthnClient(c *stytch.Client) *WebAuthnClient {
+func NewWebAuthnClient(c stytch.Client) *WebAuthnClient {
 	return &WebAuthnClient{
 		C: c,
 	}

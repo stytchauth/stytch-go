@@ -11,16 +11,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/sso/saml"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/saml"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type SSOSAMLClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewSSOSAMLClient(c *stytch.Client) *SSOSAMLClient {
+func NewSSOSAMLClient(c stytch.Client) *SSOSAMLClient {
 	return &SSOSAMLClient{
 		C: c,
 	}

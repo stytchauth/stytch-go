@@ -10,16 +10,16 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v8/stytch"
-	"github.com/stytchauth/stytch-go/v8/stytch/b2b/discovery/organizations"
-	"github.com/stytchauth/stytch-go/v8/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/discovery/organizations"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type DiscoveryOrganizationsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewDiscoveryOrganizationsClient(c *stytch.Client) *DiscoveryOrganizationsClient {
+func NewDiscoveryOrganizationsClient(c stytch.Client) *DiscoveryOrganizationsClient {
 	return &DiscoveryOrganizationsClient{
 		C: c,
 	}
