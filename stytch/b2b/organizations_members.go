@@ -17,10 +17,10 @@ import (
 )
 
 type OrganizationsMembersClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewOrganizationsMembersClient(c *stytch.Client) *OrganizationsMembersClient {
+func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient {
 	return &OrganizationsMembersClient{
 		C: c,
 	}

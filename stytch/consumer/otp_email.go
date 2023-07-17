@@ -16,10 +16,10 @@ import (
 )
 
 type OTPsEmailClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewOTPsEmailClient(c *stytch.Client) *OTPsEmailClient {
+func NewOTPsEmailClient(c stytch.Client) *OTPsEmailClient {
 	return &OTPsEmailClient{
 		C: c,
 	}

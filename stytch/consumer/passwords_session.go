@@ -16,10 +16,10 @@ import (
 )
 
 type PasswordsSessionsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewPasswordsSessionsClient(c *stytch.Client) *PasswordsSessionsClient {
+func NewPasswordsSessionsClient(c stytch.Client) *PasswordsSessionsClient {
 	return &PasswordsSessionsClient{
 		C: c,
 	}

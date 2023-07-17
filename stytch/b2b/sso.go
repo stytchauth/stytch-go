@@ -17,12 +17,12 @@ import (
 )
 
 type SSOClient struct {
-	C    *stytch.Client
+	C    stytch.Client
 	OIDC *SSOOIDCClient
 	SAML *SSOSAMLClient
 }
 
-func NewSSOClient(c *stytch.Client) *SSOClient {
+func NewSSOClient(c stytch.Client) *SSOClient {
 	return &SSOClient{
 		C:    c,
 		OIDC: NewSSOOIDCClient(c),

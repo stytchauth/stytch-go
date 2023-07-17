@@ -18,10 +18,10 @@ import (
 )
 
 type WebAuthnClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewWebAuthnClient(c *stytch.Client) *WebAuthnClient {
+func NewWebAuthnClient(c stytch.Client) *WebAuthnClient {
 	return &WebAuthnClient{
 		C: c,
 	}

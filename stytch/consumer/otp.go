@@ -18,13 +18,13 @@ import (
 )
 
 type OTPsClient struct {
-	C        *stytch.Client
+	C        stytch.Client
 	Sms      *OTPsSmsClient
 	Whatsapp *OTPsWhatsappClient
 	Email    *OTPsEmailClient
 }
 
-func NewOTPsClient(c *stytch.Client) *OTPsClient {
+func NewOTPsClient(c stytch.Client) *OTPsClient {
 	return &OTPsClient{
 		C:        c,
 		Sms:      NewOTPsSmsClient(c),

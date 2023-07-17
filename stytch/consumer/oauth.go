@@ -18,10 +18,10 @@ import (
 )
 
 type OAuthClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewOAuthClient(c *stytch.Client) *OAuthClient {
+func NewOAuthClient(c stytch.Client) *OAuthClient {
 	return &OAuthClient{
 		C: c,
 	}

@@ -16,10 +16,10 @@ import (
 )
 
 type DiscoveryIntermediateSessionsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewDiscoveryIntermediateSessionsClient(c *stytch.Client) *DiscoveryIntermediateSessionsClient {
+func NewDiscoveryIntermediateSessionsClient(c stytch.Client) *DiscoveryIntermediateSessionsClient {
 	return &DiscoveryIntermediateSessionsClient{
 		C: c,
 	}

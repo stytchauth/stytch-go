@@ -18,10 +18,10 @@ import (
 )
 
 type TOTPsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewTOTPsClient(c *stytch.Client) *TOTPsClient {
+func NewTOTPsClient(c stytch.Client) *TOTPsClient {
 	return &TOTPsClient{
 		C: c,
 	}

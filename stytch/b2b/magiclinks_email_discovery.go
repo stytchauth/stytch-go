@@ -16,10 +16,10 @@ import (
 )
 
 type MagicLinksEmailDiscoveryClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewMagicLinksEmailDiscoveryClient(c *stytch.Client) *MagicLinksEmailDiscoveryClient {
+func NewMagicLinksEmailDiscoveryClient(c stytch.Client) *MagicLinksEmailDiscoveryClient {
 	return &MagicLinksEmailDiscoveryClient{
 		C: c,
 	}

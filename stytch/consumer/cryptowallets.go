@@ -18,10 +18,10 @@ import (
 )
 
 type CryptoWalletsClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewCryptoWalletsClient(c *stytch.Client) *CryptoWalletsClient {
+func NewCryptoWalletsClient(c stytch.Client) *CryptoWalletsClient {
 	return &CryptoWalletsClient{
 		C: c,
 	}

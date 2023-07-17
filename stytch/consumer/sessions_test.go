@@ -25,7 +25,7 @@ import (
 )
 
 func TestAuthenticateJWTLocal(t *testing.T) {
-	client := &stytch.Client{
+	client := &stytch.DefaultClient{
 		Config: &config.Config{
 			Env:       config.EnvTest,
 			BaseURI:   "https://example.test/v1/",

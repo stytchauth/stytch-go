@@ -17,10 +17,10 @@ import (
 )
 
 type SSOOIDCClient struct {
-	C *stytch.Client
+	C stytch.Client
 }
 
-func NewSSOOIDCClient(c *stytch.Client) *SSOOIDCClient {
+func NewSSOOIDCClient(c stytch.Client) *SSOOIDCClient {
 	return &SSOOIDCClient{
 		C: c,
 	}
