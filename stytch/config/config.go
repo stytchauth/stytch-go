@@ -3,8 +3,8 @@ package config
 type BaseURI string
 
 const (
-	BaseURITest BaseURI = "https://test.stytch.com/v1"
-	BaseURILive BaseURI = "https://api.stytch.com/v1"
+	BaseURITest BaseURI = "https://test.stytch.com"
+	BaseURILive BaseURI = "https://api.stytch.com"
 )
 
 type Env string
