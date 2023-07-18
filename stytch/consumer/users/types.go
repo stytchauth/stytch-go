@@ -85,8 +85,8 @@ type DeleteEmailParams struct {
 
 // DeleteOAuthRegistrationParams: Request type for `Users.DeleteOAuthRegistration`.
 type DeleteOAuthRegistrationParams struct {
-	// OauthUserRegistrationID: The `oauth_user_registration_id` to be deleted.
-	OauthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
+	// OAuthUserRegistrationID: The `oauth_user_registration_id` to be deleted.
+	OAuthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
 }
 
 // DeleteParams: Request type for `Users.Delete`.
@@ -109,14 +109,14 @@ type DeletePhoneNumberParams struct {
 
 // DeleteTOTPParams: Request type for `Users.DeleteTOTP`.
 type DeleteTOTPParams struct {
-	// TotpID: The `totp_id` to be deleted.
-	TotpID string `json:"totp_id,omitempty"`
+	// TOTPId: The `totp_id` to be deleted.
+	TOTPId string `json:"totp_id,omitempty"`
 }
 
 // DeleteWebAuthnRegistrationParams: Request type for `Users.DeleteWebAuthnRegistration`.
 type DeleteWebAuthnRegistrationParams struct {
-	// WebauthnRegistrationID: The `webauthn_registration_id` to be deleted.
-	WebauthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	// WebAuthnRegistrationID: The `webauthn_registration_id` to be deleted.
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 }
 
 // Email:
@@ -160,8 +160,8 @@ type OAuthProvider struct {
 	// Locale: If available, the `locale` is the User's locale set in the OAuth identity provider that the user
 	// has authenticated with.
 	Locale string `json:"locale,omitempty"`
-	// OauthUserRegistrationID: The unique ID for an OAuth registration.
-	OauthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
+	// OAuthUserRegistrationID: The unique ID for an OAuth registration.
+	OAuthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
 }
 
 // Password:
@@ -226,8 +226,8 @@ type SearchUsersQuery struct {
 
 // TOTP:
 type TOTP struct {
-	// TotpID: The unique ID for a TOTP instance.
-	TotpID string `json:"totp_id,omitempty"`
+	// TOTPId: The unique ID for a TOTP instance.
+	TOTPId string `json:"totp_id,omitempty"`
 	// Verified: The verified boolean denotes whether or not this send method, e.g. phone number, email
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`
@@ -262,13 +262,13 @@ type User struct {
 	Status string `json:"status,omitempty"`
 	// PhoneNumbers: An array of phone number objects linked to the User.
 	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
-	// WebauthnRegistrations: An array that contains a list of all WebAuthn registrations for a given User in
+	// WebAuthnRegistrations: An array that contains a list of all WebAuthn registrations for a given User in
 	// the Stytch API.
-	WebauthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
+	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	// Providers: An array of OAuth `provider` objects linked to the User.
 	Providers []OAuthProvider `json:"providers,omitempty"`
-	// Totps: An array containing a list of all TOTP instances for a given User in the Stytch API.
-	Totps []TOTP `json:"totps,omitempty"`
+	// TOTPs: An array containing a list of all TOTP instances for a given User in the Stytch API.
+	TOTPs []TOTP `json:"totps,omitempty"`
 	// CryptoWallets: An array contains a list of all crypto wallets for a given User in the Stytch API.
 	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
 	// BiometricRegistrations: An array that contains a list of all biometric registrations for a given User in
@@ -294,8 +294,8 @@ type User struct {
 
 // WebAuthnRegistration:
 type WebAuthnRegistration struct {
-	// WebauthnRegistrationID: The unique ID for the WebAuthn registration.
-	WebauthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	// WebAuthnRegistrationID: The unique ID for the WebAuthn registration.
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	// Domain: The `domain` on which a WebAuthn registration was started. This will be the domain of your app.
 	Domain string `json:"domain,omitempty"`
 	// UserAgent: The user agent of the User.
@@ -496,13 +496,13 @@ type GetResponse struct {
 	Status string `json:"status,omitempty"`
 	// PhoneNumbers: An array of phone number objects linked to the User.
 	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
-	// WebauthnRegistrations: An array that contains a list of all WebAuthn registrations for a given User in
+	// WebAuthnRegistrations: An array that contains a list of all WebAuthn registrations for a given User in
 	// the Stytch API.
-	WebauthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
+	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	// Providers: An array of OAuth `provider` objects linked to the User.
 	Providers []OAuthProvider `json:"providers,omitempty"`
-	// Totps: An array containing a list of all TOTP instances for a given User in the Stytch API.
-	Totps []TOTP `json:"totps,omitempty"`
+	// TOTPs: An array containing a list of all TOTP instances for a given User in the Stytch API.
+	TOTPs []TOTP `json:"totps,omitempty"`
 	// CryptoWallets: An array contains a list of all crypto wallets for a given User in the Stytch API.
 	CryptoWallets []CryptoWallet `json:"crypto_wallets,omitempty"`
 	// BiometricRegistrations: An array that contains a list of all biometric registrations for a given User in

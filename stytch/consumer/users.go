@@ -188,7 +188,7 @@ func (c *UsersClient) DeleteWebAuthnRegistration(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebauthnRegistrationID),
+		fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebAuthnRegistrationID),
 		nil,
 		nil,
 		&retVal,
@@ -222,7 +222,7 @@ func (c *UsersClient) DeleteTOTP(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/totps/%s", body.TotpID),
+		fmt.Sprintf("/v1/users/totps/%s", body.TOTPId),
 		nil,
 		nil,
 		&retVal,
@@ -273,7 +273,7 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/oauth/%s", body.OauthUserRegistrationID),
+		fmt.Sprintf("/v1/users/oauth/%s", body.OAuthUserRegistrationID),
 		nil,
 		nil,
 		&retVal,

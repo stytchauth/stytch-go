@@ -111,12 +111,12 @@ type MemberSession struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	// AuthenticationFactors: An array of different authentication factors that have initiated a Session.
 	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
-	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
-	// authenticate call.
-	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
+	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
+	// authenticate call.
+	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 }
 
 // RevokeParams: Request type for `Sessions.Revoke`.
