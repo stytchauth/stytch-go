@@ -6,6 +6,13 @@ package m2m
 // or your changes may be overwritten later!
 // !!!
 
+import (
+	"errors"
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
+)
+
 // M2MClient:
 type M2MClient struct {
 	// ClientID: The ID of the client.
@@ -106,3 +113,54 @@ const (
 	M2MSearchQueryOperatorOR  M2MSearchQueryOperator = "OR"
 	M2MSearchQueryOperatorAND M2MSearchQueryOperator = "AND"
 )
+
+// MANUAL(Types)(TYPES)
+// ADDIMPORT: "errors"
+// ADDIMPORT: "time"
+// ADDIMPORT: "github.com/golang-jwt/jwt/v5"
+
+type TokenParams struct {
+	// The ID of the client.
+	ClientID string
+	// The secret of the client.
+	ClientSecret string
+	// An array scopes requested. If omitted, all scopes assigned to the client will be returned.
+	Scopes []string
+}
+
+type TokenResponse struct {
+	// The access token granted to the client. Access tokens are JWTs signed with the project's JWKs.
+	AccessToken string `json:"access_token"`
+	// The lifetime in seconds of the access token.
+	// For example, the value 3600 denotes that the access token will expire in one hour from the time the response was generated.
+	ExpiresIn int `json:"expires_in"`
+	// The type of the returned access token. Today, this value will always be equal to "bearer"
+	TokenType string `json:"token_type"`
+}
+
+var (
+	ErrJWTTooOld    = errors.New("JWT too old")
+	ErrMissingScope = errors.New("missing requested scope")
+)
+
+type AuthenticateTokenParams struct {
+	AccessToken    string
+	RequiredScopes []string
+	MaxTokenAge    time.Duration
+}
+
+type Claims struct {
+	Scope string `json:"scope"`
+	jwt.MapClaims
+}
+
+type AuthenticateTokenResponse struct {
+	// An array of scopes granted to the token holder.
+	Scopes []string
+	// The ID of the client that was issued the token
+	ClientID string
+	// A map of custom claims present in the token
+	CustomClaims map[string]any
+}
+
+// ENDMANUAL(Types)
