@@ -7,12 +7,27 @@ package consumer
 // !!!
 
 import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strings"
+	"time"
+
+	"github.com/MicahParks/keyfunc/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v9/stytch/config"
+	"github.com/stytchauth/stytch-go/v9/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 )
 
 type M2MClient struct {
 	C       stytch.Client
 	Clients *M2MClientsClient
+	JWKS    *keyfunc.JWKS
 }
 
 func NewM2MClient(c stytch.Client) *M2MClient {
@@ -21,3 +36,152 @@ func NewM2MClient(c stytch.Client) *M2MClient {
 		Clients: NewM2MClientsClient(c),
 	}
 }
+
+// MANUAL(Token)(SERVICE_METHOD)
+// ADDIMPORT: "context"
+// ADDIMPORT: "fmt"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v9/stytch/config"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v9/stytch/consumer/m2m"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
+// ADDIMPORT: "io"
+// ADDIMPORT: "net/http"
+// ADDIMPORT: "net/url"
+// ADDIMPORT: "strings"
+// ADDIMPORT: "time"
+
+// Token retrieves an access token for the given M2M Client.
+// Access tokens are JWTs signed with the project's JWKs, and are valid for one hour after issuance.
+// M2M Access tokens contain a standard set of claims as well as any custom claims generated from templates.
+func (c *M2MClient) Token(
+	ctx context.Context,
+	body *m2m.TokenParams,
+) (*m2m.TokenResponse, error) {
+	cfg := c.C.GetConfig()
+	client := c.C.GetHTTPClient()
+	path := string(cfg.BaseURI) + "/v1/public/" + cfg.ProjectID + "/oauth2/token"
+
+	data := url.Values{}
+	data.Add("grant_type", "client_credentials")
+	data.Add("client_id", body.ClientID)
+	data.Add("client_secret", body.ClientSecret)
+	if len(body.Scopes) > 0 {
+		data.Add("scope", strings.Join(body.Scopes, " "))
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", path, strings.NewReader(data.Encode()))
+	if err != nil {
+		return nil, fmt.Errorf("error creating http request: %w", err)
+	}
+
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("User-Agent", "Stytch Go v"+config.APIVersion)
+
+	res, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending http request: %w", err)
+	}
+	defer func() {
+		res.Body.Close()
+	}()
+
+	bytes, err := io.ReadAll(res.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading http request: %w", err)
+	}
+
+	if res.StatusCode == 200 || res.StatusCode == 201 {
+		var res m2m.TokenResponse
+		if err = json.Unmarshal(bytes, &res); err != nil {
+			return nil, fmt.Errorf("error decoding http request: %w", err)
+		}
+		return &res, nil
+	}
+
+	// Attempt to unmarshal into Stytch error format
+	var stytchErr stytcherror.OAuth2Error
+	if err = json.Unmarshal(bytes, &stytchErr); err != nil {
+		return nil, fmt.Errorf("error decoding http request: %w", err)
+	}
+	stytchErr.StatusCode = res.StatusCode
+	return nil, stytchErr
+}
+
+// ENDMANUAL(Token)
+
+// MANUAL(AuthenticateM2MToken)(SERVICE_METHOD)
+// ADDIMPORT: "encoding/json"
+// ADDIMPORT: "time"
+// ADDIMPORT: "github.com/golang-jwt/jwt/v5"
+// ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
+
+// AuthenticateM2MToken validates a M2M JWT locally
+// It will validate the JWT signature, timestamps, issuer, and audience
+// use m2m.WithRequiredScopes or m2m.WithMaxTokenAge to customize the behavior further
+func (c *M2MClient) AuthenticateM2MToken(
+	token string,
+	options ...m2m.AuthenticateOption,
+) (*m2m.AuthenticateM2MTokenResponse, error) {
+	var opts m2m.AuthenticateOpts
+	for _, op := range options {
+		op(&opts)
+	}
+
+	var claims m2m.Claims
+
+	aud := c.C.GetConfig().ProjectID
+	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
+
+	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+	}
+
+	if opts.MaxTokenAge != 0 {
+		iat, err := claims.GetIssuedAt()
+		if err != nil {
+			return nil, err
+		}
+		if iat.Add(opts.MaxTokenAge).Before(time.Now()) {
+			// The JWT is valid, but older than the tolerable maximum age.
+			return nil, m2m.ErrJWTTooOld
+		}
+	}
+
+	for _, want := range opts.Scopes {
+		found := false
+		for _, have := range strings.Split(claims.Scope, " ") {
+			if have == want {
+				found = true
+			}
+		}
+		if !found {
+			return nil, fmt.Errorf("%w: scope %s was not found in [%s]", m2m.ErrMissingScope, want, claims.Scope)
+		}
+	}
+
+	return marshalJWTIntoM2MResponse(claims)
+}
+
+func marshalJWTIntoM2MResponse(claims m2m.Claims) (*m2m.AuthenticateM2MTokenResponse, error) {
+	scopes := strings.Split(claims.Scope, " ")
+
+	sub, err := claims.GetSubject()
+	if err != nil {
+		return nil, err
+	}
+
+	customClaims := make(map[string]any)
+	for k, v := range claims.MapClaims {
+		if k != "exp" && k != "nbf" && k != "iat" && k != "aud" && k != "sub" && k != "iss" {
+			customClaims[k] = v
+		}
+	}
+
+	return &m2m.AuthenticateM2MTokenResponse{
+		Scopes:       scopes,
+		ClientID:     sub,
+		CustomClaims: customClaims,
+	}, nil
+}
+
+// ENDMANUAL(AuthenticateM2MToken)
