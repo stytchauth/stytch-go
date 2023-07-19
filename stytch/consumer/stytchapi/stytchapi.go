@@ -34,6 +34,7 @@ type API struct {
 	Users         *consumer.UsersClient
 	Sessions      *consumer.SessionsClient
 	CryptoWallets *consumer.CryptoWalletsClient
+	M2M           *consumer.M2MClient
 	MagicLinks    *consumer.MagicLinksClient
 	Passwords     *consumer.PasswordsClient
 	OAuth         *consumer.OAuthClient
@@ -119,6 +120,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.Users = consumer.NewUsersClient(a.client)
 	a.Sessions = consumer.NewSessionsClient(a.client)
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
+	a.M2M = consumer.NewM2MClient(a.client)
 	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
 	a.Passwords = consumer.NewPasswordsClient(a.client)
 	a.OAuth = consumer.NewOAuthClient(a.client)

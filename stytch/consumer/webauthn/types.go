@@ -81,8 +81,8 @@ type AuthenticateResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// WebauthnRegistrationID: The unique ID for the WebAuthn registration.
-	WebauthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	// WebAuthnRegistrationID: The unique ID for the WebAuthn registration.
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
@@ -126,8 +126,8 @@ type RegisterResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// WebauthnRegistrationID: The unique ID for the WebAuthn registration.
-	WebauthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	// WebAuthnRegistrationID: The unique ID for the WebAuthn registration.
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
