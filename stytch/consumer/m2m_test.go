@@ -2,13 +2,14 @@ package consumer_test
 
 import (
 	"context"
-	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
