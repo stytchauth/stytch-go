@@ -128,22 +128,10 @@ var (
 	ErrMissingScope = errors.New("missing requested scope")
 )
 
-type AuthenticateOpts struct {
-	Scopes      []string
-	MaxTokenAge time.Duration
-}
-type AuthenticateOption func(opts *AuthenticateOpts)
-
-func WithRequiredScopes(scopes ...string) AuthenticateOption {
-	return func(opts *AuthenticateOpts) {
-		opts.Scopes = scopes
-	}
-}
-
-func WithMaxTokenAge(age time.Duration) AuthenticateOption {
-	return func(opts *AuthenticateOpts) {
-		opts.MaxTokenAge = age
-	}
+type AuthenticateTokenParams struct {
+	AccessToken    string
+	RequiredScopes []string
+	MaxTokenAge    time.Duration
 }
 
 type Claims struct {
@@ -151,7 +139,7 @@ type Claims struct {
 	jwt.MapClaims
 }
 
-type AuthenticateM2MTokenResponse struct {
+type AuthenticateTokenResponse struct {
 	// An array of scopes granted to the token holder.
 	Scopes []string
 	// The ID of the client that was issued the token

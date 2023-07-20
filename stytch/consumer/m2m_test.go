@@ -92,7 +92,7 @@ func TestM2MClient_Token(t *testing.T) {
 	})
 }
 
-func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
+func TestM2MClient_AuthenticateToken(t *testing.T) {
 	client := &stytch.DefaultClient{
 		Config: &config.Config{
 			Env:       config.EnvTest,
@@ -121,7 +121,9 @@ func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
 		claims := sandboxM2MClaims(t, iat, exp, "read:users")
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := m2mClient.AuthenticateM2MToken(token)
+		s, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken: token,
+		})
 		assert.ErrorIs(t, err, jwt.ErrTokenExpired)
 		assert.Nil(t, s)
 	})
@@ -133,7 +135,10 @@ func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
 		claims := sandboxM2MClaims(t, iat, exp, "read:users")
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := m2mClient.AuthenticateM2MToken(token, m2m.WithMaxTokenAge(time.Minute))
+		s, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken: token,
+			MaxTokenAge: time.Minute,
+		})
 		assert.ErrorIs(t, err, m2m.ErrJWTTooOld)
 		assert.Nil(t, s)
 	})
@@ -147,7 +152,9 @@ func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
 
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := m2mClient.AuthenticateM2MToken(token)
+		s, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken: token,
+		})
 		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
 		assert.Nil(t, s)
 	})
@@ -161,7 +168,9 @@ func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
 
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := m2mClient.AuthenticateM2MToken(token)
+		s, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken: token,
+		})
 		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
 		assert.Nil(t, s)
 	})
@@ -174,7 +183,10 @@ func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
 
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := m2mClient.AuthenticateM2MToken(token, m2m.WithRequiredScopes("write:users"))
+		s, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken:    token,
+			RequiredScopes: []string{"write:users"},
+		})
 		assert.ErrorIs(t, err, m2m.ErrMissingScope)
 		assert.Nil(t, s)
 	})
@@ -187,10 +199,13 @@ func TestM2MClient_AuthenticateM2MToken(t *testing.T) {
 
 		token := signJWT(t, keyID, key, claims)
 
-		tok, err := m2mClient.AuthenticateM2MToken(token, m2m.WithRequiredScopes("write:penguins", "read:books"))
+		tok, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken:    token,
+			RequiredScopes: []string{"write:penguins", "read:books"},
+		})
 		require.NoError(t, err)
 
-		expected := &m2m.AuthenticateM2MTokenResponse{
+		expected := &m2m.AuthenticateTokenResponse{
 			Scopes:   []string{"read:users", "read:books", "write:penguins"},
 			ClientID: "m2m-client-live-63532f0c-b600-425b-a5b5-3a42ead94a8e",
 			CustomClaims: map[string]any{

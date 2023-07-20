@@ -114,40 +114,33 @@ func (c *M2MClient) Token(
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
 
-// AuthenticateM2MToken validates a M2M JWT locally
-// It will validate the JWT signature, timestamps, issuer, and audience
-// use m2m.WithRequiredScopes or m2m.WithMaxTokenAge to customize the behavior further
-func (c *M2MClient) AuthenticateM2MToken(
-	token string,
-	options ...m2m.AuthenticateOption,
-) (*m2m.AuthenticateM2MTokenResponse, error) {
-	var opts m2m.AuthenticateOpts
-	for _, op := range options {
-		op(&opts)
-	}
-
+// AuthenticateToken validates a M2M JWT locally
+func (c *M2MClient) AuthenticateToken(
+	ctx context.Context,
+	req *m2m.AuthenticateTokenParams,
+) (*m2m.AuthenticateTokenResponse, error) {
 	var claims m2m.Claims
 
 	aud := c.C.GetConfig().ProjectID
 	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
 
-	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	_, err := jwt.ParseWithClaims(req.AccessToken, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse JWT: %w", err)
 	}
 
-	if opts.MaxTokenAge != 0 {
+	if req.MaxTokenAge != 0 {
 		iat, err := claims.GetIssuedAt()
 		if err != nil {
 			return nil, err
 		}
-		if iat.Add(opts.MaxTokenAge).Before(time.Now()) {
+		if iat.Add(req.MaxTokenAge).Before(time.Now()) {
 			// The JWT is valid, but older than the tolerable maximum age.
 			return nil, m2m.ErrJWTTooOld
 		}
 	}
 
-	for _, want := range opts.Scopes {
+	for _, want := range req.RequiredScopes {
 		found := false
 		for _, have := range strings.Split(claims.Scope, " ") {
 			if have == want {
@@ -159,10 +152,10 @@ func (c *M2MClient) AuthenticateM2MToken(
 		}
 	}
 
-	return marshalJWTIntoM2MResponse(claims)
+	return marshalJWTIntoResponse(claims)
 }
 
-func marshalJWTIntoM2MResponse(claims m2m.Claims) (*m2m.AuthenticateM2MTokenResponse, error) {
+func marshalJWTIntoResponse(claims m2m.Claims) (*m2m.AuthenticateTokenResponse, error) {
 	scopes := strings.Split(claims.Scope, " ")
 
 	sub, err := claims.GetSubject()
@@ -177,7 +170,7 @@ func marshalJWTIntoM2MResponse(claims m2m.Claims) (*m2m.AuthenticateM2MTokenResp
 		}
 	}
 
-	return &m2m.AuthenticateM2MTokenResponse{
+	return &m2m.AuthenticateTokenResponse{
 		Scopes:       scopes,
 		ClientID:     sub,
 		CustomClaims: customClaims,
