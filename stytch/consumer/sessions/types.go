@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
 )
 
 type AmazonOAuthFactor struct {
@@ -86,9 +86,10 @@ type AuthenticationFactor struct {
 	SAMLSSOFactor             SAMLSSOFactor                      `json:"saml_sso_factor,omitempty"`
 	OIDCSSOFactor             OIDCSSOFactor                      `json:"oidc_sso_factor,omitempty"`
 	SalesforceOAuthFactor     SalesforceOAuthFactor              `json:"salesforce_oauth_factor,omitempty"`
+	YahooOAuthFactor          YahooOAuthFactor                   `json:"yahoo_oauth_factor,omitempty"`
 }
 type AuthenticatorAppFactor struct {
-	TOTPId string `json:"totp_id,omitempty"`
+	TOTPID string `json:"totp_id,omitempty"`
 }
 type BiometricFactor struct {
 	BiometricRegistrationID string `json:"biometric_registration_id,omitempty"`
@@ -284,6 +285,11 @@ type WebAuthnFactor struct {
 	Domain                 string `json:"domain,omitempty"`
 	UserAgent              string `json:"user_agent,omitempty"`
 }
+type YahooOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.
 type AuthenticateResponse struct {
@@ -387,6 +393,7 @@ const (
 	AuthenticationFactorDeliveryMethodSSOSAML              AuthenticationFactorDeliveryMethod = "sso_saml"
 	AuthenticationFactorDeliveryMethodSSOOIDC              AuthenticationFactorDeliveryMethod = "sso_oidc"
 	AuthenticationFactorDeliveryMethodOAuthSalesforce      AuthenticationFactorDeliveryMethod = "oauth_salesforce"
+	AuthenticationFactorDeliveryMethodOAuthYahoo           AuthenticationFactorDeliveryMethod = "oauth_yahoo"
 )
 
 type AuthenticationFactorType string

@@ -7,8 +7,8 @@ package totps
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.
@@ -95,8 +95,8 @@ type RecoveryCodesParams struct {
 
 // TOTP:
 type TOTP struct {
-	// TOTPId: The unique ID for a TOTP instance.
-	TOTPId string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// Verified: The verified boolean denotes whether or not this send method, e.g. phone number, email
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`
@@ -114,8 +114,8 @@ type AuthenticateResponse struct {
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
-	// TOTPId: The unique ID for a TOTP instance.
-	TOTPId string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// User: The `user` object affected by this API call. See the
@@ -139,8 +139,8 @@ type CreateResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// TOTPId: The unique ID for a TOTP instance.
-	TOTPId string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// Secret: The TOTP secret key shared between the authenticator app and the server used to generate TOTP
 	// codes.
 	Secret string `json:"secret,omitempty"`
@@ -165,8 +165,8 @@ type RecoverResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// TOTPId: The unique ID for a TOTP instance.
-	TOTPId string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.

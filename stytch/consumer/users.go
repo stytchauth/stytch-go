@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
-	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
 )
 
 type UsersClient struct {
@@ -222,7 +222,7 @@ func (c *UsersClient) DeleteTOTP(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/totps/%s", body.TOTPId),
+		fmt.Sprintf("/v1/users/totps/%s", body.TOTPID),
 		nil,
 		nil,
 		&retVal,

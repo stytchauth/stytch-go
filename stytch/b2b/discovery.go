@@ -7,7 +7,7 @@ package b2b
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch"
 )
 
 type DiscoveryClient struct {

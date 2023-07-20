@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations/members"
-	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations/members"
+	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
 )
 
 type OrganizationsMembersClient struct {
@@ -62,6 +62,22 @@ func (c *OrganizationsMembersClient) Delete(
 		ctx,
 		"DELETE",
 		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s", body.OrganizationID, body.MemberID),
+		nil,
+		nil,
+		&retVal,
+	)
+	return &retVal, err
+}
+
+func (c *OrganizationsMembersClient) DeletePhoneNumber(
+	ctx context.Context,
+	body *members.DeletePhoneNumberParams,
+) (*members.DeletePhoneNumberResponse, error) {
+	var retVal members.DeletePhoneNumberResponse
+	err := c.C.NewRequest(
+		ctx,
+		"DELETE",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/phone_numbers/%s", body.OrganizationID, body.MemberID),
 		nil,
 		nil,
 		&retVal,

@@ -9,8 +9,8 @@ package sessions
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
 )
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
@@ -75,7 +75,8 @@ type ExchangeParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any        `json:"session_custom_claims,omitempty"`
+	Locale              ExchangeRequestLocale `json:"locale,omitempty"`
 }
 
 // GetJWKSParams: Request type for `Sessions.GetJWKS`.
@@ -111,12 +112,12 @@ type MemberSession struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	// AuthenticationFactors: An array of different authentication factors that have initiated a Session.
 	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
-	OrganizationID string `json:"organization_id,omitempty"`
 	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
 	// authenticate call.
 	CustomClaims map[string]any `json:"custom_claims,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
 }
 
 // RevokeParams: Request type for `Sessions.Revoke`.
@@ -218,3 +219,11 @@ type RevokeResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type ExchangeRequestLocale string
+
+const (
+	ExchangeRequestLocaleEn   ExchangeRequestLocale = "en"
+	ExchangeRequestLocaleEs   ExchangeRequestLocale = "es"
+	ExchangeRequestLocalePtbr ExchangeRequestLocale = "pt-br"
+)

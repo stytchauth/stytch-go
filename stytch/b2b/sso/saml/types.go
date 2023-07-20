@@ -7,7 +7,7 @@ package saml
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sso"
 )
 
 // CreateConnectionParams: Request type for `SAML.CreateConnection`.

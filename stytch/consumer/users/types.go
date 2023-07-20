@@ -9,7 +9,7 @@ package users
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
 )
 
 // BiometricRegistration:
@@ -109,8 +109,8 @@ type DeletePhoneNumberParams struct {
 
 // DeleteTOTPParams: Request type for `Users.DeleteTOTP`.
 type DeleteTOTPParams struct {
-	// TOTPId: The `totp_id` to be deleted.
-	TOTPId string `json:"totp_id,omitempty"`
+	// TOTPID: The `totp_id` to be deleted.
+	TOTPID string `json:"totp_id,omitempty"`
 }
 
 // DeleteWebAuthnRegistrationParams: Request type for `Users.DeleteWebAuthnRegistration`.
@@ -226,8 +226,8 @@ type SearchUsersQuery struct {
 
 // TOTP:
 type TOTP struct {
-	// TOTPId: The unique ID for a TOTP instance.
-	TOTPId string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// Verified: The verified boolean denotes whether or not this send method, e.g. phone number, email
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`

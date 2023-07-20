@@ -9,8 +9,8 @@ package sso
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.
@@ -46,7 +46,8 @@ type AuthenticateParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any            `json:"session_custom_claims,omitempty"`
+	Locale              AuthenticateRequestLocale `json:"locale,omitempty"`
 }
 
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
@@ -161,3 +162,11 @@ type GetConnectionsResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type AuthenticateRequestLocale string
+
+const (
+	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
+	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
+	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+)

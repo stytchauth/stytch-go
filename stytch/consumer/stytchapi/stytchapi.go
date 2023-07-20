@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/config"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/config"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer"
 )
 
 type Logger interface {
@@ -31,14 +31,14 @@ type API struct {
 	initializationContext context.Context
 	logger                Logger
 
-	Users         *consumer.UsersClient
-	Sessions      *consumer.SessionsClient
 	CryptoWallets *consumer.CryptoWalletsClient
 	MagicLinks    *consumer.MagicLinksClient
-	Passwords     *consumer.PasswordsClient
 	OAuth         *consumer.OAuthClient
 	OTPs          *consumer.OTPsClient
+	Passwords     *consumer.PasswordsClient
+	Sessions      *consumer.SessionsClient
 	TOTPs         *consumer.TOTPsClient
+	Users         *consumer.UsersClient
 	WebAuthn      *consumer.WebAuthnClient
 }
 
@@ -116,14 +116,14 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		o(a)
 	}
 
-	a.Users = consumer.NewUsersClient(a.client)
-	a.Sessions = consumer.NewSessionsClient(a.client)
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
 	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
-	a.Passwords = consumer.NewPasswordsClient(a.client)
 	a.OAuth = consumer.NewOAuthClient(a.client)
 	a.OTPs = consumer.NewOTPsClient(a.client)
+	a.Passwords = consumer.NewPasswordsClient(a.client)
+	a.Sessions = consumer.NewSessionsClient(a.client)
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
+	a.Users = consumer.NewUsersClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
 	// Set up JWKS for local session authentication
 	httpClient := defaultClient.HTTPClient

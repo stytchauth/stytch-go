@@ -7,9 +7,9 @@ package organizations
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/discovery"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
 )
 
 // CreateParams: Request type for `Organizations.Create`.
@@ -113,6 +113,7 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.

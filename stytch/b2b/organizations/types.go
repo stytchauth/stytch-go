@@ -80,6 +80,7 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -123,6 +124,8 @@ type Member struct {
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 	// OAuthRegistrations: A list of OAuth registrations for this member.
 	OAuthRegistrations []OAuthRegistration `json:"oauth_registrations,omitempty"`
+	MFAEnrolled        bool                `json:"mfa_enrolled,omitempty"`
+	MFAPhoneNumber     string              `json:"mfa_phone_number,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -226,6 +229,7 @@ type Organization struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -362,6 +366,7 @@ type UpdateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 }
 
 // CreateResponse: Response type for `Organizations.Create`.
