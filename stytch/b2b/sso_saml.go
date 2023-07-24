@@ -9,7 +9,6 @@ package b2b
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/stytchauth/stytch-go/v9/stytch"
 	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sso/saml"

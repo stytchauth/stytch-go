@@ -69,6 +69,22 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
+func (c *OrganizationsMembersClient) DeletePhoneNumber(
+	ctx context.Context,
+	body *members.DeletePhoneNumberParams,
+) (*members.DeletePhoneNumberResponse, error) {
+	var retVal members.DeletePhoneNumberResponse
+	err := c.C.NewRequest(
+		ctx,
+		"DELETE",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/phone_numbers/%s", body.OrganizationID, body.MemberID),
+		nil,
+		nil,
+		&retVal,
+	)
+	return &retVal, err
+}
+
 // Search for Members within specified Organizations. An array with at least one `organization_id` is
 // required. Submitting an empty `query` returns all Members within the specified Organizations.
 //

@@ -7,6 +7,7 @@ package discovery
 // !!!
 
 import (
+	"github.com/stytchauth/stytch-go/v9/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
 )
 
@@ -20,7 +21,9 @@ type DiscoveredOrganization struct {
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
 	// Membership: Information about the membership.
-	Membership Membership `json:"membership,omitempty"`
+	Membership      Membership      `json:"membership,omitempty"`
+	PrimaryRequired PrimaryRequired `json:"primary_required,omitempty"`
+	MfaRequired     mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // Membership:
@@ -32,4 +35,7 @@ type Membership struct {
 	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
 	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
+}
+type PrimaryRequired struct {
+	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
 }

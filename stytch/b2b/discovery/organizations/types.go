@@ -59,7 +59,7 @@ type CreateParams struct {
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
-	// SsoJitProvisioning: The authentication setting that controls the JIT provisioning of Members when
+	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
 	//
 	//   `ALL_ALLOWED` – new Members will be automatically provisioned upon successful authentication via any
@@ -70,7 +70,7 @@ type CreateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
-	SsoJitProvisioning string `json:"sso_jit_provisioning,omitempty"`
+	SSOJITProvisioning string `json:"sso_jit_provisioning,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
@@ -78,7 +78,7 @@ type CreateParams struct {
 	//     Common domains such as `gmail.com` are not allowed. See the
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
-	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
+	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
@@ -86,7 +86,7 @@ type CreateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
 	//
-	EmailJitProvisioning string `json:"email_jit_provisioning,omitempty"`
+	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
 	// organization by email. The accepted values are:
 	//
@@ -113,6 +113,7 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MfaPolicy          string   `json:"mfa_policy,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.

@@ -48,9 +48,9 @@ type UpdateConnectionParams struct {
 	// [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format. See our
 	// [X509 guide](https://stytch.com/docs/b2b/api/saml-certificates) for more info.
 	X509Certificate string `json:"x509_certificate,omitempty"`
-	// IdpSsoURL: The URL for which assertions for login requests will be sent. This will be provided by the
+	// IdpSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
 	// IdP.
-	IdpSsoURL string `json:"idp_sso_url,omitempty"`
+	IdpSSOURL string `json:"idp_sso_url,omitempty"`
 }
 
 // CreateConnectionResponse: Response type for `SAML.CreateConnection`.

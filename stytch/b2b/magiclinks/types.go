@@ -52,7 +52,8 @@ type AuthenticateParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any            `json:"session_custom_claims,omitempty"`
+	Locale              AuthenticateRequestLocale `json:"locale,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `MagicLinks.Authenticate`.
@@ -88,3 +89,11 @@ type AuthenticateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type AuthenticateRequestLocale string
+
+const (
+	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
+	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
+	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+)

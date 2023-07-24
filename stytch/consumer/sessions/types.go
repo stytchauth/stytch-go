@@ -7,13 +7,17 @@ package sessions
 // !!!
 
 import (
-	"errors"
-	"strings"
 	"time"
 
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v9/stytch/consumer/attribute"
 	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+)
+
+import (
+	"errors"
+	"strings"
+
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type AmazonOAuthFactor struct {
@@ -56,39 +60,40 @@ type AuthenticationFactor struct {
 	UpdatedAt                 *time.Time                         `json:"updated_at,omitempty"`
 	EmailFactor               EmailFactor                        `json:"email_factor,omitempty"`
 	PhoneNumberFactor         PhoneNumberFactor                  `json:"phone_number_factor,omitempty"`
-	GoogleOauthFactor         GoogleOAuthFactor                  `json:"google_oauth_factor,omitempty"`
-	MicrosoftOauthFactor      MicrosoftOAuthFactor               `json:"microsoft_oauth_factor,omitempty"`
-	AppleOauthFactor          AppleOAuthFactor                   `json:"apple_oauth_factor,omitempty"`
-	WebauthnFactor            WebAuthnFactor                     `json:"webauthn_factor,omitempty"`
+	GoogleOAuthFactor         GoogleOAuthFactor                  `json:"google_oauth_factor,omitempty"`
+	MicrosoftOAuthFactor      MicrosoftOAuthFactor               `json:"microsoft_oauth_factor,omitempty"`
+	AppleOAuthFactor          AppleOAuthFactor                   `json:"apple_oauth_factor,omitempty"`
+	WebAuthnFactor            WebAuthnFactor                     `json:"webauthn_factor,omitempty"`
 	AuthenticatorAppFactor    AuthenticatorAppFactor             `json:"authenticator_app_factor,omitempty"`
-	GithubOauthFactor         GithubOAuthFactor                  `json:"github_oauth_factor,omitempty"`
+	GithubOAuthFactor         GithubOAuthFactor                  `json:"github_oauth_factor,omitempty"`
 	RecoveryCodeFactor        RecoveryCodeFactor                 `json:"recovery_code_factor,omitempty"`
-	FacebookOauthFactor       FacebookOAuthFactor                `json:"facebook_oauth_factor,omitempty"`
+	FacebookOAuthFactor       FacebookOAuthFactor                `json:"facebook_oauth_factor,omitempty"`
 	CryptoWalletFactor        CryptoWalletFactor                 `json:"crypto_wallet_factor,omitempty"`
-	AmazonOauthFactor         AmazonOAuthFactor                  `json:"amazon_oauth_factor,omitempty"`
-	BitbucketOauthFactor      BitbucketOAuthFactor               `json:"bitbucket_oauth_factor,omitempty"`
-	CoinbaseOauthFactor       CoinbaseOAuthFactor                `json:"coinbase_oauth_factor,omitempty"`
-	DiscordOauthFactor        DiscordOAuthFactor                 `json:"discord_oauth_factor,omitempty"`
-	FigmaOauthFactor          FigmaOAuthFactor                   `json:"figma_oauth_factor,omitempty"`
-	GitLabOauthFactor         GitLabOAuthFactor                  `json:"git_lab_oauth_factor,omitempty"`
-	InstagramOauthFactor      InstagramOAuthFactor               `json:"instagram_oauth_factor,omitempty"`
-	LinkedInOauthFactor       LinkedInOAuthFactor                `json:"linked_in_oauth_factor,omitempty"`
-	ShopifyOauthFactor        ShopifyOAuthFactor                 `json:"shopify_oauth_factor,omitempty"`
-	SlackOauthFactor          SlackOAuthFactor                   `json:"slack_oauth_factor,omitempty"`
-	SnapchatOauthFactor       SnapchatOAuthFactor                `json:"snapchat_oauth_factor,omitempty"`
-	SpotifyOauthFactor        SpotifyOAuthFactor                 `json:"spotify_oauth_factor,omitempty"`
-	SteamOauthFactor          SteamOAuthFactor                   `json:"steam_oauth_factor,omitempty"`
-	TikTokOauthFactor         TikTokOAuthFactor                  `json:"tik_tok_oauth_factor,omitempty"`
-	TwitchOauthFactor         TwitchOAuthFactor                  `json:"twitch_oauth_factor,omitempty"`
-	TwitterOauthFactor        TwitterOAuthFactor                 `json:"twitter_oauth_factor,omitempty"`
+	AmazonOAuthFactor         AmazonOAuthFactor                  `json:"amazon_oauth_factor,omitempty"`
+	BitbucketOAuthFactor      BitbucketOAuthFactor               `json:"bitbucket_oauth_factor,omitempty"`
+	CoinbaseOAuthFactor       CoinbaseOAuthFactor                `json:"coinbase_oauth_factor,omitempty"`
+	DiscordOAuthFactor        DiscordOAuthFactor                 `json:"discord_oauth_factor,omitempty"`
+	FigmaOAuthFactor          FigmaOAuthFactor                   `json:"figma_oauth_factor,omitempty"`
+	GitLabOAuthFactor         GitLabOAuthFactor                  `json:"git_lab_oauth_factor,omitempty"`
+	InstagramOAuthFactor      InstagramOAuthFactor               `json:"instagram_oauth_factor,omitempty"`
+	LinkedInOAuthFactor       LinkedInOAuthFactor                `json:"linked_in_oauth_factor,omitempty"`
+	ShopifyOAuthFactor        ShopifyOAuthFactor                 `json:"shopify_oauth_factor,omitempty"`
+	SlackOAuthFactor          SlackOAuthFactor                   `json:"slack_oauth_factor,omitempty"`
+	SnapchatOAuthFactor       SnapchatOAuthFactor                `json:"snapchat_oauth_factor,omitempty"`
+	SpotifyOAuthFactor        SpotifyOAuthFactor                 `json:"spotify_oauth_factor,omitempty"`
+	SteamOAuthFactor          SteamOAuthFactor                   `json:"steam_oauth_factor,omitempty"`
+	TikTokOAuthFactor         TikTokOAuthFactor                  `json:"tik_tok_oauth_factor,omitempty"`
+	TwitchOAuthFactor         TwitchOAuthFactor                  `json:"twitch_oauth_factor,omitempty"`
+	TwitterOAuthFactor        TwitterOAuthFactor                 `json:"twitter_oauth_factor,omitempty"`
 	EmbeddableMagicLinkFactor EmbeddableMagicLinkFactor          `json:"embeddable_magic_link_factor,omitempty"`
 	BiometricFactor           BiometricFactor                    `json:"biometric_factor,omitempty"`
-	SamlSsoFactor             SAMLSSOFactor                      `json:"saml_sso_factor,omitempty"`
-	OidcSsoFactor             OIDCSSOFactor                      `json:"oidc_sso_factor,omitempty"`
-	SalesforceOauthFactor     SalesforceOAuthFactor              `json:"salesforce_oauth_factor,omitempty"`
+	SAMLSSOFactor             SAMLSSOFactor                      `json:"saml_sso_factor,omitempty"`
+	OIDCSSOFactor             OIDCSSOFactor                      `json:"oidc_sso_factor,omitempty"`
+	SalesforceOAuthFactor     SalesforceOAuthFactor              `json:"salesforce_oauth_factor,omitempty"`
+	YahooOAuthFactor          YahooOAuthFactor                   `json:"yahoo_oauth_factor,omitempty"`
 }
 type AuthenticatorAppFactor struct {
-	TotpID string `json:"totp_id,omitempty"`
+	TOTPId string `json:"totp_id,omitempty"`
 }
 type BiometricFactor struct {
 	BiometricRegistrationID string `json:"biometric_registration_id,omitempty"`
@@ -168,8 +173,8 @@ type JWK struct {
 	KeyOps  []string `json:"key_ops,omitempty"`
 	Alg     string   `json:"alg,omitempty"`
 	Kid     string   `json:"kid,omitempty"`
-	X5c     []string `json:"x5c,omitempty"`
-	X5tS256 string   `json:"x5t_s256,omitempty"`
+	X5C     []string `json:"x5c,omitempty"`
+	X5TS256 string   `json:"x5t_s256,omitempty"`
 	N       string   `json:"n,omitempty"`
 	E       string   `json:"e,omitempty"`
 }
@@ -193,7 +198,7 @@ type PhoneNumberFactor struct {
 	PhoneNumber string `json:"phone_number,omitempty"`
 }
 type RecoveryCodeFactor struct {
-	TotpRecoveryCodeID string `json:"totp_recovery_code_id,omitempty"`
+	TOTPRecoveryCodeID string `json:"totp_recovery_code_id,omitempty"`
 }
 
 // RevokeParams: Request type for `Sessions.Revoke`.
@@ -280,9 +285,14 @@ type TwitterOAuthFactor struct {
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 type WebAuthnFactor struct {
-	WebauthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	Domain                 string `json:"domain,omitempty"`
 	UserAgent              string `json:"user_agent,omitempty"`
+}
+type YahooOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.
@@ -357,36 +367,37 @@ const (
 	AuthenticationFactorDeliveryMethodSms                  AuthenticationFactorDeliveryMethod = "sms"
 	AuthenticationFactorDeliveryMethodWhatsapp             AuthenticationFactorDeliveryMethod = "whatsapp"
 	AuthenticationFactorDeliveryMethodEmbedded             AuthenticationFactorDeliveryMethod = "embedded"
-	AuthenticationFactorDeliveryMethodOauthGoogle          AuthenticationFactorDeliveryMethod = "oauth_google"
-	AuthenticationFactorDeliveryMethodOauthMicrosoft       AuthenticationFactorDeliveryMethod = "oauth_microsoft"
-	AuthenticationFactorDeliveryMethodOauthApple           AuthenticationFactorDeliveryMethod = "oauth_apple"
-	AuthenticationFactorDeliveryMethodWebauthnRegistration AuthenticationFactorDeliveryMethod = "webauthn_registration"
+	AuthenticationFactorDeliveryMethodOAuthGoogle          AuthenticationFactorDeliveryMethod = "oauth_google"
+	AuthenticationFactorDeliveryMethodOAuthMicrosoft       AuthenticationFactorDeliveryMethod = "oauth_microsoft"
+	AuthenticationFactorDeliveryMethodOAuthApple           AuthenticationFactorDeliveryMethod = "oauth_apple"
+	AuthenticationFactorDeliveryMethodWebAuthnRegistration AuthenticationFactorDeliveryMethod = "webauthn_registration"
 	AuthenticationFactorDeliveryMethodAuthenticatorApp     AuthenticationFactorDeliveryMethod = "authenticator_app"
-	AuthenticationFactorDeliveryMethodOauthGithub          AuthenticationFactorDeliveryMethod = "oauth_github"
+	AuthenticationFactorDeliveryMethodOAuthGithub          AuthenticationFactorDeliveryMethod = "oauth_github"
 	AuthenticationFactorDeliveryMethodRecoveryCode         AuthenticationFactorDeliveryMethod = "recovery_code"
-	AuthenticationFactorDeliveryMethodOauthFacebook        AuthenticationFactorDeliveryMethod = "oauth_facebook"
+	AuthenticationFactorDeliveryMethodOAuthFacebook        AuthenticationFactorDeliveryMethod = "oauth_facebook"
 	AuthenticationFactorDeliveryMethodCryptoWallet         AuthenticationFactorDeliveryMethod = "crypto_wallet"
-	AuthenticationFactorDeliveryMethodOauthAmazon          AuthenticationFactorDeliveryMethod = "oauth_amazon"
-	AuthenticationFactorDeliveryMethodOauthBitbucket       AuthenticationFactorDeliveryMethod = "oauth_bitbucket"
-	AuthenticationFactorDeliveryMethodOauthCoinbase        AuthenticationFactorDeliveryMethod = "oauth_coinbase"
-	AuthenticationFactorDeliveryMethodOauthDiscord         AuthenticationFactorDeliveryMethod = "oauth_discord"
-	AuthenticationFactorDeliveryMethodOauthFigma           AuthenticationFactorDeliveryMethod = "oauth_figma"
-	AuthenticationFactorDeliveryMethodOauthGitlab          AuthenticationFactorDeliveryMethod = "oauth_gitlab"
-	AuthenticationFactorDeliveryMethodOauthInstagram       AuthenticationFactorDeliveryMethod = "oauth_instagram"
-	AuthenticationFactorDeliveryMethodOauthLinkedin        AuthenticationFactorDeliveryMethod = "oauth_linkedin"
-	AuthenticationFactorDeliveryMethodOauthShopify         AuthenticationFactorDeliveryMethod = "oauth_shopify"
-	AuthenticationFactorDeliveryMethodOauthSlack           AuthenticationFactorDeliveryMethod = "oauth_slack"
-	AuthenticationFactorDeliveryMethodOauthSnapchat        AuthenticationFactorDeliveryMethod = "oauth_snapchat"
-	AuthenticationFactorDeliveryMethodOauthSpotify         AuthenticationFactorDeliveryMethod = "oauth_spotify"
-	AuthenticationFactorDeliveryMethodOauthSteam           AuthenticationFactorDeliveryMethod = "oauth_steam"
-	AuthenticationFactorDeliveryMethodOauthTiktok          AuthenticationFactorDeliveryMethod = "oauth_tiktok"
-	AuthenticationFactorDeliveryMethodOauthTwitch          AuthenticationFactorDeliveryMethod = "oauth_twitch"
-	AuthenticationFactorDeliveryMethodOauthTwitter         AuthenticationFactorDeliveryMethod = "oauth_twitter"
+	AuthenticationFactorDeliveryMethodOAuthAmazon          AuthenticationFactorDeliveryMethod = "oauth_amazon"
+	AuthenticationFactorDeliveryMethodOAuthBitbucket       AuthenticationFactorDeliveryMethod = "oauth_bitbucket"
+	AuthenticationFactorDeliveryMethodOAuthCoinbase        AuthenticationFactorDeliveryMethod = "oauth_coinbase"
+	AuthenticationFactorDeliveryMethodOAuthDiscord         AuthenticationFactorDeliveryMethod = "oauth_discord"
+	AuthenticationFactorDeliveryMethodOAuthFigma           AuthenticationFactorDeliveryMethod = "oauth_figma"
+	AuthenticationFactorDeliveryMethodOAuthGitlab          AuthenticationFactorDeliveryMethod = "oauth_gitlab"
+	AuthenticationFactorDeliveryMethodOAuthInstagram       AuthenticationFactorDeliveryMethod = "oauth_instagram"
+	AuthenticationFactorDeliveryMethodOAuthLinkedin        AuthenticationFactorDeliveryMethod = "oauth_linkedin"
+	AuthenticationFactorDeliveryMethodOAuthShopify         AuthenticationFactorDeliveryMethod = "oauth_shopify"
+	AuthenticationFactorDeliveryMethodOAuthSlack           AuthenticationFactorDeliveryMethod = "oauth_slack"
+	AuthenticationFactorDeliveryMethodOAuthSnapchat        AuthenticationFactorDeliveryMethod = "oauth_snapchat"
+	AuthenticationFactorDeliveryMethodOAuthSpotify         AuthenticationFactorDeliveryMethod = "oauth_spotify"
+	AuthenticationFactorDeliveryMethodOAuthSteam           AuthenticationFactorDeliveryMethod = "oauth_steam"
+	AuthenticationFactorDeliveryMethodOAuthTiktok          AuthenticationFactorDeliveryMethod = "oauth_tiktok"
+	AuthenticationFactorDeliveryMethodOAuthTwitch          AuthenticationFactorDeliveryMethod = "oauth_twitch"
+	AuthenticationFactorDeliveryMethodOAuthTwitter         AuthenticationFactorDeliveryMethod = "oauth_twitter"
 	AuthenticationFactorDeliveryMethodKnowledge            AuthenticationFactorDeliveryMethod = "knowledge"
 	AuthenticationFactorDeliveryMethodBiometric            AuthenticationFactorDeliveryMethod = "biometric"
-	AuthenticationFactorDeliveryMethodSsoSaml              AuthenticationFactorDeliveryMethod = "sso_saml"
-	AuthenticationFactorDeliveryMethodSsoOidc              AuthenticationFactorDeliveryMethod = "sso_oidc"
-	AuthenticationFactorDeliveryMethodOauthSalesforce      AuthenticationFactorDeliveryMethod = "oauth_salesforce"
+	AuthenticationFactorDeliveryMethodSSOSAML              AuthenticationFactorDeliveryMethod = "sso_saml"
+	AuthenticationFactorDeliveryMethodSSOOIDC              AuthenticationFactorDeliveryMethod = "sso_oidc"
+	AuthenticationFactorDeliveryMethodOAuthSalesforce      AuthenticationFactorDeliveryMethod = "oauth_salesforce"
+	AuthenticationFactorDeliveryMethodOAuthYahoo           AuthenticationFactorDeliveryMethod = "oauth_yahoo"
 )
 
 type AuthenticationFactorType string
@@ -394,8 +405,8 @@ type AuthenticationFactorType string
 const (
 	AuthenticationFactorTypeMagicLink          AuthenticationFactorType = "magic_link"
 	AuthenticationFactorTypeOTP                AuthenticationFactorType = "otp"
-	AuthenticationFactorTypeOauth              AuthenticationFactorType = "oauth"
-	AuthenticationFactorTypeWebauthn           AuthenticationFactorType = "webauthn"
+	AuthenticationFactorTypeOAuth              AuthenticationFactorType = "oauth"
+	AuthenticationFactorTypeWebAuthn           AuthenticationFactorType = "webauthn"
 	AuthenticationFactorTypeTOTP               AuthenticationFactorType = "totp"
 	AuthenticationFactorTypeCrypto             AuthenticationFactorType = "crypto"
 	AuthenticationFactorTypePassword           AuthenticationFactorType = "password"

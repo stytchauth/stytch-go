@@ -46,9 +46,9 @@ type UpdateConnectionParams struct {
 	// [UserInfo Endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo). This will be
 	// provided by the IdP.
 	UserinfoURL string `json:"userinfo_url,omitempty"`
-	// JwksURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
+	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
-	JwksURL string `json:"jwks_url,omitempty"`
+	JWKSURL string `json:"jwks_url,omitempty"`
 }
 
 // CreateConnectionResponse: Response type for `OIDC.CreateConnection`.
