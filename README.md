@@ -7,26 +7,26 @@ It pairs well with the Stytch [Web SDK](https://www.npmjs.com/package/@stytch/st
 ## Install
 
 ```console
-$ go get github.com/stytchauth/stytch-go/v9
+$ go get github.com/stytchauth/stytch-go/v10
 ```
 
 ## Usage
 
 You can find your API credentials in the [Stytch Dashboard](https://stytch.com/dashboard/api-keys).
 
-This client library supports all of Stytch's live products:
+This client library supports all Stytch's live products:
   - [x] [Email Magic Links](https://stytch.com/docs/api/send-by-email)
-  - [x] [Embeddable Magic Links](https://stytch.com/docs/api/create-magic-link-overview)
-  - [x] [OAuth logins](https://stytch.com/docs/api/oauth-overview)
+  - [x] [Embeddable Magic Links](https://stytch.com/docs/guides/magic-links/embeddable-magic-links/api)
+  - [x] [OAuth logins](https://stytch.com/docs/guides/oauth/idp-overview)
   - [x] [SMS passcodes](https://stytch.com/docs/api/send-otp-by-sms)
   - [x] [WhatsApp passcodes](https://stytch.com/docs/api/whatsapp-send)
   - [x] [Email passcodes](https://stytch.com/docs/api/send-otp-by-email)
-  - [x] [Session Management](https://stytch.com/docs/api/sessions-overview)
-  - [x] [WebAuthn](https://stytch.com/docs/api/webauthn-overview)
-  - [x] [User Management](https://stytch.com/docs/api/users)
-  - [x] [Time-based one-time passcodes (TOTP)](https://stytch.com/docs/api/totps-overview)
-  - [x] [Crypto wallets](https://stytch.com/docs/api/crypto-wallet-overview)
-  - [x] [Passwords (Beta)](https://stytch.com/docs/api/password-overview)
+  - [x] [Session Management](https://stytch.com/docs/guides/sessions/using-sessions)
+  - [x] [WebAuthn](https://stytch.com/docs/guides/webauthn/api)
+  - [x] [Time-based one-time passcodes (TOTPs)](https://stytch.com/docs/guides/totp/api)
+  - [x] [Crypto wallets](https://stytch.com/docs/guides/web3/api)
+  - [x] [Passwords](https://stytch.com/docs/guides/passwords/api)
+
 
 ### Example usage
 Create an API client:
@@ -34,8 +34,8 @@ Create an API client:
 import (
 	"context"
 
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2c/stytchapi"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2c/stytchapi"
 )
 
 stytchAPIClient, err := stytchapi.NewClient(
@@ -130,7 +130,7 @@ If you've found a bug, [open an issue](https://github.com/stytchauth/stytch-go/i
 
 If you have questions or want help troubleshooting, join us in [Slack](https://join.slack.com/t/stytch/shared_invite/zt-nil4wo92-jApJ9Cl32cJbEd9esKkvyg) or email support@stytch.com.
 
-If you've found a security vulnerability, please follow our [responsible disclosure instructions](https://stytch.com/docs/security).
+If you've found a security vulnerability, please follow our [responsible disclosure instructions](https://stytch.com/docs/resources/security-and-trust/security#:~:text=Responsible%20disclosure%20program).
 
 ## Development
 
