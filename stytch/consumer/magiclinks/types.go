@@ -7,9 +7,9 @@ package magiclinks
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `MagicLinks.Authenticate`.

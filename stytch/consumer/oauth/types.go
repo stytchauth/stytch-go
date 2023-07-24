@@ -9,8 +9,8 @@ package oauth
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
 )
 
 // AttachParams: Request type for `OAuth.Attach`.
@@ -90,9 +90,9 @@ type AttachResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// OauthAttachToken: A single-use token for connecting the Stytch User selection from an OAuth Attach
+	// OAuthAttachToken: A single-use token for connecting the Stytch User selection from an OAuth Attach
 	// request to the corresponding OAuth Start request.
-	OauthAttachToken string `json:"oauth_attach_token,omitempty"`
+	OAuthAttachToken string `json:"oauth_attach_token,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
@@ -131,8 +131,8 @@ type AuthenticateResponse struct {
 	// field if you aren't using Stytch's Session product. If you are using Stytch's Session product, we revoke
 	// the User's other sessions for you.
 	ResetSessions bool `json:"reset_sessions,omitempty"`
-	// OauthUserRegistrationID: The unique ID for an OAuth registration.
-	OauthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
+	// OAuthUserRegistrationID: The unique ID for an OAuth registration.
+	OAuthUserRegistrationID string `json:"oauth_user_registration_id,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

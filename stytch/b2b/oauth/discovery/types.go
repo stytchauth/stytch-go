@@ -12,8 +12,12 @@ import (
 
 // AuthenticateParams: Request type for `Discovery.Authenticate`.
 type AuthenticateParams struct {
-	// DiscoveryMagicLinksToken: The Discovery Email Magic Link token to authenticate.
-	DiscoveryMagicLinksToken string `json:"discovery_magic_links_token,omitempty"`
+	// DiscoveryOAuthToken: The Discovery OAuth token to authenticate.
+	DiscoveryOAuthToken    string         `json:"discovery_oauth_token,omitempty"`
+	SessionToken           string         `json:"session_token,omitempty"`
+	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
+	SessionJWT             string         `json:"session_jwt,omitempty"`
+	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
 	// PkceCodeVerifier: A base64url encoded one time secret used to validate that the request starts and ends
 	// on the same device.
 	PkceCodeVerifier string `json:"pkce_code_verifier,omitempty"`

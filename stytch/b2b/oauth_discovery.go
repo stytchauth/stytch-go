@@ -11,24 +11,24 @@ import (
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/magiclinks/discovery"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/oauth/discovery"
 	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
 )
 
-type MagicLinksDiscoveryClient struct {
+type OAuthDiscoveryClient struct {
 	C stytch.Client
 }
 
-func NewMagicLinksDiscoveryClient(c stytch.Client) *MagicLinksDiscoveryClient {
-	return &MagicLinksDiscoveryClient{
+func NewOAuthDiscoveryClient(c stytch.Client) *OAuthDiscoveryClient {
+	return &OAuthDiscoveryClient{
 		C: c,
 	}
 }
 
-// Authenticate: Authenticates the Discovery Magic Link token and exchanges it for an Intermediate Session
+// Authenticate: Authenticates the Discovery OAuth token and exchanges it for an Intermediate Session
 // Token. Intermediate Session Tokens can be used for various Discovery login flows and are valid for 10
 // minutes.
-func (c *MagicLinksDiscoveryClient) Authenticate(
+func (c *OAuthDiscoveryClient) Authenticate(
 	ctx context.Context,
 	body *discovery.AuthenticateParams,
 ) (*discovery.AuthenticateResponse, error) {
@@ -45,7 +45,7 @@ func (c *MagicLinksDiscoveryClient) Authenticate(
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		"/v1/b2b/magic_links/discovery/authenticate",
+		"/v1/b2b/oauth/discovery/authenticate",
 		nil,
 		jsonBody,
 		&retVal,

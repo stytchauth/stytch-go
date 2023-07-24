@@ -26,7 +26,7 @@ type CreateParams struct {
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
-	// SsoJitProvisioning: The authentication setting that controls the JIT provisioning of Members when
+	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
 	//
 	//   `ALL_ALLOWED` – new Members will be automatically provisioned upon successful authentication via any
@@ -37,7 +37,7 @@ type CreateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
-	SsoJitProvisioning string `json:"sso_jit_provisioning,omitempty"`
+	SSOJITProvisioning string `json:"sso_jit_provisioning,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
@@ -45,7 +45,7 @@ type CreateParams struct {
 	//     Common domains such as `gmail.com` are not allowed. See the
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
-	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
+	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
@@ -53,7 +53,7 @@ type CreateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
 	//
-	EmailJitProvisioning string `json:"email_jit_provisioning,omitempty"`
+	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
 	// organization by email. The accepted values are:
 	//
@@ -80,6 +80,7 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -110,9 +111,9 @@ type Member struct {
 	Status string `json:"status,omitempty"`
 	// Name: The name of the Member.
 	Name string `json:"name,omitempty"`
-	// SsoRegistrations: An array of registered [SAML Connection](saml-connection-object) objects the Member
+	// SSORegistrations: An array of registered [SAML Connection](saml-connection-object) objects the Member
 	// has authenticated with.
-	SsoRegistrations []SSORegistration `json:"sso_registrations,omitempty"`
+	SSORegistrations []SSORegistration `json:"sso_registrations,omitempty"`
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
 	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
@@ -121,8 +122,10 @@ type Member struct {
 	IsBreakglass bool `json:"is_breakglass,omitempty"`
 	// MemberPasswordID: Globally unique UUID that identifies a Member's password.
 	MemberPasswordID string `json:"member_password_id,omitempty"`
-	// OauthRegistrations: A list of OAuth registrations for this member.
-	OauthRegistrations []OAuthRegistration `json:"oauth_registrations,omitempty"`
+	// OAuthRegistrations: A list of OAuth registrations for this member.
+	OAuthRegistrations []OAuthRegistration `json:"oauth_registrations,omitempty"`
+	MFAEnrolled        bool                `json:"mfa_enrolled,omitempty"`
+	MFAPhoneNumber     string              `json:"mfa_phone_number,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -142,8 +145,8 @@ type OAuthRegistration struct {
 	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
 	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
-	// MemberOauthRegistrationID: The unique ID of an OAuth registration.
-	MemberOauthRegistrationID string `json:"member_oauth_registration_id,omitempty"`
+	// MemberOAuthRegistrationID: The unique ID of an OAuth registration.
+	MemberOAuthRegistrationID string `json:"member_oauth_registration_id,omitempty"`
 	// ProfilePictureURL: If available, the `profile_picture_url` is a URL of the User's profile picture set in
 	// OAuth identity the provider that the User has authenticated with, e.g. Google profile picture.
 	ProfilePictureURL string `json:"profile_picture_url,omitempty"`
@@ -164,7 +167,7 @@ type Organization struct {
 	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
 	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
-	// SsoJitProvisioning: The authentication setting that controls the JIT provisioning of Members when
+	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
 	//
 	//   `ALL_ALLOWED` – new Members will be automatically provisioned upon successful authentication via any
@@ -175,15 +178,15 @@ type Organization struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
-	SsoJitProvisioning string `json:"sso_jit_provisioning,omitempty"`
-	// SsoJitProvisioningAllowedConnections: An array of `connection_id`s that reference
+	SSOJITProvisioning string `json:"sso_jit_provisioning,omitempty"`
+	// SSOJITProvisioningAllowedConnections: An array of `connection_id`s that reference
 	// [SAML Connection objects](https://stytch.com/docs/b2b/api/saml-connection-object).
 	//   Only these connections will be allowed to JIT provision Members via SSO when `sso_jit_provisioning` is
 	// set to `RESTRICTED`.
-	SsoJitProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
-	// SsoActiveConnections: An array of active
+	SSOJITProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
+	// SSOActiveConnections: An array of active
 	// [SAML Connection references](https://stytch.com/docs/b2b/api/saml-connection-object).
-	SsoActiveConnections []ActiveSSOConnection `json:"sso_active_connections,omitempty"`
+	SSOActiveConnections []ActiveSSOConnection `json:"sso_active_connections,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
@@ -191,7 +194,7 @@ type Organization struct {
 	//     Common domains such as `gmail.com` are not allowed. See the
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
-	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
+	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
@@ -199,7 +202,7 @@ type Organization struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
 	//
-	EmailJitProvisioning string `json:"email_jit_provisioning,omitempty"`
+	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
 	// organization by email. The accepted values are:
 	//
@@ -226,11 +229,12 @@ type Organization struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
-	// SsoDefaultConnectionID: The default connection used for SSO when there are multiple active connections.
-	SsoDefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
+	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
+	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
 }
 
 // ResultsMetadata:
@@ -250,8 +254,8 @@ type SSORegistration struct {
 	ExternalID string `json:"external_id,omitempty"`
 	// RegistrationID: The unique ID of an SSO Registration.
 	RegistrationID string `json:"registration_id,omitempty"`
-	// SsoAttributes: An object for storing SSO attributes brought over from the identity provider.
-	SsoAttributes map[string]any `json:"sso_attributes,omitempty"`
+	// SSOAttributes: An object for storing SSO attributes brought over from the identity provider.
+	SSOAttributes map[string]any `json:"sso_attributes,omitempty"`
 }
 
 // SearchParams: Request type for `Organizations.Search`.
@@ -301,9 +305,9 @@ type UpdateParams struct {
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
-	// SsoDefaultConnectionID: The default connection used for SSO when there are multiple active connections.
-	SsoDefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
-	// SsoJitProvisioning: The authentication setting that controls the JIT provisioning of Members when
+	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
+	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
+	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
 	//
 	//   `ALL_ALLOWED` – new Members will be automatically provisioned upon successful authentication via any
@@ -314,12 +318,12 @@ type UpdateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
-	SsoJitProvisioning string `json:"sso_jit_provisioning,omitempty"`
-	// SsoJitProvisioningAllowedConnections: An array of `connection_id`s that reference
+	SSOJITProvisioning string `json:"sso_jit_provisioning,omitempty"`
+	// SSOJITProvisioningAllowedConnections: An array of `connection_id`s that reference
 	// [SAML Connection objects](https://stytch.com/docs/b2b/api/saml-connection-object).
 	//   Only these connections will be allowed to JIT provision Members via SSO when `sso_jit_provisioning` is
 	// set to `RESTRICTED`.
-	SsoJitProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
+	SSOJITProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
 	//
@@ -327,7 +331,7 @@ type UpdateParams struct {
 	//     Common domains such as `gmail.com` are not allowed. See the
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
-	// EmailJitProvisioning: The authentication setting that controls how a new Member can be provisioned by
+	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
@@ -335,7 +339,7 @@ type UpdateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
 	//
-	EmailJitProvisioning string `json:"email_jit_provisioning,omitempty"`
+	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
 	// organization by email. The accepted values are:
 	//
@@ -362,6 +366,7 @@ type UpdateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+	MFAPolicy          string   `json:"mfa_policy,omitempty"`
 }
 
 // CreateResponse: Response type for `Organizations.Create`.

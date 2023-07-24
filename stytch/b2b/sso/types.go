@@ -9,14 +9,14 @@ package sso
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.
 type AuthenticateParams struct {
-	// SsoToken: The token to authenticate.
-	SsoToken string `json:"sso_token,omitempty"`
+	// SSOToken: The token to authenticate.
+	SSOToken string `json:"sso_token,omitempty"`
 	// PkceCodeVerifier: A base64url encoded one time secret used to validate that the request starts and ends
 	// on the same device.
 	PkceCodeVerifier string `json:"pkce_code_verifier,omitempty"`
@@ -46,7 +46,8 @@ type AuthenticateParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any            `json:"session_custom_claims,omitempty"`
+	Locale              AuthenticateRequestLocale `json:"locale,omitempty"`
 }
 
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
@@ -75,7 +76,7 @@ type OIDCConnection struct {
 	AuthorizationURL string `json:"authorization_url,omitempty"`
 	TokenURL         string `json:"token_url,omitempty"`
 	UserinfoURL      string `json:"userinfo_url,omitempty"`
-	JwksURL          string `json:"jwks_url,omitempty"`
+	JWKSURL          string `json:"jwks_url,omitempty"`
 }
 type SAMLConnection struct {
 	OrganizationID           string            `json:"organization_id,omitempty"`
@@ -83,7 +84,7 @@ type SAMLConnection struct {
 	Status                   string            `json:"status,omitempty"`
 	IdpEntityID              string            `json:"idp_entity_id,omitempty"`
 	DisplayName              string            `json:"display_name,omitempty"`
-	IdpSsoURL                string            `json:"idp_sso_url,omitempty"`
+	IdpSSOURL                string            `json:"idp_sso_url,omitempty"`
 	AcsURL                   string            `json:"acs_url,omitempty"`
 	AudienceURI              string            `json:"audience_uri,omitempty"`
 	SigningCertificates      []X509Certificate `json:"signing_certificates,omitempty"`
@@ -150,14 +151,22 @@ type GetConnectionsResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// SamlConnections: The list of [SAML Connections](https://stytch.com/docs/b2b/api/saml-connection-object)
+	// SAMLConnections: The list of [SAML Connections](https://stytch.com/docs/b2b/api/saml-connection-object)
 	// owned by this organization.
-	SamlConnections []SAMLConnection `json:"saml_connections,omitempty"`
-	// OidcConnections: The list of [OIDC Connections](https://stytch.com/docs/b2b/api/oidc-connection-object)
+	SAMLConnections []SAMLConnection `json:"saml_connections,omitempty"`
+	// OIDCConnections: The list of [OIDC Connections](https://stytch.com/docs/b2b/api/oidc-connection-object)
 	// owned by this organization.
-	OidcConnections []OIDCConnection `json:"oidc_connections,omitempty"`
+	OIDCConnections []OIDCConnection `json:"oidc_connections,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type AuthenticateRequestLocale string
+
+const (
+	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
+	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
+	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+)

@@ -7,16 +7,16 @@ package totps
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.
 type AuthenticateParams struct {
 	// UserID: The `user_id` of an active user the TOTP registration should be tied to.
 	UserID string `json:"user_id,omitempty"`
-	// TotpCode: The TOTP code to authenticate. The TOTP code should consist of 6 digits.
-	TotpCode string `json:"totp_code,omitempty"`
+	// TOTPCode: The TOTP code to authenticate. The TOTP code should consist of 6 digits.
+	TOTPCode string `json:"totp_code,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
@@ -95,8 +95,8 @@ type RecoveryCodesParams struct {
 
 // TOTP:
 type TOTP struct {
-	// TotpID: The unique ID for a TOTP instance.
-	TotpID string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// Verified: The verified boolean denotes whether or not this send method, e.g. phone number, email
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`
@@ -114,8 +114,8 @@ type AuthenticateResponse struct {
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
-	// TotpID: The unique ID for a TOTP instance.
-	TotpID string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// User: The `user` object affected by this API call. See the
@@ -139,8 +139,8 @@ type CreateResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// TotpID: The unique ID for a TOTP instance.
-	TotpID string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// Secret: The TOTP secret key shared between the authenticator app and the server used to generate TOTP
 	// codes.
 	Secret string `json:"secret,omitempty"`
@@ -165,8 +165,8 @@ type RecoverResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// TotpID: The unique ID for a TOTP instance.
-	TotpID string `json:"totp_id,omitempty"`
+	// TOTPID: The unique ID for a TOTP instance.
+	TOTPID string `json:"totp_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
@@ -196,9 +196,9 @@ type RecoveryCodesResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// Totps: An array containing a list of all TOTP instances (along with their recovery codes) for a given
+	// TOTPs: An array containing a list of all TOTP instances (along with their recovery codes) for a given
 	// User in the Stytch API.
-	Totps []TOTP `json:"totps,omitempty"`
+	TOTPs []TOTP `json:"totps,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

@@ -7,7 +7,7 @@ package members
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
 )
 
 // CreateParams: Request type for `Members.Create`.
@@ -39,7 +39,9 @@ type CreateParams struct {
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
 	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
 	// more details.
-	IsBreakglass bool `json:"is_breakglass,omitempty"`
+	IsBreakglass bool   `json:"is_breakglass,omitempty"`
+	PhoneNumber  string `json:"phone_number,omitempty"`
+	MFAEnrolled  bool   `json:"mfa_enrolled,omitempty"`
 }
 
 // DeleteParams: Request type for `Members.Delete`.
@@ -59,6 +61,10 @@ type DeletePasswordParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberPasswordID: Globally unique UUID that identifies a Member's password.
 	MemberPasswordID string `json:"member_password_id,omitempty"`
+}
+type DeletePhoneNumberParams struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+	MemberID       string `json:"member_id,omitempty"`
 }
 
 // GetParams: Request type for `Members.Get`.
@@ -118,7 +124,9 @@ type UpdateParams struct {
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
 	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
 	// more details.
-	IsBreakglass bool `json:"is_breakglass,omitempty"`
+	IsBreakglass bool   `json:"is_breakglass,omitempty"`
+	PhoneNumber  string `json:"phone_number,omitempty"`
+	MFAEnrolled  bool   `json:"mfa_enrolled,omitempty"`
 }
 
 // CreateResponse: Response type for `Members.Create`.
@@ -155,6 +163,13 @@ type DeletePasswordResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+type DeletePhoneNumberResponse struct {
+	RequestID    string                     `json:"request_id,omitempty"`
+	MemberID     string                     `json:"member_id,omitempty"`
+	Member       organizations.Member       `json:"member,omitempty"`
+	Organization organizations.Organization `json:"organization,omitempty"`
+	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
 // DeleteResponse: Response type for `Members.Delete`.

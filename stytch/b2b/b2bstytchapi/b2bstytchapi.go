@@ -10,9 +10,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b"
-	"github.com/stytchauth/stytch-go/v9/stytch/config"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b"
+	"github.com/stytchauth/stytch-go/v10/stytch/config"
 )
 
 type Logger interface {
@@ -28,12 +28,14 @@ type API struct {
 	initializationContext context.Context
 	logger                Logger
 
-	Organizations *b2b.OrganizationsClient
-	Sessions      *b2b.SessionsClient
 	Discovery     *b2b.DiscoveryClient
 	MagicLinks    *b2b.MagicLinksClient
+	OAuth         *b2b.OAuthClient
+	OTPs          *b2b.OTPsClient
+	Organizations *b2b.OrganizationsClient
 	Passwords     *b2b.PasswordsClient
 	SSO           *b2b.SSOClient
+	Sessions      *b2b.SessionsClient
 }
 
 type Option func(*API)
@@ -110,12 +112,14 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		o(a)
 	}
 
-	a.Organizations = b2b.NewOrganizationsClient(a.client)
-	a.Sessions = b2b.NewSessionsClient(a.client)
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
 	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
+	a.OAuth = b2b.NewOAuthClient(a.client)
+	a.OTPs = b2b.NewOTPsClient(a.client)
+	a.Organizations = b2b.NewOrganizationsClient(a.client)
 	a.Passwords = b2b.NewPasswordsClient(a.client)
 	a.SSO = b2b.NewSSOClient(a.client)
+	a.Sessions = b2b.NewSessionsClient(a.client)
 
 	return a, nil
 }

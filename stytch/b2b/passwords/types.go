@@ -7,9 +7,9 @@ package passwords
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v9/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/passwords"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/passwords"
 )
 
 // AuthenticateParams: Request type for `Passwords.Authenticate`.
@@ -47,7 +47,8 @@ type AuthenticateParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any            `json:"session_custom_claims,omitempty"`
+	Locale              AuthenticateRequestLocale `json:"locale,omitempty"`
 }
 
 // LudsFeedback:
@@ -214,6 +215,14 @@ type StrengthCheckResponse struct {
 	// [zxcvbn](https://stytch.com/docs/passwords#strength-requirements).
 	ZxcvbnFeedback ZxcvbnFeedback `json:"zxcvbn_feedback,omitempty"`
 }
+
+type AuthenticateRequestLocale string
+
+const (
+	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
+	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
+	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+)
 
 type MigrateRequestHashType string
 

@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/users"
-	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
 )
 
 type UsersClient struct {
@@ -188,7 +188,7 @@ func (c *UsersClient) DeleteWebAuthnRegistration(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebauthnRegistrationID),
+		fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebAuthnRegistrationID),
 		nil,
 		nil,
 		&retVal,
@@ -222,7 +222,7 @@ func (c *UsersClient) DeleteTOTP(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/totps/%s", body.TotpID),
+		fmt.Sprintf("/v1/users/totps/%s", body.TOTPID),
 		nil,
 		nil,
 		&retVal,
@@ -273,7 +273,7 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/users/oauth/%s", body.OauthUserRegistrationID),
+		fmt.Sprintf("/v1/users/oauth/%s", body.OAuthUserRegistrationID),
 		nil,
 		nil,
 		&retVal,
