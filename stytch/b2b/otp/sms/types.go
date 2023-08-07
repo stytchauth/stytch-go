@@ -79,9 +79,7 @@ type SendParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value.
-	MemberID string `json:"member_id,omitempty"`
-	// MFAPhoneNumber: The phone number to send the OTP to. If the Member already has a phone number, this
-	// argument is not needed.
+	MemberID       string `json:"member_id,omitempty"`
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.

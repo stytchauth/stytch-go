@@ -136,8 +136,9 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
-	a.Sessions.JWKS = jwks
 	a.M2M.JWKS = jwks
+
+	a.Sessions.JWKS = jwks
 
 	return a, nil
 }

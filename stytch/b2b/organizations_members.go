@@ -69,7 +69,6 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
-// DeleteMFAPhoneNumber: Delete a Member's MFA phone number.
 func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	ctx context.Context,
 	body *members.DeleteMFAPhoneNumberParams,

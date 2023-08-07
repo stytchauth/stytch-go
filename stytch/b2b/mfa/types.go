@@ -6,9 +6,7 @@ package mfa
 // or your changes may be overwritten later!
 // !!!
 
-// MemberOptions:
 type MemberOptions struct {
-	// MFAPhoneNumber: The Member's MFA phone number.
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
 }
 
