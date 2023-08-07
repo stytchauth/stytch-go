@@ -9,8 +9,6 @@ package m2m
 import (
 	"errors"
 	"time"
-
-	"github.com/golang-jwt/jwt/v5"
 )
 
 // M2MClient:
@@ -147,11 +145,6 @@ type AuthenticateTokenParams struct {
 	AccessToken    string
 	RequiredScopes []string
 	MaxTokenAge    time.Duration
-}
-
-type Claims struct {
-	Scope string `json:"scope"`
-	jwt.MapClaims
 }
 
 type AuthenticateTokenResponse struct {

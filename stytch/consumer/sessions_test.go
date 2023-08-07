@@ -268,7 +268,7 @@ func TestAuthenticateWithClaims(t *testing.T) {
 }
 
 func TestClaims_IsValid(t *testing.T) {
-	// TODO(v9): Remove this method. It is no longer needed.
+	// TODO(v10): Remove this method. It is no longer needed.
 	t.Run("matching issuer and audience", func(t *testing.T) {
 		claims := sessions.Claims{
 			RegisteredClaims: jwt.RegisteredClaims{

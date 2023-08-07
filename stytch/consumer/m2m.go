@@ -40,9 +40,9 @@ func NewM2MClient(c stytch.Client) *M2MClient {
 // MANUAL(Token)(SERVICE_METHOD)
 // ADDIMPORT: "context"
 // ADDIMPORT: "fmt"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v9/stytch/config"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v9/stytch/consumer/m2m"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v10/stytch/config"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v10/stytch/consumer/m2m"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
 // ADDIMPORT: "io"
 // ADDIMPORT: "net/http"
 // ADDIMPORT: "net/url"
@@ -52,6 +52,23 @@ func NewM2MClient(c stytch.Client) *M2MClient {
 // Token retrieves an access token for the given M2M Client.
 // Access tokens are JWTs signed with the project's JWKs, and are valid for one hour after issuance.
 // M2M Access tokens contain a standard set of claims as well as any custom claims generated from templates.
+// M2M Access tokens can be validated locally using the Authenticate Access Token method in the Stytch Backend SDKs,
+// or with any library that supports JWT signature validation.
+//
+// Here is an example of a standard set of claims from a M2M Access Token:
+// ```
+//
+//	{
+//	  "sub": "m2m-client-test-d731954d-dab3-4a2b-bdee-07f3ad1be885",
+//	  "iss": "stytch.com/project-test-3e71d0a1-1e3e-4ee2-9be0-d7c0900f02c2",
+//	  "aud": ["project-test-3e71d0a1-1e3e-4ee2-9be0-d7c0900f02c2"],
+//	  "scope": "read:users write:users",
+//	  "iat": 4102473300,
+//	  "nbf": 4102473300,
+//	  "exp": 4102476900
+//	}
+//
+// ```
 func (c *M2MClient) Token(
 	ctx context.Context,
 	body *m2m.TokenParams,
@@ -114,12 +131,14 @@ func (c *M2MClient) Token(
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
 
-// AuthenticateToken validates a M2M JWT locally
+// AuthenticateToken validates an access token issued by Stytch from the Token endpoint.
+// M2M access tokens are JWTs signed with the project's JWKs, and can be validated locally using any Stytch client library.
+// You may pass in an optional set of scopes that the JWT must contain in order to enforce permissions.
 func (c *M2MClient) AuthenticateToken(
 	ctx context.Context,
 	req *m2m.AuthenticateTokenParams,
 ) (*m2m.AuthenticateTokenResponse, error) {
-	var claims m2m.Claims
+	var claims jwt.MapClaims
 
 	aud := c.C.GetConfig().ProjectID
 	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
@@ -140,23 +159,28 @@ func (c *M2MClient) AuthenticateToken(
 		}
 	}
 
+	scope, ok := claims["scope"].(string)
+	if !ok {
+		return nil, fmt.Errorf("could not find scope claim in claims: %v", claims)
+	}
+
 	for _, want := range req.RequiredScopes {
 		found := false
-		for _, have := range strings.Split(claims.Scope, " ") {
+		for _, have := range strings.Split(scope, " ") {
 			if have == want {
 				found = true
 			}
 		}
 		if !found {
-			return nil, fmt.Errorf("%w: scope %s was not found in [%s]", m2m.ErrMissingScope, want, claims.Scope)
+			return nil, fmt.Errorf("%w: scope %s was not found in [%s]", m2m.ErrMissingScope, want, scope)
 		}
 	}
 
-	return marshalJWTIntoResponse(claims)
+	return marshalJWTIntoResponse(claims, scope)
 }
 
-func marshalJWTIntoResponse(claims m2m.Claims) (*m2m.AuthenticateTokenResponse, error) {
-	scopes := strings.Split(claims.Scope, " ")
+func marshalJWTIntoResponse(claims jwt.MapClaims, scope string) (*m2m.AuthenticateTokenResponse, error) {
+	scopes := strings.Split(scope, " ")
 
 	sub, err := claims.GetSubject()
 	if err != nil {
@@ -164,8 +188,8 @@ func marshalJWTIntoResponse(claims m2m.Claims) (*m2m.AuthenticateTokenResponse, 
 	}
 
 	customClaims := make(map[string]any)
-	for k, v := range claims.MapClaims {
-		if k != "exp" && k != "nbf" && k != "iat" && k != "aud" && k != "sub" && k != "iss" {
+	for k, v := range claims {
+		if k != "exp" && k != "nbf" && k != "iat" && k != "aud" && k != "sub" && k != "iss" && k != "scope" {
 			customClaims[k] = v
 		}
 	}

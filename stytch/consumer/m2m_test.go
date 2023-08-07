@@ -9,16 +9,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v9/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v9/stytch"
-	"github.com/stytchauth/stytch-go/v9/stytch/config"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer"
-	"github.com/stytchauth/stytch-go/v9/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v10/stytch"
+	"github.com/stytchauth/stytch-go/v10/stytch/config"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer/m2m"
 )
 
 func TestM2MClient_Token(t *testing.T) {
@@ -148,7 +148,7 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxM2MClaims(t, iat, exp, "read:users")
-		claims.MapClaims["aud"] = "not this project"
+		claims["aud"] = "not this project"
 
 		token := signJWT(t, keyID, key, claims)
 
@@ -164,7 +164,7 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 		exp := iat.Add(time.Hour)
 
 		claims := sandboxM2MClaims(t, iat, exp, "read:users")
-		claims.MapClaims["iss"] = "not this project"
+		claims["iss"] = "not this project"
 
 		token := signJWT(t, keyID, key, claims)
 
@@ -217,17 +217,15 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 	})
 }
 
-func sandboxM2MClaims(t *testing.T, iat, exp time.Time, scope string) m2m.Claims {
-	return m2m.Claims{
-		Scope: scope,
-		MapClaims: jwt.MapClaims{
-			"iss":        "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
-			"aud":        []string{"project-test-00000000-0000-0000-0000-000000000000"},
-			"sub":        "m2m-client-live-63532f0c-b600-425b-a5b5-3a42ead94a8e",
-			"iat":        jwt.NewNumericDate(iat),
-			"nbf":        jwt.NewNumericDate(iat),
-			"exp":        jwt.NewNumericDate(iat.Add(5 * time.Minute)),
-			"custom key": "custom value",
-		},
+func sandboxM2MClaims(t *testing.T, iat, exp time.Time, scope string) jwt.MapClaims {
+	return jwt.MapClaims{
+		"scope":      scope,
+		"iss":        "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
+		"aud":        []string{"project-test-00000000-0000-0000-0000-000000000000"},
+		"sub":        "m2m-client-live-63532f0c-b600-425b-a5b5-3a42ead94a8e",
+		"iat":        jwt.NewNumericDate(iat),
+		"nbf":        jwt.NewNumericDate(iat),
+		"exp":        jwt.NewNumericDate(iat.Add(5 * time.Minute)),
+		"custom key": "custom value",
 	}
 }
