@@ -13,6 +13,7 @@ import (
 	"github.com/stytchauth/stytch-go/v10/stytch"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b"
 	"github.com/stytchauth/stytch-go/v10/stytch/config"
+	"github.com/stytchauth/stytch-go/v10/stytch/consumer"
 )
 
 type Logger interface {
@@ -29,6 +30,7 @@ type API struct {
 	logger                Logger
 
 	Discovery     *b2b.DiscoveryClient
+	M2M           *consumer.M2MClient
 	MagicLinks    *b2b.MagicLinksClient
 	OAuth         *b2b.OAuthClient
 	OTPs          *b2b.OTPsClient
@@ -113,6 +115,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	}
 
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
+	a.M2M = consumer.NewM2MClient(a.client)
 	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
 	a.OAuth = b2b.NewOAuthClient(a.client)
 	a.OTPs = b2b.NewOTPsClient(a.client)

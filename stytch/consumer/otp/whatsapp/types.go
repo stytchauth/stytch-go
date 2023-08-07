@@ -16,8 +16,8 @@ type LoginOrCreateParams struct {
 	// The phone number should be in E.164 format (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this
 	// endpoint, see [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// ExpirationMinutes: Set the expiration for the Magic Link `token` in minutes. By default, it expires in 1
-	// hour. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	// ExpirationMinutes: Set the expiration for the one-time passcode, in minutes. The minimum expiration is 1
+	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
 	Attributes attribute.Attributes `json:"attributes,omitempty"`
@@ -47,8 +47,8 @@ type SendParams struct {
 	// The phone number should be in E.164 format (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this
 	// endpoint, see [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// ExpirationMinutes: Set the expiration for the Magic Link `token` in minutes. By default, it expires in 1
-	// hour. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
+	// ExpirationMinutes: Set the expiration for the one-time passcode, in minutes. The minimum expiration is 1
+	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
 	Attributes attribute.Attributes `json:"attributes,omitempty"`

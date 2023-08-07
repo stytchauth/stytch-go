@@ -8,15 +8,23 @@ package organizations
 
 import (
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
 )
 
 // CreateParams: Request type for `Organizations.Create`.
 type CreateParams struct {
-	// IntermediateSessionToken: The Intermediate Session Token. This token does not belong to a specific
-	// instance of a member, but may be exchanged for an existing Member Session or used to create a new
-	// organization.
+	// IntermediateSessionToken: The Intermediate Session Token. This token does not necessarily belong to a
+	// specific instance of a Member, but represents a bag of factors that may be converted to a member session.
+	//     The token can be used with the
+	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms) to complete an MFA
+	// flow;
+	//     the
+	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
+	// to join a specific Organization that allows the factors represented by the intermediate session token;
+	//     or the
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// OrganizationName: The name of the Organization. If the name is not specified, a default name will be
 	// created based on the email used to initiate the discovery flow. If the email domain is a common email
@@ -113,14 +121,30 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	MFAPolicy          string   `json:"mfa_policy,omitempty"`
+	// MFAPolicy: (Coming Soon) The setting that controls the MFA policy for all Members in the Organization.
+	// The accepted values are:
+	//
+	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
+	// they wish to log in.
+	//
+	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
+	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
+	//
+	MFAPolicy string `json:"mfa_policy,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.
 type ListParams struct {
-	// IntermediateSessionToken: The Intermediate Session Token. This token does not belong to a specific
-	// instance of a member, but may be exchanged for an existing Member Session or used to create a new
-	// organization.
+	// IntermediateSessionToken: The Intermediate Session Token. This token does not necessarily belong to a
+	// specific instance of a Member, but represents a bag of factors that may be converted to a member session.
+	//     The token can be used with the
+	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms) to complete an MFA
+	// flow;
+	//     the
+	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
+	// to join a specific Organization that allows the factors represented by the intermediate session token;
+	//     or the
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -142,6 +166,20 @@ type CreateResponse struct {
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
 	Member organizations.Member `json:"member,omitempty"`
+	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
+	// complete an MFA step to log in to the Organization.
+	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
+	// IntermediateSessionToken: The returned Intermediate Session Token is identical to the one that was
+	// originally passed in to the request.
+	//       The token can be used with the
+	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms) to complete the
+	// MFA flow and log in to the Organization.
+	//       It can also be used with the
+	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
+	// to join a different existing Organization,
+	//       or the
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization.
+	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
@@ -150,6 +188,9 @@ type CreateResponse struct {
 	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
+	// MFARequired: (Coming Soon) Information about the MFA requirements of the Organization and the Member's
+	// options for fulfilling MFA.
+	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // ListResponse: Response type for `Organizations.List`.
@@ -181,4 +222,9 @@ type ListResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+	// OrganizationIDHint: If the intermediate session token is associated with a specific Organization, that
+	// Organization ID will be returned here. The Organization ID will be null if the intermediate session
+	// token was generated by a email magic link discovery or OAuth discovery flow. If a session token or
+	// session JWT is provided, the Organization ID hint will be null.
+	OrganizationIDHint string `json:"organization_id_hint,omitempty"`
 }

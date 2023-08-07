@@ -297,6 +297,12 @@ type AuthenticateResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
+	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
+	// you'll receive a full Session object in the response.
+	//
+	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//
+	Session Session `json:"session,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
@@ -308,12 +314,6 @@ type AuthenticateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
-	// you'll receive a full Session object in the response.
-	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
-	//
-	Session Session `json:"session,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
