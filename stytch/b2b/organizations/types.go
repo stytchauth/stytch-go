@@ -80,7 +80,16 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	MFAPolicy          string   `json:"mfa_policy,omitempty"`
+	// MFAPolicy: (Coming Soon) The setting that controls the MFA policy for all Members in the Organization.
+	// The accepted values are:
+	//
+	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
+	// they wish to log in.
+	//
+	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
+	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
+	//
+	MFAPolicy string `json:"mfa_policy,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -102,10 +111,9 @@ type Member struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// EmailAddress: The email address of the Member.
+	// EmailAddress: The email address.
 	EmailAddress string `json:"email_address,omitempty"`
 	// Status: The status of the Member. The possible values are: `pending`, `invited`, `active`, or `deleted`.
 	Status string `json:"status,omitempty"`
@@ -124,8 +132,12 @@ type Member struct {
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 	// OAuthRegistrations: A list of OAuth registrations for this member.
 	OAuthRegistrations []OAuthRegistration `json:"oauth_registrations,omitempty"`
-	MFAEnrolled        bool                `json:"mfa_enrolled,omitempty"`
-	MFAPhoneNumber     string              `json:"mfa_phone_number,omitempty"`
+	// MFAEnrolled: (Coming Soon) Sets whether the Member is enrolled in MFA. If true, the Member must complete
+	// an MFA step whenever they wish to log in to their Organization. If false, the Member only needs to
+	// complete an MFA step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
+	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
+	// MFAPhoneNumber: (Coming Soon) The Member's phone number. A Member may only have one phone number.
+	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -366,7 +378,16 @@ type UpdateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	MFAPolicy          string   `json:"mfa_policy,omitempty"`
+	// MFAPolicy: (Coming Soon) The setting that controls the MFA policy for all Members in the Organization.
+	// The accepted values are:
+	//
+	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
+	// they wish to log in.
+	//
+	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
+	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
+	//
+	MFAPolicy string `json:"mfa_policy,omitempty"`
 }
 
 // CreateResponse: Response type for `Organizations.Create`.

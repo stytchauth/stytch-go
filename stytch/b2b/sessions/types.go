@@ -9,6 +9,7 @@ package sessions
 import (
 	"time"
 
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
 )
@@ -75,8 +76,21 @@ type ExchangeParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any        `json:"session_custom_claims,omitempty"`
-	Locale              ExchangeRequestLocale `json:"locale,omitempty"`
+	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// Locale: (Coming Soon) If the Member needs to complete an MFA step, and the Member has a phone number,
+	// this endpoint will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale
+	// argument will be used to determine which language to use when sending the passcode.
+	//
+	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
+	// e.g. `"en"`.
+	//
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
+	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	//
+	// Request support for additional languages
+	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
+	//
+	Locale ExchangeRequestLocale `json:"locale,omitempty"`
 }
 
 // GetJWKSParams: Request type for `Sessions.GetJWKS`.
@@ -112,12 +126,12 @@ type MemberSession struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	// AuthenticationFactors: An array of different authentication factors that have initiated a Session.
 	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
-	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
-	// authenticate call.
-	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
+	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
+	// authenticate call.
+	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 }
 
 // RevokeParams: Request type for `Sessions.Revoke`.
@@ -174,10 +188,27 @@ type ExchangeResponse struct {
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
+	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
+	// complete an MFA step to log in to the Organization.
+	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
+	// IntermediateSessionToken: The returned Intermediate Session Token contains any Email Magic Link or OAuth
+	// factors from the original member session that are valid for the target Organization.
+	//       The token can be used with the
+	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms) to complete the
+	// MFA flow and log in to the target Organization.
+	//       It can also be used with the
+	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
+	// to join a different existing Organization,
+	//       or the
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization.
+	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+	// MFARequired: (Coming Soon) Information about the MFA requirements of the Organization and the Member's
+	// options for fulfilling MFA.
+	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.

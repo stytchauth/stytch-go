@@ -26,6 +26,7 @@ This client library supports all Stytch's live products:
   - [x] [Time-based one-time passcodes (TOTPs)](https://stytch.com/docs/guides/totp/api)
   - [x] [Crypto wallets](https://stytch.com/docs/guides/web3/api)
   - [x] [Passwords](https://stytch.com/docs/guides/passwords/api)
+  - [x] [M2M](https://stytch.com/docs/api/m2m-client)
 
 
 ### Example usage

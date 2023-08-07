@@ -9,6 +9,7 @@ package oauth
 import (
 	"time"
 
+	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
 )
@@ -46,8 +47,21 @@ type AuthenticateParams struct {
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
 	// PkceCodeVerifier: A base64url encoded one time secret used to validate that the request starts and ends
 	// on the same device.
-	PkceCodeVerifier string                    `json:"pkce_code_verifier,omitempty"`
-	Locale           AuthenticateRequestLocale `json:"locale,omitempty"`
+	PkceCodeVerifier string `json:"pkce_code_verifier,omitempty"`
+	// Locale: (Coming Soon) If the Member needs to complete an MFA step, and the Member has a phone number,
+	// this endpoint will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale
+	// argument will be used to determine which language to use when sending the passcode.
+	//
+	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
+	// e.g. `"en"`.
+	//
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
+	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	//
+	// Request support for additional languages
+	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
+	//
+	Locale AuthenticateRequestLocale `json:"locale,omitempty"`
 }
 
 // ProviderValues:
@@ -74,9 +88,13 @@ type AuthenticateResponse struct {
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
-	MemberID        string `json:"member_id,omitempty"`
+	MemberID string `json:"member_id,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
-	ProviderType    string `json:"provider_type,omitempty"`
+	// ProviderType: Denotes the OAuth identity provider that the user has authenticated with, e.g. Google,
+	// Microsoft, GitHub etc.
+	ProviderType string `json:"provider_type,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
@@ -89,6 +107,20 @@ type AuthenticateResponse struct {
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization  organizations.Organization `json:"organization,omitempty"`
 	ResetSessions bool                       `json:"reset_sessions,omitempty"`
+	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
+	// complete an MFA step to log in to the Organization.
+	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
+	// IntermediateSessionToken: The returned Intermediate Session Token contains an OAuth factor associated
+	// with the Member's email address.
+	//       The token can be used with the
+	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms) to complete the
+	// MFA flow and log in to the Organization.
+	//       It can also be used with the
+	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
+	// to join a different existing Organization that allows login with OAuth,
+	//       or the
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization.
+	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
@@ -102,6 +134,9 @@ type AuthenticateResponse struct {
 	//   Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
 	// returned by Microsoft.
 	ProviderValues ProviderValues `json:"provider_values,omitempty"`
+	// MFARequired: (Coming Soon) Information about the MFA requirements of the Organization and the Member's
+	// options for fulfilling MFA.
+	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 type AuthenticateRequestLocale string

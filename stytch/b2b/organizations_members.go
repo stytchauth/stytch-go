@@ -69,15 +69,16 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
-func (c *OrganizationsMembersClient) DeletePhoneNumber(
+// DeleteMFAPhoneNumber: Delete a Member's MFA phone number.
+func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	ctx context.Context,
-	body *members.DeletePhoneNumberParams,
-) (*members.DeletePhoneNumberResponse, error) {
-	var retVal members.DeletePhoneNumberResponse
+	body *members.DeleteMFAPhoneNumberParams,
+) (*members.DeleteMFAPhoneNumberResponse, error) {
+	var retVal members.DeleteMFAPhoneNumberResponse
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/b2b/organizations/%s/members/phone_numbers/%s", body.OrganizationID, body.MemberID),
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/mfa_phone_numbers/%s", body.OrganizationID, body.MemberID),
 		nil,
 		nil,
 		&retVal,

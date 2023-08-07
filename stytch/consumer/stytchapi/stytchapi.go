@@ -32,6 +32,7 @@ type API struct {
 	logger                Logger
 
 	CryptoWallets *consumer.CryptoWalletsClient
+	M2M           *consumer.M2MClient
 	MagicLinks    *consumer.MagicLinksClient
 	OAuth         *consumer.OAuthClient
 	OTPs          *consumer.OTPsClient
@@ -117,6 +118,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	}
 
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
+	a.M2M = consumer.NewM2MClient(a.client)
 	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
 	a.OAuth = consumer.NewOAuthClient(a.client)
 	a.OTPs = consumer.NewOTPsClient(a.client)
@@ -135,6 +137,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
 	a.Sessions.JWKS = jwks
+	a.M2M.JWKS = jwks
 
 	return a, nil
 }

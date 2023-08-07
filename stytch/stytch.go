@@ -23,6 +23,7 @@ type Client interface {
 	NewRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, v interface{}) error
 	RawRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte) ([]byte, error)
 	GetConfig() *config.Config
+	GetHTTPClient() *http.Client
 }
 
 type DefaultClient struct {
@@ -134,4 +135,8 @@ func (c *DefaultClient) RawRequest(
 
 func (c *DefaultClient) GetConfig() *config.Config {
 	return c.Config
+}
+
+func (c *DefaultClient) GetHTTPClient() *http.Client {
+	return c.HTTPClient
 }
