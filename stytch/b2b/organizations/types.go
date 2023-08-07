@@ -111,9 +111,10 @@ type Member struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// MemberID: Globally unique UUID that identifies a specific Member.
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
-	// EmailAddress: The email address.
+	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 	// Status: The status of the Member. The possible values are: `pending`, `invited`, `active`, or `deleted`.
 	Status string `json:"status,omitempty"`

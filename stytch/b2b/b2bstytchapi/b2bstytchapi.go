@@ -8,8 +8,11 @@ package b2bstytchapi
 
 import (
 	"context"
+	"fmt"
 	"net/http"
+	"time"
 
+	"github.com/MicahParks/keyfunc/v2"
 	"github.com/stytchauth/stytch-go/v10/stytch"
 	"github.com/stytchauth/stytch-go/v10/stytch/b2b"
 	"github.com/stytchauth/stytch-go/v10/stytch/config"
@@ -123,6 +126,66 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.Passwords = b2b.NewPasswordsClient(a.client)
 	a.SSO = b2b.NewSSOClient(a.client)
 	a.Sessions = b2b.NewSessionsClient(a.client)
+	// Set up JWKS for local session authentication
+	httpClient := defaultClient.HTTPClient
+	if realClient, ok := a.client.(*stytch.DefaultClient); ok {
+		httpClient = realClient.HTTPClient
+	}
+	jwks, err := a.instantiateJWKSClient(httpClient)
+	if err != nil {
+		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
+	}
+	a.M2M.JWKS = jwks
 
 	return a, nil
+}
+
+func (a *API) instantiateJWKSClient(httpClient *http.Client) (*keyfunc.JWKS, error) {
+	// The context given in the keyfunc Options applies throughout the lifetime of the JWKS
+	// fetcher. The context we were given here is _only_ for init, so we arrange to cancel the
+	// JWKS context manually if we couldn't start in time.
+	jwksCtx, jwksCancel := context.WithCancel(a.initializationContext)
+
+	jwkOptions := keyfunc.Options{
+		Client: httpClient,
+
+		// This is the context for ongoing background JWKS fetches. If the keyfunc starts in time,
+		// it should run until API.Close is called.
+		Ctx: jwksCtx,
+
+		RefreshErrorHandler: func(err error) {
+			if a.logger != nil {
+				a.logger.Printf("There was an error with the jwt.Keyfunc\nError: %s", err.Error())
+			}
+		},
+		RefreshInterval:   time.Hour,
+		RefreshRateLimit:  5 * time.Minute,
+		RefreshTimeout:    10 * time.Second,
+		RefreshUnknownKID: true,
+	}
+
+	jwksURL := fmt.Sprintf("%s/v1/sessions/jwks/%s", a.baseURI, a.projectID)
+
+	type Res struct {
+		jwks *keyfunc.JWKS
+		err  error
+	}
+	res := make(chan Res)
+	go func() {
+		jwks, err := keyfunc.Get(jwksURL, jwkOptions)
+		res <- Res{jwks, err}
+	}()
+
+	select {
+	case <-a.initializationContext.Done():
+		// Couldn't start in time, clean up the JWKS.
+		jwksCancel()
+		return nil, a.initializationContext.Err()
+	case res := <-res:
+		// JWKS setup finished first, _do not_ cancel its context. Let it continue fetching in the
+		// background.
+		_ = jwksCancel // lostcancel
+
+		return res.jwks, res.err
+	}
 }
