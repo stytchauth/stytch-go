@@ -9,9 +9,9 @@ package sso
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.
@@ -154,10 +154,10 @@ type AuthenticateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
-	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
+	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // DeleteConnectionResponse: Response type for `SSO.DeleteConnection`.

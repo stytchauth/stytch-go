@@ -11,17 +11,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/stytchapi"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/stytchapi"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/config"
+	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/config"
 )
 
 func TestAuthenticateJWTLocal(t *testing.T) {
@@ -114,7 +114,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 			StartedAt:      &iat,
 			LastAccessedAt: &iat,
 			ExpiresAt:      &exp,
-			Attributes: attribute.Attributes{
+			Attributes: &attribute.Attributes{
 				IPAddress: "",
 				UserAgent: "",
 			},
@@ -123,7 +123,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 					Type:                "magic_link",
 					DeliveryMethod:      "email",
 					LastAuthenticatedAt: &iat,
-					EmailFactor: sessions.EmailFactor{
+					EmailFactor: &sessions.EmailFactor{
 						EmailAddress: "sandbox@stytch.com",
 						EmailID:      "email-live-cca9d7d0-11b6-4167-9385-d7e0c9a77418",
 					},
@@ -151,7 +151,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 			StartedAt:      &iat,
 			LastAccessedAt: &iat,
 			ExpiresAt:      &sessionExp,
-			Attributes: attribute.Attributes{
+			Attributes: &attribute.Attributes{
 				IPAddress: "",
 				UserAgent: "",
 			},
@@ -160,7 +160,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 					Type:                "magic_link",
 					DeliveryMethod:      "email",
 					LastAuthenticatedAt: &iat,
-					EmailFactor: sessions.EmailFactor{
+					EmailFactor: &sessions.EmailFactor{
 						EmailAddress: "sandbox@stytch.com",
 						EmailID:      "email-live-cca9d7d0-11b6-4167-9385-d7e0c9a77418",
 					},
@@ -264,66 +264,6 @@ func TestAuthenticateWithClaims(t *testing.T) {
 			}
 			assert.Equal(t, expected, claims)
 		}
-	})
-}
-
-func TestClaims_IsValid(t *testing.T) {
-	// TODO(v10): Remove this method. It is no longer needed.
-	t.Run("matching issuer and audience", func(t *testing.T) {
-		claims := sessions.Claims{
-			RegisteredClaims: jwt.RegisteredClaims{
-				Issuer:   "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
-				Audience: jwt.ClaimStrings{"project-test-00000000-0000-0000-0000-000000000000"},
-			},
-		}
-
-		//nolint:staticcheck // SA1019 deprecated
-		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("mismatched issuer", func(t *testing.T) {
-		claims := sessions.Claims{
-			RegisteredClaims: jwt.RegisteredClaims{
-				Issuer:   "stytch.com/project-test-11111111-1111-1111-1111-111111111111",
-				Audience: jwt.ClaimStrings{"project-test-00000000-0000-0000-0000-000000000000"},
-			},
-		}
-
-		//nolint:staticcheck // SA1019 deprecated
-		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
-
-		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
-	})
-
-	t.Run("mismatched audience", func(t *testing.T) {
-		claims := sessions.Claims{
-			RegisteredClaims: jwt.RegisteredClaims{
-				Issuer:   "stytch.com/project-test-00000000-0000-0000-0000-000000000000",
-				Audience: jwt.ClaimStrings{"project-test-11111111-1111-1111-1111-111111111111"},
-			},
-		}
-
-		//nolint:staticcheck // SA1019 deprecated
-		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
-
-		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
-	})
-
-	t.Run("both issuer and audience mismatch identifies as either error", func(t *testing.T) {
-		claims := sessions.Claims{
-			RegisteredClaims: jwt.RegisteredClaims{
-				Issuer:   "stytch.com/project-test-11111111-1111-1111-1111-111111111111",
-				Audience: jwt.ClaimStrings{"project-test-22222222-2222-2222-2222-222222222222"},
-			},
-		}
-
-		//nolint:staticcheck // SA1019 deprecated
-		err := claims.IsValid("project-test-00000000-0000-0000-0000-000000000000")
-
-		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
-		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
 	})
 }
 
@@ -489,7 +429,7 @@ func sandboxClaims(t *testing.T, iat, exp time.Time) sessions.Claims {
 					Type:                "magic_link",
 					DeliveryMethod:      "email",
 					LastAuthenticatedAt: &iat,
-					EmailFactor: sessions.EmailFactor{
+					EmailFactor: &sessions.EmailFactor{
 						EmailAddress: "sandbox@stytch.com",
 						EmailID:      "email-live-cca9d7d0-11b6-4167-9385-d7e0c9a77418",
 					},

@@ -8,12 +8,11 @@ package sessions
 
 import (
 	"errors"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 type AmazonOAuthFactor struct {
@@ -54,39 +53,39 @@ type AuthenticationFactor struct {
 	LastAuthenticatedAt       *time.Time                         `json:"last_authenticated_at,omitempty"`
 	CreatedAt                 *time.Time                         `json:"created_at,omitempty"`
 	UpdatedAt                 *time.Time                         `json:"updated_at,omitempty"`
-	EmailFactor               EmailFactor                        `json:"email_factor,omitempty"`
-	PhoneNumberFactor         PhoneNumberFactor                  `json:"phone_number_factor,omitempty"`
-	GoogleOAuthFactor         GoogleOAuthFactor                  `json:"google_oauth_factor,omitempty"`
-	MicrosoftOAuthFactor      MicrosoftOAuthFactor               `json:"microsoft_oauth_factor,omitempty"`
-	AppleOAuthFactor          AppleOAuthFactor                   `json:"apple_oauth_factor,omitempty"`
-	WebAuthnFactor            WebAuthnFactor                     `json:"webauthn_factor,omitempty"`
-	AuthenticatorAppFactor    AuthenticatorAppFactor             `json:"authenticator_app_factor,omitempty"`
-	GithubOAuthFactor         GithubOAuthFactor                  `json:"github_oauth_factor,omitempty"`
-	RecoveryCodeFactor        RecoveryCodeFactor                 `json:"recovery_code_factor,omitempty"`
-	FacebookOAuthFactor       FacebookOAuthFactor                `json:"facebook_oauth_factor,omitempty"`
-	CryptoWalletFactor        CryptoWalletFactor                 `json:"crypto_wallet_factor,omitempty"`
-	AmazonOAuthFactor         AmazonOAuthFactor                  `json:"amazon_oauth_factor,omitempty"`
-	BitbucketOAuthFactor      BitbucketOAuthFactor               `json:"bitbucket_oauth_factor,omitempty"`
-	CoinbaseOAuthFactor       CoinbaseOAuthFactor                `json:"coinbase_oauth_factor,omitempty"`
-	DiscordOAuthFactor        DiscordOAuthFactor                 `json:"discord_oauth_factor,omitempty"`
-	FigmaOAuthFactor          FigmaOAuthFactor                   `json:"figma_oauth_factor,omitempty"`
-	GitLabOAuthFactor         GitLabOAuthFactor                  `json:"git_lab_oauth_factor,omitempty"`
-	InstagramOAuthFactor      InstagramOAuthFactor               `json:"instagram_oauth_factor,omitempty"`
-	LinkedInOAuthFactor       LinkedInOAuthFactor                `json:"linked_in_oauth_factor,omitempty"`
-	ShopifyOAuthFactor        ShopifyOAuthFactor                 `json:"shopify_oauth_factor,omitempty"`
-	SlackOAuthFactor          SlackOAuthFactor                   `json:"slack_oauth_factor,omitempty"`
-	SnapchatOAuthFactor       SnapchatOAuthFactor                `json:"snapchat_oauth_factor,omitempty"`
-	SpotifyOAuthFactor        SpotifyOAuthFactor                 `json:"spotify_oauth_factor,omitempty"`
-	SteamOAuthFactor          SteamOAuthFactor                   `json:"steam_oauth_factor,omitempty"`
-	TikTokOAuthFactor         TikTokOAuthFactor                  `json:"tik_tok_oauth_factor,omitempty"`
-	TwitchOAuthFactor         TwitchOAuthFactor                  `json:"twitch_oauth_factor,omitempty"`
-	TwitterOAuthFactor        TwitterOAuthFactor                 `json:"twitter_oauth_factor,omitempty"`
-	EmbeddableMagicLinkFactor EmbeddableMagicLinkFactor          `json:"embeddable_magic_link_factor,omitempty"`
-	BiometricFactor           BiometricFactor                    `json:"biometric_factor,omitempty"`
-	SAMLSSOFactor             SAMLSSOFactor                      `json:"saml_sso_factor,omitempty"`
-	OIDCSSOFactor             OIDCSSOFactor                      `json:"oidc_sso_factor,omitempty"`
-	SalesforceOAuthFactor     SalesforceOAuthFactor              `json:"salesforce_oauth_factor,omitempty"`
-	YahooOAuthFactor          YahooOAuthFactor                   `json:"yahoo_oauth_factor,omitempty"`
+	EmailFactor               *EmailFactor                       `json:"email_factor,omitempty"`
+	PhoneNumberFactor         *PhoneNumberFactor                 `json:"phone_number_factor,omitempty"`
+	GoogleOAuthFactor         *GoogleOAuthFactor                 `json:"google_oauth_factor,omitempty"`
+	MicrosoftOAuthFactor      *MicrosoftOAuthFactor              `json:"microsoft_oauth_factor,omitempty"`
+	AppleOAuthFactor          *AppleOAuthFactor                  `json:"apple_oauth_factor,omitempty"`
+	WebAuthnFactor            *WebAuthnFactor                    `json:"webauthn_factor,omitempty"`
+	AuthenticatorAppFactor    *AuthenticatorAppFactor            `json:"authenticator_app_factor,omitempty"`
+	GithubOAuthFactor         *GithubOAuthFactor                 `json:"github_oauth_factor,omitempty"`
+	RecoveryCodeFactor        *RecoveryCodeFactor                `json:"recovery_code_factor,omitempty"`
+	FacebookOAuthFactor       *FacebookOAuthFactor               `json:"facebook_oauth_factor,omitempty"`
+	CryptoWalletFactor        *CryptoWalletFactor                `json:"crypto_wallet_factor,omitempty"`
+	AmazonOAuthFactor         *AmazonOAuthFactor                 `json:"amazon_oauth_factor,omitempty"`
+	BitbucketOAuthFactor      *BitbucketOAuthFactor              `json:"bitbucket_oauth_factor,omitempty"`
+	CoinbaseOAuthFactor       *CoinbaseOAuthFactor               `json:"coinbase_oauth_factor,omitempty"`
+	DiscordOAuthFactor        *DiscordOAuthFactor                `json:"discord_oauth_factor,omitempty"`
+	FigmaOAuthFactor          *FigmaOAuthFactor                  `json:"figma_oauth_factor,omitempty"`
+	GitLabOAuthFactor         *GitLabOAuthFactor                 `json:"git_lab_oauth_factor,omitempty"`
+	InstagramOAuthFactor      *InstagramOAuthFactor              `json:"instagram_oauth_factor,omitempty"`
+	LinkedInOAuthFactor       *LinkedInOAuthFactor               `json:"linked_in_oauth_factor,omitempty"`
+	ShopifyOAuthFactor        *ShopifyOAuthFactor                `json:"shopify_oauth_factor,omitempty"`
+	SlackOAuthFactor          *SlackOAuthFactor                  `json:"slack_oauth_factor,omitempty"`
+	SnapchatOAuthFactor       *SnapchatOAuthFactor               `json:"snapchat_oauth_factor,omitempty"`
+	SpotifyOAuthFactor        *SpotifyOAuthFactor                `json:"spotify_oauth_factor,omitempty"`
+	SteamOAuthFactor          *SteamOAuthFactor                  `json:"steam_oauth_factor,omitempty"`
+	TikTokOAuthFactor         *TikTokOAuthFactor                 `json:"tik_tok_oauth_factor,omitempty"`
+	TwitchOAuthFactor         *TwitchOAuthFactor                 `json:"twitch_oauth_factor,omitempty"`
+	TwitterOAuthFactor        *TwitterOAuthFactor                `json:"twitter_oauth_factor,omitempty"`
+	EmbeddableMagicLinkFactor *EmbeddableMagicLinkFactor         `json:"embeddable_magic_link_factor,omitempty"`
+	BiometricFactor           *BiometricFactor                   `json:"biometric_factor,omitempty"`
+	SAMLSSOFactor             *SAMLSSOFactor                     `json:"saml_sso_factor,omitempty"`
+	OIDCSSOFactor             *OIDCSSOFactor                     `json:"oidc_sso_factor,omitempty"`
+	SalesforceOAuthFactor     *SalesforceOAuthFactor             `json:"salesforce_oauth_factor,omitempty"`
+	YahooOAuthFactor          *YahooOAuthFactor                  `json:"yahoo_oauth_factor,omitempty"`
 }
 type AuthenticatorAppFactor struct {
 	TOTPID string `json:"totp_id,omitempty"`
@@ -235,7 +234,7 @@ type Session struct {
 	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
 	// authenticate call.
 	CustomClaims map[string]any `json:"custom_claims,omitempty"`
@@ -437,56 +436,6 @@ type ClaimsWrapper struct {
 
 type SessionWrapper struct {
 	Session ClaimsWrapper `json:"session"`
-}
-
-// IsValid returns an error if there is an issuer or audience mismatch in the claims.
-//
-// Deprecated: JWT claims are validated when the token is parsed. There is no need to call this method.
-func (c Claims) IsValid(projectID string) error {
-	var errs []error
-
-	if !c.verifyIssuer(projectID) {
-		errs = append(errs, jwt.ErrTokenInvalidIssuer)
-	}
-
-	if !c.verifyAudience(projectID) {
-		errs = append(errs, jwt.ErrTokenInvalidAudience)
-	}
-
-	if len(errs) == 0 {
-		return nil
-	}
-	return multiError{errs}
-}
-
-type multiError struct {
-	errs []error
-}
-
-func (me multiError) Error() string {
-	var msgs []string
-	for _, err := range me.errs {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, ", ")
-}
-
-func (me multiError) Is(target error) bool {
-	for _, err := range me.errs {
-		if errors.Is(err, target) {
-			return true
-		}
-	}
-	return false
-}
-
-func (c *Claims) verifyIssuer(cmp string) bool {
-	issuerSplit := strings.Split(c.RegisteredClaims.Issuer, "/")
-	return len(issuerSplit) == 2 && issuerSplit[1] == cmp
-}
-
-func (c *Claims) verifyAudience(cmp string) bool {
-	return len(c.RegisteredClaims.Audience) == 1 && c.RegisteredClaims.Audience[0] == cmp
 }
 
 // ENDMANUAL(Types)

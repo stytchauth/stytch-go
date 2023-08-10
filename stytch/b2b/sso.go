@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type SSOClient struct {

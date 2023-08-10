@@ -7,7 +7,7 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
 )
 
 // InviteParams: Request type for `Email.Invite`.

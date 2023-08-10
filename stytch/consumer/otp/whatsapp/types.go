@@ -7,7 +7,7 @@ package whatsapp
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
 )
 
 // LoginOrCreateParams: Request type for `Whatsapp.LoginOrCreate`.
@@ -20,7 +20,7 @@ type LoginOrCreateParams struct {
 	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// CreateUserAsPending: Flag for whether or not to save a user as pending vs active in Stytch. Defaults to
 	// false.
 	//         If true, users will be saved with status pending in Stytch's backend until authenticated.
@@ -51,7 +51,7 @@ type SendParams struct {
 	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//

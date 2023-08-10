@@ -9,7 +9,7 @@ package users
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
 )
 
 // BiometricRegistration:
@@ -26,9 +26,9 @@ type CreateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
-	Name Name `json:"name,omitempty"`
+	Name *Name `json:"name,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format.
 	// The phone number should be in E.164 format (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this
 	// endpoint, see [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
@@ -238,9 +238,9 @@ type UpdateParams struct {
 	// UserID: The unique ID of a specific User.
 	UserID string `json:"user_id,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
-	Name Name `json:"name,omitempty"`
+	Name *Name `json:"name,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
 	// details.
@@ -275,12 +275,12 @@ type User struct {
 	// the Stytch API.
 	BiometricRegistrations []BiometricRegistration `json:"biometric_registrations,omitempty"`
 	// Name: The name of the User. Each field in the `name` object is optional.
-	Name Name `json:"name,omitempty"`
+	Name *Name `json:"name,omitempty"`
 	// CreatedAt: The timestamp of the User's creation. Values conform to the RFC 3339 standard and are
 	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Password: The password object is returned for users with a password.
-	Password Password `json:"password,omitempty"`
+	Password *Password `json:"password,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
 	// details.
@@ -513,12 +513,12 @@ type GetResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// Name: The name of the User. Each field in the `name` object is optional.
-	Name Name `json:"name,omitempty"`
+	Name *Name `json:"name,omitempty"`
 	// CreatedAt: The timestamp of the User's creation. Values conform to the RFC 3339 standard and are
 	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Password: The password object is returned for users with a password.
-	Password Password `json:"password,omitempty"`
+	Password *Password `json:"password,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
 	// details.

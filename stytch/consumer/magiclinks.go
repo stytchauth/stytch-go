@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type MagicLinksClient struct {

@@ -7,10 +7,10 @@ package passwords
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/passwords"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/passwords"
 )
 
 // AuthenticateParams: Request type for `Passwords.Authenticate`.
@@ -99,17 +99,17 @@ type MigrateParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
-	Md5Config passwords.MD5Config `json:"md_5_config,omitempty"`
+	Md5Config *passwords.MD5Config `json:"md_5_config,omitempty"`
 	// Argon2Config: Required parameters if the argon2 hex form, as opposed to the encoded form, is supplied.
-	Argon2Config passwords.Argon2Config `json:"argon_2_config,omitempty"`
+	Argon2Config *passwords.Argon2Config `json:"argon_2_config,omitempty"`
 	// Sha1Config: Optional parameters for SHA-1 hash types.
-	Sha1Config passwords.SHA1Config `json:"sha_1_config,omitempty"`
+	Sha1Config *passwords.SHA1Config `json:"sha_1_config,omitempty"`
 	// ScryptConfig: Required parameters if the scrypt is not provided in a **PHC encoded form**.
-	ScryptConfig passwords.ScryptConfig `json:"scrypt_config,omitempty"`
+	ScryptConfig *passwords.ScryptConfig `json:"scrypt_config,omitempty"`
 	// Pbkdf2Config: Required additional parameters for PBKDF2 hash keys. Note that we use the SHA-256 by
 	// default, please contact [support@stytch.com](mailto:support@stytch.com) if you use another hashing
 	// function.
-	Pbkdf2Config passwords.PBKDF2Config `json:"pbkdf_2_config,omitempty"`
+	Pbkdf2Config *passwords.PBKDF2Config `json:"pbkdf_2_config,omitempty"`
 	// Name: The name of the Member. Each field in the name object is optional.
 	Name string `json:"name,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
@@ -177,10 +177,10 @@ type AuthenticateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
-	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
+	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // MigrateResponse: Response type for `Passwords.Migrate`.
@@ -240,10 +240,10 @@ type StrengthCheckResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// LudsFeedback: Feedback for how to improve the password's strength using
 	// [luds](https://stytch.com/docs/passwords#strength-requirements).
-	LudsFeedback LudsFeedback `json:"luds_feedback,omitempty"`
+	LudsFeedback *LudsFeedback `json:"luds_feedback,omitempty"`
 	// ZxcvbnFeedback: Feedback for how to improve the password's strength using
 	// [zxcvbn](https://stytch.com/docs/passwords#strength-requirements).
-	ZxcvbnFeedback ZxcvbnFeedback `json:"zxcvbn_feedback,omitempty"`
+	ZxcvbnFeedback *ZxcvbnFeedback `json:"zxcvbn_feedback,omitempty"`
 }
 
 type AuthenticateRequestLocale string

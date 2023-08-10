@@ -7,8 +7,8 @@ package session
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 )
 
 // ResetParams: Request type for `Sessions.Reset`.
@@ -42,5 +42,5 @@ type ResetResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
-	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
+	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 }

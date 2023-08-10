@@ -7,7 +7,7 @@ package members
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
 )
 
 // CreateParams: Request type for `Members.Create`.
@@ -107,7 +107,7 @@ type SearchParams struct {
 	// Query: The optional query object contains the operator, i.e. `AND` or `OR`, and the operands that will
 	// filter your results. Only an operator is required. If you include no operands, no filtering will be
 	// applied. If you include no query object, it will return all Members with no filtering applied.
-	Query organizations.SearchQuery `json:"query,omitempty"`
+	Query *organizations.SearchQuery `json:"query,omitempty"`
 }
 
 // UpdateParams: Request type for `Members.Update`.

@@ -291,7 +291,7 @@ type SearchParams struct {
 	// Query: The optional query object contains the operator, i.e. `AND` or `OR`, and the operands that will
 	// filter your results. Only an operator is required. If you include no operands, no filtering will be
 	// applied. If you include no query object, it will return all Organizations with no filtering applied.
-	Query SearchQuery `json:"query,omitempty"`
+	Query *SearchQuery `json:"query,omitempty"`
 }
 
 // SearchQuery:

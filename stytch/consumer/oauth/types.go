@@ -9,8 +9,8 @@ package oauth
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // AttachParams: Request type for `OAuth.Attach`.
@@ -142,5 +142,5 @@ type AuthenticateResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	UserSession sessions.Session `json:"user_session,omitempty"`
+	UserSession *sessions.Session `json:"user_session,omitempty"`
 }

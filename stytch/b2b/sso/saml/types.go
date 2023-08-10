@@ -7,7 +7,7 @@ package saml
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sso"
 )
 
 // CreateConnectionParams: Request type for `SAML.CreateConnection`.
@@ -66,7 +66,7 @@ type CreateConnectionResponse struct {
 	// Connection: The `SAML Connection` object affected by this API call. See the
 	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
 	// field details.
-	Connection sso.SAMLConnection `json:"connection,omitempty"`
+	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }
 
 // DeleteVerificationCertificateResponse: Response type for `SAML.DeleteVerificationCertificate`.
@@ -96,5 +96,5 @@ type UpdateConnectionResponse struct {
 	// Connection: The `SAML Connection` object affected by this API call. See the
 	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
 	// field details.
-	Connection sso.SAMLConnection `json:"connection,omitempty"`
+	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }

@@ -7,9 +7,9 @@ package magiclinks
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `MagicLinks.Authenticate`.
@@ -119,7 +119,7 @@ type AuthenticateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 type AuthenticateRequestLocale string

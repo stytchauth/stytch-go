@@ -7,9 +7,9 @@ package magiclinks
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `MagicLinks.Authenticate`.
@@ -17,9 +17,9 @@ type AuthenticateParams struct {
 	// Token: The token to authenticate.
 	Token string `json:"token,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Options: Specify optional security settings.
-	Options Options `json:"options,omitempty"`
+	Options *Options `json:"options,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
@@ -58,7 +58,7 @@ type CreateParams struct {
 	// hour. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 }
 
 // Options:
@@ -101,7 +101,7 @@ type AuthenticateResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
 
 // CreateResponse: Response type for `MagicLinks.Create`.

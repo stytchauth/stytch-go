@@ -7,10 +7,10 @@ package otp
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `OTPs.Authenticate`.
@@ -20,9 +20,9 @@ type AuthenticateParams struct {
 	// Code: The code to authenticate.
 	Code string `json:"code,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Options: Specify optional security settings.
-	Options magiclinks.Options `json:"options,omitempty"`
+	Options *magiclinks.Options `json:"options,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
@@ -80,5 +80,5 @@ type AuthenticateResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }

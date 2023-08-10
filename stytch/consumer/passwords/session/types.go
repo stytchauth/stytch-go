@@ -7,8 +7,8 @@ package session
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // ResetParams: Request type for `Sessions.Reset`.
@@ -41,5 +41,5 @@ type ResetResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
