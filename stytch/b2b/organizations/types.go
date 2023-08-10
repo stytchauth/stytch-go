@@ -80,8 +80,8 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	// MFAPolicy: (Coming Soon) The setting that controls the MFA policy for all Members in the Organization.
-	// The accepted values are:
+	// MFAPolicy: The setting that controls the MFA policy for all Members in the Organization. The accepted
+	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
 	// they wish to log in.
@@ -133,11 +133,15 @@ type Member struct {
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 	// OAuthRegistrations: A list of OAuth registrations for this member.
 	OAuthRegistrations []OAuthRegistration `json:"oauth_registrations,omitempty"`
-	// MFAEnrolled: (Coming Soon) Sets whether the Member is enrolled in MFA. If true, the Member must complete
-	// an MFA step whenever they wish to log in to their Organization. If false, the Member only needs to
-	// complete an MFA step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
+	// EmailAddressVerified: Whether or not the Member's email address is verified.
+	EmailAddressVerified bool `json:"email_address_verified,omitempty"`
+	// MFAPhoneNumberVerified: Whether or not the Member's phone number is verified.
+	MFAPhoneNumberVerified bool `json:"mfa_phone_number_verified,omitempty"`
+	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
+	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
+	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
-	// MFAPhoneNumber: (Coming Soon) The Member's phone number. A Member may only have one phone number.
+	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number.
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
@@ -379,8 +383,8 @@ type UpdateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	// MFAPolicy: (Coming Soon) The setting that controls the MFA policy for all Members in the Organization.
-	// The accepted values are:
+	// MFAPolicy: The setting that controls the MFA policy for all Members in the Organization. The accepted
+	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
 	// they wish to log in.
