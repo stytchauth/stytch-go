@@ -21,11 +21,10 @@ type DiscoveredOrganization struct {
 	Organization organizations.Organization `json:"organization,omitempty"`
 	// Membership: Information about the membership.
 	Membership Membership `json:"membership,omitempty"`
-	// PrimaryRequired: (Coming Soon) Information about the primary authentication requirements of the
-	// Organization.
+	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
 	PrimaryRequired PrimaryRequired `json:"primary_required,omitempty"`
-	// MFARequired: (Coming Soon) Information about the MFA requirements of the Organization and the Member's
-	// options for fulfilling MFA.
+	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
+	// fulfilling MFA.
 	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 

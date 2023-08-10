@@ -105,7 +105,8 @@ type InviteResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
@@ -126,7 +127,8 @@ type LoginOrSignupResponse struct {
 	// MemberCreated: A flag indicating `true` if a new Member object was created and `false` if the Member
 	// object already existed.
 	MemberCreated bool `json:"member_created,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`

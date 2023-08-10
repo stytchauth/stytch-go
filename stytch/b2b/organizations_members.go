@@ -69,6 +69,16 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
+// DeleteMFAPhoneNumber: Delete a Member's MFA phone number.
+//
+// To change a Member's phone number, you must first call this endpoint to delete the existing phone number.
+//
+// Existing Member Sessions that include a phone number authentication factor will not be revoked if the
+// phone number is deleted, and MFA will not be enforced until the Member logs in again.
+// If you wish to enforce MFA immediately after a phone number is deleted, you can do so by prompting the
+// Member to enter a new phone number
+// and calling the [OTP SMS send](https://stytch.com/docs/b2b/api/otp-sms-send) endpoint, then calling the
+// [OTP SMS Authenticate](https://stytch.com/docs/b2b/api/authenticate-otp-sms) endpoint.
 func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	ctx context.Context,
 	body *members.DeleteMFAPhoneNumberParams,

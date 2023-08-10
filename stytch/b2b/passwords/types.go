@@ -49,9 +49,9 @@ type AuthenticateParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// Locale: (Coming Soon) If the Member needs to complete an MFA step, and the Member has a phone number,
-	// this endpoint will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale
-	// argument will be used to determine which language to use when sending the passcode.
+	// Locale: If the Member needs to complete an MFA step, and the Member has a phone number, this endpoint
+	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
+	// be used to determine which language to use when sending the passcode.
 	//
 	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
@@ -152,7 +152,8 @@ type AuthenticateResponse struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -177,8 +178,8 @@ type AuthenticateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
-	// MFARequired: (Coming Soon) Information about the MFA requirements of the Organization and the Member's
-	// options for fulfilling MFA.
+	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
+	// fulfilling MFA.
 	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
@@ -193,7 +194,8 @@ type MigrateResponse struct {
 	// MemberCreated: A flag indicating `true` if a new Member object was created and `false` if the Member
 	// object already existed.
 	MemberCreated bool `json:"member_created,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`

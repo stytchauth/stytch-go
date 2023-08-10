@@ -39,16 +39,23 @@ type CreateParams struct {
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
 	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
 	// more details.
-	IsBreakglass   bool   `json:"is_breakglass,omitempty"`
+	IsBreakglass bool `json:"is_breakglass,omitempty"`
+	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number.
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
-	// MFAEnrolled: (Coming Soon) Sets whether the Member is enrolled in MFA. If true, the Member must complete
-	// an MFA step whenever they wish to log in to their Organization. If false, the Member only needs to
-	// complete an MFA step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
+	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
+	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
+	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 }
+
+// DeleteMFAPhoneNumberParams: Request type for `Members.DeleteMFAPhoneNumber`.
 type DeleteMFAPhoneNumberParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
 }
 
 // DeleteParams: Request type for `Members.Delete`.
@@ -127,11 +134,15 @@ type UpdateParams struct {
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
 	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
 	// more details.
-	IsBreakglass   bool   `json:"is_breakglass,omitempty"`
+	IsBreakglass bool `json:"is_breakglass,omitempty"`
+	// MFAPhoneNumber: Sets the Member's phone number. Throws an error if the Member already has a phone
+	// number. To change the Member's phone number, use the
+	// [Delete member phone number endpoint](https://stytch.com/docs/b2b/api/delete-member-mfa-phone-number) to
+	// delete the Member's existing phone number first.
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
-	// MFAEnrolled: (Coming Soon) Sets whether the Member is enrolled in MFA. If true, the Member must complete
-	// an MFA step whenever they wish to log in to their Organization. If false, the Member only needs to
-	// complete an MFA step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
+	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
+	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
+	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 }
 
@@ -143,7 +154,8 @@ type CreateResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
@@ -152,12 +164,24 @@ type CreateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+// DeleteMFAPhoneNumberResponse: Response type for `Members.DeleteMFAPhoneNumber`.
 type DeleteMFAPhoneNumberResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // DeletePasswordResponse: Response type for `Members.DeletePassword`.
@@ -168,7 +192,8 @@ type DeletePasswordResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
@@ -200,7 +225,8 @@ type GetResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
@@ -239,7 +265,8 @@ type UpdateResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`

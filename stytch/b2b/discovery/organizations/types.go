@@ -121,8 +121,8 @@ type CreateParams struct {
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	// MFAPolicy: (Coming Soon) The setting that controls the MFA policy for all Members in the Organization.
-	// The accepted values are:
+	// MFAPolicy: The setting that controls the MFA policy for all Members in the Organization. The accepted
+	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
 	// they wish to log in.
@@ -164,7 +164,8 @@ type CreateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object).
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
+	// null if one does not.
 	Member organizations.Member `json:"member,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
@@ -188,8 +189,8 @@ type CreateResponse struct {
 	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	// MFARequired: (Coming Soon) Information about the MFA requirements of the Organization and the Member's
-	// options for fulfilling MFA.
+	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
+	// fulfilling MFA.
 	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
