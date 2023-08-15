@@ -7,10 +7,10 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // ResetParams: Request type for `Email.Reset`.
@@ -48,9 +48,9 @@ type ResetParams struct {
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Options: Specify optional security settings.
-	Options magiclinks.Options `json:"options,omitempty"`
+	Options *magiclinks.Options `json:"options,omitempty"`
 }
 
 // ResetStartParams: Request type for `Email.ResetStart`.
@@ -74,7 +74,7 @@ type ResetStartParams struct {
 	// starts and ends on the same device.
 	CodeChallenge string `json:"code_challenge,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// LoginRedirectURL: The URL Stytch redirects to after the OAuth flow is completed for a user that already
 	// exists. This URL should be a route in your application which will run `oauth.authenticate` (see below)
 	// and finish the login.
@@ -123,7 +123,7 @@ type ResetResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
 
 // ResetStartResponse: Response type for `Email.ResetStart`.

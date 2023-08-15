@@ -18,10 +18,10 @@ import (
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/config"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/m2m"
-	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/config"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type M2MClient struct {
@@ -40,9 +40,9 @@ func NewM2MClient(c stytch.Client) *M2MClient {
 // MANUAL(Token)(SERVICE_METHOD)
 // ADDIMPORT: "context"
 // ADDIMPORT: "fmt"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v10/stytch/config"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v10/stytch/consumer/m2m"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/config"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/consumer/m2m"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 // ADDIMPORT: "io"
 // ADDIMPORT: "net/http"
 // ADDIMPORT: "net/url"

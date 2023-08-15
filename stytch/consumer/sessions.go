@@ -15,9 +15,9 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -290,7 +290,7 @@ func marshalJWTIntoSession(claims sessions.Claims) (*sessions.Session, error) {
 		StartedAt:             &started,
 		LastAccessedAt:        &accessed,
 		ExpiresAt:             &expires,
-		Attributes:            claims.StytchSession.Attributes,
+		Attributes:            &claims.StytchSession.Attributes,
 		AuthenticationFactors: claims.StytchSession.AuthenticationFactors,
 	}, nil
 }

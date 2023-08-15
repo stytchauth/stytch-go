@@ -9,9 +9,9 @@ package oauth
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `OAuth.Authenticate`.
@@ -127,17 +127,17 @@ type AuthenticateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
-	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
+	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// ProviderValues: The `provider_values` object lists relevant identifiers, values, and scopes for a given
 	// OAuth provider. For example this object will include a provider's `access_token` that you can use to
 	// access the provider's API for a given user.
 	//
 	//   Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
 	// returned by Microsoft.
-	ProviderValues ProviderValues `json:"provider_values,omitempty"`
+	ProviderValues *ProviderValues `json:"provider_values,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 type AuthenticateRequestLocale string

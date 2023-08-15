@@ -7,8 +7,8 @@ package discovery
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
 )
 
 // DiscoveredOrganization:
@@ -18,14 +18,14 @@ type DiscoveredOrganization struct {
 	// authentication flow. See the `primary_required` and `mfa_required` fields for more details on each.
 	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-	Organization organizations.Organization `json:"organization,omitempty"`
+	Organization *organizations.Organization `json:"organization,omitempty"`
 	// Membership: Information about the membership.
-	Membership Membership `json:"membership,omitempty"`
+	Membership *Membership `json:"membership,omitempty"`
 	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
-	PrimaryRequired PrimaryRequired `json:"primary_required,omitempty"`
+	PrimaryRequired *PrimaryRequired `json:"primary_required,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // Membership:
@@ -36,7 +36,7 @@ type Membership struct {
 	Details map[string]any `json:"details,omitempty"`
 	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
 	// null if one does not.
-	Member organizations.Member `json:"member,omitempty"`
+	Member *organizations.Member `json:"member,omitempty"`
 }
 
 // PrimaryRequired:

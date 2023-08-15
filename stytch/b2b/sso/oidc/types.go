@@ -7,7 +7,7 @@ package oidc
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sso"
 )
 
 // CreateConnectionParams: Request type for `OIDC.CreateConnection`.
@@ -64,7 +64,7 @@ type CreateConnectionResponse struct {
 	// Connection: The `OIDC Connection` object affected by this API call. See the
 	// [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response
 	// field details.
-	Connection sso.OIDCConnection `json:"connection,omitempty"`
+	Connection *sso.OIDCConnection `json:"connection,omitempty"`
 }
 
 // UpdateConnectionResponse: Response type for `OIDC.UpdateConnection`.
@@ -80,7 +80,7 @@ type UpdateConnectionResponse struct {
 	// Connection: The `OIDC Connection` object affected by this API call. See the
 	// [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response
 	// field details.
-	Connection sso.OIDCConnection `json:"connection,omitempty"`
+	Connection *sso.OIDCConnection `json:"connection,omitempty"`
 	// Warning: If it is not possible to resolve the well-known metadata document from the OIDC issuer, this
 	// field will explain what went wrong if the request is successful otherwise. In other words, even if the
 	// overall request succeeds, there could be relevant warnings related to the connection update.

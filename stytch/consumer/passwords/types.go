@@ -7,8 +7,8 @@ package passwords
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // Argon2Config:
@@ -95,7 +95,7 @@ type CreateParams struct {
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
-	Name users.Name `json:"name,omitempty"`
+	Name *users.Name `json:"name,omitempty"`
 }
 
 // Feedback:
@@ -109,7 +109,7 @@ type Feedback struct {
 	// LudsRequirements: Contains which LUDS properties are fulfilled by the password and which are missing to
 	// convert an invalid password into a valid one. You'll use these fields to provide feedback to the user on
 	// how to improve the password.
-	LudsRequirements LUDSRequirements `json:"luds_requirements,omitempty"`
+	LudsRequirements *LUDSRequirements `json:"luds_requirements,omitempty"`
 }
 
 // LUDSRequirements:
@@ -150,16 +150,16 @@ type MigrateParams struct {
 	// `sha_1`, and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
-	Md5Config MD5Config `json:"md_5_config,omitempty"`
+	Md5Config *MD5Config `json:"md_5_config,omitempty"`
 	// Argon2Config: Required parameters if the argon2 hex form, as opposed to the encoded form, is supplied.
-	Argon2Config Argon2Config `json:"argon_2_config,omitempty"`
+	Argon2Config *Argon2Config `json:"argon_2_config,omitempty"`
 	// Sha1Config: Optional parameters for SHA-1 hash types.
-	Sha1Config SHA1Config `json:"sha_1_config,omitempty"`
+	Sha1Config *SHA1Config `json:"sha_1_config,omitempty"`
 	// ScryptConfig: Required parameters if the scrypt is not provided in a
 	// [PHC encoded form](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md#phc-string-format).
-	ScryptConfig ScryptConfig `json:"scrypt_config,omitempty"`
+	ScryptConfig *ScryptConfig `json:"scrypt_config,omitempty"`
 	// Pbkdf2Config: Required additional parameters for PBKDF2 hash keys.
-	Pbkdf2Config PBKDF2Config `json:"pbkdf_2_config,omitempty"`
+	Pbkdf2Config *PBKDF2Config `json:"pbkdf_2_config,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
 	// details.
@@ -170,7 +170,7 @@ type MigrateParams struct {
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
-	Name users.Name `json:"name,omitempty"`
+	Name *users.Name `json:"name,omitempty"`
 }
 
 // PBKDF2Config:
@@ -240,7 +240,7 @@ type AuthenticateResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
 
 // CreateResponse: Response type for `Passwords.Create`.
@@ -269,7 +269,7 @@ type CreateResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
 
 // MigrateResponse: Response type for `Passwords.Migrate`.
@@ -324,7 +324,7 @@ type StrengthCheckResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// Feedback for how to improve the password's strength [HaveIBeenPwned](https://haveibeenpwned.com/).
-	Feedback Feedback `json:"feedback,omitempty"`
+	Feedback *Feedback `json:"feedback,omitempty"`
 }
 
 type MigrateRequestHashType string

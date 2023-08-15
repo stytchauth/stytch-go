@@ -7,7 +7,7 @@ package clients
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/m2m"
 )
 
 // CreateParams: Request type for `Clients.Create`.
@@ -59,7 +59,7 @@ type SearchParams struct {
 	// Query: The optional query object contains the operator, i.e. `AND` or `OR`, and the operands that will
 	// filter your results. Only an operator is required. If you include no operands, no filtering will be
 	// applied. If you include no query object, it will return all results with no filtering applied.
-	Query m2m.M2MSearchQuery `json:"query,omitempty"`
+	Query *m2m.M2MSearchQuery `json:"query,omitempty"`
 }
 
 // UpdateParams: Request type for `Clients.Update`.

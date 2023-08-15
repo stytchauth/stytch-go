@@ -7,8 +7,8 @@ package totps
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.
@@ -130,7 +130,7 @@ type AuthenticateResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
 
 // CreateResponse: Response type for `TOTPs.Create`.
@@ -185,7 +185,7 @@ type RecoverResponse struct {
 	//
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
-	Session sessions.Session `json:"session,omitempty"`
+	Session *sessions.Session `json:"session,omitempty"`
 }
 
 // RecoveryCodesResponse: Response type for `TOTPs.RecoveryCodes`.

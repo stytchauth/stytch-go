@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v10/stytch"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/m2m/clients/secrets"
-	"github.com/stytchauth/stytch-go/v10/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/m2m/clients/secrets"
+	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type M2MClientsSecretsClient struct {
@@ -28,10 +28,10 @@ func NewM2MClientsSecretsClient(c stytch.Client) *M2MClientsSecretsClient {
 
 // RotateStart: Initiate the rotation of an M2M client secret. After this endpoint is called, both the
 // client's `client_secret` and `next_client_secret` will be valid. To complete the secret rotation flow,
-// update all usages of `client_secret` to `next_client_secret` and call
-// the[Rotate Secret Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret)[Rotate Secret Endpoint](https://stytch.com/docs/api/m2m-rotate-secret) to complete the flow.
-// Secret rotation can be cancelled using
-// the[Rotate Cancel Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret-cancel)[Rotate Cancel Endpoint](https://stytch.com/docs/api/m2m-rotate-secret-cancel).
+// update all usages of `client_secret` to `next_client_secret` and call the
+// [Rotate Secret Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret)[Rotate Secret Endpoint](https://stytch.com/docs/api/m2m-rotate-secret) to complete the flow.
+// Secret rotation can be cancelled using the
+// [Rotate Cancel Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret-cancel)[Rotate Cancel Endpoint](https://stytch.com/docs/api/m2m-rotate-secret-cancel).
 //
 // **Important:** This is the only time you will be able to view the generated `next_client_secret` in the
 // API response. Stytch stores a hash of the `next_client_secret` and cannot recover the value if lost. Be
@@ -62,8 +62,9 @@ func (c *M2MClientsSecretsClient) RotateStart(
 	return &retVal, err
 }
 
-// RotateCancel: Cancel the rotation of an M2M client secret started with
-// the[Start Secret Rotation Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret-start)[Start Secret Rotation Endpoint](https://stytch.com/docs/api/m2m-rotate-secret-start).
+// RotateCancel: Cancel the rotation of an M2M client secret started with the
+// [Start Secret Rotation Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret-start)
+// [Start Secret Rotation Endpoint](https://stytch.com/docs/api/m2m-rotate-secret-start).
 // After this endpoint is called, the client's `next_client_secret` is discarded and only the original
 // `client_secret` will be valid.
 func (c *M2MClientsSecretsClient) RotateCancel(
@@ -91,8 +92,9 @@ func (c *M2MClientsSecretsClient) RotateCancel(
 	return &retVal, err
 }
 
-// Rotate: Complete the rotation of an M2M client secret started with
-// the[Start Secret Rotation Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret-start)[Start Secret Rotation Endpoint](https://stytch.com/docs/api/m2m-rotate-secret-start).
+// Rotate: Complete the rotation of an M2M client secret started with the
+// [Start Secret Rotation Endpoint](https://stytch.com/docs/b2b/api/m2m-rotate-secret-start)
+// [Start Secret Rotation Endpoint](https://stytch.com/docs/api/m2m-rotate-secret-start).
 // After this endpoint is called, the client's `next_client_secret` becomes its `client_secret` and the
 // previous `client_secret` will no longer be valid.
 func (c *M2MClientsSecretsClient) Rotate(

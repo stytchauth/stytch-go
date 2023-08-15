@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 // InviteParams: Request type for `Email.Invite`.
@@ -20,9 +20,9 @@ type InviteParams struct {
 	// Magic links - Invite.
 	InviteTemplateID string `json:"invite_template_id,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
-	Name users.Name `json:"name,omitempty"`
+	Name *users.Name `json:"name,omitempty"`
 	// InviteMagicLinkURL: The URL the end user clicks from the Email Magic Link. This should be a URL that
 	// your app receives and parses and subsequently sends an API request to authenticate the Magic Link and
 	// log in the User. If this value is not passed, the default invite redirect URL that you set in your
@@ -72,7 +72,7 @@ type LoginOrCreateParams struct {
 	// Magic links - Sign-up.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// CreateUserAsPending: Flag for whether or not to save a user as pending vs active in Stytch. Defaults to
 	// false.
 	//         If true, users will be saved with status pending in Stytch's backend until authenticated.
@@ -111,7 +111,7 @@ type SendParams struct {
 	// Magic links - Login.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
-	Attributes attribute.Attributes `json:"attributes,omitempty"`
+	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// LoginMagicLinkURL: The URL the end user clicks from the login Email Magic Link. This should be a URL
 	// that your app receives and parses and subsequently send an API request to authenticate the Magic Link
 	// and log in the User. If this value is not passed, the default login redirect URL that you set in your

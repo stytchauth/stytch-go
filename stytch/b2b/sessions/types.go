@@ -9,9 +9,9 @@ package sessions
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v10/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v10/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
 )
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
@@ -210,7 +210,7 @@ type ExchangeResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
