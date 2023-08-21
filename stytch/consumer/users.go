@@ -9,7 +9,6 @@ package consumer
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
@@ -121,6 +120,31 @@ func (c *UsersClient) Update(
 		ctx,
 		"PUT",
 		fmt.Sprintf("/v1/users/%s", body.UserID),
+		nil,
+		jsonBody,
+		&retVal,
+	)
+	return &retVal, err
+}
+
+func (c *UsersClient) ExchangePrimaryFactor(
+	ctx context.Context,
+	body *users.ExchangePrimaryFactorParams,
+) (*users.ExchangePrimaryFactorResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	var retVal users.ExchangePrimaryFactorResponse
+	err = c.C.NewRequest(
+		ctx,
+		"PUT",
+		fmt.Sprintf("/v1/users/%s/exchange_primary_factor", body.UserID),
 		nil,
 		jsonBody,
 		&retVal,
