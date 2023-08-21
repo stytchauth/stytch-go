@@ -160,7 +160,7 @@ func (a *API) instantiateJWKSClient(httpClient *http.Client) (*keyfunc.JWKS, err
 		RefreshUnknownKID: true,
 	}
 
-	jwksURL := fmt.Sprintf("%s/v1/sessions/jwks/%s", a.baseURI, a.projectID)
+	jwksURL := fmt.Sprintf("%s/v1/b2b/sessions/jwks/%s", a.baseURI, a.projectID)
 
 	type Res struct {
 		jwks *keyfunc.JWKS
