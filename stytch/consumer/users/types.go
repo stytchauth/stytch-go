@@ -129,6 +129,11 @@ type Email struct {
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`
 }
+type ExchangePrimaryFactorParams struct {
+	UserID       string `json:"user_id,omitempty"`
+	EmailAddress string `json:"email_address,omitempty"`
+	PhoneNumber  string `json:"phone_number,omitempty"`
+}
 
 // GetParams: Request type for `Users.Get`.
 type GetParams struct {
@@ -480,6 +485,12 @@ type DeleteWebAuthnRegistrationResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+type ExchangePrimaryFactorResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	User       User   `json:"user,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Users.Get`.
