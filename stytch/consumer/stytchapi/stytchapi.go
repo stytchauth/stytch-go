@@ -128,11 +128,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.Users = consumer.NewUsersClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
 	// Set up JWKS for local session authentication
-	httpClient := defaultClient.HTTPClient
-	if realClient, ok := a.client.(*stytch.DefaultClient); ok {
-		httpClient = realClient.HTTPClient
-	}
-	jwks, err := a.instantiateJWKSClient(httpClient)
+	jwks, err := a.instantiateJWKSClient(a.client.GetHTTPClient())
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}

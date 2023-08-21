@@ -36,7 +36,7 @@ import (
 	"context"
 
 	"github.com/stytchauth/stytch-go/v11/stytch"
-	"github.com/stytchauth/stytch-go/v11/stytch/b2c/stytchapi"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/stytchapi"
 )
 
 stytchAPIClient, err := stytchapi.NewClient(
