@@ -195,6 +195,7 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
@@ -241,6 +242,10 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	token string,
 	maxTokenAge time.Duration,
 ) (*sessions.Session, error) {
+	if c.JWKS == nil {
+		return nil, stytcherror.ErrJWKSNotInitialized
+	}
+
 	var claims sessions.Claims
 
 	aud := c.C.GetConfig().ProjectID

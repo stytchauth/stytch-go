@@ -31,6 +31,8 @@ type API struct {
 	initializationContext context.Context
 	logger                Logger
 
+	shouldSkipJWKSInitialization bool
+
 	CryptoWallets *consumer.CryptoWalletsClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *consumer.MagicLinksClient
@@ -98,6 +100,14 @@ func WithInitializationContext(ctx context.Context) Option {
 	return func(api *API) { api.initializationContext = ctx }
 }
 
+// WithSkipJWKSInitialization skips the initialization of the JWKS client. This can be useful for testing purposes.
+// Please note that if you utilize this option, any API method that makes use of the JWKS client will raise a
+// stytcherror.JWKSNotInitialized error. If you need to call such a method, you should use WithClient or WithHTTPClient
+// with a client that is capable of ininitalizing the JWKS keyfunc.
+func WithSkipJWKSInitialization() Option {
+	return func(api *API) { api.shouldSkipJWKSInitialization = true }
+}
+
 // NewClient returns a Stytch API client that uses the provided credentials.
 //
 // It detects the environment from the given projectID. You are still free to pass WithBaseURI as an option if you wish
@@ -112,6 +122,8 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 
 		client:                defaultClient,
 		initializationContext: context.Background(),
+
+		shouldSkipJWKSInitialization: false,
 	}
 	for _, o := range opts {
 		o(a)
@@ -140,6 +152,12 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 }
 
 func (a *API) instantiateJWKSClient(httpClient *http.Client) (*keyfunc.JWKS, error) {
+	if a.shouldSkipJWKSInitialization {
+		if a.logger != nil {
+			a.logger.Printf("Skipping JWKS initialization")
+		}
+		return nil, nil
+	}
 	// The context given in the keyfunc Options applies throughout the lifetime of the JWKS
 	// fetcher. The context we were given here is _only_ for init, so we arrange to cancel the
 	// JWKS context manually if we couldn't start in time.

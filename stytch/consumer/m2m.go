@@ -130,6 +130,7 @@ func (c *M2MClient) Token(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 
 // AuthenticateToken validates an access token issued by Stytch from the Token endpoint.
 // M2M access tokens are JWTs signed with the project's JWKs, and can be validated locally using any Stytch client library.
@@ -138,6 +139,10 @@ func (c *M2MClient) AuthenticateToken(
 	ctx context.Context,
 	req *m2m.AuthenticateTokenParams,
 ) (*m2m.AuthenticateTokenResponse, error) {
+	if c.JWKS == nil {
+		return nil, stytcherror.ErrJWKSNotInitialized
+	}
+
 	var claims jwt.MapClaims
 
 	aud := c.C.GetConfig().ProjectID
