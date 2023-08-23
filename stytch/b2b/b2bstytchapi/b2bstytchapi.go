@@ -101,8 +101,9 @@ func WithInitializationContext(ctx context.Context) Option {
 }
 
 // WithSkipJWKSInitialization skips the initialization of the JWKS client. This can be useful for testing purposes.
-// Please note that if you utilize this option, any API method that makes use of the JWKS client will panic with a nil
-// pointer dereference. If possible, it is recommended to provide a
+// Please note that if you utilize this option, any API method that makes use of the JWKS client will raise a
+// stytcherror.JWKSNotInitialized error. If you need to call such a method, you should use WithClient or WithHTTPClient
+// with a client that is capable of ininitalizing the JWKS keyfunc.
 func WithSkipJWKSInitialization() Option {
 	return func(api *API) { api.shouldSkipJWKSInitialization = true }
 }

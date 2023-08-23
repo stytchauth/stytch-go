@@ -1,6 +1,7 @@
 package stytcherror
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -75,3 +76,5 @@ func NewClientLibraryError(message string) error {
 		ErrorURL:     "https://stytch.com/docs/api/errors/500",
 	}
 }
+
+var ErrJWKSNotInitialized = errors.New("JWKS not initialized")
