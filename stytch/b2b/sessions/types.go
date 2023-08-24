@@ -160,8 +160,7 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
-	// null if one does not.
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
@@ -185,8 +184,7 @@ type ExchangeResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
-	// null if one does not.
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`

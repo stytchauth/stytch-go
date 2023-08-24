@@ -99,8 +99,7 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
-	// null if one does not.
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
 	Member organizations.Member `json:"member,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.

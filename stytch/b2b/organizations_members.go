@@ -69,6 +69,33 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
+// Reactivate: Reactivates a deleted Member's status and its associated email status (if applicable) to
+// active, specified by `organization_id` and `member_id`.
+func (c *OrganizationsMembersClient) Reactivate(
+	ctx context.Context,
+	body *members.ReactivateParams,
+) (*members.ReactivateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	var retVal members.ReactivateResponse
+	err = c.C.NewRequest(
+		ctx,
+		"PUT",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/reactivate", body.OrganizationID, body.MemberID),
+		nil,
+		jsonBody,
+		&retVal,
+	)
+	return &retVal, err
+}
+
 // DeleteMFAPhoneNumber: Delete a Member's MFA phone number.
 //
 // To change a Member's phone number, you must first call this endpoint to delete the existing phone number.
@@ -96,7 +123,7 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 }
 
 // Search for Members within specified Organizations. An array with at least one `organization_id` is
-// required. Submitting an empty `query` returns all Members within the specified Organizations.
+// required. Submitting an empty `query` returns all non-deleted Members within the specified Organizations.
 //
 // *All fuzzy search filters require a minimum of three characters.
 func (c *OrganizationsMembersClient) Search(

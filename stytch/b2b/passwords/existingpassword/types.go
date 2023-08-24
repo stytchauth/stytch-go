@@ -74,8 +74,7 @@ type ResetResponse struct {
 	RequestID string `json:"request_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
-	// null if one does not.
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
 	Member organizations.Member `json:"member,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
