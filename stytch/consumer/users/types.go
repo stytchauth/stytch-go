@@ -29,9 +29,9 @@ type CreateParams struct {
 	Name *Name `json:"name,omitempty"`
 	// Attributes: Provided attributes help with fraud detection.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
-	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format.
-	// The phone number should be in E.164 format (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this
-	// endpoint, see [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
+	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format
+	// (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this endpoint, see
+	// [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// CreateUserAsPending: Flag for whether or not to save a user as pending vs active in Stytch. Defaults to
 	// false.
@@ -129,10 +129,16 @@ type Email struct {
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`
 }
+
+// ExchangePrimaryFactorParams: Request type for `Users.ExchangePrimaryFactor`.
 type ExchangePrimaryFactorParams struct {
-	UserID       string `json:"user_id,omitempty"`
+	// UserID: The unique ID of a specific User.
+	UserID string `json:"user_id,omitempty"`
+	// EmailAddress: The email address to exchange to.
 	EmailAddress string `json:"email_address,omitempty"`
-	PhoneNumber  string `json:"phone_number,omitempty"`
+	// PhoneNumber: The phone number to exchange to. The phone number should be in E.164 format (i.e.
+	// +1XXXXXXXXXX).
+	PhoneNumber string `json:"phone_number,omitempty"`
 }
 
 // GetParams: Request type for `Users.Get`.
@@ -486,11 +492,22 @@ type DeleteWebAuthnRegistrationResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+// ExchangePrimaryFactorResponse: Response type for `Users.ExchangePrimaryFactor`.
 type ExchangePrimaryFactorResponse struct {
-	RequestID  string `json:"request_id,omitempty"`
-	UserID     string `json:"user_id,omitempty"`
-	User       User   `json:"user,omitempty"`
-	StatusCode int32  `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// UserID: The unique ID of the affected User.
+	UserID string `json:"user_id,omitempty"`
+	// User: The `user` object affected by this API call. See the
+	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.
+	User User `json:"user,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Users.Get`.

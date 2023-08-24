@@ -12,9 +12,9 @@ import (
 
 // LoginOrCreateParams: Request type for `Sms.LoginOrCreate`.
 type LoginOrCreateParams struct {
-	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format.
-	// The phone number should be in E.164 format (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this
-	// endpoint, see [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
+	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format
+	// (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this endpoint, see
+	// [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// ExpirationMinutes: Set the expiration for the one-time passcode, in minutes. The minimum expiration is 1
 	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
@@ -43,9 +43,9 @@ type LoginOrCreateParams struct {
 
 // SendParams: Request type for `Sms.Send`.
 type SendParams struct {
-	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format.
-	// The phone number should be in E.164 format (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this
-	// endpoint, see [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
+	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format
+	// (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this endpoint, see
+	// [Testing](https://stytch.com/docs/home#resources_testing) for more detail.
 	PhoneNumber string `json:"phone_number,omitempty"`
 	// ExpirationMinutes: Set the expiration for the one-time passcode, in minutes. The minimum expiration is 1
 	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
