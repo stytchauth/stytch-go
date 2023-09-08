@@ -47,45 +47,71 @@ type AuthenticateParams struct {
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
 }
+
+// AuthenticationFactor:
 type AuthenticationFactor struct {
-	Type                      AuthenticationFactorType           `json:"type,omitempty"`
-	DeliveryMethod            AuthenticationFactorDeliveryMethod `json:"delivery_method,omitempty"`
-	LastAuthenticatedAt       *time.Time                         `json:"last_authenticated_at,omitempty"`
-	CreatedAt                 *time.Time                         `json:"created_at,omitempty"`
-	UpdatedAt                 *time.Time                         `json:"updated_at,omitempty"`
-	EmailFactor               *EmailFactor                       `json:"email_factor,omitempty"`
-	PhoneNumberFactor         *PhoneNumberFactor                 `json:"phone_number_factor,omitempty"`
-	GoogleOAuthFactor         *GoogleOAuthFactor                 `json:"google_oauth_factor,omitempty"`
-	MicrosoftOAuthFactor      *MicrosoftOAuthFactor              `json:"microsoft_oauth_factor,omitempty"`
-	AppleOAuthFactor          *AppleOAuthFactor                  `json:"apple_oauth_factor,omitempty"`
-	WebAuthnFactor            *WebAuthnFactor                    `json:"webauthn_factor,omitempty"`
-	AuthenticatorAppFactor    *AuthenticatorAppFactor            `json:"authenticator_app_factor,omitempty"`
-	GithubOAuthFactor         *GithubOAuthFactor                 `json:"github_oauth_factor,omitempty"`
-	RecoveryCodeFactor        *RecoveryCodeFactor                `json:"recovery_code_factor,omitempty"`
-	FacebookOAuthFactor       *FacebookOAuthFactor               `json:"facebook_oauth_factor,omitempty"`
-	CryptoWalletFactor        *CryptoWalletFactor                `json:"crypto_wallet_factor,omitempty"`
-	AmazonOAuthFactor         *AmazonOAuthFactor                 `json:"amazon_oauth_factor,omitempty"`
-	BitbucketOAuthFactor      *BitbucketOAuthFactor              `json:"bitbucket_oauth_factor,omitempty"`
-	CoinbaseOAuthFactor       *CoinbaseOAuthFactor               `json:"coinbase_oauth_factor,omitempty"`
-	DiscordOAuthFactor        *DiscordOAuthFactor                `json:"discord_oauth_factor,omitempty"`
-	FigmaOAuthFactor          *FigmaOAuthFactor                  `json:"figma_oauth_factor,omitempty"`
-	GitLabOAuthFactor         *GitLabOAuthFactor                 `json:"git_lab_oauth_factor,omitempty"`
-	InstagramOAuthFactor      *InstagramOAuthFactor              `json:"instagram_oauth_factor,omitempty"`
-	LinkedInOAuthFactor       *LinkedInOAuthFactor               `json:"linked_in_oauth_factor,omitempty"`
-	ShopifyOAuthFactor        *ShopifyOAuthFactor                `json:"shopify_oauth_factor,omitempty"`
-	SlackOAuthFactor          *SlackOAuthFactor                  `json:"slack_oauth_factor,omitempty"`
-	SnapchatOAuthFactor       *SnapchatOAuthFactor               `json:"snapchat_oauth_factor,omitempty"`
-	SpotifyOAuthFactor        *SpotifyOAuthFactor                `json:"spotify_oauth_factor,omitempty"`
-	SteamOAuthFactor          *SteamOAuthFactor                  `json:"steam_oauth_factor,omitempty"`
-	TikTokOAuthFactor         *TikTokOAuthFactor                 `json:"tik_tok_oauth_factor,omitempty"`
-	TwitchOAuthFactor         *TwitchOAuthFactor                 `json:"twitch_oauth_factor,omitempty"`
-	TwitterOAuthFactor        *TwitterOAuthFactor                `json:"twitter_oauth_factor,omitempty"`
-	EmbeddableMagicLinkFactor *EmbeddableMagicLinkFactor         `json:"embeddable_magic_link_factor,omitempty"`
-	BiometricFactor           *BiometricFactor                   `json:"biometric_factor,omitempty"`
-	SAMLSSOFactor             *SAMLSSOFactor                     `json:"saml_sso_factor,omitempty"`
-	OIDCSSOFactor             *OIDCSSOFactor                     `json:"oidc_sso_factor,omitempty"`
-	SalesforceOAuthFactor     *SalesforceOAuthFactor             `json:"salesforce_oauth_factor,omitempty"`
-	YahooOAuthFactor          *YahooOAuthFactor                  `json:"yahoo_oauth_factor,omitempty"`
+	// Type: The type of authentication factor. The possible values are: `magic_link`, `otp`,
+	//        `oauth`, `password`, or `sso`.
+	Type AuthenticationFactorType `json:"type,omitempty"`
+	// DeliveryMethod: The method that was used to deliver the authentication factor. The possible values
+	// depend on the `type`:
+	//
+	//       `magic_link` – Only `email`.
+	//
+	//       `otp` – Only `sms`.
+	//
+	//       `oauth` – Either `oauth_google` or `oauth_microsoft`.
+	//
+	//       `password` – Only `knowledge`.
+	//
+	//       `sso` – Either `sso_saml` or `sso_oidc`.
+	//
+	DeliveryMethod AuthenticationFactorDeliveryMethod `json:"delivery_method,omitempty"`
+	// LastAuthenticatedAt: The timestamp when the factor was last authenticated.
+	LastAuthenticatedAt *time.Time `json:"last_authenticated_at,omitempty"`
+	// CreatedAt: The timestamp when the factor was initially authenticated.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// UpdatedAt: The timestamp when the factor was last updated.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// EmailFactor: Information about the email factor, if one is present.
+	EmailFactor *EmailFactor `json:"email_factor,omitempty"`
+	// PhoneNumberFactor: Information about the phone number factor, if one is present.
+	PhoneNumberFactor *PhoneNumberFactor `json:"phone_number_factor,omitempty"`
+	// GoogleOAuthFactor: Information about the Google OAuth factor, if one is present.
+	GoogleOAuthFactor *GoogleOAuthFactor `json:"google_oauth_factor,omitempty"`
+	// MicrosoftOAuthFactor: Information about the Microsoft OAuth factor, if one is present.
+	MicrosoftOAuthFactor      *MicrosoftOAuthFactor      `json:"microsoft_oauth_factor,omitempty"`
+	AppleOAuthFactor          *AppleOAuthFactor          `json:"apple_oauth_factor,omitempty"`
+	WebAuthnFactor            *WebAuthnFactor            `json:"webauthn_factor,omitempty"`
+	AuthenticatorAppFactor    *AuthenticatorAppFactor    `json:"authenticator_app_factor,omitempty"`
+	GithubOAuthFactor         *GithubOAuthFactor         `json:"github_oauth_factor,omitempty"`
+	RecoveryCodeFactor        *RecoveryCodeFactor        `json:"recovery_code_factor,omitempty"`
+	FacebookOAuthFactor       *FacebookOAuthFactor       `json:"facebook_oauth_factor,omitempty"`
+	CryptoWalletFactor        *CryptoWalletFactor        `json:"crypto_wallet_factor,omitempty"`
+	AmazonOAuthFactor         *AmazonOAuthFactor         `json:"amazon_oauth_factor,omitempty"`
+	BitbucketOAuthFactor      *BitbucketOAuthFactor      `json:"bitbucket_oauth_factor,omitempty"`
+	CoinbaseOAuthFactor       *CoinbaseOAuthFactor       `json:"coinbase_oauth_factor,omitempty"`
+	DiscordOAuthFactor        *DiscordOAuthFactor        `json:"discord_oauth_factor,omitempty"`
+	FigmaOAuthFactor          *FigmaOAuthFactor          `json:"figma_oauth_factor,omitempty"`
+	GitLabOAuthFactor         *GitLabOAuthFactor         `json:"git_lab_oauth_factor,omitempty"`
+	InstagramOAuthFactor      *InstagramOAuthFactor      `json:"instagram_oauth_factor,omitempty"`
+	LinkedInOAuthFactor       *LinkedInOAuthFactor       `json:"linked_in_oauth_factor,omitempty"`
+	ShopifyOAuthFactor        *ShopifyOAuthFactor        `json:"shopify_oauth_factor,omitempty"`
+	SlackOAuthFactor          *SlackOAuthFactor          `json:"slack_oauth_factor,omitempty"`
+	SnapchatOAuthFactor       *SnapchatOAuthFactor       `json:"snapchat_oauth_factor,omitempty"`
+	SpotifyOAuthFactor        *SpotifyOAuthFactor        `json:"spotify_oauth_factor,omitempty"`
+	SteamOAuthFactor          *SteamOAuthFactor          `json:"steam_oauth_factor,omitempty"`
+	TikTokOAuthFactor         *TikTokOAuthFactor         `json:"tik_tok_oauth_factor,omitempty"`
+	TwitchOAuthFactor         *TwitchOAuthFactor         `json:"twitch_oauth_factor,omitempty"`
+	TwitterOAuthFactor        *TwitterOAuthFactor        `json:"twitter_oauth_factor,omitempty"`
+	EmbeddableMagicLinkFactor *EmbeddableMagicLinkFactor `json:"embeddable_magic_link_factor,omitempty"`
+	BiometricFactor           *BiometricFactor           `json:"biometric_factor,omitempty"`
+	// SAMLSSOFactor: Information about the SAML SSO factor, if one is present.
+	SAMLSSOFactor *SAMLSSOFactor `json:"saml_sso_factor,omitempty"`
+	// OIDCSSOFactor: Information about the OIDC SSO factor, if one is present.
+	OIDCSSOFactor         *OIDCSSOFactor         `json:"oidc_sso_factor,omitempty"`
+	SalesforceOAuthFactor *SalesforceOAuthFactor `json:"salesforce_oauth_factor,omitempty"`
+	YahooOAuthFactor      *YahooOAuthFactor      `json:"yahoo_oauth_factor,omitempty"`
 }
 type AuthenticatorAppFactor struct {
 	TOTPID string `json:"totp_id,omitempty"`
@@ -113,8 +139,12 @@ type DiscordOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
+// EmailFactor:
 type EmailFactor struct {
-	EmailID      string `json:"email_id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
+	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 }
 type EmbeddableMagicLinkFactor struct {
@@ -152,9 +182,15 @@ type GithubOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
+// GoogleOAuthFactor:
 type GoogleOAuthFactor struct {
-	ID              string `json:"id,omitempty"`
-	EmailID         string `json:"email_id,omitempty"`
+	// ID: The unique ID of an OAuth registration.
+	ID string `json:"id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
 type InstagramOAuthFactor struct {
@@ -178,18 +214,33 @@ type LinkedInOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
+// MicrosoftOAuthFactor:
 type MicrosoftOAuthFactor struct {
-	ID              string `json:"id,omitempty"`
-	EmailID         string `json:"email_id,omitempty"`
+	// ID: The unique ID of an OAuth registration.
+	ID string `json:"id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
+// OIDCSSOFactor:
 type OIDCSSOFactor struct {
-	ID         string `json:"id,omitempty"`
+	// ID: The unique ID of an SSO Registration.
+	ID string `json:"id,omitempty"`
+	// ProviderID: Globally unique UUID that identifies a specific OIDC Connection.
 	ProviderID string `json:"provider_id,omitempty"`
+	// ExternalID: The ID of the member given by the identity provider.
 	ExternalID string `json:"external_id,omitempty"`
 }
+
+// PhoneNumberFactor:
 type PhoneNumberFactor struct {
-	PhoneID     string `json:"phone_id,omitempty"`
+	// PhoneID: The globally unique UUID of the Member's phone number.
+	PhoneID string `json:"phone_id,omitempty"`
+	// PhoneNumber: The phone number of the Member.
 	PhoneNumber string `json:"phone_number,omitempty"`
 }
 type RecoveryCodeFactor struct {
@@ -205,9 +256,14 @@ type RevokeParams struct {
 	// SessionJWT: A JWT for the session to revoke.
 	SessionJWT string `json:"session_jwt,omitempty"`
 }
+
+// SAMLSSOFactor:
 type SAMLSSOFactor struct {
-	ID         string `json:"id,omitempty"`
+	// ID: The unique ID of an SSO Registration.
+	ID string `json:"id,omitempty"`
+	// ProviderID: Globally unique UUID that identifies a specific SAML Connection.
 	ProviderID string `json:"provider_id,omitempty"`
+	// ExternalID: The ID of the member given by the identity provider.
 	ExternalID string `json:"external_id,omitempty"`
 }
 type SalesforceOAuthFactor struct {

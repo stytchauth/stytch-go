@@ -124,7 +124,7 @@ type MemberSession struct {
 	// ExpiresAt: The timestamp when the Session expires. Values conform to the RFC 3339 standard and are
 	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-	// AuthenticationFactors: An array of different authentication factors that have initiated a Session.
+	// AuthenticationFactors: An array of different authentication factors that comprise a Session.
 	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
