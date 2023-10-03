@@ -7,6 +7,7 @@ package session
 // !!!
 
 import (
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 )
@@ -21,7 +22,10 @@ type ResetParams struct {
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
-	SessionJWT string `json:"session_jwt,omitempty"`
+	SessionJWT             string             `json:"session_jwt,omitempty"`
+	SessionDurationMinutes int32              `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]any     `json:"session_custom_claims,omitempty"`
+	Locale                 ResetRequestLocale `json:"locale,omitempty"`
 }
 
 // ResetResponse: Response type for `Sessions.Reset`.
@@ -35,11 +39,24 @@ type ResetResponse struct {
 	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
 	Member organizations.Member `json:"member,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-	Organization organizations.Organization `json:"organization,omitempty"`
+	Organization             organizations.Organization `json:"organization,omitempty"`
+	SessionToken             string                     `json:"session_token,omitempty"`
+	SessionJWT               string                     `json:"session_jwt,omitempty"`
+	IntermediateSessionToken string                     `json:"intermediate_session_token,omitempty"`
+	MemberAuthenticated      bool                       `json:"member_authenticated,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
+	MFARequired   *mfa.MfaRequired        `json:"mfa_required,omitempty"`
 }
+
+type ResetRequestLocale string
+
+const (
+	ResetRequestLocaleEn   ResetRequestLocale = "en"
+	ResetRequestLocaleEs   ResetRequestLocale = "es"
+	ResetRequestLocalePtbr ResetRequestLocale = "pt-br"
+)

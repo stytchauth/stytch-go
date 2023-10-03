@@ -278,7 +278,7 @@ type Session struct {
 	SessionID string `json:"session_id,omitempty"`
 	// UserID: The unique ID of the affected User.
 	UserID string `json:"user_id,omitempty"`
-	// AuthenticationFactors: An array of different authentication factors that have initiated a Session.
+	// AuthenticationFactors: An array of different authentication factors that comprise a Session.
 	AuthenticationFactors []AuthenticationFactor `json:"authentication_factors,omitempty"`
 	// StartedAt: The timestamp when the Session was created. Values conform to the RFC 3339 standard and are
 	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
