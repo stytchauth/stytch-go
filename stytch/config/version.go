@@ -1,3 +1,3 @@
 package config
 
-const APIVersion = "11.4.0"
+const APIVersion = "11.4.1"
