@@ -27,7 +27,13 @@ type AttachParams struct {
 
 // AuthenticateParams: Request type for `OAuth.Authenticate`.
 type AuthenticateParams struct {
-	// Token: The token to authenticate.
+	// Token: The OAuth `token` from the `?token=` query parameter in the URL.
+	//
+	//       The redirect URL will look like
+	// `https://example.com/authenticate?stytch_token_type=oauth&token=rM_kw42CWBhsHLF62V75jELMbvJ87njMe3tFVj7Qupu7`
+	//
+	//       In the redirect URL, the `stytch_token_type` will be `oauth`. See
+	// [here](https://stytch.com/docs/guides/dashboard/redirect-urls) for more detail.
 	Token string `json:"token,omitempty"`
 	// SessionToken: Reuse an existing session instead of creating a new one. If you provide us with a
 	// `session_token`, then we'll update the session represented by this session token with this OAuth factor.
