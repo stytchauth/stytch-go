@@ -9,7 +9,9 @@ package consumer
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/otp"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
