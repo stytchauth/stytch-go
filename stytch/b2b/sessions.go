@@ -10,14 +10,19 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 
+	"github.com/MicahParks/keyfunc/v2"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type SessionsClient struct {
-	C stytch.Client
+	C    stytch.Client
+	JWKS *keyfunc.JWKS
 }
 
 func NewSessionsClient(c stytch.Client) *SessionsClient {
@@ -78,6 +83,67 @@ func (c *SessionsClient) Authenticate(
 		jsonBody,
 		&retVal,
 	)
+	return &retVal, err
+}
+
+// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
+// ExampleClient_AuthenticateWithClaims_struct for examples
+func (c *SessionsClient) AuthenticateWithClaims(
+	ctx context.Context,
+	body *sessions.AuthenticateParams,
+	claims any,
+) (*sessions.AuthenticateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	b, err := c.C.RawRequest(
+		ctx,
+		"POST",
+		"/v1/b2b/sessions/authenticate",
+		nil,
+		jsonBody,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	// First extract the Stytch data.
+	var retVal sessions.AuthenticateResponse
+	if err := json.Unmarshal(b, &retVal); err != nil {
+		return nil, fmt.Errorf("unmarshal sessions.AuthenticateResponse: %w", err)
+	}
+
+	if claims == nil {
+		return &retVal, nil
+	}
+
+	if m, ok := claims.(*map[string]any); ok {
+		*m = retVal.MemberSession.CustomClaims
+		return &retVal, nil
+	}
+
+	// This is where we need to convert claims into a claimsMap
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		Result:  &claims,
+		TagName: "json",
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = decoder.Decode(retVal.MemberSession.CustomClaims)
+	if err != nil {
+		return nil, err
+	}
+
 	return &retVal, err
 }
 
@@ -172,3 +238,114 @@ func (c *SessionsClient) GetJWKS(
 	)
 	return &retVal, err
 }
+
+// MANUAL(AuthenticateJWT)(SERVICE_METHOD)
+// ADDIMPORT: "encoding/json"
+// ADDIMPORT: "time"
+// ADDIMPORT: "github.com/golang-jwt/jwt/v5"
+// ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
+
+func (c *SessionsClient) AuthenticateJWT(
+	ctx context.Context,
+	params *sessions.AuthenticateJWTParams,
+) (*sessions.AuthenticateResponse, error) {
+	if params.Body.SessionJWT == "" || params.MaxTokenAge == time.Duration(0) {
+		return c.Authenticate(ctx, params.Body)
+	}
+
+	session, err := c.AuthenticateJWTLocal(params.Body.SessionJWT, params.MaxTokenAge)
+	if err != nil {
+		// JWT couldn't be verified locally. Check with the Stytch API.
+		return c.Authenticate(ctx, params.Body)
+	}
+
+	return &sessions.AuthenticateResponse{
+		MemberSession: *session,
+	}, nil
+}
+
+func (c *SessionsClient) AuthenticateJWTWithClaims(
+	ctx context.Context,
+	maxTokenAge time.Duration,
+	body *sessions.AuthenticateParams,
+	claims map[string]any,
+) (*sessions.AuthenticateResponse, error) {
+	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
+		return c.AuthenticateWithClaims(ctx, body, claims)
+	}
+
+	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	if err != nil {
+		// JWT couldn't be verified locally. Check with the Stytch API.
+		return c.Authenticate(ctx, body)
+	}
+
+	return &sessions.AuthenticateResponse{
+		MemberSession: *session,
+	}, nil
+}
+
+func (c *SessionsClient) AuthenticateJWTLocal(
+	token string,
+	maxTokenAge time.Duration,
+) (*sessions.MemberSession, error) {
+	if c.JWKS == nil {
+		return nil, stytcherror.ErrJWKSNotInitialized
+	}
+
+	var claims sessions.Claims
+
+	aud := c.C.GetConfig().ProjectID
+	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
+
+	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+	}
+
+	if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
+		// The JWT is valid, but older than the tolerable maximum age.
+		return nil, sessions.ErrJWTTooOld
+	}
+
+	return marshalJWTIntoSession(claims)
+}
+
+func marshalJWTIntoSession(claims sessions.Claims) (*sessions.MemberSession, error) {
+	// For JWTs that include it, prefer the inner expires_at claim.
+	expiresAt := claims.Session.ExpiresAt
+	if expiresAt == "" {
+		expiresAt = claims.RegisteredClaims.ExpiresAt.Time.Format(time.RFC3339)
+	}
+
+	started, err := time.Parse(time.RFC3339, claims.Session.StartedAt)
+	if err != nil {
+		return nil, err
+	}
+	started = started.UTC()
+
+	accessed, err := time.Parse(time.RFC3339, claims.Session.LastAccessedAt)
+	if err != nil {
+		return nil, err
+	}
+	accessed = accessed.UTC()
+
+	expires, err := time.Parse(time.RFC3339, expiresAt)
+	if err != nil {
+		return nil, err
+	}
+	expires = expires.UTC()
+
+	return &sessions.MemberSession{
+		MemberSessionID:       claims.Session.ID,
+		MemberID:              claims.RegisteredClaims.Subject,
+		StartedAt:             &started,
+		LastAccessedAt:        &accessed,
+		ExpiresAt:             &expires,
+		AuthenticationFactors: claims.Session.AuthenticationFactors,
+		OrganizationID:        claims.Organization.ID,
+	}, nil
+}
+
+// ENDMANUAL(AuthenticateJWT)

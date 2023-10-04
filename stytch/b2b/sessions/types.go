@@ -7,8 +7,10 @@ package sessions
 // !!!
 
 import (
+	"errors"
 	"time"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
@@ -258,3 +260,38 @@ const (
 	ExchangeRequestLocaleEs   ExchangeRequestLocale = "es"
 	ExchangeRequestLocalePtbr ExchangeRequestLocale = "pt-br"
 )
+
+// MANUAL(Types)(TYPES)
+// ADDIMPORT: "errors"
+// ADDIMPORT: "strings"
+// ADDIMPORT: "github.com/golang-jwt/jwt/v5"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
+
+var ErrJWTTooOld = errors.New("JWT too old")
+
+// AuthenticateJWTParams: Request type for `Sessions.AuthenticateJWT`.
+type AuthenticateJWTParams struct {
+	MaxTokenAge time.Duration
+	Body        *AuthenticateParams
+}
+
+type OrgClaim struct {
+	ID   string `json:"organization_id"`
+	Slug string `json:"slug"`
+}
+
+type Claims struct {
+	Session      sessions.SessionClaim `json:"https://stytch.com/session"`
+	Organization OrgClaim              `json:"https://stytch.com/organization"`
+	jwt.RegisteredClaims
+}
+
+type ClaimsWrapper struct {
+	Claims map[string]any `json:"custom_claims"`
+}
+
+type SessionWrapper struct {
+	Session ClaimsWrapper `json:"session"`
+}
+
+// ENDMANUAL(Types)

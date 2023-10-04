@@ -9,7 +9,9 @@ package b2b
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/passwords"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
@@ -107,24 +109,14 @@ func (c *PasswordsClient) Migrate(
 }
 
 // Authenticate a member with their email address and password. This endpoint verifies that the member has
-// a password currently set, and that the entered password is correct. There are two instances where the
-// endpoint will return a reset_password error even if they enter their previous password:
-// * The member’s credentials appeared in the HaveIBeenPwned dataset.
-//   - We force a password reset to ensure that the member is the legitimate owner of the email address,
+// a password currently set, and that the entered password is correct.
 //
-// and not a malicious actor abusing the compromised credentials.
-// * A member that has previously authenticated with email/password uses a passwordless authentication
-// method tied to the same email address (e.g. Magic Links) for the first time. Any subsequent
-// email/password authentication attempt will result in this error.
-//   - We force a password reset in this instance in order to safely deduplicate the account by email
-//
-// address, without introducing the risk of a pre-hijack account takeover attack.
-//   - Imagine a bad actor creates many accounts using passwords and the known email addresses of their
-//
-// victims. If a victim comes to the site and logs in for the first time with an email-based passwordless
-// authentication method then both the victim and the bad actor have credentials to access to the same
-// account. To prevent this, any further email/password login attempts first require a password reset which
-// can only be accomplished by someone with access to the underlying email address.
+// If you have breach detection during authentication enabled in your
+// [password strength policy](https://stytch.com/docs/b2b/guides/passwords/strength-policies) and the
+// member's credentials have appeared in the HaveIBeenPwned dataset, this endpoint will return a
+// `member_reset_password` error even if the member enters a correct password. We force a password reset in
+// this case to ensure that the member is the legitimate owner of the email address and not a malicious
+// actor abusing the compromised credentials.
 //
 // If the Member is required to complete MFA to log in to the Organization, the returned value of
 // `member_authenticated` will be `false`, and an `intermediate_session_token` will be returned.
@@ -157,5 +149,66 @@ func (c *PasswordsClient) Authenticate(
 		jsonBody,
 		&retVal,
 	)
+	return &retVal, err
+}
+
+// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
+// ExampleClient_AuthenticateWithClaims_struct for examples
+func (c *PasswordsClient) AuthenticateWithClaims(
+	ctx context.Context,
+	body *passwords.AuthenticateParams,
+	claims any,
+) (*passwords.AuthenticateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	b, err := c.C.RawRequest(
+		ctx,
+		"POST",
+		"/v1/b2b/passwords/authenticate",
+		nil,
+		jsonBody,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	// First extract the Stytch data.
+	var retVal passwords.AuthenticateResponse
+	if err := json.Unmarshal(b, &retVal); err != nil {
+		return nil, fmt.Errorf("unmarshal passwords.AuthenticateResponse: %w", err)
+	}
+
+	if claims == nil {
+		return &retVal, nil
+	}
+
+	if m, ok := claims.(*map[string]any); ok {
+		*m = retVal.MemberSession.CustomClaims
+		return &retVal, nil
+	}
+
+	// This is where we need to convert claims into a claimsMap
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		Result:  &claims,
+		TagName: "json",
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = decoder.Decode(retVal.MemberSession.CustomClaims)
+	if err != nil {
+		return nil, err
+	}
+
 	return &retVal, err
 }

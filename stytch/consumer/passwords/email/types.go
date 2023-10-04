@@ -15,7 +15,12 @@ import (
 
 // ResetParams: Request type for `Email.Reset`.
 type ResetParams struct {
-	// Token: The token to authenticate.
+	// Token: The Passwords `token` from the `?token=` query parameter in the URL.
+	//
+	//       In the redirect URL, the `stytch_token_type` will be `login` or `reset_password`.
+	//
+	//       See examples and read more about redirect URLs
+	// [here](https://stytch.com/docs/guides/dashboard/redirect-urls).
 	Token string `json:"token,omitempty"`
 	// Password: The password of the user
 	Password string `json:"password,omitempty"`
