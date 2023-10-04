@@ -248,17 +248,16 @@ func (c *SessionsClient) GetJWKS(
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
-	maxTokenAge time.Duration,
-	body *sessions.AuthenticateParams,
+	params *sessions.AuthenticateJWTParams,
 ) (*sessions.AuthenticateResponse, error) {
-	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.Authenticate(ctx, body)
+	if params.Body.SessionJWT == "" || params.MaxTokenAge == time.Duration(0) {
+		return c.Authenticate(ctx, params.Body)
 	}
 
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	session, err := c.AuthenticateJWTLocal(params.Body.SessionJWT, params.MaxTokenAge)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(ctx, body)
+		return c.Authenticate(ctx, params.Body)
 	}
 
 	return &sessions.AuthenticateResponse{
@@ -338,7 +337,6 @@ func marshalJWTIntoSession(claims sessions.Claims) (*sessions.MemberSession, err
 	}
 	expires = expires.UTC()
 
-	// TODO
 	return &sessions.MemberSession{
 		MemberSessionID:       claims.Session.ID,
 		MemberID:              claims.RegisteredClaims.Subject,

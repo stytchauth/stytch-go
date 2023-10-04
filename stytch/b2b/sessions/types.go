@@ -269,6 +269,12 @@ const (
 
 var ErrJWTTooOld = errors.New("JWT too old")
 
+// AuthenticateJWTParams: Request type for `Sessions.AuthenticateJWT`.
+type AuthenticateJWTParams struct {
+	MaxTokenAge time.Duration
+	Body        *AuthenticateParams
+}
+
 type OrgClaim struct {
 	ID   string `json:"organization_id"`
 	Slug string `json:"slug"`

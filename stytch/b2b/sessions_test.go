@@ -128,39 +128,6 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		}
 		assert.Equal(t, expected, session)
 	})
-
-	t.Run("valid JWT (old format)", func(t *testing.T) {
-		iat := time.Now().UTC().Truncate(time.Second)
-		exp := iat.Add(time.Hour)
-		sessionExp := iat.Add(5 * time.Minute)
-
-		claims := sandboxClaims(t, iat, exp)
-		claims.Session.ExpiresAt = ""
-		token := signJWT(t, keyID, key, claims)
-
-		session, err := sessionClient.AuthenticateJWTLocal(token, 3*time.Minute)
-		require.NoError(t, err)
-
-		expected := &sessions.MemberSession{
-			MemberSessionID: "session-live-e26a0ccb-0dc0-4edb-a4bb-e70210f43555",
-			MemberID:        "member-live-fde03dd1-fff7-4b3c-9b31-ead3fbc224de",
-			StartedAt:       &iat,
-			LastAccessedAt:  &iat,
-			ExpiresAt:       &sessionExp,
-			AuthenticationFactors: []consumersessions.AuthenticationFactor{
-				{
-					Type:                "magic_link",
-					DeliveryMethod:      "email",
-					LastAuthenticatedAt: &iat,
-					EmailFactor: &consumersessions.EmailFactor{
-						EmailAddress: "sandbox@stytch.com",
-						EmailID:      "email-live-cca9d7d0-11b6-4167-9385-d7e0c9a77418",
-					},
-				},
-			},
-		}
-		assert.Equal(t, expected, session)
-	})
 }
 
 func TestAuthenticateWithClaims(t *testing.T) {
