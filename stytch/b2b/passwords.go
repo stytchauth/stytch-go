@@ -9,7 +9,9 @@ package b2b
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/passwords"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
@@ -147,5 +149,66 @@ func (c *PasswordsClient) Authenticate(
 		jsonBody,
 		&retVal,
 	)
+	return &retVal, err
+}
+
+// AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
+// Pass in a map with the types of values you're expecting so that this function can marshal
+// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
+// ExampleClient_AuthenticateWithClaims_struct for examples
+func (c *PasswordsClient) AuthenticateWithClaims(
+	ctx context.Context,
+	body *passwords.AuthenticateParams,
+	claims any,
+) (*passwords.AuthenticateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	b, err := c.C.RawRequest(
+		ctx,
+		"POST",
+		"/v1/b2b/passwords/authenticate",
+		nil,
+		jsonBody,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	// First extract the Stytch data.
+	var retVal passwords.AuthenticateResponse
+	if err := json.Unmarshal(b, &retVal); err != nil {
+		return nil, fmt.Errorf("unmarshal passwords.AuthenticateResponse: %w", err)
+	}
+
+	if claims == nil {
+		return &retVal, nil
+	}
+
+	if m, ok := claims.(*map[string]any); ok {
+		*m = retVal.MemberSession.CustomClaims
+		return &retVal, nil
+	}
+
+	// This is where we need to convert claims into a claimsMap
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		Result:  &claims,
+		TagName: "json",
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = decoder.Decode(retVal.MemberSession.CustomClaims)
+	if err != nil {
+		return nil, err
+	}
+
 	return &retVal, err
 }
