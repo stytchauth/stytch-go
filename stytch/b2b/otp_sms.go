@@ -9,7 +9,9 @@ package b2b
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/otp/sms"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"

@@ -9,10 +9,12 @@ package consumer
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"

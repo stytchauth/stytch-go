@@ -9,7 +9,9 @@ package b2b
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/passwords"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
