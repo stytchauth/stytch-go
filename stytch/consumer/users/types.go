@@ -312,6 +312,7 @@ type WebAuthnRegistration struct {
 	UserAgent         string `json:"user_agent,omitempty"`
 	Verified          bool   `json:"verified,omitempty"`
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
+	Name              string `json:"name,omitempty"`
 }
 
 // CreateResponse: Response type for `Users.Create`.
