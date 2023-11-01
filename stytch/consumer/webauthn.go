@@ -229,3 +229,28 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 
 	return &retVal, err
 }
+
+func (c *WebAuthnClient) Update(
+	ctx context.Context,
+	body *webauthn.UpdateParams,
+) (*webauthn.UpdateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	var retVal webauthn.UpdateResponse
+	err = c.C.NewRequest(
+		ctx,
+		"PUT",
+		fmt.Sprintf("/v1/webauthn/%s", body.WebAuthnRegistrationID),
+		nil,
+		jsonBody,
+		&retVal,
+	)
+	return &retVal, err
+}
