@@ -29,6 +29,17 @@ type DeleteVerificationCertificateParams struct {
 	CertificateID string `json:"certificate_id,omitempty"`
 }
 
+// UpdateByURLParams: Request type for `SAML.UpdateByURL`.
+type UpdateByURLParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// MetadataURL: A URL that points to the IdP metadata. This will be provided by the IdP.
+	MetadataURL string `json:"metadata_url,omitempty"`
+}
+
 // UpdateConnectionParams: Request type for `SAML.UpdateConnection`.
 type UpdateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -83,8 +94,8 @@ type DeleteVerificationCertificateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-// UpdateConnectionResponse: Response type for `SAML.UpdateConnection`.
-type UpdateConnectionResponse struct {
+// UpdateByURLResponse: Response type for `SAML.UpdateByURL`.
+type UpdateByURLResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
