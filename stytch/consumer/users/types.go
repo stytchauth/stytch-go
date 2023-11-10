@@ -305,12 +305,18 @@ type User struct {
 
 // WebAuthnRegistration:
 type WebAuthnRegistration struct {
+	// WebAuthnRegistrationID: The unique ID for the WebAuthn registration.
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	// Domain: The `domain` on which a WebAuthn registration was started. This will be the domain of your app.
 	Domain string `json:"domain,omitempty"`
 	// UserAgent: The user agent of the User.
-	UserAgent         string `json:"user_agent,omitempty"`
-	Verified          bool   `json:"verified,omitempty"`
+	UserAgent string `json:"user_agent,omitempty"`
+	// Verified: The verified boolean denotes whether or not this send method, e.g. phone number, email
+	// address, etc., has been successfully authenticated by the User.
+	Verified bool `json:"verified,omitempty"`
+	// AuthenticatorType: The `authenticator_type` string displays the requested authenticator type of the
+	// WebAuthn device. The two valid types are "platform" and "cross-platform". If no value is present, the
+	// WebAuthn device was created without an authenticator type preference.
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
 	Name              string `json:"name,omitempty"`
 }

@@ -103,6 +103,7 @@ type SAMLConnection struct {
 	AudienceURI              string            `json:"audience_uri,omitempty"`
 	SigningCertificates      []X509Certificate `json:"signing_certificates,omitempty"`
 	VerificationCertificates []X509Certificate `json:"verification_certificates,omitempty"`
+	AlternativeAudienceURI   string            `json:"alternative_audience_uri,omitempty"`
 	AttributeMapping         map[string]any    `json:"attribute_mapping,omitempty"`
 }
 type X509Certificate struct {
