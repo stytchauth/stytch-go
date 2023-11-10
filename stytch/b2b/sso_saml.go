@@ -62,7 +62,7 @@ func (c *SSOSAMLClient) CreateConnection(
 func (c *SSOSAMLClient) UpdateConnection(
 	ctx context.Context,
 	body *saml.UpdateConnectionParams,
-) (*saml.UpdateConnectionResponse, error) {
+) (*saml.UpdateByURLResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -72,11 +72,43 @@ func (c *SSOSAMLClient) UpdateConnection(
 		}
 	}
 
-	var retVal saml.UpdateConnectionResponse
+	var retVal saml.UpdateByURLResponse
 	err = c.C.NewRequest(
 		ctx,
 		"PUT",
 		fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+		nil,
+		jsonBody,
+		&retVal,
+	)
+	return &retVal, err
+}
+
+// UpdateByURL: Used to update an existing SAML connection using an IDP metadata URL.
+//
+// A newly created connection will not become active until all the following are provided:
+// * `idp_sso_url`
+// * `idp_entity_id`
+// * `x509_certificate`
+// * `attribute_mapping` (must be supplied using [Update SAML Connection](update-saml-connection))
+func (c *SSOSAMLClient) UpdateByURL(
+	ctx context.Context,
+	body *saml.UpdateByURLParams,
+) (*saml.UpdateByURLResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	var retVal saml.UpdateByURLResponse
+	err = c.C.NewRequest(
+		ctx,
+		"PUT",
+		fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/url", body.OrganizationID, body.ConnectionID),
 		nil,
 		jsonBody,
 		&retVal,
