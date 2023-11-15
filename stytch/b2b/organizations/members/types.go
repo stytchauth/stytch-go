@@ -47,6 +47,9 @@ type CreateParams struct {
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 }
+type DangerouslyGetParams struct {
+	MemberID string `json:"member_id,omitempty"`
+}
 
 // DeleteMFAPhoneNumberParams: Request type for `Members.DeleteMFAPhoneNumber`.
 type DeleteMFAPhoneNumberParams struct {
