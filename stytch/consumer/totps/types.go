@@ -49,7 +49,7 @@ type CreateParams struct {
 	// UserID: The `user_id` of an active user the TOTP registration should be tied to.
 	UserID string `json:"user_id,omitempty"`
 	// ExpirationMinutes: The expiration for the TOTP instance. If the newly created TOTP is not authenticated
-	// within this time frame the TOTP will be unusable. Defaults to 60 (1 hour) with a minimum of 5 and a
+	// within this time frame the TOTP will be unusable. Defaults to 1440 (1 day) with a minimum of 5 and a
 	// maximum of 1440.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
 }

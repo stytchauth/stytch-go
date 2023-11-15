@@ -48,8 +48,10 @@ type AuthenticateStartParams struct {
 	// Domain: The domain for WebAuthn. Defaults to `window.location.hostname`.
 	Domain string `json:"domain,omitempty"`
 	// UserID: The `user_id` of an active user the WebAuthn registration should be tied to.
-	UserID                         string `json:"user_id,omitempty"`
-	ReturnPasskeyCredentialOptions bool   `json:"return_passkey_credential_options,omitempty"`
+	UserID string `json:"user_id,omitempty"`
+	// ReturnPasskeyCredentialOptions: If true, the `public_key_credential_creation_options` returned will be
+	// optimized for Passkeys. This includes making `userVerification` preferred.
+	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
 }
 
 // RegisterParams: Request type for `WebAuthn.Register`.
@@ -94,14 +96,23 @@ type RegisterStartParams struct {
 	Domain string `json:"domain,omitempty"`
 	// UserAgent: The user agent of the User.
 	UserAgent string `json:"user_agent,omitempty"`
-	// AuthenticatorType: The requested authenticator type of the WebAuthn device. The two valid value are
+	// AuthenticatorType: The requested authenticator type of the WebAuthn device. The two valid values are
 	// platform and cross-platform. If no value passed, we assume both values are allowed.
-	AuthenticatorType              string `json:"authenticator_type,omitempty"`
-	ReturnPasskeyCredentialOptions bool   `json:"return_passkey_credential_options,omitempty"`
+	AuthenticatorType string `json:"authenticator_type,omitempty"`
+	// ReturnPasskeyCredentialOptions: If true, the `public_key_credential_creation_options` returned will be
+	// optimized for Passkeys. This includes making `residentKey` required, `userVerification` preferred, and
+	// ignoring the `authenticator_type` passed.
+	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
 }
+
+// UpdateParams: Request type for `WebAuthn.Update`.
 type UpdateParams struct {
+	// WebAuthnRegistrationID: Globally unique UUID that identifies a WebAuthn registration in the Stytch API.
+	// The `webautn_registration_id` is used when you need to operate on a specific User's WebAuthn
+	// registration.
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
-	Name                   string `json:"name,omitempty"`
+	// Name: The `name` of the WebAuthn registration.
+	Name string `json:"name,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `WebAuthn.Authenticate`.
@@ -191,8 +202,17 @@ type RegisterStartResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+// UpdateResponse: Response type for `WebAuthn.Update`.
 type UpdateResponse struct {
-	RequestID            string                      `json:"request_id,omitempty"`
-	StatusCode           int32                       `json:"status_code,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// WebAuthnRegistration: A WebAuthn registration.
 	WebAuthnRegistration *users.WebAuthnRegistration `json:"webauthn_registration,omitempty"`
 }
