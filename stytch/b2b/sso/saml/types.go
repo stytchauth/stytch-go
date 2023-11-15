@@ -29,6 +29,17 @@ type DeleteVerificationCertificateParams struct {
 	CertificateID string `json:"certificate_id,omitempty"`
 }
 
+// UpdateByURLParams: Request type for `SAML.UpdateByURL`.
+type UpdateByURLParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// MetadataURL: A URL that points to the IdP metadata. This will be provided by the IdP.
+	MetadataURL string `json:"metadata_url,omitempty"`
+}
+
 // UpdateConnectionParams: Request type for `SAML.UpdateConnection`.
 type UpdateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -51,6 +62,9 @@ type UpdateConnectionParams struct {
 	// IdpSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
 	// IdP.
 	IdpSSOURL string `json:"idp_sso_url,omitempty"`
+	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
+	// when you wish to migrate an existing SAML integration to Stytch with zero downtime.
+	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
 }
 
 // CreateConnectionResponse: Response type for `SAML.CreateConnection`.
@@ -81,6 +95,22 @@ type DeleteVerificationCertificateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+// UpdateByURLResponse: Response type for `SAML.UpdateByURL`.
+type UpdateByURLResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// Connection: The `SAML Connection` object affected by this API call. See the
+	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
+	// field details.
+	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }
 
 // UpdateConnectionResponse: Response type for `SAML.UpdateConnection`.

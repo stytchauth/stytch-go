@@ -48,6 +48,13 @@ type CreateParams struct {
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 }
 
+// DangerouslyGetParams: Request type for `Members.DangerouslyGet`.
+type DangerouslyGetParams struct {
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
+}
+
 // DeleteMFAPhoneNumberParams: Request type for `Members.DeleteMFAPhoneNumber`.
 type DeleteMFAPhoneNumberParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
