@@ -283,6 +283,7 @@ type OrgClaim struct {
 type Claims struct {
 	Session      sessions.SessionClaim `json:"https://stytch.com/session"`
 	Organization OrgClaim              `json:"https://stytch.com/organization"`
+	Roles        []string              `json:"https://stytch.com/roles"`
 	jwt.RegisteredClaims
 }
 
@@ -292,6 +293,17 @@ type ClaimsWrapper struct {
 
 type SessionWrapper struct {
 	Session ClaimsWrapper `json:"session"`
+}
+
+type AuthorizationCheck struct {
+	OrganizationID string `json:"organization_id"`
+	ResourceId     string `json:"resource_id"`
+	Action         string `json:"action"`
+}
+
+type LocalJWTResponse struct {
+	MemberSession *MemberSession
+	RolesClaim    []string
 }
 
 // ENDMANUAL(Types)

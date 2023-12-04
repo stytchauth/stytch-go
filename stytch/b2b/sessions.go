@@ -15,19 +15,29 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
+	"github.com/patrickmn/go-cache"
 	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/rbac"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/shared"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type SessionsClient struct {
-	C    stytch.Client
-	JWKS *keyfunc.JWKS
+	C          stytch.Client
+	LocalCache *cache.Cache
+	JWKS       *keyfunc.JWKS
 }
 
+// MANUAL(NewSessionsClient)(SERVICE_METHOD)
+// ADDIMPORT: "github.com/patrickmn/go-cache"
 func NewSessionsClient(c stytch.Client) *SessionsClient {
+	// Default expiration of 5 minutes, purges expired items every 10 minutes
+	localCache := cache.New(5*time.Minute, 10*time.Minute)
+
 	return &SessionsClient{
-		C: c,
+		C:          c,
+		LocalCache: localCache,
 	}
 }
 
@@ -263,12 +273,13 @@ func (c *SessionsClient) GetJWKS(
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
 	params *sessions.AuthenticateJWTParams,
+	authorizationCheck *sessions.AuthorizationCheck,
 ) (*sessions.AuthenticateResponse, error) {
 	if params.Body.SessionJWT == "" || params.MaxTokenAge == time.Duration(0) {
 		return c.Authenticate(ctx, params.Body)
 	}
 
-	session, err := c.AuthenticateJWTLocal(params.Body.SessionJWT, params.MaxTokenAge)
+	session, err := c.AuthenticateJWTLocal(params.Body.SessionJWT, params.MaxTokenAge, authorizationCheck)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, params.Body)
@@ -284,12 +295,13 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	maxTokenAge time.Duration,
 	body *sessions.AuthenticateParams,
 	claims map[string]any,
+	authorizationCheck *sessions.AuthorizationCheck,
 ) (*sessions.AuthenticateResponse, error) {
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
 		return c.AuthenticateWithClaims(ctx, body, claims)
 	}
 
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge, authorizationCheck)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, body)
@@ -303,6 +315,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 func (c *SessionsClient) AuthenticateJWTLocal(
 	token string,
 	maxTokenAge time.Duration,
+	authorizationCheck *sessions.AuthorizationCheck,
 ) (*sessions.MemberSession, error) {
 	if c.JWKS == nil {
 		return nil, stytcherror.ErrJWKSNotInitialized
@@ -323,10 +336,27 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, sessions.ErrJWTTooOld
 	}
 
-	return marshalJWTIntoSession(claims)
+	resp, err := marshalJWTIntoSession(claims)
+	if err != nil {
+		return nil, err
+	}
+
+	cachedPolicy, _ := c.LocalCache.Get("policy")
+	policy, err := marshalIntoPolicyObject(cachedPolicy)
+	err = shared.PerformAuthorizationCheck(
+		policy,
+		resp.RolesClaim,
+		resp.MemberSession.OrganizationID,
+		authorizationCheck,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.MemberSession, nil
 }
 
-func marshalJWTIntoSession(claims sessions.Claims) (*sessions.MemberSession, error) {
+func marshalJWTIntoSession(claims sessions.Claims) (*sessions.LocalJWTResponse, error) {
 	// For JWTs that include it, prefer the inner expires_at claim.
 	expiresAt := claims.Session.ExpiresAt
 	if expiresAt == "" {
@@ -351,15 +381,33 @@ func marshalJWTIntoSession(claims sessions.Claims) (*sessions.MemberSession, err
 	}
 	expires = expires.UTC()
 
-	return &sessions.MemberSession{
-		MemberSessionID:       claims.Session.ID,
-		MemberID:              claims.RegisteredClaims.Subject,
-		StartedAt:             &started,
-		LastAccessedAt:        &accessed,
-		ExpiresAt:             &expires,
-		AuthenticationFactors: claims.Session.AuthenticationFactors,
-		OrganizationID:        claims.Organization.ID,
+	return &sessions.LocalJWTResponse{
+		MemberSession: &sessions.MemberSession{
+			MemberSessionID:       claims.Session.ID,
+			MemberID:              claims.RegisteredClaims.Subject,
+			StartedAt:             &started,
+			LastAccessedAt:        &accessed,
+			ExpiresAt:             &expires,
+			AuthenticationFactors: claims.Session.AuthenticationFactors,
+			OrganizationID:        claims.Organization.ID,
+		},
+		RolesClaim: claims.Roles,
 	}, nil
+}
+
+func marshalIntoPolicyObject(cachedPolicy interface{}) (rbac.Policy, error) {
+	jsonData, err := json.Marshal(cachedPolicy)
+	if err != nil {
+		return rbac.Policy{}, fmt.Errorf("error marshalling JSON: %v", err)
+	}
+
+	// Unmarshal JSON into the specific struct
+	var policy rbac.Policy
+	if err := json.Unmarshal(jsonData, &policy); err != nil {
+		return rbac.Policy{}, fmt.Errorf("error unmarshalling JSON: %v", err)
+	}
+
+	return policy, nil
 }
 
 // ENDMANUAL(AuthenticateJWT)
