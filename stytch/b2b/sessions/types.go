@@ -44,7 +44,13 @@ type AuthenticateParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any      `json:"session_custom_claims,omitempty"`
+	AuthorizationCheck  *AuthorizationCheck `json:"authorization_check,omitempty"`
+}
+type AuthorizationCheck struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+	ResourceID     string `json:"resource_id,omitempty"`
+	Action         string `json:"action,omitempty"`
 }
 
 // ExchangeParams: Request type for `Sessions.Exchange`.
@@ -283,6 +289,7 @@ type OrgClaim struct {
 type Claims struct {
 	Session      sessions.SessionClaim `json:"https://stytch.com/session"`
 	Organization OrgClaim              `json:"https://stytch.com/organization"`
+	Roles        []string              `json:"https://stytch.com/roles"`
 	jwt.RegisteredClaims
 }
 

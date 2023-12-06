@@ -53,7 +53,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		claims := sandboxClaims(t, iat, exp)
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := sessionClient.AuthenticateJWTLocal(token, 10*time.Minute)
+		ctx := context.Background()
+		s, err := sessionClient.AuthenticateJWTLocal(ctx, token, 10*time.Minute, nil)
 		assert.ErrorIs(t, err, jwt.ErrTokenExpired)
 		assert.Nil(t, s)
 	})
@@ -65,7 +66,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		claims := sandboxClaims(t, iat, exp)
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := sessionClient.AuthenticateJWTLocal(token, 1*time.Minute)
+		ctx := context.Background()
+		s, err := sessionClient.AuthenticateJWTLocal(ctx, token, 1*time.Minute, nil)
 		assert.ErrorIs(t, err, sessions.ErrJWTTooOld)
 		assert.Nil(t, s)
 	})
@@ -79,7 +81,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := sessionClient.AuthenticateJWTLocal(token, 1*time.Minute)
+		ctx := context.Background()
+		s, err := sessionClient.AuthenticateJWTLocal(ctx, token, 1*time.Minute, nil)
 		assert.ErrorIs(t, err, jwt.ErrTokenInvalidAudience)
 		assert.Nil(t, s)
 	})
@@ -93,7 +96,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 
 		token := signJWT(t, keyID, key, claims)
 
-		s, err := sessionClient.AuthenticateJWTLocal(token, 1*time.Minute)
+		ctx := context.Background()
+		s, err := sessionClient.AuthenticateJWTLocal(ctx, token, 1*time.Minute, nil)
 		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
 		assert.Nil(t, s)
 	})
@@ -105,7 +109,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		claims := sandboxClaims(t, iat, exp)
 		token := signJWT(t, keyID, key, claims)
 
-		session, err := sessionClient.AuthenticateJWTLocal(token, 3*time.Minute)
+		ctx := context.Background()
+		session, err := sessionClient.AuthenticateJWTLocal(ctx, token, 3*time.Minute, nil)
 		require.NoError(t, err)
 
 		expected := &sessions.MemberSession{

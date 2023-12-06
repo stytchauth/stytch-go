@@ -34,6 +34,7 @@ type API struct {
 
 	shouldSkipJWKSInitialization bool
 
+	B2BRBAC       *b2b.B2BRBACClient
 	Discovery     *b2b.DiscoveryClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *b2b.MagicLinksClient
@@ -129,6 +130,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		o(a)
 	}
 
+	a.B2BRBAC = b2b.NewB2BRBACClient(a.client)
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
 	a.M2M = consumer.NewM2MClient(a.client)
 	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
