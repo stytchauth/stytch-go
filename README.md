@@ -2,7 +2,7 @@
 
 The Stytch Go library makes it easy to use the Stytch user infrastructure API in Go applications.
 
-It pairs well with the Stytch [Web SDK](https://www.npmjs.com/package/@stytch/stytch-js) or your own custom authentication flow.
+It pairs well with the Stytch [Web SDK](https://www.npmjs.com/package/@stytch/vanilla-js) or your own custom authentication flow.
 
 ## Install
 
