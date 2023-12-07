@@ -34,7 +34,6 @@ type API struct {
 
 	shouldSkipJWKSInitialization bool
 
-	B2BRBAC       *b2b.B2BRBACClient
 	Discovery     *b2b.DiscoveryClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *b2b.MagicLinksClient
@@ -42,6 +41,7 @@ type API struct {
 	OTPs          *b2b.OTPsClient
 	Organizations *b2b.OrganizationsClient
 	Passwords     *b2b.PasswordsClient
+	RBAC          *b2b.RBACClient
 	SSO           *b2b.SSOClient
 	Sessions      *b2b.SessionsClient
 }
@@ -130,22 +130,24 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		o(a)
 	}
 
-	a.B2BRBAC = b2b.NewB2BRBACClient(a.client)
-	a.Discovery = b2b.NewDiscoveryClient(a.client)
-	a.M2M = consumer.NewM2MClient(a.client)
-	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
-	a.OAuth = b2b.NewOAuthClient(a.client)
-	a.OTPs = b2b.NewOTPsClient(a.client)
-	a.Organizations = b2b.NewOrganizationsClient(a.client)
-	a.Passwords = b2b.NewPasswordsClient(a.client)
-	a.SSO = b2b.NewSSOClient(a.client)
-	a.Sessions = b2b.NewSessionsClient(a.client)
+	policyCache := b2b.NewPolicyCache(b2b.NewRBACClient(a.client))
+
 	// Set up JWKS for local session authentication
 	jwks, err := a.instantiateJWKSClient(a.client.GetHTTPClient())
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
-	a.M2M.JWKS = jwks
+
+	a.Discovery = b2b.NewDiscoveryClient(a.client)
+	a.M2M = consumer.NewM2MClient(a.client, jwks)
+	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
+	a.OAuth = b2b.NewOAuthClient(a.client)
+	a.OTPs = b2b.NewOTPsClient(a.client)
+	a.Organizations = b2b.NewOrganizationsClient(a.client)
+	a.Passwords = b2b.NewPasswordsClient(a.client)
+	a.RBAC = b2b.NewRBACClient(a.client)
+	a.SSO = b2b.NewSSOClient(a.client)
+	a.Sessions = b2b.NewSessionsClient(a.client, jwks, policyCache)
 
 	return a, nil
 }

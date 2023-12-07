@@ -25,7 +25,8 @@ type SSOClient struct {
 
 func NewSSOClient(c stytch.Client) *SSOClient {
 	return &SSOClient{
-		C:    c,
+		C: c,
+
 		OIDC: NewSSOOIDCClient(c),
 		SAML: NewSSOSAMLClient(c),
 	}

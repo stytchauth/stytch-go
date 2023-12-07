@@ -24,12 +24,14 @@ import (
 type SessionsClient struct {
 	C           stytch.Client
 	JWKS        *keyfunc.JWKS
-	PolicyCache *shared.PolicyCache
+	PolicyCache *PolicyCache
 }
 
-func NewSessionsClient(c stytch.Client) *SessionsClient {
+func NewSessionsClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache) *SessionsClient {
 	return &SessionsClient{
-		C: c,
+		C:           c,
+		JWKS:        jwks,
+		PolicyCache: policyCache,
 	}
 }
 

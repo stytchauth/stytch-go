@@ -23,7 +23,8 @@ type M2MClientsClient struct {
 
 func NewM2MClientsClient(c stytch.Client) *M2MClientsClient {
 	return &M2MClientsClient{
-		C:       c,
+		C: c,
+
 		Secrets: NewM2MClientsSecretsClient(c),
 	}
 }

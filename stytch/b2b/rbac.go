@@ -8,22 +8,23 @@ package b2b
 
 import (
 	"context"
+	"time"
 
 	"github.com/stytchauth/stytch-go/v11/stytch"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/rbac"
 )
 
-type B2BRBACClient struct {
+type RBACClient struct {
 	C stytch.Client
 }
 
-func NewB2BRBACClient(c stytch.Client) *B2BRBACClient {
-	return &B2BRBACClient{
+func NewRBACClient(c stytch.Client) *RBACClient {
+	return &RBACClient{
 		C: c,
 	}
 }
 
-func (c *B2BRBACClient) Policy(
+func (c *RBACClient) Policy(
 	ctx context.Context,
 	body *rbac.PolicyParams,
 ) (*rbac.PolicyResponse, error) {
@@ -38,3 +39,36 @@ func (c *B2BRBACClient) Policy(
 	)
 	return &retVal, err
 }
+
+// MANUAL(PolicyCache)(TYPES)
+
+type PolicyCache struct {
+	rbacClient    *RBACClient
+	policy        *rbac.Policy
+	lastUpdatedAt time.Time
+}
+
+const refreshCadence = 300 * time.Second
+
+func NewPolicyCache(rbacClient *RBACClient) *PolicyCache {
+	return &PolicyCache{rbacClient: rbacClient}
+}
+
+func (pc *PolicyCache) shouldRefreshPolicy() bool {
+	return time.Since(pc.lastUpdatedAt) > refreshCadence
+}
+
+func (pc *PolicyCache) Get(ctx context.Context) (*rbac.Policy, error) {
+	if pc.policy == nil || pc.shouldRefreshPolicy() {
+		policyResp, err := pc.rbacClient.Policy(ctx, &rbac.PolicyParams{})
+		if err != nil {
+			return nil, err
+		}
+
+		pc.policy = policyResp.Policy
+		pc.lastUpdatedAt = time.Now()
+	}
+	return pc.policy, nil
+}
+
+// ENDMANUAL(PolicyCache)

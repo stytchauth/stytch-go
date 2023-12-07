@@ -25,9 +25,10 @@ type SessionsClient struct {
 	JWKS *keyfunc.JWKS
 }
 
-func NewSessionsClient(c stytch.Client) *SessionsClient {
+func NewSessionsClient(c stytch.Client, jwks *keyfunc.JWKS) *SessionsClient {
 	return &SessionsClient{
-		C: c,
+		C:    c,
+		JWKS: jwks,
 	}
 }
 

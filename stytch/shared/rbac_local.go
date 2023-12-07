@@ -21,10 +21,10 @@ func PerformAuthorizationCheck(
 	}
 
 	for _, role := range policy.Roles {
-		if doesListOfStringsContainTarget(subjectRoles, role.RoleID) {
+		if contains(subjectRoles, role.RoleID) {
 			for _, permission := range role.Permissions {
-				hasMatchingAction := doesListOfStringsContainTarget(permission.Actions, "*") ||
-					doesListOfStringsContainTarget(permission.Actions, authorizationCheck.Action)
+				hasMatchingAction := contains(permission.Actions, "*") ||
+					contains(permission.Actions, authorizationCheck.Action)
 				hasMatchingResource := permission.ResourceID == authorizationCheck.ResourceID
 				if hasMatchingAction && hasMatchingResource {
 					return nil
@@ -36,7 +36,7 @@ func PerformAuthorizationCheck(
 	return stytcherror.NewClientLibraryError("Member is not authorized")
 }
 
-func doesListOfStringsContainTarget(stringList []string, target string) bool {
+func contains(stringList []string, target string) bool {
 	for _, s := range stringList {
 		if target == s {
 			return true

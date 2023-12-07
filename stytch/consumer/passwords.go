@@ -26,7 +26,8 @@ type PasswordsClient struct {
 
 func NewPasswordsClient(c stytch.Client) *PasswordsClient {
 	return &PasswordsClient{
-		C:                c,
+		C: c,
+
 		Email:            NewPasswordsEmailClient(c),
 		ExistingPassword: NewPasswordsExistingPasswordClient(c),
 		Sessions:         NewPasswordsSessionsClient(c),
