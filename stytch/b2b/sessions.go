@@ -16,6 +16,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/rbac"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 	"github.com/stytchauth/stytch-go/v11/stytch/shared"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
@@ -353,9 +354,12 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, fmt.Errorf("failed to marshal JWT into session: %w", err)
 	}
 
-	policy, err := c.PolicyCache.Get(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get cached policy: %w", err)
+	var policy *rbac.Policy
+	if authorizationCheck != nil {
+		policy, err = c.PolicyCache.Get(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get cached policy: %w", err)
+		}
 	}
 
 	err = shared.PerformAuthorizationCheck(policy, claims.Roles, memberSession.OrganizationID, authorizationCheck)

@@ -18,6 +18,7 @@ type (
 		Actions     []string `json:"actions,omitempty"`
 	}
 )
+
 type PolicyRole struct {
 	RoleID      string                 `json:"role_id,omitempty"`
 	Description string                 `json:"description,omitempty"`

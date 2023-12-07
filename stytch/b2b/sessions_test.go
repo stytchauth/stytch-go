@@ -43,7 +43,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		keyID: keyfunc.NewGivenRSA(&key.PublicKey, keyfunc.GivenKeyOptions{Algorithm: "RS256"}),
 	})
 
-	sessionClient := b2b.NewSessionsClient(client, jwks, nil)
+	policyCache := b2b.NewPolicyCache(b2b.NewRBACClient(client))
+	sessionClient := b2b.NewSessionsClient(client, jwks, policyCache)
 
 	t.Run("expired JWT", func(t *testing.T) {
 		iat := time.Now().UTC().Add(-time.Hour).Truncate(time.Second)
