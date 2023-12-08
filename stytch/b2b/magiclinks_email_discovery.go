@@ -39,6 +39,8 @@ func (c *MagicLinksEmailDiscoveryClient) Send(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal discovery.SendResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -47,6 +49,7 @@ func (c *MagicLinksEmailDiscoveryClient) Send(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

@@ -30,6 +30,7 @@ func NewSSOSAMLClient(c stytch.Client) *SSOSAMLClient {
 func (c *SSOSAMLClient) CreateConnection(
 	ctx context.Context,
 	body *saml.CreateConnectionParams,
+	methodOptions ...*saml.CreateConnectionRequestOptions,
 ) (*saml.CreateConnectionResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -40,6 +41,11 @@ func (c *SSOSAMLClient) CreateConnection(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.CreateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -48,6 +54,7 @@ func (c *SSOSAMLClient) CreateConnection(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -62,6 +69,7 @@ func (c *SSOSAMLClient) CreateConnection(
 func (c *SSOSAMLClient) UpdateConnection(
 	ctx context.Context,
 	body *saml.UpdateConnectionParams,
+	methodOptions ...*saml.UpdateConnectionRequestOptions,
 ) (*saml.UpdateConnectionResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -72,6 +80,11 @@ func (c *SSOSAMLClient) UpdateConnection(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.UpdateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -80,6 +93,7 @@ func (c *SSOSAMLClient) UpdateConnection(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -94,6 +108,7 @@ func (c *SSOSAMLClient) UpdateConnection(
 func (c *SSOSAMLClient) UpdateByURL(
 	ctx context.Context,
 	body *saml.UpdateByURLParams,
+	methodOptions ...*saml.UpdateByURLRequestOptions,
 ) (*saml.UpdateByURLResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -104,6 +119,11 @@ func (c *SSOSAMLClient) UpdateByURL(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.UpdateByURLResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -112,6 +132,7 @@ func (c *SSOSAMLClient) UpdateByURL(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -123,7 +144,13 @@ func (c *SSOSAMLClient) UpdateByURL(
 func (c *SSOSAMLClient) DeleteVerificationCertificate(
 	ctx context.Context,
 	body *saml.DeleteVerificationCertificateParams,
+	methodOptions ...*saml.DeleteVerificationCertificateRequestOptions,
 ) (*saml.DeleteVerificationCertificateResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.DeleteVerificationCertificateResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -132,6 +159,7 @@ func (c *SSOSAMLClient) DeleteVerificationCertificate(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

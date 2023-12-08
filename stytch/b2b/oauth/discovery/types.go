@@ -59,6 +59,8 @@ type AuthenticateResponse struct {
 	//       c) The Organization has at least one other Member with a verified email address with the same
 	// domain as the end user (to prevent phishing attacks).
 	DiscoveredOrganizations []discovery.DiscoveredOrganization `json:"discovered_organizations,omitempty"`
+	ProviderType            string                             `json:"provider_type,omitempty"`
+	ProviderTenantID        string                             `json:"provider_tenant_id,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

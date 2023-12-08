@@ -53,6 +53,8 @@ func (c *WebAuthnClient) RegisterStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.RegisterStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -61,6 +63,7 @@ func (c *WebAuthnClient) RegisterStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -88,6 +91,8 @@ func (c *WebAuthnClient) Register(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.RegisterResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -96,6 +101,7 @@ func (c *WebAuthnClient) Register(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -123,6 +129,8 @@ func (c *WebAuthnClient) AuthenticateStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.AuthenticateStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -131,6 +139,7 @@ func (c *WebAuthnClient) AuthenticateStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -157,6 +166,8 @@ func (c *WebAuthnClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -165,6 +176,7 @@ func (c *WebAuthnClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -187,12 +199,15 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/webauthn/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
@@ -230,7 +245,6 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 	return &retVal, err
 }
 
-// Update: Updates a WebAuthn registration.
 func (c *WebAuthnClient) Update(
 	ctx context.Context,
 	body *webauthn.UpdateParams,
@@ -244,6 +258,8 @@ func (c *WebAuthnClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -252,6 +268,7 @@ func (c *WebAuthnClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

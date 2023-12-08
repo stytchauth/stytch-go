@@ -6,6 +6,10 @@ package organizations
 // or your changes may be overwritten later!
 // !!!
 
+import (
+	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
+)
+
 // ActiveSSOConnection:
 type ActiveSSOConnection struct {
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
@@ -16,10 +20,10 @@ type ActiveSSOConnection struct {
 
 // CreateParams: Request type for `Organizations.Create`.
 type CreateParams struct {
-	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
+	// OrganizationName: The name of the Organization.
 	OrganizationName string `json:"organization_name,omitempty"`
-	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
-	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
+	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
@@ -97,6 +101,19 @@ type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
+}
+
+// DeleteRequestOptions:
+type DeleteRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // GetParams: Request type for `Organizations.Get`.
@@ -177,12 +194,12 @@ type Organization struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
+	// OrganizationName: The name of the Organization.
 	OrganizationName string `json:"organization_name,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
-	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
-	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
+	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
@@ -312,10 +329,10 @@ type UpdateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
+	// OrganizationName: The name of the Organization.
 	OrganizationName string `json:"organization_name,omitempty"`
-	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
-	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
+	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
@@ -393,6 +410,19 @@ type UpdateParams struct {
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
 	MFAPolicy string `json:"mfa_policy,omitempty"`
+}
+
+// UpdateRequestOptions:
+type UpdateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // CreateResponse: Response type for `Organizations.Create`.

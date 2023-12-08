@@ -43,6 +43,8 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.LoginOrSignupResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -51,6 +53,7 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -61,6 +64,7 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 func (c *MagicLinksEmailClient) Invite(
 	ctx context.Context,
 	body *email.InviteParams,
+	methodOptions ...*email.InviteRequestOptions,
 ) (*email.InviteResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -71,6 +75,11 @@ func (c *MagicLinksEmailClient) Invite(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal email.InviteResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -79,6 +88,7 @@ func (c *MagicLinksEmailClient) Invite(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

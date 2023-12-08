@@ -42,6 +42,8 @@ func (c *SessionsClient) Get(
 		queryParams["user_id"] = body.UserID
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -50,6 +52,7 @@ func (c *SessionsClient) Get(
 		queryParams,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -72,6 +75,8 @@ func (c *SessionsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -80,6 +85,7 @@ func (c *SessionsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -102,12 +108,15 @@ func (c *SessionsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/sessions/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
@@ -161,6 +170,8 @@ func (c *SessionsClient) Revoke(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.RevokeResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -169,6 +180,7 @@ func (c *SessionsClient) Revoke(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -192,6 +204,8 @@ func (c *SessionsClient) GetJWKS(
 	ctx context.Context,
 	body *sessions.GetJWKSParams,
 ) (*sessions.GetJWKSResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal sessions.GetJWKSResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -200,6 +214,7 @@ func (c *SessionsClient) GetJWKS(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

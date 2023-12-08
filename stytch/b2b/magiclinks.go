@@ -63,6 +63,8 @@ func (c *MagicLinksClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal magiclinks.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -71,6 +73,7 @@ func (c *MagicLinksClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -93,12 +96,15 @@ func (c *MagicLinksClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/magic_links/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err

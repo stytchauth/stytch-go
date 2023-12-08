@@ -63,6 +63,8 @@ func (c *OTPsWhatsappClient) Send(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal whatsapp.SendResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -71,6 +73,7 @@ func (c *OTPsWhatsappClient) Send(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -101,6 +104,8 @@ func (c *OTPsWhatsappClient) LoginOrCreate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal whatsapp.LoginOrCreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -109,6 +114,7 @@ func (c *OTPsWhatsappClient) LoginOrCreate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

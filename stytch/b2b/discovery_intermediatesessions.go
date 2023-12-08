@@ -56,6 +56,8 @@ func (c *DiscoveryIntermediateSessionsClient) Exchange(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal intermediatesessions.ExchangeResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -64,6 +66,7 @@ func (c *DiscoveryIntermediateSessionsClient) Exchange(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

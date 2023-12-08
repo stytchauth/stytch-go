@@ -58,6 +58,8 @@ func (c *DiscoveryOrganizationsClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal organizations.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -66,6 +68,7 @@ func (c *DiscoveryOrganizationsClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -102,6 +105,8 @@ func (c *DiscoveryOrganizationsClient) List(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal organizations.ListResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -110,6 +115,7 @@ func (c *DiscoveryOrganizationsClient) List(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

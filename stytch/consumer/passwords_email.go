@@ -40,6 +40,8 @@ func (c *PasswordsEmailClient) ResetStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.ResetStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -48,6 +50,7 @@ func (c *PasswordsEmailClient) ResetStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -74,6 +77,8 @@ func (c *PasswordsEmailClient) Reset(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.ResetResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -82,6 +87,7 @@ func (c *PasswordsEmailClient) Reset(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

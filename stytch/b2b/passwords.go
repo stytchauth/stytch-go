@@ -68,6 +68,8 @@ func (c *PasswordsClient) StrengthCheck(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.StrengthCheckResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -76,6 +78,7 @@ func (c *PasswordsClient) StrengthCheck(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -96,6 +99,8 @@ func (c *PasswordsClient) Migrate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.MigrateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -104,6 +109,7 @@ func (c *PasswordsClient) Migrate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -140,6 +146,8 @@ func (c *PasswordsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -148,6 +156,7 @@ func (c *PasswordsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -170,12 +179,15 @@ func (c *PasswordsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/passwords/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err

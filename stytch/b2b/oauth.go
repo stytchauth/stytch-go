@@ -60,6 +60,8 @@ func (c *OAuthClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal oauth.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -68,6 +70,7 @@ func (c *OAuthClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -90,12 +93,15 @@ func (c *OAuthClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/oauth/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err

@@ -8,6 +8,7 @@ package oidc
 
 import (
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
 )
 
 // CreateConnectionParams: Request type for `OIDC.CreateConnection`.
@@ -49,6 +50,32 @@ type UpdateConnectionParams struct {
 	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
 	JWKSURL string `json:"jwks_url,omitempty"`
+}
+
+// CreateConnectionRequestOptions:
+type CreateConnectionRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *CreateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// UpdateConnectionRequestOptions:
+type UpdateConnectionRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UpdateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // CreateConnectionResponse: Response type for `OIDC.CreateConnection`.

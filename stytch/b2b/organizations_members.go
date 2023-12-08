@@ -30,6 +30,7 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 func (c *OrganizationsMembersClient) Update(
 	ctx context.Context,
 	body *members.UpdateParams,
+	methodOptions ...*members.UpdateRequestOptions,
 ) (*members.UpdateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -40,6 +41,11 @@ func (c *OrganizationsMembersClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -48,6 +54,7 @@ func (c *OrganizationsMembersClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -56,7 +63,13 @@ func (c *OrganizationsMembersClient) Update(
 func (c *OrganizationsMembersClient) Delete(
 	ctx context.Context,
 	body *members.DeleteParams,
+	methodOptions ...*members.DeleteRequestOptions,
 ) (*members.DeleteResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -65,6 +78,7 @@ func (c *OrganizationsMembersClient) Delete(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -74,6 +88,7 @@ func (c *OrganizationsMembersClient) Delete(
 func (c *OrganizationsMembersClient) Reactivate(
 	ctx context.Context,
 	body *members.ReactivateParams,
+	methodOptions ...*members.ReactivateRequestOptions,
 ) (*members.ReactivateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -84,6 +99,11 @@ func (c *OrganizationsMembersClient) Reactivate(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.ReactivateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -92,6 +112,7 @@ func (c *OrganizationsMembersClient) Reactivate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -109,7 +130,13 @@ func (c *OrganizationsMembersClient) Reactivate(
 func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	ctx context.Context,
 	body *members.DeleteMFAPhoneNumberParams,
+	methodOptions ...*members.DeleteMFAPhoneNumberRequestOptions,
 ) (*members.DeleteMFAPhoneNumberResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.DeleteMFAPhoneNumberResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -118,6 +145,7 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -129,6 +157,7 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 func (c *OrganizationsMembersClient) Search(
 	ctx context.Context,
 	body *members.SearchParams,
+	methodOptions ...*members.SearchRequestOptions,
 ) (*members.SearchResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -139,6 +168,11 @@ func (c *OrganizationsMembersClient) Search(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -147,6 +181,7 @@ func (c *OrganizationsMembersClient) Search(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -155,7 +190,13 @@ func (c *OrganizationsMembersClient) Search(
 func (c *OrganizationsMembersClient) DeletePassword(
 	ctx context.Context,
 	body *members.DeletePasswordParams,
+	methodOptions ...*members.DeletePasswordRequestOptions,
 ) (*members.DeletePasswordResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.DeletePasswordResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -164,18 +205,17 @@ func (c *OrganizationsMembersClient) DeletePassword(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
 
-// DangerouslyGet: Get a Member by `member_id`. This endpoint does not require an `organization_id`, so you
-// can use it to get members across organizations. This is a dangerous operation. Incorrect use may open
-// you up to indirect object reference (IDOR) attacks. We recommend using the
-// [Get Member](https://stytch.com/docs/b2b/api/get-member) API instead.
 func (c *OrganizationsMembersClient) DangerouslyGet(
 	ctx context.Context,
 	body *members.DangerouslyGetParams,
 ) (*members.GetResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal members.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -184,6 +224,7 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -192,6 +233,7 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 func (c *OrganizationsMembersClient) Create(
 	ctx context.Context,
 	body *members.CreateParams,
+	methodOptions ...*members.CreateRequestOptions,
 ) (*members.CreateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -202,6 +244,11 @@ func (c *OrganizationsMembersClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal members.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -210,6 +257,7 @@ func (c *OrganizationsMembersClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -225,6 +273,8 @@ func (c *OrganizationsMembersClient) Get(
 		queryParams["email_address"] = body.EmailAddress
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal members.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -233,6 +283,7 @@ func (c *OrganizationsMembersClient) Get(
 		queryParams,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

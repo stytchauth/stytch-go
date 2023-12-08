@@ -35,7 +35,13 @@ func NewSSOClient(c stytch.Client) *SSOClient {
 func (c *SSOClient) GetConnections(
 	ctx context.Context,
 	body *sso.GetConnectionsParams,
+	methodOptions ...*sso.GetConnectionsRequestOptions,
 ) (*sso.GetConnectionsResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal sso.GetConnectionsResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -44,6 +50,7 @@ func (c *SSOClient) GetConnections(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -52,7 +59,13 @@ func (c *SSOClient) GetConnections(
 func (c *SSOClient) DeleteConnection(
 	ctx context.Context,
 	body *sso.DeleteConnectionParams,
+	methodOptions ...*sso.DeleteConnectionRequestOptions,
 ) (*sso.DeleteConnectionResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal sso.DeleteConnectionResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -61,6 +74,7 @@ func (c *SSOClient) DeleteConnection(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -96,6 +110,8 @@ func (c *SSOClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sso.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -104,6 +120,7 @@ func (c *SSOClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -126,12 +143,15 @@ func (c *SSOClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/sso/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
