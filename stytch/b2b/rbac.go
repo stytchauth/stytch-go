@@ -28,6 +28,8 @@ func (c *RBACClient) Policy(
 	ctx context.Context,
 	body *rbac.PolicyParams,
 ) (*rbac.PolicyResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal rbac.PolicyResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -36,6 +38,7 @@ func (c *RBACClient) Policy(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

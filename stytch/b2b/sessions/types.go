@@ -47,6 +47,7 @@ type AuthenticateParams struct {
 	SessionCustomClaims map[string]any      `json:"session_custom_claims,omitempty"`
 	AuthorizationCheck  *AuthorizationCheck `json:"authorization_check,omitempty"`
 }
+
 type AuthorizationCheck struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	ResourceID     string `json:"resource_id,omitempty"`

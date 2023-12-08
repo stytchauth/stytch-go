@@ -200,11 +200,11 @@ type GithubOAuthFactor struct {
 type GoogleOAuthFactor struct {
 	// ID: The unique ID of an OAuth registration.
 	ID string `json:"id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
 	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
 	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
-	// EmailID: The globally unique UUID of the Member's email.
-	EmailID string `json:"email_id,omitempty"`
 }
 
 type HubspotOAuthFactor struct {
