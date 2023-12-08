@@ -18,7 +18,8 @@ type DiscoveryClient struct {
 
 func NewDiscoveryClient(c stytch.Client) *DiscoveryClient {
 	return &DiscoveryClient{
-		C:                    c,
+		C: c,
+
 		IntermediateSessions: NewDiscoveryIntermediateSessionsClient(c),
 		Organizations:        NewDiscoveryOrganizationsClient(c),
 	}

@@ -23,7 +23,8 @@ type OrganizationsClient struct {
 
 func NewOrganizationsClient(c stytch.Client) *OrganizationsClient {
 	return &OrganizationsClient{
-		C:       c,
+		C: c,
+
 		Members: NewOrganizationsMembersClient(c),
 	}
 }

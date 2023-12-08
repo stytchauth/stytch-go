@@ -26,7 +26,8 @@ type OTPsClient struct {
 
 func NewOTPsClient(c stytch.Client) *OTPsClient {
 	return &OTPsClient{
-		C:        c,
+		C: c,
+
 		Sms:      NewOTPsSmsClient(c),
 		Whatsapp: NewOTPsWhatsappClient(c),
 		Email:    NewOTPsEmailClient(c),

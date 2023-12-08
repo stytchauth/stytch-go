@@ -16,18 +16,23 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/rbac"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/shared"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type SessionsClient struct {
-	C    stytch.Client
-	JWKS *keyfunc.JWKS
+	C           stytch.Client
+	JWKS        *keyfunc.JWKS
+	PolicyCache *PolicyCache
 }
 
-func NewSessionsClient(c stytch.Client) *SessionsClient {
+func NewSessionsClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache) *SessionsClient {
 	return &SessionsClient{
-		C: c,
+		C:           c,
+		JWKS:        jwks,
+		PolicyCache: policyCache,
 	}
 }
 
@@ -286,7 +291,7 @@ func (c *SessionsClient) AuthenticateJWT(
 		return c.Authenticate(ctx, params.Body)
 	}
 
-	session, err := c.AuthenticateJWTLocal(params.Body.SessionJWT, params.MaxTokenAge)
+	session, err := c.AuthenticateJWTLocal(ctx, params.Body.SessionJWT, params.MaxTokenAge, params.Body.AuthorizationCheck)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, params.Body)
@@ -307,7 +312,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 		return c.AuthenticateWithClaims(ctx, body, claims)
 	}
 
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	session, err := c.AuthenticateJWTLocal(ctx, body.SessionJWT, maxTokenAge, body.AuthorizationCheck)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, body)
@@ -318,9 +323,12 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	}, nil
 }
 
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/shared"
 func (c *SessionsClient) AuthenticateJWTLocal(
+	ctx context.Context,
 	token string,
 	maxTokenAge time.Duration,
+	authorizationCheck *sessions.AuthorizationCheck,
 ) (*sessions.MemberSession, error) {
 	if c.JWKS == nil {
 		return nil, stytcherror.ErrJWKSNotInitialized
@@ -341,7 +349,25 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, sessions.ErrJWTTooOld
 	}
 
-	return marshalJWTIntoSession(claims)
+	memberSession, err := marshalJWTIntoSession(claims)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal JWT into session: %w", err)
+	}
+
+	var policy *rbac.Policy
+	if authorizationCheck != nil {
+		policy, err = c.PolicyCache.Get(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get cached policy: %w", err)
+		}
+
+		err = shared.PerformAuthorizationCheck(policy, claims.Roles, memberSession.OrganizationID, authorizationCheck)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return memberSession, nil
 }
 
 func marshalJWTIntoSession(claims sessions.Claims) (*sessions.MemberSession, error) {

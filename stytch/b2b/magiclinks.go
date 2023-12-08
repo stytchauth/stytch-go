@@ -25,7 +25,8 @@ type MagicLinksClient struct {
 
 func NewMagicLinksClient(c stytch.Client) *MagicLinksClient {
 	return &MagicLinksClient{
-		C:         c,
+		C: c,
+
 		Email:     NewMagicLinksEmailClient(c),
 		Discovery: NewMagicLinksDiscoveryClient(c),
 	}

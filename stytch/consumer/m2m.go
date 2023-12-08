@@ -30,9 +30,11 @@ type M2MClient struct {
 	JWKS    *keyfunc.JWKS
 }
 
-func NewM2MClient(c stytch.Client) *M2MClient {
+func NewM2MClient(c stytch.Client, jwks *keyfunc.JWKS) *M2MClient {
 	return &M2MClient{
-		C:       c,
+		C:    c,
+		JWKS: jwks,
+
 		Clients: NewM2MClientsClient(c),
 	}
 }

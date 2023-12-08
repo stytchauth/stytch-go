@@ -24,7 +24,8 @@ type OAuthClient struct {
 
 func NewOAuthClient(c stytch.Client) *OAuthClient {
 	return &OAuthClient{
-		C:         c,
+		C: c,
+
 		Discovery: NewOAuthDiscoveryClient(c),
 	}
 }
