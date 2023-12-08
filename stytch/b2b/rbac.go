@@ -48,18 +48,14 @@ type PolicyCache struct {
 	lastUpdatedAt time.Time
 }
 
-const refreshCadence = 300 * time.Second
+const refreshCadence = 5 * time.Minute
 
 func NewPolicyCache(rbacClient *RBACClient) *PolicyCache {
 	return &PolicyCache{rbacClient: rbacClient}
 }
 
-func (pc *PolicyCache) shouldRefreshPolicy() bool {
-	return time.Since(pc.lastUpdatedAt) > refreshCadence
-}
-
 func (pc *PolicyCache) Get(ctx context.Context) (*rbac.Policy, error) {
-	if pc.policy == nil || pc.shouldRefreshPolicy() {
+	if pc.policy == nil || time.Since(pc.lastUpdatedAt) > refreshCadence {
 		policyResp, err := pc.rbacClient.Policy(ctx, &rbac.PolicyParams{})
 		if err != nil {
 			return nil, err

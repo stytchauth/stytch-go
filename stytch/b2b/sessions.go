@@ -360,11 +360,11 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		if err != nil {
 			return nil, fmt.Errorf("failed to get cached policy: %w", err)
 		}
-	}
 
-	err = shared.PerformAuthorizationCheck(policy, claims.Roles, memberSession.OrganizationID, authorizationCheck)
-	if err != nil {
-		return nil, err
+		err = shared.PerformAuthorizationCheck(policy, claims.Roles, memberSession.OrganizationID, authorizationCheck)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return memberSession, nil
