@@ -30,6 +30,7 @@ func NewSSOOIDCClient(c stytch.Client) *SSOOIDCClient {
 func (c *SSOOIDCClient) CreateConnection(
 	ctx context.Context,
 	body *oidc.CreateConnectionParams,
+	methodOptions ...*oidc.CreateConnectionRequestOptions,
 ) (*oidc.CreateConnectionResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -40,6 +41,11 @@ func (c *SSOOIDCClient) CreateConnection(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal oidc.CreateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -48,6 +54,7 @@ func (c *SSOOIDCClient) CreateConnection(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -81,6 +88,7 @@ func (c *SSOOIDCClient) CreateConnection(
 func (c *SSOOIDCClient) UpdateConnection(
 	ctx context.Context,
 	body *oidc.UpdateConnectionParams,
+	methodOptions ...*oidc.UpdateConnectionRequestOptions,
 ) (*oidc.UpdateConnectionResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -91,6 +99,11 @@ func (c *SSOOIDCClient) UpdateConnection(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal oidc.UpdateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -99,6 +112,7 @@ func (c *SSOOIDCClient) UpdateConnection(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

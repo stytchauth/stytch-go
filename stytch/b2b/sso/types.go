@@ -12,6 +12,7 @@ import (
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.
@@ -72,12 +73,39 @@ type DeleteConnectionParams struct {
 	ConnectionID string `json:"connection_id,omitempty"`
 }
 
+// DeleteConnectionRequestOptions:
+type DeleteConnectionRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // GetConnectionsParams: Request type for `SSO.GetConnections`.
 type GetConnectionsParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
+
+// GetConnectionsRequestOptions:
+type GetConnectionsRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *GetConnectionsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 type OIDCConnection struct {
 	OrganizationID   string `json:"organization_id,omitempty"`
 	ConnectionID     string `json:"connection_id,omitempty"`
@@ -92,6 +120,7 @@ type OIDCConnection struct {
 	UserinfoURL      string `json:"userinfo_url,omitempty"`
 	JWKSURL          string `json:"jwks_url,omitempty"`
 }
+
 type SAMLConnection struct {
 	OrganizationID           string            `json:"organization_id,omitempty"`
 	ConnectionID             string            `json:"connection_id,omitempty"`
@@ -106,6 +135,7 @@ type SAMLConnection struct {
 	AlternativeAudienceURI   string            `json:"alternative_audience_uri,omitempty"`
 	AttributeMapping         map[string]any    `json:"attribute_mapping,omitempty"`
 }
+
 type X509Certificate struct {
 	CertificateID string     `json:"certificate_id,omitempty"`
 	Certificate   string     `json:"certificate,omitempty"`

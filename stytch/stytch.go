@@ -20,8 +20,8 @@ const (
 )
 
 type Client interface {
-	NewRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, v interface{}) error
-	RawRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte) ([]byte, error)
+	NewRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, v interface{}, headers map[string][]string) error
+	RawRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, headers map[string][]string) ([]byte, error)
 	GetConfig() *config.Config
 	GetHTTPClient() *http.Client
 }
@@ -57,9 +57,11 @@ func (c *DefaultClient) NewRequest(
 	method string,
 	path string,
 	queryParams map[string]string,
-	body []byte, v interface{},
+	body []byte,
+	v interface{},
+	headers map[string][]string,
 ) error {
-	b, err := c.RawRequest(ctx, method, path, queryParams, body)
+	b, err := c.RawRequest(ctx, method, path, queryParams, body, headers)
 	if err != nil {
 		return err
 	}
@@ -80,6 +82,7 @@ func (c *DefaultClient) RawRequest(
 	path string,
 	queryParams map[string]string,
 	body []byte,
+	headers map[string][]string,
 ) ([]byte, error) {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
@@ -110,6 +113,12 @@ func (c *DefaultClient) RawRequest(
 
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("User-Agent", "Stytch Go v"+config.APIVersion)
+
+	for k, vSlice := range headers {
+		for _, v := range vSlice {
+			req.Header.Add(k, v)
+		}
+	}
 
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {

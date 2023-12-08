@@ -41,6 +41,8 @@ func (c *UsersClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal users.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -49,6 +51,7 @@ func (c *UsersClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -58,6 +61,8 @@ func (c *UsersClient) Get(
 	ctx context.Context,
 	body *users.GetParams,
 ) (*users.GetResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -66,6 +71,7 @@ func (c *UsersClient) Get(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -84,6 +90,8 @@ func (c *UsersClient) Search(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal users.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -92,6 +100,7 @@ func (c *UsersClient) Search(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -119,6 +128,8 @@ func (c *UsersClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal users.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -127,6 +138,7 @@ func (c *UsersClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -152,6 +164,8 @@ func (c *UsersClient) ExchangePrimaryFactor(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal users.ExchangePrimaryFactorResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -160,6 +174,7 @@ func (c *UsersClient) ExchangePrimaryFactor(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -169,6 +184,8 @@ func (c *UsersClient) Delete(
 	ctx context.Context,
 	body *users.DeleteParams,
 ) (*users.DeleteResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -177,6 +194,7 @@ func (c *UsersClient) Delete(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -186,6 +204,8 @@ func (c *UsersClient) DeleteEmail(
 	ctx context.Context,
 	body *users.DeleteEmailParams,
 ) (*users.DeleteEmailResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteEmailResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -194,6 +214,7 @@ func (c *UsersClient) DeleteEmail(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -203,6 +224,8 @@ func (c *UsersClient) DeletePhoneNumber(
 	ctx context.Context,
 	body *users.DeletePhoneNumberParams,
 ) (*users.DeletePhoneNumberResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeletePhoneNumberResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -211,6 +234,7 @@ func (c *UsersClient) DeletePhoneNumber(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -220,6 +244,8 @@ func (c *UsersClient) DeleteWebAuthnRegistration(
 	ctx context.Context,
 	body *users.DeleteWebAuthnRegistrationParams,
 ) (*users.DeleteWebAuthnRegistrationResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteWebAuthnRegistrationResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -228,6 +254,7 @@ func (c *UsersClient) DeleteWebAuthnRegistration(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -237,6 +264,8 @@ func (c *UsersClient) DeleteBiometricRegistration(
 	ctx context.Context,
 	body *users.DeleteBiometricRegistrationParams,
 ) (*users.DeleteBiometricRegistrationResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteBiometricRegistrationResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -245,6 +274,7 @@ func (c *UsersClient) DeleteBiometricRegistration(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -254,6 +284,8 @@ func (c *UsersClient) DeleteTOTP(
 	ctx context.Context,
 	body *users.DeleteTOTPParams,
 ) (*users.DeleteTOTPResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteTOTPResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -262,6 +294,7 @@ func (c *UsersClient) DeleteTOTP(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -271,6 +304,8 @@ func (c *UsersClient) DeleteCryptoWallet(
 	ctx context.Context,
 	body *users.DeleteCryptoWalletParams,
 ) (*users.DeleteCryptoWalletResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteCryptoWalletResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -279,6 +314,7 @@ func (c *UsersClient) DeleteCryptoWallet(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -288,6 +324,8 @@ func (c *UsersClient) DeletePassword(
 	ctx context.Context,
 	body *users.DeletePasswordParams,
 ) (*users.DeletePasswordResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeletePasswordResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -296,6 +334,7 @@ func (c *UsersClient) DeletePassword(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -305,6 +344,8 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	ctx context.Context,
 	body *users.DeleteOAuthRegistrationParams,
 ) (*users.DeleteOAuthRegistrationResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal users.DeleteOAuthRegistrationResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -313,6 +354,7 @@ func (c *UsersClient) DeleteOAuthRegistration(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

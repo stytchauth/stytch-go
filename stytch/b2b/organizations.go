@@ -50,6 +50,8 @@ func (c *OrganizationsClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal organizations.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -58,6 +60,7 @@ func (c *OrganizationsClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -67,6 +70,8 @@ func (c *OrganizationsClient) Get(
 	ctx context.Context,
 	body *organizations.GetParams,
 ) (*organizations.GetResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal organizations.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -75,6 +80,7 @@ func (c *OrganizationsClient) Get(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -88,6 +94,7 @@ func (c *OrganizationsClient) Get(
 func (c *OrganizationsClient) Update(
 	ctx context.Context,
 	body *organizations.UpdateParams,
+	methodOptions ...*organizations.UpdateRequestOptions,
 ) (*organizations.UpdateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -98,6 +105,11 @@ func (c *OrganizationsClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal organizations.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -106,6 +118,7 @@ func (c *OrganizationsClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -115,7 +128,13 @@ func (c *OrganizationsClient) Update(
 func (c *OrganizationsClient) Delete(
 	ctx context.Context,
 	body *organizations.DeleteParams,
+	methodOptions ...*organizations.DeleteRequestOptions,
 ) (*organizations.DeleteResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal organizations.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -124,6 +143,7 @@ func (c *OrganizationsClient) Delete(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -144,6 +164,8 @@ func (c *OrganizationsClient) Search(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal organizations.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -152,6 +174,7 @@ func (c *OrganizationsClient) Search(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

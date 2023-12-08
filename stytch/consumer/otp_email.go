@@ -54,6 +54,8 @@ func (c *OTPsEmailClient) Send(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.SendResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -62,6 +64,7 @@ func (c *OTPsEmailClient) Send(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -87,6 +90,8 @@ func (c *OTPsEmailClient) LoginOrCreate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.LoginOrCreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -95,6 +100,7 @@ func (c *OTPsEmailClient) LoginOrCreate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

@@ -6,6 +6,10 @@ package organizations
 // or your changes may be overwritten later!
 // !!!
 
+import (
+	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
+)
+
 // ActiveSSOConnection:
 type ActiveSSOConnection struct {
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
@@ -97,6 +101,19 @@ type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
+}
+
+// DeleteRequestOptions:
+type DeleteRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // GetParams: Request type for `Organizations.Get`.
@@ -393,6 +410,19 @@ type UpdateParams struct {
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
 	MFAPolicy string `json:"mfa_policy,omitempty"`
+}
+
+// UpdateRequestOptions:
+type UpdateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // CreateResponse: Response type for `Organizations.Create`.

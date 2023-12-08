@@ -67,6 +67,8 @@ func (c *OTPsSmsClient) Send(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sms.SendResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -75,6 +77,7 @@ func (c *OTPsSmsClient) Send(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -119,6 +122,8 @@ func (c *OTPsSmsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sms.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -127,6 +132,7 @@ func (c *OTPsSmsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -149,12 +155,15 @@ func (c *OTPsSmsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/otps/sms/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
