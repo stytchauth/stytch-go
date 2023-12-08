@@ -62,9 +62,7 @@ type UpdateConnectionParams struct {
 	X509Certificate string `json:"x509_certificate,omitempty"`
 	// IdpSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
 	// IdP.
-	IdpSSOURL string `json:"idp_sso_url,omitempty"`
-	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
-	// when you wish to migrate an existing SAML integration to Stytch with zero downtime.
+	IdpSSOURL              string `json:"idp_sso_url,omitempty"`
 	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
 }
 

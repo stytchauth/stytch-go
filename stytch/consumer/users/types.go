@@ -318,8 +318,7 @@ type WebAuthnRegistration struct {
 	// WebAuthn device. The two valid types are "platform" and "cross-platform". If no value is present, the
 	// WebAuthn device was created without an authenticator type preference.
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
-	// Name: The `name` of the WebAuthn registration.
-	Name string `json:"name,omitempty"`
+	Name              string `json:"name,omitempty"`
 }
 
 // CreateResponse: Response type for `Users.Create`.

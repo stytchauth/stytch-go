@@ -229,26 +229,6 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 	return &retVal, err
 }
 
-// DangerouslyGet: Get a Member by `member_id`. This endpoint does not require an `organization_id`, so you
-// can use it to get members across organizations. This is a dangerous operation. Incorrect use may open
-// you up to indirect object reference (IDOR) attacks. We recommend using the
-// [Get Member](https://stytch.com/docs/b2b/api/get-member) API instead.
-func (c *OrganizationsMembersClient) DangerouslyGet(
-	ctx context.Context,
-	body *members.DangerouslyGetParams,
-) (*members.GetResponse, error) {
-	var retVal members.GetResponse
-	err := c.C.NewRequest(
-		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/organizations/members/dangerously_get/%s", body.MemberID),
-		nil,
-		nil,
-		&retVal,
-	)
-	return &retVal, err
-}
-
 // Create: Creates a Member. An `organization_id` and `email_address` are required.
 func (c *OrganizationsMembersClient) Create(
 	ctx context.Context,

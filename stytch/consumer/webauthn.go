@@ -245,7 +245,6 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 	return &retVal, err
 }
 
-// Update: Updates a WebAuthn registration.
 func (c *WebAuthnClient) Update(
 	ctx context.Context,
 	body *webauthn.UpdateParams,
