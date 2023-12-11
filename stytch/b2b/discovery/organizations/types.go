@@ -87,12 +87,12 @@ type CreateParams struct {
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
-	// authenticating via Email Magic Link. The accepted values are:
+	// authenticating via Email Magic Link or OAuth. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
-	// provisioned upon authentication via Email Magic Link.
+	// provisioned upon authentication via Email Magic Link or OAuth.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
+	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
 	//
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
@@ -125,7 +125,8 @@ type CreateParams struct {
 	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
-	// they wish to log in.
+	// they wish to log in. However, any active Session that existed prior to this setting change will remain
+	// valid.
 	//
 	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.

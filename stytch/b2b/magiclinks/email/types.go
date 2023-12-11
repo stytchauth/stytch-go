@@ -17,7 +17,8 @@ type InviteParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
-	EmailAddress string `json:"email_address,omitempty"`
+	EmailAddress string   `json:"email_address,omitempty"`
+	Roles        []string `json:"roles,omitempty"`
 	// InviteRedirectURL: The URL that the Member clicks from the invite Email Magic Link. This URL should be
 	// an endpoint in the backend server that verifies
 	//   the request by querying Stytch's authenticate endpoint and finishes the invite flow. If this value is

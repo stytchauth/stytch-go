@@ -69,6 +69,12 @@ func (c *SessionsClient) Get(
 //
 // You may provide a JWT that needs to be refreshed and is expired according to its `exp` claim. A new JWT
 // will be returned if both the signature and the underlying Session are still valid.
+//
+// If an authorization_check object is passed in, this method will also check if the Member who holds the
+// Session being authenticated is authorized to perform the given Action on the given Resource. A Member is
+// authorized if they are assigned to a Role,
+// [explicitly or implicitly](https://github.com/docs/b2b/guides/rbac/role-assignment), with the adequate
+// permissions.
 func (c *SessionsClient) Authenticate(
 	ctx context.Context,
 	body *sessions.AuthenticateParams,
@@ -361,7 +367,7 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 			return nil, fmt.Errorf("failed to get cached policy: %w", err)
 		}
 
-		err = shared.PerformAuthorizationCheck(policy, claims.Roles, memberSession.OrganizationID, authorizationCheck)
+		err = shared.PerformAuthorizationCheck(policy, claims.Session.Roles, memberSession.OrganizationID, authorizationCheck)
 		if err != nil {
 			return nil, err
 		}

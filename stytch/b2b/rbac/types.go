@@ -6,11 +6,15 @@ package rbac
 // or your changes may be overwritten later!
 // !!!
 
+// Policy:
 type Policy struct {
-	Roles     []PolicyRole     `json:"roles,omitempty"`
+	// Roles: An array of [Role objects](https://stytch.com/docs/b2b/api/rbac-role-object).
+	Roles []PolicyRole `json:"roles,omitempty"`
+	// Resources: An array of [Resource objects](https://stytch.com/docs/b2b/api/rbac-resource-object).
 	Resources []PolicyResource `json:"resources,omitempty"`
 }
 
+// PolicyParams: Request type for `RBAC.Policy`.
 type PolicyParams struct{}
 
 type PolicyResource struct {
@@ -30,8 +34,18 @@ type PolicyRolePermission struct {
 	Actions    []string `json:"actions,omitempty"`
 }
 
+// PolicyResponse: Response type for `RBAC.Policy`.
 type PolicyResponse struct {
-	RequestID  string  `json:"request_id,omitempty"`
-	StatusCode int32   `json:"status_code,omitempty"`
-	Policy     *Policy `json:"policy,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// Policy: The RBAC Policy document that contains all defined Roles and Resources – which are managed in
+	// the [Dashboard](/dashboard). Read more about these entities and how they work in our
+	// [RBAC overview](https://stytch.com/docs/b2b/guides/rbac/overview).
+	Policy *Policy `json:"policy,omitempty"`
 }

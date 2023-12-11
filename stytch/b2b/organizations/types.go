@@ -20,10 +20,10 @@ type ActiveSSOConnection struct {
 
 // CreateParams: Request type for `Organizations.Create`.
 type CreateParams struct {
-	// OrganizationName: The name of the Organization.
+	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	OrganizationName string `json:"organization_name,omitempty"`
-	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
-	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
+	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
+	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
@@ -50,12 +50,12 @@ type CreateParams struct {
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
-	// authenticating via Email Magic Link. The accepted values are:
+	// authenticating via Email Magic Link or OAuth. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
-	// provisioned upon authentication via Email Magic Link.
+	// provisioned upon authentication via Email Magic Link or OAuth.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
+	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
 	//
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
@@ -88,7 +88,8 @@ type CreateParams struct {
 	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
-	// they wish to log in.
+	// they wish to log in. However, any active Session that existed prior to this setting change will remain
+	// valid.
 	//
 	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
@@ -194,12 +195,12 @@ type Organization struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// OrganizationName: The name of the Organization.
+	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	OrganizationName string `json:"organization_name,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
-	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
-	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
+	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
+	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
@@ -229,12 +230,12 @@ type Organization struct {
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
-	// authenticating via Email Magic Link. The accepted values are:
+	// authenticating via Email Magic Link or OAuth. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
-	// provisioned upon authentication via Email Magic Link.
+	// provisioned upon authentication via Email Magic Link or OAuth.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
+	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
 	//
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
@@ -329,10 +330,10 @@ type UpdateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// OrganizationName: The name of the Organization.
+	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	OrganizationName string `json:"organization_name,omitempty"`
-	// OrganizationSlug: The unique URL slug of the Organization. A minimum of two characters is required. The
-	// slug only accepts alphanumeric characters and the following reserved characters: `-` `.` `_` `~`.
+	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
+	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
@@ -366,12 +367,12 @@ type UpdateParams struct {
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
-	// authenticating via Email Magic Link. The accepted values are:
+	// authenticating via Email Magic Link or OAuth. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
-	// provisioned upon authentication via Email Magic Link.
+	// provisioned upon authentication via Email Magic Link or OAuth.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
+	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
 	//
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
@@ -404,7 +405,8 @@ type UpdateParams struct {
 	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
-	// they wish to log in.
+	// they wish to log in. However, any active Session that existed prior to this setting change will remain
+	// valid.
 	//
 	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.

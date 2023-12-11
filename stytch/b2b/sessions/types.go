@@ -44,14 +44,40 @@ type AuthenticateParams struct {
 	//   delete a key, supply a null value. Custom claims made with reserved claims (`iss`, `sub`, `aud`,
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any      `json:"session_custom_claims,omitempty"`
-	AuthorizationCheck  *AuthorizationCheck `json:"authorization_check,omitempty"`
+	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// AuthorizationCheck: If an authorization_check object is passed in, this method will also check if the
+	// Member who holds the Session being authenticated is authorized to perform the given Action on the given
+	// Resource.
+	// A Member is authorized if they are assigned to a Role,
+	// [explicitly or implicitly](https://github.com/docs/b2b/guides/rbac/role-assignment), with the adequate
+	// permissions.
+	AuthorizationCheck *AuthorizationCheck `json:"authorization_check,omitempty"`
 }
 
+// AuthorizationCheck:
 type AuthorizationCheck struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	ResourceID     string `json:"resource_id,omitempty"`
-	Action         string `json:"action,omitempty"`
+	// ResourceID: A unique identifier of the RBAC Resource, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
+	// default Resources with reserved  `resource_id`s. These include:
+	//
+	//   * `stytch.organization`
+	//   * `stytch.member`
+	//   * `stytch.sso`
+	//   * `stytch.self`
+	//
+	//   Check out the
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for a more
+	// detailed explanation.
+	//
+	//
+	ResourceID string `json:"resource_id,omitempty"`
+	// Action: An action to take on a Resource
+	Action string `json:"action,omitempty"`
 }
 
 // ExchangeParams: Request type for `Sessions.Exchange`.
@@ -290,7 +316,6 @@ type OrgClaim struct {
 type Claims struct {
 	Session      sessions.SessionClaim `json:"https://stytch.com/session"`
 	Organization OrgClaim              `json:"https://stytch.com/organization"`
-	Roles        []string              `json:"https://stytch.com/roles"`
 	jwt.RegisteredClaims
 }
 

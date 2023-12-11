@@ -121,6 +121,8 @@ type MigrateParams struct {
 	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+	// Roles: Directly assigns role to Member being updated. Will completely replace any existing roles.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.

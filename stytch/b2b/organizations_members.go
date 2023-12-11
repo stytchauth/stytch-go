@@ -210,6 +210,10 @@ func (c *OrganizationsMembersClient) DeletePassword(
 	return &retVal, err
 }
 
+// DangerouslyGet: Get a Member by `member_id`. This endpoint does not require an `organization_id`,
+// enabling you to get members across organizations. This is a dangerous operation. Incorrect use may open
+// you up to indirect object reference (IDOR) attacks. We recommend using the
+// [Get Member](https://stytch.com/docs/b2b/api/get-member) API instead.
 func (c *OrganizationsMembersClient) DangerouslyGet(
 	ctx context.Context,
 	body *members.DangerouslyGetParams,

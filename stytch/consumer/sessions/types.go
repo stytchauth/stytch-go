@@ -514,6 +514,7 @@ type SessionClaim struct {
 	ExpiresAt             string                 `json:"expires_at"`
 	Attributes            attribute.Attributes   `json:"attributes"`
 	AuthenticationFactors []AuthenticationFactor `json:"authentication_factors"`
+	Roles                 []string               `json:"roles"`
 }
 
 type Claims struct {

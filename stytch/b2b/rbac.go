@@ -24,6 +24,19 @@ func NewRBACClient(c stytch.Client) *RBACClient {
 	}
 }
 
+// Policy: Get the active RBAC Policy for your current Stytch Project. An RBAC Policy is the canonical
+// document that stores all defined Resources and Roles within your RBAC permissioning model.
+//
+// When using the backend SDKs, the RBAC Policy will automatically be loaded and refreshed in the
+// background to allow for local evaluations, eliminating the need for an extra request to Stytch.
+//
+// Resources and Roles can be created and managed within the [Dashboard](/dashboard). Additionally,
+// [Role assignment](https://stytch.com/docs/b2b/guides/rbac/role-assignment) can be programmatically
+// managed through certain Stytch API endpoints.
+//
+// Check out the [RBAC overview](https://stytch.com/docs/b2b/guides/rbac/overview) to learn more about
+// Stytch's RBAC permissioning model or
+// [contact us](https://share.hsforms.com/1qkU__-1CT1--lnqRDxphXgd4bkb) to request early access.
 func (c *RBACClient) Policy(
 	ctx context.Context,
 	body *rbac.PolicyParams,

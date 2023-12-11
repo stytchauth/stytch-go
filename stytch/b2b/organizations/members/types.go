@@ -18,6 +18,8 @@ type CreateParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
+	// Roles: Directly assigns role to Member being created
+	Roles []string `json:"roles,omitempty"`
 	// Name: The name of the Member.
 	Name string `json:"name,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
@@ -49,7 +51,10 @@ type CreateParams struct {
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 }
 
+// DangerouslyGetParams: Request type for `Members.DangerouslyGet`.
 type DangerouslyGetParams struct {
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
 }
 
@@ -159,6 +164,8 @@ type UpdateParams struct {
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
+	// Roles: Directly assigns role to Member being updated. Will completely replace any existing roles.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // CreateRequestOptions:
@@ -320,7 +327,7 @@ type DeleteResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Members.Get`.
+// GetResponse: Response type for `Members.DangerouslyGet`, `Members.Get`.
 type GetResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
