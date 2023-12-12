@@ -160,7 +160,8 @@ type Member struct {
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number.
-	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
+	MFAPhoneNumber string       `json:"mfa_phone_number,omitempty"`
+	Roles          []MemberRole `json:"roles,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -170,6 +171,16 @@ type Member struct {
 	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+}
+
+type MemberRole struct {
+	RoleID  string             `json:"role_id,omitempty"`
+	Sources []MemberRoleSource `json:"sources,omitempty"`
+}
+
+type MemberRoleSource struct {
+	Type    string         `json:"type,omitempty"`
+	Details map[string]any `json:"details,omitempty"`
 }
 
 // OAuthRegistration:

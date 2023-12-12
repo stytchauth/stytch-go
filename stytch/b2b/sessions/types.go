@@ -163,7 +163,8 @@ type MemberSession struct {
 	AuthenticationFactors []sessions.AuthenticationFactor `json:"authentication_factors,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
-	OrganizationID string `json:"organization_id,omitempty"`
+	OrganizationID string   `json:"organization_id,omitempty"`
+	Roles          []string `json:"roles,omitempty"`
 	// CustomClaims: The custom claims map for a Session. Claims can be added to a session during a Sessions
 	// authenticate call.
 	CustomClaims map[string]any `json:"custom_claims,omitempty"`

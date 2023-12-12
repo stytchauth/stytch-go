@@ -18,8 +18,6 @@ type CreateParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
-	// Roles: Directly assigns role to Member being created
-	Roles []string `json:"roles,omitempty"`
 	// Name: The name of the Member.
 	Name string `json:"name,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
@@ -49,6 +47,8 @@ type CreateParams struct {
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
+	// Roles: Directly assigns role to Member being created
+	Roles []string `json:"roles,omitempty"`
 }
 
 // DangerouslyGetParams: Request type for `Members.DangerouslyGet`.

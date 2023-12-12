@@ -17,8 +17,7 @@ type InviteParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
-	EmailAddress string   `json:"email_address,omitempty"`
-	Roles        []string `json:"roles,omitempty"`
+	EmailAddress string `json:"email_address,omitempty"`
 	// InviteRedirectURL: The URL that the Member clicks from the invite Email Magic Link. This URL should be
 	// an endpoint in the backend server that verifies
 	//   the request by querying Stytch's authenticate endpoint and finishes the invite flow. If this value is
@@ -53,6 +52,7 @@ type InviteParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale InviteRequestLocale `json:"locale,omitempty"`
+	Roles  []string            `json:"roles,omitempty"`
 }
 
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
