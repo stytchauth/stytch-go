@@ -17,7 +17,7 @@ func PerformAuthorizationCheck(
 	}
 
 	if subjectOrgID != authorizationCheck.OrganizationID {
-		return stytcherror.NewSessionAuthorizationTenancyError()
+		return stytcherror.NewSessionAuthorizationTenancyError(subjectOrgID, authorizationCheck.OrganizationID)
 	}
 
 	for _, role := range policy.Roles {
@@ -33,7 +33,7 @@ func PerformAuthorizationCheck(
 		}
 	}
 
-	return stytcherror.NewSessionAuthorizationError()
+	return stytcherror.NewPermissionError()
 }
 
 func contains(stringList []string, target string) bool {

@@ -77,8 +77,8 @@ func NewClientLibraryError(message string) error {
 	}
 }
 
-func NewSessionAuthorizationTenancyError() error {
-	msg := "OrganizationID in AuthorizationCheck request does not match session's Organization ID"
+func NewSessionAuthorizationTenancyError(expectedOrgID string, actualOrgID string) error {
+	msg := fmt.Sprintf("OrganizationID in AuthorizationCheck request does not match session's Organization ID. Got %v but expected %v", actualOrgID, expectedOrgID)
 	return Error{
 		StatusCode:   403,
 		ErrorType:    "session_authorization_tenancy_error",
@@ -87,7 +87,7 @@ func NewSessionAuthorizationTenancyError() error {
 	}
 }
 
-func NewSessionAuthorizationError() error {
+func NewPermissionError() error {
 	msg := "The Member is not authorized to perform the requested action on that resource."
 	return Error{
 		StatusCode:   403,
