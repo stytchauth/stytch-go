@@ -83,7 +83,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "read",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewClientLibraryError("Subject organization ID does not match ID from request"))
+		assert.ErrorIs(t, err, stytcherror.NewSessionAuthorizationTenancyError())
 	})
 	t.Run("action exists but resource does not", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -96,7 +96,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "read",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewClientLibraryError("Member is not authorized"))
+		assert.ErrorIs(t, err, stytcherror.NewSessionAuthorizationError())
 	})
 	t.Run("resource exists but action does not", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -109,7 +109,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "action_that_doesnt_exist",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewClientLibraryError("Member is not authorized"))
+		assert.ErrorIs(t, err, stytcherror.NewSessionAuthorizationError())
 	})
 	t.Run("member has this action but on a different resource", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -122,7 +122,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "write",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewClientLibraryError("Member is not authorized"))
+		assert.ErrorIs(t, err, stytcherror.NewSessionAuthorizationError())
 	})
 	t.Run("another authorization check for a member with more elevated privileges", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -135,7 +135,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "edit",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewClientLibraryError("Member is not authorized"))
+		assert.ErrorIs(t, err, stytcherror.NewSessionAuthorizationError())
 	})
 	t.Run("no error when the member is authorized", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
