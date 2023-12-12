@@ -17,7 +17,7 @@ func PerformAuthorizationCheck(
 	}
 
 	if subjectOrgID != authorizationCheck.OrganizationID {
-		return stytcherror.NewClientLibraryError("Subject organization ID does not match ID from request")
+		return stytcherror.NewSessionAuthorizationTenancyError(subjectOrgID, authorizationCheck.OrganizationID)
 	}
 
 	for _, role := range policy.Roles {
@@ -33,7 +33,7 @@ func PerformAuthorizationCheck(
 		}
 	}
 
-	return stytcherror.NewClientLibraryError("Member is not authorized")
+	return stytcherror.NewPermissionError()
 }
 
 func contains(stringList []string, target string) bool {
