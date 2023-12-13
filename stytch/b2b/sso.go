@@ -32,7 +32,7 @@ func NewSSOClient(c stytch.Client) *SSOClient {
 	}
 }
 
-// GetConnections: Get all SSO Connections owned by the organization.
+// GetConnections: Get all SSO Connections owned by the organization. /%}
 func (c *SSOClient) GetConnections(
 	ctx context.Context,
 	body *sso.GetConnectionsParams,
@@ -56,7 +56,7 @@ func (c *SSOClient) GetConnections(
 	return &retVal, err
 }
 
-// DeleteConnection: Delete an existing SSO connection.
+// DeleteConnection: Delete an existing SSO connection. /%}
 func (c *SSOClient) DeleteConnection(
 	ctx context.Context,
 	body *sso.DeleteConnectionParams,

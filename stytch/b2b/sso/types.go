@@ -122,18 +122,29 @@ type OIDCConnection struct {
 }
 
 type SAMLConnection struct {
-	OrganizationID           string            `json:"organization_id,omitempty"`
-	ConnectionID             string            `json:"connection_id,omitempty"`
-	Status                   string            `json:"status,omitempty"`
-	IdpEntityID              string            `json:"idp_entity_id,omitempty"`
-	DisplayName              string            `json:"display_name,omitempty"`
-	IdpSSOURL                string            `json:"idp_sso_url,omitempty"`
-	AcsURL                   string            `json:"acs_url,omitempty"`
-	AudienceURI              string            `json:"audience_uri,omitempty"`
-	SigningCertificates      []X509Certificate `json:"signing_certificates,omitempty"`
-	VerificationCertificates []X509Certificate `json:"verification_certificates,omitempty"`
-	AlternativeAudienceURI   string            `json:"alternative_audience_uri,omitempty"`
-	AttributeMapping         map[string]any    `json:"attribute_mapping,omitempty"`
+	OrganizationID                        string                                 `json:"organization_id,omitempty"`
+	ConnectionID                          string                                 `json:"connection_id,omitempty"`
+	Status                                string                                 `json:"status,omitempty"`
+	IdpEntityID                           string                                 `json:"idp_entity_id,omitempty"`
+	DisplayName                           string                                 `json:"display_name,omitempty"`
+	IdpSSOURL                             string                                 `json:"idp_sso_url,omitempty"`
+	AcsURL                                string                                 `json:"acs_url,omitempty"`
+	AudienceURI                           string                                 `json:"audience_uri,omitempty"`
+	SigningCertificates                   []X509Certificate                      `json:"signing_certificates,omitempty"`
+	VerificationCertificates              []X509Certificate                      `json:"verification_certificates,omitempty"`
+	SAMLConnectionImplicitRoleAssignments []SAMLConnectionImplicitRoleAssignment `json:"saml_connection_implicit_role_assignments,omitempty"`
+	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
+	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`
+	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
+}
+
+type SAMLConnectionImplicitRoleAssignment struct {
+	RoleID string `json:"role_id,omitempty"`
+}
+
+type SAMLGroupImplicitRoleAssignment struct {
+	RoleID string `json:"role_id,omitempty"`
+	Group  string `json:"group,omitempty"`
 }
 
 type X509Certificate struct {

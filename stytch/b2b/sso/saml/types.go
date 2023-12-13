@@ -63,6 +63,22 @@ type UpdateConnectionParams struct {
 	// IdpSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
 	// IdP.
 	IdpSSOURL string `json:"idp_sso_url,omitempty"`
+	// SAMLConnectionImplicitRoleAssignments: (Coming Soon) All Members who log in with this SAML connection
+	// will implicitly receive the specified Roles. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment.
+	SAMLConnectionImplicitRoleAssignments []string `json:"saml_connection_implicit_role_assignments,omitempty"`
+	// SAMLGroupImplicitRoleAssignments: (Coming Soon) Defines the names of the SAML groups
+	//  that grant specific role assignments. For each group-Role pair, if a Member logs in with this SAML
+	// connection and
+	//  belongs to the specified SAML group, they will be granted the associated Role. See the
+	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment.
+	//          Before adding any group implicit role assignments, you must add a "groups" key to your SAML
+	// connection's
+	//          `attribute_mapping`. Make sure that your IdP is configured to correctly send the group
+	// information.
+	SAMLGroupImplicitRoleAssignments []string `json:"saml_group_implicit_role_assignments,omitempty"`
 	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
 	// when you wish to migrate an existing SAML integration to Stytch with zero downtime.
 	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`

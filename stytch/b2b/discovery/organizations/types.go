@@ -115,9 +115,8 @@ type CreateParams struct {
 	// This setting does not apply to Members with `is_breakglass` set to `true`.
 	//
 	AuthMethods string `json:"auth_methods,omitempty"`
-	// AllowedAuthMethods:
-	//   An array of allowed authentication methods. This list is enforced when `auth_methods` is set to
-	// `RESTRICTED`.
+	// AllowedAuthMethods: An array of allowed authentication methods. This list is enforced when
+	// `auth_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
@@ -132,6 +131,13 @@ type CreateParams struct {
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
 	MFAPolicy string `json:"mfa_policy,omitempty"`
+	// RBACEmailImplicitRoleAssignments: (Coming Soon) Implicit role assignments based off of email domains.
+	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
+	// granted the
+	//   associated Role, regardless of their login method. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//   for more information about role assignment.
+	RBACEmailImplicitRoleAssignments []*organizations.EmailImplicitRoleAssignment `json:"rbac_email_implicit_role_assignments,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.

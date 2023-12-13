@@ -45,12 +45,25 @@ type AuthenticateParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// AuthorizationCheck: If an authorization_check object is passed in, this method will also check if the
-	// Member who holds the Session being authenticated is authorized to perform the given Action on the given
-	// Resource.
-	// A Member is authorized if they are assigned to a Role,
-	// [explicitly or implicitly](https://github.com/docs/b2b/guides/rbac/role-assignment), with the adequate
+	// AuthorizationCheck: (Coming Soon) If an `authorization_check` object is passed in, this endpoint will
+	// also check if the Member is
+	//   authorized to perform the given action on the given Resource in the specified Organization. A Member
+	// is authorized if
+	//   their Member Session contains a Role, assigned
+	//   [explicitly or implicitly](https://github.com/docs/b2b/guides/rbac/role-assignment), with adequate
 	// permissions.
+	//   In addition, the `organization_id` passed in the authorization check must match the Member's
+	// Organization.
+	//
+	//   The Roles on the Member Session may differ from the Roles you see on the Member object - Roles that
+	// are implicitly
+	//   assigned by SSO connection or SSO group will only be valid for a Member Session if there is at least
+	// one authentication
+	//   factor on the Member Session from the specified SSO connection.
+	//
+	//   If the Member is not authorized to perform the specified action on the specified Resource, or if the
+	//   `organization_id` does not match the Member's Organization, a 403 error will be thrown.
+	//   Otherwise, the response will contain a list of Roles that satisfied the authorization check.
 	AuthorizationCheck *AuthorizationCheck `json:"authorization_check,omitempty"`
 }
 
@@ -76,8 +89,13 @@ type AuthorizationCheck struct {
 	//
 	//
 	ResourceID string `json:"resource_id,omitempty"`
-	// Action: An action to take on a Resource
+	// Action: An action to take on a Resource.
 	Action string `json:"action,omitempty"`
+}
+
+type AuthorizationVerdict struct {
+	Authorized    bool     `json:"authorized,omitempty"`
+	GrantingRoles []string `json:"granting_roles,omitempty"`
 }
 
 // ExchangeParams: Request type for `Sessions.Exchange`.
@@ -204,6 +222,11 @@ type AuthenticateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+	// Verdict: (Coming Soon) If an `authorization_check` is provided in the request and the check succeeds,
+	// this field will return
+	//   the complete list of Roles that gave the Member permission to perform the specified action on the
+	// specified Resource.
+	Verdict *AuthorizationVerdict `json:"verdict,omitempty"`
 }
 
 // ExchangeResponse: Response type for `Sessions.Exchange`.

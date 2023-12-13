@@ -78,9 +78,8 @@ type CreateParams struct {
 	// This setting does not apply to Members with `is_breakglass` set to `true`.
 	//
 	AuthMethods string `json:"auth_methods,omitempty"`
-	// AllowedAuthMethods:
-	//   An array of allowed authentication methods. This list is enforced when `auth_methods` is set to
-	// `RESTRICTED`.
+	// AllowedAuthMethods: An array of allowed authentication methods. This list is enforced when
+	// `auth_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
@@ -95,6 +94,13 @@ type CreateParams struct {
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
 	MFAPolicy string `json:"mfa_policy,omitempty"`
+	// RBACEmailImplicitRoleAssignments: (Coming Soon) Implicit role assignments based off of email domains.
+	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
+	// granted the
+	//   associated Role, regardless of their login method. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//   for more information about role assignment.
+	RBACEmailImplicitRoleAssignments []*EmailImplicitRoleAssignment `json:"rbac_email_implicit_role_assignments,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -115,6 +121,25 @@ type DeleteRequestOptions struct {
 func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
+}
+
+// EmailImplicitRoleAssignment:
+type EmailImplicitRoleAssignment struct {
+	// Domain: Email domain that grants the specified Role.
+	Domain string `json:"domain,omitempty"`
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	// for a more detailed explanation.
+	//
+	//
+	RoleID string `json:"role_id,omitempty"`
 }
 
 // GetParams: Request type for `Organizations.Get`.
@@ -155,13 +180,23 @@ type Member struct {
 	EmailAddressVerified bool `json:"email_address_verified,omitempty"`
 	// MFAPhoneNumberVerified: Whether or not the Member's phone number is verified.
 	MFAPhoneNumberVerified bool `json:"mfa_phone_number_verified,omitempty"`
+	// IsAdmin: (Coming Soon) Whether or not the Member has the `stytch_admin` Role. This Role is automatically
+	// granted to Members
+	//   who create an Organization through the
+	// [discovery flow](https://stytch.com/docs/b2b/api/create-organization-via-discovery). See the
+	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for more details on this Role.
+	IsAdmin bool `json:"is_admin,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number.
-	MFAPhoneNumber string       `json:"mfa_phone_number,omitempty"`
-	Roles          []MemberRole `json:"roles,omitempty"`
+	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
+	// Roles: (Coming Soon) Explicit or implicit Roles assigned to this Member, along with details about the
+	// role assignment source.
+	//    See the [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information
+	// about role assignment.
+	Roles []MemberRole `json:"roles,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -173,13 +208,90 @@ type Member struct {
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 }
 
+// MemberRole:
 type MemberRole struct {
-	RoleID  string             `json:"role_id,omitempty"`
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	// for a more detailed explanation.
+	//
+	//
+	RoleID string `json:"role_id,omitempty"`
+	// Sources: A list of sources for this role assignment. A role assignment can come from multiple sources -
+	// for example, the Role could be both explicitly assigned and implicitly granted from the Member's email
+	// domain.
 	Sources []MemberRoleSource `json:"sources,omitempty"`
 }
 
+// MemberRoleSource:
 type MemberRoleSource struct {
-	Type    string         `json:"type,omitempty"`
+	// Type: The type of role assignment. The possible values are:
+	//
+	//   `direct_assignment` – an explicitly assigned Role.
+	//
+	//   Directly assigned roles can be updated by passing in the `roles` argument to the
+	//   [Update Member](https://stytch.com/docs/b2b/api/update-member) endpoint.
+	//
+	//   `email_assignment` – an implicit Role granted by the Member's email domain, regardless of their login
+	// method.
+	//
+	//   Email implicit role assignments can be updated by passing in the
+	// `rbac_email_implicit_role_assignments` argument to
+	//   the [Update Organization](https://stytch.com/docs/b2b/api/update-organization) endpoint.
+	//
+	//   `sso_connection` – an implicit Role granted by the Member's SSO connection. This is currently only
+	// available
+	//   for SAML connections and not for OIDC. If the Member has a SAML Member registration with the given
+	// connection, this
+	//   role assignment will appear in the list. However, for authorization check purposes (in
+	//   [sessions authenticate](https://stytch.com/docs/b2b/api/authenticate-session) or in any endpoint that
+	// enforces RBAC with session
+	//   headers), the Member will only be granted the Role if their session contains an authentication factor
+	// with the
+	//   specified SAML connection.
+	//
+	//   SAML connection implicit role assignments can be updated by passing in the
+	//   `saml_connection_implicit_role_assignments` argument to the
+	//   [Update SAML connection](https://stytch.com/docs/b2b/api/update-saml-connection) endpoint.
+	//
+	//   `sso_connection_group` – an implicit Role granted by the Member's SSO connection and group. This is
+	// currently only
+	//   available for SAML connections and not for OIDC. If the Member has a SAML Member registration with the
+	// given
+	//   connection, and belongs to a specific group within the IdP, this role assignment will appear in the
+	// list. However,
+	//   for authorization check purposes (in
+	// [sessions authenticate](https://stytch.com/docs/b2b/api/authenticate-session) or in any endpoint
+	//   that enforces RBAC with session headers), the Member will only be granted the role if their session
+	// contains an
+	//   authentication factor with the specified SAML connection.
+	//
+	//   SAML group implicit role assignments can be updated by passing in the
+	// `saml_group_implicit_role_assignments`
+	//   argument to the [Update SAML connection](https://stytch.com/docs/b2b/api/update-saml-connection)
+	// endpoint.
+	//
+	Type string `json:"type,omitempty"`
+	// Details: An object containing additional metadata about the source assignment. The fields will vary
+	// depending
+	//   on the role assignment type as follows:
+	//
+	//   `direct_assignment` – no additional details.
+	//
+	//   `email_assignment` – will contain the email domain that granted the assignment.
+	//
+	//   `sso_connection` – will contain the `connection_id` of the SAML connection that granted the assignment.
+	//
+	//   `sso_connection_group` – will contain the `connection_id` of the SAML connection and the name of the
+	// `group`
+	//   that granted the assignment.
+	//
 	Details map[string]any `json:"details,omitempty"`
 }
 
@@ -269,13 +381,19 @@ type Organization struct {
 	// This setting does not apply to Members with `is_breakglass` set to `true`.
 	//
 	AuthMethods string `json:"auth_methods,omitempty"`
-	// AllowedAuthMethods:
-	//   An array of allowed authentication methods. This list is enforced when `auth_methods` is set to
-	// `RESTRICTED`.
+	// AllowedAuthMethods: An array of allowed authentication methods. This list is enforced when
+	// `auth_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
 	MFAPolicy          string   `json:"mfa_policy,omitempty"`
+	// RBACEmailImplicitRoleAssignments: (Coming Soon) Implicit role assignments based off of email domains.
+	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
+	// granted the
+	//   associated Role, regardless of their login method. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//   for more information about role assignment.
+	RBACEmailImplicitRoleAssignments []EmailImplicitRoleAssignment `json:"rbac_email_implicit_role_assignments,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -342,16 +460,32 @@ type UpdateParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.name` action on the `stytch.organization` Resource.
 	OrganizationName string `json:"organization_name,omitempty"`
 	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
 	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.slug` action on the `stytch.organization` Resource.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.logo-url` action on the `stytch.organization` Resource.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
+	//           If a session header is passed into the request, this field may **not** be passed into the
+	// request. You cannot
+	//           update trusted metadata when acting as a Member.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
 	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.default-sso-connection` action on the `stytch.organization`
+	// Resource.
 	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
 	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
@@ -364,11 +498,19 @@ type UpdateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via SSO.
 	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.sso-jit-provisioning` action on the `stytch.organization`
+	// Resource.
 	SSOJITProvisioning string `json:"sso_jit_provisioning,omitempty"`
 	// SSOJITProvisioningAllowedConnections: An array of `connection_id`s that reference
 	// [SAML Connection objects](https://stytch.com/docs/b2b/api/saml-connection-object).
 	//   Only these connections will be allowed to JIT provision Members via SSO when `sso_jit_provisioning` is
 	// set to `RESTRICTED`.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.sso-jit-provisioning` action on the `stytch.organization`
+	// Resource.
 	SSOJITProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
@@ -376,6 +518,9 @@ type UpdateParams struct {
 	//
 	//     Common domains such as `gmail.com` are not allowed. See the
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.allowed-domains` action on the `stytch.organization` Resource.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
 	// authenticating via Email Magic Link or OAuth. The accepted values are:
@@ -385,6 +530,10 @@ type UpdateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
 	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.email-jit-provisioning` action on the `stytch.organization`
+	// Resource.
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
 	// organization by email. The accepted values are:
@@ -396,6 +545,9 @@ type UpdateParams struct {
 	//
 	//   `NOT_ALLOWED` – disable email invites.
 	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.email-invites` action on the `stytch.organization` Resource.
 	EmailInvites string `json:"email_invites,omitempty"`
 	// AuthMethods: The setting that controls which authentication methods can be used by Members of an
 	// Organization. The accepted values are:
@@ -405,12 +557,19 @@ type UpdateParams struct {
 	//   `RESTRICTED` – only methods that comply with `allowed_auth_methods` can be used for authentication.
 	// This setting does not apply to Members with `is_breakglass` set to `true`.
 	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.allowed-auth-methods` action on the `stytch.organization`
+	// Resource.
 	AuthMethods string `json:"auth_methods,omitempty"`
-	// AllowedAuthMethods:
-	//   An array of allowed authentication methods. This list is enforced when `auth_methods` is set to
-	// `RESTRICTED`.
+	// AllowedAuthMethods: An array of allowed authentication methods. This list is enforced when
+	// `auth_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.allowed-auth-methods` action on the `stytch.organization`
+	// Resource.
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
 	// MFAPolicy: The setting that controls the MFA policy for all Members in the Organization. The accepted
 	// values are:
@@ -422,7 +581,20 @@ type UpdateParams struct {
 	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.mfa-policy` action on the `stytch.organization` Resource.
 	MFAPolicy string `json:"mfa_policy,omitempty"`
+	// RBACEmailImplicitRoleAssignments: (Coming Soon) Implicit role assignments based off of email domains.
+	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
+	// granted the
+	//   associated Role, regardless of their login method. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//   for more information about role assignment.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.implicit-roles` action on the `stytch.organization` Resource.
+	RBACEmailImplicitRoleAssignments []string `json:"rbac_email_implicit_role_assignments,omitempty"`
 }
 
 // UpdateRequestOptions:
