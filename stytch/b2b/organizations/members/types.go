@@ -8,6 +8,7 @@ package members
 
 import (
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
 )
 
 // CreateParams: Request type for `Members.Create`.
@@ -46,6 +47,10 @@ type CreateParams struct {
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
+	// Roles: (Coming Soon) Roles to explicitly assign to this Member. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//    for more information about role assignment.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // DangerouslyGetParams: Request type for `Members.DangerouslyGet`.
@@ -135,32 +140,174 @@ type UpdateParams struct {
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
+	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
+	// are revoked are also implicitly assigned
+	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
+	// SSO
+	//   authentication factors with the affected SSO connection IDs will be revoked.
+	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
 	// Name: The name of the Member.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.name` action on the `stytch.member` Resource.
+	//   Alternatively, if the Member Session matches the Member associated with the `member_id` passed in the
+	// request, the authorization check will also allow a Member Session that has permission to perform the
+	// `update.info.name` action on the `stytch.self` Resource.
 	Name string `json:"name,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
+	//           If a session header is passed into the request, this field may **not** be passed into the
+	// request. You cannot
+	//           update trusted metadata when acting as a Member.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
 	// UntrustedMetadata: An arbitrary JSON object of application-specific data. These fields can be edited
 	// directly by the
 	//   frontend SDK, and should not be used to store critical information. See the
 	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.untrusted-metadata` action on the `stytch.member` Resource.
+	//   Alternatively, if the Member Session matches the Member associated with the `member_id` passed in the
+	// request, the authorization check will also allow a Member Session that has permission to perform the
+	// `update.info.untrusted-metadata` action on the `stytch.self` Resource.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
 	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
 	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
 	// more details.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.is-breakglass` action on the `stytch.member` Resource.
 	IsBreakglass bool `json:"is_breakglass,omitempty"`
 	// MFAPhoneNumber: Sets the Member's phone number. Throws an error if the Member already has a phone
 	// number. To change the Member's phone number, use the
 	// [Delete member phone number endpoint](https://stytch.com/docs/b2b/api/delete-member-mfa-phone-number) to
 	// delete the Member's existing phone number first.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.info.mfa-phone` action on the `stytch.member` Resource.
+	//   Alternatively, if the Member Session matches the Member associated with the `member_id` passed in the
+	// request, the authorization check will also allow a Member Session that has permission to perform the
+	// `update.info.mfa-phone` action on the `stytch.self` Resource.
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.mfa-enrolled` action on the `stytch.member` Resource.
+	//   Alternatively, if the Member Session matches the Member associated with the `member_id` passed in the
+	// request, the authorization check will also allow a Member Session that has permission to perform the
+	// `update.settings.mfa-enrolled` action on the `stytch.self` Resource.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
+	// Roles: (Coming Soon) Roles to explicitly assign to this Member.
+	//  Will completely replace any existing explicitly assigned roles. See the
+	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment.
+	//
+	//    If a Role is removed from a Member, and the Member is also implicitly assigned this Role from an SSO
+	// connection
+	//    or an SSO group, we will by default revoke any existing sessions for the Member that contain any SSO
+	//    authentication factors with the affected connection ID. You can preserve these sessions by passing in
+	// the
+	//    `preserve_existing_sessions` parameter with a value of `true`.
+	//
+	// If this field is provided, the logged-in Member must have permission to perform the
+	// `update.settings.roles` action on the `stytch.member` Resource.
+	Roles []string `json:"roles,omitempty"`
+}
+
+// CreateRequestOptions:
+type CreateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *CreateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteMFAPhoneNumberRequestOptions:
+type DeleteMFAPhoneNumberRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteMFAPhoneNumberRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeletePasswordRequestOptions:
+type DeletePasswordRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeletePasswordRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteRequestOptions:
+type DeleteRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// ReactivateRequestOptions:
+type ReactivateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *ReactivateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// SearchRequestOptions:
+type SearchRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *SearchRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// UpdateRequestOptions:
+type UpdateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // CreateResponse: Response type for `Members.Create`.
@@ -231,7 +378,7 @@ type DeleteResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-// GetResponse: Response type for `Members.Get`.
+// GetResponse: Response type for `Members.DangerouslyGet`, `Members.Get`.
 type GetResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you

@@ -20,6 +20,7 @@ type AmazonOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type AppleOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -112,28 +113,35 @@ type AuthenticationFactor struct {
 	OIDCSSOFactor         *OIDCSSOFactor         `json:"oidc_sso_factor,omitempty"`
 	SalesforceOAuthFactor *SalesforceOAuthFactor `json:"salesforce_oauth_factor,omitempty"`
 	YahooOAuthFactor      *YahooOAuthFactor      `json:"yahoo_oauth_factor,omitempty"`
+	HubspotOAuthFactor    *HubspotOAuthFactor    `json:"hubspot_oauth_factor,omitempty"`
 }
+
 type AuthenticatorAppFactor struct {
 	TOTPID string `json:"totp_id,omitempty"`
 }
+
 type BiometricFactor struct {
 	BiometricRegistrationID string `json:"biometric_registration_id,omitempty"`
 }
+
 type BitbucketOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type CoinbaseOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type CryptoWalletFactor struct {
 	CryptoWalletID      string `json:"crypto_wallet_id,omitempty"`
 	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
 	CryptoWalletType    string `json:"crypto_wallet_type,omitempty"`
 }
+
 type DiscordOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -147,14 +155,17 @@ type EmailFactor struct {
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 }
+
 type EmbeddableMagicLinkFactor struct {
 	EmbeddedID string `json:"embedded_id,omitempty"`
 }
+
 type FacebookOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type FigmaOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -172,11 +183,13 @@ type GetParams struct {
 	// UserID: The `user_id` to get active Sessions for.
 	UserID string `json:"user_id,omitempty"`
 }
+
 type GitLabOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type GithubOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -193,11 +206,19 @@ type GoogleOAuthFactor struct {
 	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
+type HubspotOAuthFactor struct {
+	ID              string `json:"id,omitempty"`
+	EmailID         string `json:"email_id,omitempty"`
+	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
 type InstagramOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type JWK struct {
 	Kty     string   `json:"kty,omitempty"`
 	Use     string   `json:"use,omitempty"`
@@ -209,6 +230,7 @@ type JWK struct {
 	N       string   `json:"n,omitempty"`
 	E       string   `json:"e,omitempty"`
 }
+
 type LinkedInOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -243,6 +265,7 @@ type PhoneNumberFactor struct {
 	// PhoneNumber: The phone number of the Member.
 	PhoneNumber string `json:"phone_number,omitempty"`
 }
+
 type RecoveryCodeFactor struct {
 	TOTPRecoveryCodeID string `json:"totp_recovery_code_id,omitempty"`
 }
@@ -266,6 +289,7 @@ type SAMLSSOFactor struct {
 	// ExternalID: The ID of the member given by the identity provider.
 	ExternalID string `json:"external_id,omitempty"`
 }
+
 type SalesforceOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -295,51 +319,61 @@ type Session struct {
 	// authenticate call.
 	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 }
+
 type ShopifyOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type SlackOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type SnapchatOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type SpotifyOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type SteamOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type TikTokOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type TwitchOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type TwitterOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 }
+
 type WebAuthnFactor struct {
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	Domain                 string `json:"domain,omitempty"`
 	UserAgent              string `json:"user_agent,omitempty"`
 }
+
 type YahooOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
@@ -449,6 +483,7 @@ const (
 	AuthenticationFactorDeliveryMethodSSOOIDC              AuthenticationFactorDeliveryMethod = "sso_oidc"
 	AuthenticationFactorDeliveryMethodOAuthSalesforce      AuthenticationFactorDeliveryMethod = "oauth_salesforce"
 	AuthenticationFactorDeliveryMethodOAuthYahoo           AuthenticationFactorDeliveryMethod = "oauth_yahoo"
+	AuthenticationFactorDeliveryMethodOAuthHubspot         AuthenticationFactorDeliveryMethod = "oauth_hubspot"
 )
 
 type AuthenticationFactorType string
@@ -479,6 +514,7 @@ type SessionClaim struct {
 	ExpiresAt             string                 `json:"expires_at"`
 	Attributes            attribute.Attributes   `json:"attributes"`
 	AuthenticationFactors []AuthenticationFactor `json:"authentication_factors"`
+	Roles                 []string               `json:"roles"`
 }
 
 type Claims struct {

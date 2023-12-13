@@ -22,7 +22,8 @@ type MagicLinksEmailClient struct {
 
 func NewMagicLinksEmailClient(c stytch.Client) *MagicLinksEmailClient {
 	return &MagicLinksEmailClient{
-		C:         c,
+		C: c,
+
 		Discovery: NewMagicLinksEmailDiscoveryClient(c),
 	}
 }
@@ -43,6 +44,8 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.LoginOrSignupResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -51,16 +54,18 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
 
 // Invite: Send an invite email to a new Member to join an Organization. The Member will be created with an
 // `invited` status until they successfully authenticate. Sending invites to `pending` Members will update
-// their status to `invited`. Sending invites to already `active` Members will return an error.
+// their status to `invited`. Sending invites to already `active` Members will return an error. /%}
 func (c *MagicLinksEmailClient) Invite(
 	ctx context.Context,
 	body *email.InviteParams,
+	methodOptions ...*email.InviteRequestOptions,
 ) (*email.InviteResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -71,6 +76,11 @@ func (c *MagicLinksEmailClient) Invite(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal email.InviteResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -79,6 +89,7 @@ func (c *MagicLinksEmailClient) Invite(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

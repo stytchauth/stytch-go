@@ -26,7 +26,8 @@ type OTPsClient struct {
 
 func NewOTPsClient(c stytch.Client) *OTPsClient {
 	return &OTPsClient{
-		C:        c,
+		C: c,
+
 		Sms:      NewOTPsSmsClient(c),
 		Whatsapp: NewOTPsWhatsappClient(c),
 		Email:    NewOTPsEmailClient(c),
@@ -51,6 +52,8 @@ func (c *OTPsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal otp.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -59,6 +62,7 @@ func (c *OTPsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -81,12 +85,15 @@ func (c *OTPsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/otps/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err

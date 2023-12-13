@@ -27,8 +27,11 @@ func NewWebAuthnClient(c stytch.Client) *WebAuthnClient {
 	}
 }
 
-// RegisterStart: Initiate the process of creating a new WebAuthn registration. After calling this
-// endpoint, the browser will need to call
+// RegisterStart: Initiate the process of creating a new Passkey or WebAuthn registration.
+//
+// To optimize for Passkeys, set the `return_passkey_credential_options` field to `true`.
+//
+// After calling this endpoint, the browser will need to call
 // [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential) with the data
 // from
 // [public_key_credential_creation_options](https://w3c.github.io/webauthn/#dictionary-makecredentialoptions)
@@ -53,6 +56,8 @@ func (c *WebAuthnClient) RegisterStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.RegisterStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -61,6 +66,7 @@ func (c *WebAuthnClient) RegisterStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -88,6 +94,8 @@ func (c *WebAuthnClient) Register(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.RegisterResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -96,12 +104,16 @@ func (c *WebAuthnClient) Register(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
 
-// AuthenticateStart: Initiate the authentication of a WebAuthn registration. After calling this endpoint,
-// the browser will need to call
+// AuthenticateStart: Initiate the authentication of a Passkey or WebAuthn registration.
+//
+// To optimize for Passkeys, set the `return_passkey_credential_options` field to `true`.
+//
+// After calling this endpoint, the browser will need to call
 // [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) with the data from
 // `public_key_credential_request_options` passed to the
 // [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) request via the
@@ -123,6 +135,8 @@ func (c *WebAuthnClient) AuthenticateStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.AuthenticateStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -131,13 +145,14 @@ func (c *WebAuthnClient) AuthenticateStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
 
-// Authenticate: Complete the authentication of a WebAuthn registration by passing the response from the
-// [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) request to the
-// authenticate endpoint.
+// Authenticate: Complete the authentication of a Passkey or WebAuthn registration by passing the response
+// from the [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) request to
+// the authenticate endpoint.
 //
 // If the [webauthn-json](https://github.com/github/webauthn-json) library's `get()` method was used, the
 // response can be passed directly to the
@@ -157,6 +172,8 @@ func (c *WebAuthnClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -165,6 +182,7 @@ func (c *WebAuthnClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -187,12 +205,15 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/webauthn/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
@@ -230,7 +251,7 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 	return &retVal, err
 }
 
-// Update: Updates a WebAuthn registration.
+// Update: Updates a Passkey or WebAuthn registration.
 func (c *WebAuthnClient) Update(
 	ctx context.Context,
 	body *webauthn.UpdateParams,
@@ -244,6 +265,8 @@ func (c *WebAuthnClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal webauthn.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -252,6 +275,7 @@ func (c *WebAuthnClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

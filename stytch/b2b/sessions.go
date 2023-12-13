@@ -16,18 +16,23 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v11/stytch/b2b/rbac"
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v11/stytch/shared"
 	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
 )
 
 type SessionsClient struct {
-	C    stytch.Client
-	JWKS *keyfunc.JWKS
+	C           stytch.Client
+	JWKS        *keyfunc.JWKS
+	PolicyCache *PolicyCache
 }
 
-func NewSessionsClient(c stytch.Client) *SessionsClient {
+func NewSessionsClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache) *SessionsClient {
 	return &SessionsClient{
-		C: c,
+		C:           c,
+		JWKS:        jwks,
+		PolicyCache: policyCache,
 	}
 }
 
@@ -42,6 +47,8 @@ func (c *SessionsClient) Get(
 		queryParams["member_id"] = body.MemberID
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -50,6 +57,7 @@ func (c *SessionsClient) Get(
 		queryParams,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -61,6 +69,18 @@ func (c *SessionsClient) Get(
 //
 // You may provide a JWT that needs to be refreshed and is expired according to its `exp` claim. A new JWT
 // will be returned if both the signature and the underlying Session are still valid.
+//
+// If an `authorization_check` object is passed in, this method will also check if the Member is authorized
+// to perform the given action on the given Resource in the specified Organization. A Member is authorized
+// if their Member Session contains a Role, assigned
+// [explicitly or implicitly](https://github.com/docs/b2b/guides/rbac/role-assignment), with adequate
+// permissions.
+// In addition, the `organization_id` passed in the authorization check must match the Member's
+// Organization.
+//
+// If the Member is not authorized to perform the specified action on the specified Resource, or if the
+// `organization_id` does not match the Member's Organization, a 403 error will be thrown.
+// Otherwise, the response will contain a list of Roles that satisfied the authorization check.
 func (c *SessionsClient) Authenticate(
 	ctx context.Context,
 	body *sessions.AuthenticateParams,
@@ -74,6 +94,8 @@ func (c *SessionsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -82,6 +104,7 @@ func (c *SessionsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -104,12 +127,15 @@ func (c *SessionsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/sessions/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
@@ -163,6 +189,8 @@ func (c *SessionsClient) Revoke(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.RevokeResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -171,6 +199,7 @@ func (c *SessionsClient) Revoke(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -210,6 +239,8 @@ func (c *SessionsClient) Exchange(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal sessions.ExchangeResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -218,6 +249,7 @@ func (c *SessionsClient) Exchange(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -241,6 +273,8 @@ func (c *SessionsClient) GetJWKS(
 	ctx context.Context,
 	body *sessions.GetJWKSParams,
 ) (*sessions.GetJWKSResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal sessions.GetJWKSResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -249,6 +283,7 @@ func (c *SessionsClient) GetJWKS(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -268,7 +303,7 @@ func (c *SessionsClient) AuthenticateJWT(
 		return c.Authenticate(ctx, params.Body)
 	}
 
-	session, err := c.AuthenticateJWTLocal(params.Body.SessionJWT, params.MaxTokenAge)
+	session, err := c.AuthenticateJWTLocal(ctx, params.Body.SessionJWT, params.MaxTokenAge, params.Body.AuthorizationCheck)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, params.Body)
@@ -289,7 +324,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 		return c.AuthenticateWithClaims(ctx, body, claims)
 	}
 
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	session, err := c.AuthenticateJWTLocal(ctx, body.SessionJWT, maxTokenAge, body.AuthorizationCheck)
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, body)
@@ -300,9 +335,12 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	}, nil
 }
 
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/shared"
 func (c *SessionsClient) AuthenticateJWTLocal(
+	ctx context.Context,
 	token string,
 	maxTokenAge time.Duration,
+	authorizationCheck *sessions.AuthorizationCheck,
 ) (*sessions.MemberSession, error) {
 	if c.JWKS == nil {
 		return nil, stytcherror.ErrJWKSNotInitialized
@@ -323,7 +361,25 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, sessions.ErrJWTTooOld
 	}
 
-	return marshalJWTIntoSession(claims)
+	memberSession, err := marshalJWTIntoSession(claims)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal JWT into session: %w", err)
+	}
+
+	var policy *rbac.Policy
+	if authorizationCheck != nil {
+		policy, err = c.PolicyCache.Get(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get cached policy: %w", err)
+		}
+
+		err = shared.PerformAuthorizationCheck(policy, claims.Session.Roles, memberSession.OrganizationID, authorizationCheck)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return memberSession, nil
 }
 
 func marshalJWTIntoSession(claims sessions.Claims) (*sessions.MemberSession, error) {

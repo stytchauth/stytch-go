@@ -50,6 +50,8 @@ func (c *M2MClientsSecretsClient) RotateStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal secrets.RotateStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -58,6 +60,7 @@ func (c *M2MClientsSecretsClient) RotateStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -80,6 +83,8 @@ func (c *M2MClientsSecretsClient) RotateCancel(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal secrets.RotateCancelResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -88,6 +93,7 @@ func (c *M2MClientsSecretsClient) RotateCancel(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -110,6 +116,8 @@ func (c *M2MClientsSecretsClient) Rotate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal secrets.RotateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -118,6 +126,7 @@ func (c *M2MClientsSecretsClient) Rotate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

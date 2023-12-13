@@ -26,7 +26,8 @@ type PasswordsClient struct {
 
 func NewPasswordsClient(c stytch.Client) *PasswordsClient {
 	return &PasswordsClient{
-		C:                c,
+		C: c,
+
 		Email:            NewPasswordsEmailClient(c),
 		ExistingPassword: NewPasswordsExistingPasswordClient(c),
 		Sessions:         NewPasswordsSessionsClient(c),
@@ -62,6 +63,8 @@ func (c *PasswordsClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -70,6 +73,7 @@ func (c *PasswordsClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -106,6 +110,8 @@ func (c *PasswordsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -114,6 +120,7 @@ func (c *PasswordsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -136,12 +143,15 @@ func (c *PasswordsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/passwords/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
@@ -214,6 +224,8 @@ func (c *PasswordsClient) StrengthCheck(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.StrengthCheckResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -222,6 +234,7 @@ func (c *PasswordsClient) StrengthCheck(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -242,6 +255,8 @@ func (c *PasswordsClient) Migrate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal passwords.MigrateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -250,6 +265,7 @@ func (c *PasswordsClient) Migrate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

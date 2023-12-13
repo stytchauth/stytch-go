@@ -23,7 +23,8 @@ type M2MClientsClient struct {
 
 func NewM2MClientsClient(c stytch.Client) *M2MClientsClient {
 	return &M2MClientsClient{
-		C:       c,
+		C: c,
+
 		Secrets: NewM2MClientsSecretsClient(c),
 	}
 }
@@ -33,6 +34,8 @@ func (c *M2MClientsClient) Get(
 	ctx context.Context,
 	body *clients.GetParams,
 ) (*clients.GetResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal clients.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -41,6 +44,7 @@ func (c *M2MClientsClient) Get(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -65,6 +69,8 @@ func (c *M2MClientsClient) Search(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal clients.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -73,6 +79,7 @@ func (c *M2MClientsClient) Search(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -98,6 +105,8 @@ func (c *M2MClientsClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal clients.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -106,6 +115,7 @@ func (c *M2MClientsClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -120,6 +130,8 @@ func (c *M2MClientsClient) Delete(
 	ctx context.Context,
 	body *clients.DeleteParams,
 ) (*clients.DeleteResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal clients.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -128,6 +140,7 @@ func (c *M2MClientsClient) Delete(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -154,6 +167,8 @@ func (c *M2MClientsClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal clients.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -162,6 +177,7 @@ func (c *M2MClientsClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

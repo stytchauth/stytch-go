@@ -41,6 +41,8 @@ func (c *OAuthDiscoveryClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal discovery.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -49,6 +51,7 @@ func (c *OAuthDiscoveryClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

@@ -42,6 +42,8 @@ func (c *CryptoWalletsClient) AuthenticateStart(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal cryptowallets.AuthenticateStartResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -50,6 +52,7 @@ func (c *CryptoWalletsClient) AuthenticateStart(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -68,6 +71,8 @@ func (c *CryptoWalletsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal cryptowallets.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -76,6 +81,7 @@ func (c *CryptoWalletsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -98,12 +104,15 @@ func (c *CryptoWalletsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/crypto_wallets/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err

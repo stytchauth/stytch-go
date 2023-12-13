@@ -58,6 +58,8 @@ func (c *PasswordsExistingPasswordClient) Reset(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal existingpassword.ResetResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -66,6 +68,7 @@ func (c *PasswordsExistingPasswordClient) Reset(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

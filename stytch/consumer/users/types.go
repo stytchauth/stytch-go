@@ -273,8 +273,8 @@ type User struct {
 	Status string `json:"status,omitempty"`
 	// PhoneNumbers: An array of phone number objects linked to the User.
 	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
-	// WebAuthnRegistrations: An array that contains a list of all WebAuthn registrations for a given User in
-	// the Stytch API.
+	// WebAuthnRegistrations: An array that contains a list of all Passkey or WebAuthn registrations for a
+	// given User in the Stytch API.
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	// Providers: An array of OAuth `provider` objects linked to the User.
 	Providers []OAuthProvider `json:"providers,omitempty"`
@@ -305,9 +305,10 @@ type User struct {
 
 // WebAuthnRegistration:
 type WebAuthnRegistration struct {
-	// WebAuthnRegistrationID: The unique ID for the WebAuthn registration.
+	// WebAuthnRegistrationID: The unique ID for the Passkey or WebAuthn registration.
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
-	// Domain: The `domain` on which a WebAuthn registration was started. This will be the domain of your app.
+	// Domain: The `domain` on which Passkey or WebAuthn registration was started. This will be the domain of
+	// your app.
 	Domain string `json:"domain,omitempty"`
 	// UserAgent: The user agent of the User.
 	UserAgent string `json:"user_agent,omitempty"`
@@ -315,10 +316,10 @@ type WebAuthnRegistration struct {
 	// address, etc., has been successfully authenticated by the User.
 	Verified bool `json:"verified,omitempty"`
 	// AuthenticatorType: The `authenticator_type` string displays the requested authenticator type of the
-	// WebAuthn device. The two valid types are "platform" and "cross-platform". If no value is present, the
-	// WebAuthn device was created without an authenticator type preference.
+	// Passkey or WebAuthn device. The two valid types are "platform" and "cross-platform". If no value is
+	// present, the Passkey or WebAuthn device was created without an authenticator type preference.
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
-	// Name: The `name` of the WebAuthn registration.
+	// Name: The `name` of the Passkey or WebAuthn registration.
 	Name string `json:"name,omitempty"`
 }
 
@@ -526,8 +527,8 @@ type GetResponse struct {
 	Status string `json:"status,omitempty"`
 	// PhoneNumbers: An array of phone number objects linked to the User.
 	PhoneNumbers []PhoneNumber `json:"phone_numbers,omitempty"`
-	// WebAuthnRegistrations: An array that contains a list of all WebAuthn registrations for a given User in
-	// the Stytch API.
+	// WebAuthnRegistrations: An array that contains a list of all Passkey or WebAuthn registrations for a
+	// given User in the Stytch API.
 	WebAuthnRegistrations []WebAuthnRegistration `json:"webauthn_registrations,omitempty"`
 	// Providers: An array of OAuth `provider` objects linked to the User.
 	Providers []OAuthProvider `json:"providers,omitempty"`

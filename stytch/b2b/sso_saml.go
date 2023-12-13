@@ -26,10 +26,11 @@ func NewSSOSAMLClient(c stytch.Client) *SSOSAMLClient {
 	}
 }
 
-// CreateConnection: Create a new SAML Connection.
+// CreateConnection: Create a new SAML Connection. /%}
 func (c *SSOSAMLClient) CreateConnection(
 	ctx context.Context,
 	body *saml.CreateConnectionParams,
+	methodOptions ...*saml.CreateConnectionRequestOptions,
 ) (*saml.CreateConnectionResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -40,6 +41,11 @@ func (c *SSOSAMLClient) CreateConnection(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.CreateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -48,6 +54,7 @@ func (c *SSOSAMLClient) CreateConnection(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -55,13 +62,15 @@ func (c *SSOSAMLClient) CreateConnection(
 // UpdateConnection: Updates an existing SAML connection.
 //
 // Note that a newly created connection will not become active until all of the following are provided:
-// * `idp_sso_url`
-// * `attribute_mapping`
-// * `idp_entity_id`
-// * `x509_certificate`
+//   - `idp_sso_url`
+//   - `attribute_mapping`
+//   - `idp_entity_id`
+//   - `x509_certificate`
+//     /%}
 func (c *SSOSAMLClient) UpdateConnection(
 	ctx context.Context,
 	body *saml.UpdateConnectionParams,
+	methodOptions ...*saml.UpdateConnectionRequestOptions,
 ) (*saml.UpdateConnectionResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -72,6 +81,11 @@ func (c *SSOSAMLClient) UpdateConnection(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.UpdateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -80,6 +94,7 @@ func (c *SSOSAMLClient) UpdateConnection(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -87,13 +102,15 @@ func (c *SSOSAMLClient) UpdateConnection(
 // UpdateByURL: Used to update an existing SAML connection using an IDP metadata URL.
 //
 // A newly created connection will not become active until all the following are provided:
-// * `idp_sso_url`
-// * `idp_entity_id`
-// * `x509_certificate`
-// * `attribute_mapping` (must be supplied using [Update SAML Connection](update-saml-connection))
+//   - `idp_sso_url`
+//   - `idp_entity_id`
+//   - `x509_certificate`
+//   - `attribute_mapping` (must be supplied using [Update SAML Connection](update-saml-connection))
+//     /%}
 func (c *SSOSAMLClient) UpdateByURL(
 	ctx context.Context,
 	body *saml.UpdateByURLParams,
+	methodOptions ...*saml.UpdateByURLRequestOptions,
 ) (*saml.UpdateByURLResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -104,6 +121,11 @@ func (c *SSOSAMLClient) UpdateByURL(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.UpdateByURLResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -112,6 +134,7 @@ func (c *SSOSAMLClient) UpdateByURL(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -120,10 +143,18 @@ func (c *SSOSAMLClient) UpdateByURL(
 //
 // You may need to do this when rotating certificates from your IdP, since Stytch allows a maximum of 5
 // certificates per connection. There must always be at least one certificate per active connection.
+//
+//	/%}
 func (c *SSOSAMLClient) DeleteVerificationCertificate(
 	ctx context.Context,
 	body *saml.DeleteVerificationCertificateParams,
+	methodOptions ...*saml.DeleteVerificationCertificateRequestOptions,
 ) (*saml.DeleteVerificationCertificateResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal saml.DeleteVerificationCertificateResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -132,6 +163,7 @@ func (c *SSOSAMLClient) DeleteVerificationCertificate(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

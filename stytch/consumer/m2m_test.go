@@ -57,7 +57,7 @@ func TestM2MClient_Token(t *testing.T) {
 
 		client.Config.BaseURI = config.BaseURI(svr.URL)
 
-		res, err := consumer.NewM2MClient(client).Token(context.Background(), &m2m.TokenParams{
+		res, err := consumer.NewM2MClient(client, nil).Token(context.Background(), &m2m.TokenParams{
 			ClientID:     expectedClientID,
 			ClientSecret: expectedClientSecret,
 			Scopes:       scopes,
@@ -81,7 +81,7 @@ func TestM2MClient_Token(t *testing.T) {
 
 		client.Config.BaseURI = config.BaseURI(svr.URL)
 
-		res, err := consumer.NewM2MClient(client).Token(context.Background(), &m2m.TokenParams{
+		res, err := consumer.NewM2MClient(client, nil).Token(context.Background(), &m2m.TokenParams{
 			ClientID:     expectedClientID,
 			ClientSecret: expectedClientSecret,
 			Scopes:       scopes,
@@ -111,8 +111,7 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 		keyID: keyfunc.NewGivenRSA(&key.PublicKey, keyfunc.GivenKeyOptions{Algorithm: "RS256"}),
 	})
 
-	m2mClient := consumer.NewM2MClient(client)
-	m2mClient.JWKS = jwks
+	m2mClient := consumer.NewM2MClient(client, jwks)
 
 	t.Run("expired JWT", func(t *testing.T) {
 		iat := time.Now().UTC().Add(-time.Hour).Truncate(time.Second)

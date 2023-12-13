@@ -87,12 +87,12 @@ type CreateParams struct {
 	// [common email domains resource](https://stytch.com/docs/b2b/api/common-email-domains) for the full list.
 	EmailAllowedDomains []string `json:"email_allowed_domains,omitempty"`
 	// EmailJITProvisioning: The authentication setting that controls how a new Member can be provisioned by
-	// authenticating via Email Magic Link. The accepted values are:
+	// authenticating via Email Magic Link or OAuth. The accepted values are:
 	//
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
-	// provisioned upon authentication via Email Magic Link.
+	// provisioned upon authentication via Email Magic Link or OAuth.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link.
+	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
 	//
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
@@ -115,9 +115,8 @@ type CreateParams struct {
 	// This setting does not apply to Members with `is_breakglass` set to `true`.
 	//
 	AuthMethods string `json:"auth_methods,omitempty"`
-	// AllowedAuthMethods:
-	//   An array of allowed authentication methods. This list is enforced when `auth_methods` is set to
-	// `RESTRICTED`.
+	// AllowedAuthMethods: An array of allowed authentication methods. This list is enforced when
+	// `auth_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sso`, `magic_link`, `password`, `google_oauth`, and `microsoft_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
@@ -125,12 +124,20 @@ type CreateParams struct {
 	// values are:
 	//
 	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
-	// they wish to log in.
+	// they wish to log in. However, any active Session that existed prior to this setting change will remain
+	// valid.
 	//
 	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
 	MFAPolicy string `json:"mfa_policy,omitempty"`
+	// RBACEmailImplicitRoleAssignments: (Coming Soon) Implicit role assignments based off of email domains.
+	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
+	// granted the
+	//   associated Role, regardless of their login method. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//   for more information about role assignment.
+	RBACEmailImplicitRoleAssignments []*organizations.EmailImplicitRoleAssignment `json:"rbac_email_implicit_role_assignments,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.

@@ -77,4 +77,24 @@ func NewClientLibraryError(message string) error {
 	}
 }
 
+func NewSessionAuthorizationTenancyError(subjectOrgID string, requestOrgID string) error {
+	msg := fmt.Sprintf("Subject organization_id %s does not match authZ request organization_id %s", subjectOrgID, requestOrgID)
+	return Error{
+		StatusCode:   403,
+		ErrorType:    "session_authorization_tenancy_error",
+		ErrorMessage: Message(msg + ", v" + config.APIVersion),
+		ErrorURL:     "https://stytch.com/docs/api/errors/403",
+	}
+}
+
+func NewPermissionError() error {
+	msg := "The Member is not authorized to perform the requested action on that resource."
+	return Error{
+		StatusCode:   403,
+		ErrorType:    "session_authorization_error",
+		ErrorMessage: Message(msg + ", v" + config.APIVersion),
+		ErrorURL:     "https://stytch.com/docs/api/errors/403",
+	}
+}
+
 var ErrJWKSNotInitialized = errors.New("JWKS not initialized")

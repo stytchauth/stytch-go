@@ -42,6 +42,8 @@ func (c *TOTPsClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal totps.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -50,6 +52,7 @@ func (c *TOTPsClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -68,6 +71,8 @@ func (c *TOTPsClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal totps.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -76,6 +81,7 @@ func (c *TOTPsClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -98,12 +104,15 @@ func (c *TOTPsClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/totps/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err
@@ -155,6 +164,8 @@ func (c *TOTPsClient) RecoveryCodes(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal totps.RecoveryCodesResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -163,6 +174,7 @@ func (c *TOTPsClient) RecoveryCodes(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -181,6 +193,8 @@ func (c *TOTPsClient) Recover(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal totps.RecoverResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -189,6 +203,7 @@ func (c *TOTPsClient) Recover(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

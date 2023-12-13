@@ -129,24 +129,22 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		o(a)
 	}
 
-	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
-	a.M2M = consumer.NewM2MClient(a.client)
-	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
-	a.OAuth = consumer.NewOAuthClient(a.client)
-	a.OTPs = consumer.NewOTPsClient(a.client)
-	a.Passwords = consumer.NewPasswordsClient(a.client)
-	a.Sessions = consumer.NewSessionsClient(a.client)
-	a.TOTPs = consumer.NewTOTPsClient(a.client)
-	a.Users = consumer.NewUsersClient(a.client)
-	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
 	// Set up JWKS for local session authentication
 	jwks, err := a.instantiateJWKSClient(a.client.GetHTTPClient())
 	if err != nil {
 		return nil, fmt.Errorf("fetch JWKS from URL: %w", err)
 	}
-	a.M2M.JWKS = jwks
 
-	a.Sessions.JWKS = jwks
+	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
+	a.M2M = consumer.NewM2MClient(a.client, jwks)
+	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
+	a.OAuth = consumer.NewOAuthClient(a.client)
+	a.OTPs = consumer.NewOTPsClient(a.client)
+	a.Passwords = consumer.NewPasswordsClient(a.client)
+	a.Sessions = consumer.NewSessionsClient(a.client, jwks)
+	a.TOTPs = consumer.NewTOTPsClient(a.client)
+	a.Users = consumer.NewUsersClient(a.client)
+	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
 
 	return a, nil
 }

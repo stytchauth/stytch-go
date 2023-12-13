@@ -41,6 +41,8 @@ func (c *PasswordsSessionsClient) Reset(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal session.ResetResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -49,6 +51,7 @@ func (c *PasswordsSessionsClient) Reset(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

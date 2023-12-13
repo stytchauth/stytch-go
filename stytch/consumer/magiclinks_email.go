@@ -56,6 +56,8 @@ func (c *MagicLinksEmailClient) Send(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.SendResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -64,6 +66,7 @@ func (c *MagicLinksEmailClient) Send(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -92,6 +95,8 @@ func (c *MagicLinksEmailClient) LoginOrCreate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.LoginOrCreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -100,6 +105,7 @@ func (c *MagicLinksEmailClient) LoginOrCreate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -126,6 +132,8 @@ func (c *MagicLinksEmailClient) Invite(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.InviteResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -134,6 +142,7 @@ func (c *MagicLinksEmailClient) Invite(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -152,6 +161,8 @@ func (c *MagicLinksEmailClient) RevokeInvite(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal email.RevokeInviteResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -160,6 +171,7 @@ func (c *MagicLinksEmailClient) RevokeInvite(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }

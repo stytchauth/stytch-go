@@ -24,7 +24,8 @@ type OAuthClient struct {
 
 func NewOAuthClient(c stytch.Client) *OAuthClient {
 	return &OAuthClient{
-		C:         c,
+		C: c,
+
 		Discovery: NewOAuthDiscoveryClient(c),
 	}
 }
@@ -47,6 +48,10 @@ func NewOAuthClient(c stytch.Client) *OAuthClient {
 //
 // If a valid `session_token` or `session_jwt` is passed in, the Member will not be required to complete an
 // MFA step.
+//
+// We’re actively accepting requests for new OAuth providers! Please [email us](mailto:support@stytch.com)
+// or [post in our community](https://stytch.com/docs/b2b/resources) if you are looking for an OAuth
+// provider that is not currently supported.
 func (c *OAuthClient) Authenticate(
 	ctx context.Context,
 	body *oauth.AuthenticateParams,
@@ -60,6 +65,8 @@ func (c *OAuthClient) Authenticate(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal oauth.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -68,6 +75,7 @@ func (c *OAuthClient) Authenticate(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -90,12 +98,15 @@ func (c *OAuthClient) AuthenticateWithClaims(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	b, err := c.C.RawRequest(
 		ctx,
 		"POST",
 		"/v1/b2b/oauth/authenticate",
 		nil,
 		jsonBody,
+		headers,
 	)
 	if err != nil {
 		return nil, err

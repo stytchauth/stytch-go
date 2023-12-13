@@ -8,6 +8,7 @@ package email
 
 import (
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
 )
 
 // InviteParams: Request type for `Email.Invite`.
@@ -51,6 +52,10 @@ type InviteParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale InviteRequestLocale `json:"locale,omitempty"`
+	// Roles: (Coming Soon) Roles to explicitly assign to this Member. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
+	//    for more information about role assignment.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
@@ -95,6 +100,19 @@ type LoginOrSignupParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale LoginOrSignupRequestLocale `json:"locale,omitempty"`
+}
+
+// InviteRequestOptions:
+type InviteRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *InviteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // InviteResponse: Response type for `Email.Invite`.

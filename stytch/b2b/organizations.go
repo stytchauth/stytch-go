@@ -23,7 +23,8 @@ type OrganizationsClient struct {
 
 func NewOrganizationsClient(c stytch.Client) *OrganizationsClient {
 	return &OrganizationsClient{
-		C:       c,
+		C: c,
+
 		Members: NewOrganizationsMembersClient(c),
 	}
 }
@@ -50,6 +51,8 @@ func (c *OrganizationsClient) Create(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal organizations.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -58,6 +61,7 @@ func (c *OrganizationsClient) Create(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -67,6 +71,8 @@ func (c *OrganizationsClient) Get(
 	ctx context.Context,
 	body *organizations.GetParams,
 ) (*organizations.GetResponse, error) {
+	headers := make(map[string][]string)
+
 	var retVal organizations.GetResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -75,6 +81,7 @@ func (c *OrganizationsClient) Get(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -85,9 +92,29 @@ func (c *OrganizationsClient) Get(
 // *See the [Organization authentication settings](https://stytch.com/docs/b2b/api/org-auth-settings)
 // resource to learn more about fields like `email_jit_provisioning`, `email_invites`,
 // `sso_jit_provisioning`, etc., and their behaviors.
+//
+// (Coming Soon) Our RBAC implementation offers out-of-the-box handling of authorization checks for this
+// endpoint. If you pass in
+// a header containing a `session_token` or a `session_jwt` for an unexpired Member Session, we will check
+// that the
+// Member Session has the necessary permissions. The specific permissions needed depend on which of the
+// optional fields
+// are passed in the request. For example, if the `organization_name` argument is provided, the Member
+// Session must have
+// permission to perform the `update.info.name` action on the `stytch.organization` Resource.
+//
+// If the Member Session does not contain a Role that satisfies the requested permissions, or if the
+// Member's Organization
+// does not match the `organization_id` passed in the request, a 403 error will be thrown. Otherwise, the
+// request will
+// proceed as normal.
+//
+// To learn more about our RBAC implementation, see our
+// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/overview).
 func (c *OrganizationsClient) Update(
 	ctx context.Context,
 	body *organizations.UpdateParams,
+	methodOptions ...*organizations.UpdateRequestOptions,
 ) (*organizations.UpdateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -98,6 +125,11 @@ func (c *OrganizationsClient) Update(
 		}
 	}
 
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal organizations.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -106,16 +138,23 @@ func (c *OrganizationsClient) Update(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
 
 // Delete: Deletes an Organization specified by `organization_id`. All Members of the Organization will
-// also be deleted.
+// also be deleted. /%}
 func (c *OrganizationsClient) Delete(
 	ctx context.Context,
 	body *organizations.DeleteParams,
+	methodOptions ...*organizations.DeleteRequestOptions,
 ) (*organizations.DeleteResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
 	var retVal organizations.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
@@ -124,6 +163,7 @@ func (c *OrganizationsClient) Delete(
 		nil,
 		nil,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
@@ -144,6 +184,8 @@ func (c *OrganizationsClient) Search(
 		}
 	}
 
+	headers := make(map[string][]string)
+
 	var retVal organizations.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
@@ -152,6 +194,7 @@ func (c *OrganizationsClient) Search(
 		nil,
 		jsonBody,
 		&retVal,
+		headers,
 	)
 	return &retVal, err
 }
