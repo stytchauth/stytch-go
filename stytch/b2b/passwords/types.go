@@ -98,12 +98,6 @@ type MigrateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
-	// are revoked are also implicitly assigned
-	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
-	// SSO
-	//   authentication factors with the affected SSO connection IDs will be revoked.
-	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
 	Md5Config *passwords.MD5Config `json:"md_5_config,omitempty"`
 	// Argon2Config: Required parameters if the argon2 hex form, as opposed to the encoded form, is supplied.
@@ -139,6 +133,12 @@ type MigrateParams struct {
 	// the
 	//    `preserve_existing_sessions` parameter with a value of `true`.
 	Roles []string `json:"roles,omitempty"`
+	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
+	// are revoked are also implicitly assigned
+	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
+	// SSO
+	//   authentication factors with the affected SSO connection IDs will be revoked.
+	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
 }
 
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
