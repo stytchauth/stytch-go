@@ -208,8 +208,8 @@ type UpdateParams struct {
 	// the
 	//    `preserve_existing_sessions` parameter with a value of `true`.
 	//
-	// If this field is provided, the logged-in Member must have permission to perform the
-	// `update.settings.roles` action on the `stytch.member` Resource.
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.roles` action on the `stytch.member` Resource.
 	Roles []string `json:"roles,omitempty"`
 	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
 	// are revoked are also implicitly assigned
