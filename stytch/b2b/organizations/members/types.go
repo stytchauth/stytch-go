@@ -140,12 +140,6 @@ type UpdateParams struct {
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
-	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
-	// are revoked are also implicitly assigned
-	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
-	// SSO
-	//   authentication factors with the affected SSO connection IDs will be revoked.
-	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
 	// Name: The name of the Member.
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have
@@ -214,9 +208,15 @@ type UpdateParams struct {
 	// the
 	//    `preserve_existing_sessions` parameter with a value of `true`.
 	//
-	// If this field is provided, the logged-in Member must have permission to perform the
-	// `update.settings.roles` action on the `stytch.member` Resource.
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.roles` action on the `stytch.member` Resource.
 	Roles []string `json:"roles,omitempty"`
+	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
+	// are revoked are also implicitly assigned
+	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
+	// SSO
+	//   authentication factors with the affected SSO connection IDs will be revoked.
+	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
 }
 
 // CreateRequestOptions:
