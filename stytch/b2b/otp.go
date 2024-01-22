@@ -7,7 +7,7 @@ package b2b
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch"
+	"github.com/stytchauth/stytch-go/v12/stytch"
 )
 
 type OTPsClient struct {

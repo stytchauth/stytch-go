@@ -7,7 +7,7 @@ package discovery
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v12/stytch/b2b/discovery"
 )
 
 // AuthenticateParams: Request type for `Discovery.Authenticate`.
