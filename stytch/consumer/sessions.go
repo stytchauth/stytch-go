@@ -15,9 +15,9 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v11/stytch"
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v12/stytch"
+	"github.com/stytchauth/stytch-go/v12/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -225,7 +225,7 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
