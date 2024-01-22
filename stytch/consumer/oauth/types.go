@@ -128,7 +128,7 @@ type AuthenticateResponse struct {
 	// access the provider's API for a given user.
 	//
 	//   Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
-	// returned by OIDC complaint identity providers.
+	// returned by OIDC compliant identity providers.
 	ProviderValues ProviderValues `json:"provider_values,omitempty"`
 	// User: The `user` object affected by this API call. See the
 	// [Get user endpoint](https://stytch.com/docs/api/get-user) for complete response field details.

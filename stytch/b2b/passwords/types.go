@@ -121,7 +121,7 @@ type MigrateParams struct {
 	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
-	// Roles: (Coming Soon) Roles to explicitly assign to this Member.
+	// Roles to explicitly assign to this Member.
 	//  Will completely replace any existing explicitly assigned roles. See the
 	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
 	// assignment.
@@ -133,8 +133,8 @@ type MigrateParams struct {
 	// the
 	//    `preserve_existing_sessions` parameter with a value of `true`.
 	Roles []string `json:"roles,omitempty"`
-	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
-	// are revoked are also implicitly assigned
+	// PreserveExistingSessions: Whether to preserve existing sessions when explicit Roles that are revoked are
+	// also implicitly assigned
 	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
 	// SSO
 	//   authentication factors with the affected SSO connection IDs will be revoked.

@@ -42,8 +42,10 @@ type API struct {
 	Organizations *b2b.OrganizationsClient
 	Passwords     *b2b.PasswordsClient
 	RBAC          *b2b.RBACClient
+	RecoveryCodes *b2b.RecoveryCodesClient
 	SSO           *b2b.SSOClient
 	Sessions      *b2b.SessionsClient
+	TOTPs         *b2b.TOTPsClient
 }
 
 type Option func(*API)
@@ -146,8 +148,10 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.Organizations = b2b.NewOrganizationsClient(a.client)
 	a.Passwords = b2b.NewPasswordsClient(a.client)
 	a.RBAC = b2b.NewRBACClient(a.client)
+	a.RecoveryCodes = b2b.NewRecoveryCodesClient(a.client)
 	a.SSO = b2b.NewSSOClient(a.client)
 	a.Sessions = b2b.NewSessionsClient(a.client, jwks, policyCache)
+	a.TOTPs = b2b.NewTOTPsClient(a.client)
 
 	return a, nil
 }

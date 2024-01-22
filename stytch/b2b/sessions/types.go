@@ -45,12 +45,12 @@ type AuthenticateParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// AuthorizationCheck: (Coming Soon) If an `authorization_check` object is passed in, this endpoint will
-	// also check if the Member is
+	// AuthorizationCheck: If an `authorization_check` object is passed in, this endpoint will also check if
+	// the Member is
 	//   authorized to perform the given action on the given Resource in the specified Organization. A Member
 	// is authorized if
 	//   their Member Session contains a Role, assigned
-	//   [explicitly or implicitly](https://github.com/docs/b2b/guides/rbac/role-assignment), with adequate
+	//   [explicitly or implicitly](https://stytch.com/docs/b2b/guides/rbac/role-assignment), with adequate
 	// permissions.
 	//   In addition, the `organization_id` passed in the authorization check must match the Member's
 	// Organization.
@@ -222,8 +222,8 @@ type AuthenticateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Verdict: (Coming Soon) If an `authorization_check` is provided in the request and the check succeeds,
-	// this field will return
+	// Verdict: If an `authorization_check` is provided in the request and the check succeeds, this field will
+	// return
 	//   the complete list of Roles that gave the Member permission to perform the specified action on the
 	// specified Resource.
 	Verdict *AuthorizationVerdict `json:"verdict,omitempty"`

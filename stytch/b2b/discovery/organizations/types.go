@@ -131,13 +131,27 @@ type CreateParams struct {
 	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
 	//
 	MFAPolicy string `json:"mfa_policy,omitempty"`
-	// RBACEmailImplicitRoleAssignments: (Coming Soon) Implicit role assignments based off of email domains.
+	// RBACEmailImplicitRoleAssignments: Implicit role assignments based off of email domains.
 	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
 	// granted the
 	//   associated Role, regardless of their login method. See the
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
 	//   for more information about role assignment.
 	RBACEmailImplicitRoleAssignments []*organizations.EmailImplicitRoleAssignment `json:"rbac_email_implicit_role_assignments,omitempty"`
+	// MFAMethods: The setting that controls which mfa methods can be used by Members of an Organization. The
+	// accepted values are:
+	//
+	//   `ALL_ALLOWED` – the default setting which allows all authentication methods to be used.
+	//
+	//   `RESTRICTED` – only methods that comply with `allowed_auth_methods` can be used for authentication.
+	// This setting does not apply to Members with `is_breakglass` set to `true`.
+	//
+	MFAMethods string `json:"mfa_methods,omitempty"`
+	// AllowedMFAMethods: An array of allowed mfa authentication methods. This list is enforced when
+	// `mfa_methods` is set to `RESTRICTED`.
+	//   The list's accepted values are: `sms_otp` and `totp`.
+	//
+	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.

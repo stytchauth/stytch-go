@@ -484,6 +484,7 @@ const (
 	AuthenticationFactorDeliveryMethodOAuthSalesforce      AuthenticationFactorDeliveryMethod = "oauth_salesforce"
 	AuthenticationFactorDeliveryMethodOAuthYahoo           AuthenticationFactorDeliveryMethod = "oauth_yahoo"
 	AuthenticationFactorDeliveryMethodOAuthHubspot         AuthenticationFactorDeliveryMethod = "oauth_hubspot"
+	AuthenticationFactorDeliveryMethodImportedAuth0        AuthenticationFactorDeliveryMethod = "imported_auth0"
 )
 
 type AuthenticationFactorType string
@@ -498,6 +499,8 @@ const (
 	AuthenticationFactorTypePassword           AuthenticationFactorType = "password"
 	AuthenticationFactorTypeSignatureChallenge AuthenticationFactorType = "signature_challenge"
 	AuthenticationFactorTypeSSO                AuthenticationFactorType = "sso"
+	AuthenticationFactorTypeImported           AuthenticationFactorType = "imported"
+	AuthenticationFactorTypeRecoveryCodes      AuthenticationFactorType = "recovery_codes"
 )
 
 // MANUAL(Types)(TYPES)

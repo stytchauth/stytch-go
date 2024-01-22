@@ -46,10 +46,16 @@ func NewOTPsSmsClient(c stytch.Client) *OTPsSmsClient {
 // subsequent authentication events, such as prompting a Member for an OTP again after a period of
 // inactivity.
 //
+// Passing an intermediate session token, session token, or session JWT is not required, but if passed must
+// match the Member ID passed.
+//
 // ### Cost to send SMS OTP
 // Before configuring SMS or WhatsApp OTPs, please review how Stytch
 // [bills the costs of international OTPs](https://stytch.com/pricing) and understand how to protect your
 // app against [toll fraud](https://stytch.com/docs/guides/passcodes/toll-fraud/overview).
+//
+// Even when international SMS is enabled, we do not support sending SMS to countries on our
+// [Unsupported countries list](https://stytch.com/docs/guides/passcodes/unsupported-countries).
 //
 // __Note:__ SMS to phone numbers outside of the US and Canada is disabled by default for customers who did
 // not use SMS prior to October 2023. If you're interested in sending international SMS, please reach out
