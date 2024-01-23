@@ -93,8 +93,8 @@ func (c *OrganizationsClient) Get(
 // resource to learn more about fields like `email_jit_provisioning`, `email_invites`,
 // `sso_jit_provisioning`, etc., and their behaviors.
 //
-// (Coming Soon) Our RBAC implementation offers out-of-the-box handling of authorization checks for this
-// endpoint. If you pass in
+// Our RBAC implementation offers out-of-the-box handling of authorization checks for this endpoint. If you
+// pass in
 // a header containing a `session_token` or a `session_jwt` for an unexpired Member Session, we will check
 // that the
 // Member Session has the necessary permissions. The specific permissions needed depend on which of the

@@ -28,8 +28,8 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 
 // Update: Updates a Member specified by `organization_id` and `member_id`.
 //
-// (Coming Soon) Our RBAC implementation offers out-of-the-box handling of authorization checks for this
-// endpoint. If you pass in
+// Our RBAC implementation offers out-of-the-box handling of authorization checks for this endpoint. If you
+// pass in
 // a header containing a `session_token` or a `session_jwt` for an unexpired Member Session, we will check
 // that the
 // Member Session has the necessary permissions. The specific permissions needed depend on which of the
@@ -171,13 +171,36 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	return &retVal, err
 }
 
+func (c *OrganizationsMembersClient) DeleteTOTP(
+	ctx context.Context,
+	body *members.DeleteTOTPParams,
+	methodOptions ...*members.DeleteTOTPRequestOptions,
+) (*members.DeleteTOTPResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal members.DeleteTOTPResponse
+	err := c.C.NewRequest(
+		ctx,
+		"DELETE",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/totp", body.OrganizationID, body.MemberID),
+		nil,
+		nil,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
 // Search for Members within specified Organizations. An array with at least one `organization_id` is
 // required. Submitting an empty `query` returns all non-deleted Members within the specified Organizations.
 //
 // *All fuzzy search filters require a minimum of three characters.
 //
-// (Coming Soon) Our RBAC implementation offers out-of-the-box handling of authorization checks for this
-// endpoint. If you pass in
+// Our RBAC implementation offers out-of-the-box handling of authorization checks for this endpoint. If you
+// pass in
 // a header containing a `session_token` or a `session_jwt` for an unexpired Member Session, we will check
 // that the
 // Member Session has permission to perform the `search` action on the `stytch.member` Resource. In

@@ -169,6 +169,8 @@ type ResetStartResponse struct {
 	MemberID string `json:"member_id,omitempty"`
 	// MemberEmailID: Globally unique UUID that identifies a member's email
 	MemberEmailID string `json:"member_email_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
+	Member organizations.Member `json:"member,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

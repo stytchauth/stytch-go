@@ -47,7 +47,7 @@ type CreateParams struct {
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
-	// Roles: (Coming Soon) Roles to explicitly assign to this Member. See the
+	// Roles to explicitly assign to this Member. See the
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
 	//    for more information about role assignment.
 	Roles []string `json:"roles,omitempty"`
@@ -87,6 +87,11 @@ type DeletePasswordParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberPasswordID: Globally unique UUID that identifies a Member's password.
 	MemberPasswordID string `json:"member_password_id,omitempty"`
+}
+
+type DeleteTOTPParams struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+	MemberID       string `json:"member_id,omitempty"`
 }
 
 // GetParams: Request type for `Members.Get`.
@@ -196,7 +201,7 @@ type UpdateParams struct {
 	// request, the authorization check will also allow a Member Session that has permission to perform the
 	// `update.settings.mfa-enrolled` action on the `stytch.self` Resource.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
-	// Roles: (Coming Soon) Roles to explicitly assign to this Member.
+	// Roles to explicitly assign to this Member.
 	//  Will completely replace any existing explicitly assigned roles. See the
 	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
 	// assignment.
@@ -211,12 +216,16 @@ type UpdateParams struct {
 	// If this field is provided and a session header is passed into the request, the Member Session must have
 	// permission to perform the `update.settings.roles` action on the `stytch.member` Resource.
 	Roles []string `json:"roles,omitempty"`
-	// PreserveExistingSessions: (Coming Soon) Whether to preserve existing sessions when explicit Roles that
-	// are revoked are also implicitly assigned
+	// PreserveExistingSessions: Whether to preserve existing sessions when explicit Roles that are revoked are
+	// also implicitly assigned
 	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
 	// SSO
 	//   authentication factors with the affected SSO connection IDs will be revoked.
 	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
+	// DefaultMFAMethod: The Member's default MFA method. This value is used to determine which secondary MFA
+	// method to use in the case of multiple methods registered for a Member. The current possible values are
+	// `sms_otp` and `totp`.
+	DefaultMFAMethod string `json:"default_mfa_method,omitempty"`
 }
 
 // CreateRequestOptions:
@@ -267,6 +276,19 @@ type DeleteRequestOptions struct {
 }
 
 func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteTOTPRequestOptions:
+type DeleteTOTPRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteTOTPRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
 }
@@ -376,6 +398,14 @@ type DeleteResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type DeleteTOTPResponse struct {
+	RequestID    string                     `json:"request_id,omitempty"`
+	MemberID     string                     `json:"member_id,omitempty"`
+	Member       organizations.Member       `json:"member,omitempty"`
+	Organization organizations.Organization `json:"organization,omitempty"`
+	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Members.DangerouslyGet`, `Members.Get`.
