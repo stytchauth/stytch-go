@@ -7,8 +7,8 @@ package recoverycodes
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v12/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v12/stytch/b2b/sessions"
 )
 
 // GetParams: Request type for `RecoveryCodes.Get`.
