@@ -7,7 +7,7 @@ package secrets
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v12/stytch/consumer/m2m"
 )
 
 // RotateCancelParams: Request type for `Secrets.RotateCancel`.

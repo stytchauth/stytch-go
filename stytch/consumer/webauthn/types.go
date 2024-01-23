@@ -7,8 +7,8 @@ package webauthn
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v12/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v12/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `WebAuthn.Authenticate`.

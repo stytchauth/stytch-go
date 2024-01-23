@@ -7,7 +7,7 @@ package organizations
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v12/stytch/methodoptions"
 )
 
 // ActiveSSOConnection:

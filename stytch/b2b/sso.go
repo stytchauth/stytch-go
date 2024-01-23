@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v11/stytch"
-	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v12/stytch"
+	"github.com/stytchauth/stytch-go/v12/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
 )
 
 type SSOClient struct {

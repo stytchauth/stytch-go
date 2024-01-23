@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v11/stytch"
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
-	"github.com/stytchauth/stytch-go/v11/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v12/stytch"
+	"github.com/stytchauth/stytch-go/v12/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
 )
 
 type UsersClient struct {

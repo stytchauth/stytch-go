@@ -7,7 +7,7 @@ package whatsapp
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v12/stytch/consumer/attribute"
 )
 
 // LoginOrCreateParams: Request type for `Whatsapp.LoginOrCreate`.
