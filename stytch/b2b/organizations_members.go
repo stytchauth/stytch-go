@@ -171,17 +171,17 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	return &retVal, err
 }
 
-func (c *OrganizationsMembersClient) TOTP(
+func (c *OrganizationsMembersClient) DeleteTOTP(
 	ctx context.Context,
-	body *members.TOTPParams,
-	methodOptions ...*members.TOTPRequestOptions,
-) (*members.TOTPResponse, error) {
+	body *members.DeleteTOTPParams,
+	methodOptions ...*members.DeleteTOTPRequestOptions,
+) (*members.DeleteTOTPResponse, error) {
 	headers := make(map[string][]string)
 	for _, methodOption := range methodOptions {
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal members.TOTPResponse
+	var retVal members.DeleteTOTPResponse
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",

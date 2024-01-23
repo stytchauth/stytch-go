@@ -89,6 +89,11 @@ type DeletePasswordParams struct {
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 }
 
+type DeleteTOTPParams struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+	MemberID       string `json:"member_id,omitempty"`
+}
+
 // GetParams: Request type for `Members.Get`.
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -130,11 +135,6 @@ type SearchParams struct {
 	// filter your results. Only an operator is required. If you include no operands, no filtering will be
 	// applied. If you include no query object, it will return all Members with no filtering applied.
 	Query *organizations.SearchQuery `json:"query,omitempty"`
-}
-
-type TOTPParams struct {
-	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
 }
 
 // UpdateParams: Request type for `Members.Update`.
@@ -280,6 +280,19 @@ func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[strin
 	return headers
 }
 
+// DeleteTOTPRequestOptions:
+type DeleteTOTPRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteTOTPRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // ReactivateRequestOptions:
 type ReactivateRequestOptions struct {
 	// Authorization: Optional authorization object.
@@ -302,19 +315,6 @@ type SearchRequestOptions struct {
 }
 
 func (o *SearchRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// TOTPRequestOptions:
-type TOTPRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *TOTPRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
 }
@@ -400,6 +400,14 @@ type DeleteResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
+type DeleteTOTPResponse struct {
+	RequestID    string                     `json:"request_id,omitempty"`
+	MemberID     string                     `json:"member_id,omitempty"`
+	Member       organizations.Member       `json:"member,omitempty"`
+	Organization organizations.Organization `json:"organization,omitempty"`
+	StatusCode   int32                      `json:"status_code,omitempty"`
+}
+
 // GetResponse: Response type for `Members.DangerouslyGet`, `Members.Get`.
 type GetResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
@@ -455,14 +463,6 @@ type SearchResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-}
-
-type TOTPResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
-	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
 }
 
 // UpdateResponse: Response type for `Members.Update`.
