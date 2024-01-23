@@ -11,8 +11,8 @@ import (
 	"github.com/stytchauth/stytch-go/v11/stytch/b2b/sessions"
 )
 
-// B2BGetParams: Request type for `RecoveryCodes.B2BGet`.
-type B2BGetParams struct {
+// GetParams: Request type for `RecoveryCodes.Get`.
+type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
@@ -82,8 +82,8 @@ type RotateParams struct {
 	MemberID string `json:"member_id,omitempty"`
 }
 
-// B2BGetResponse: Response type for `RecoveryCodes.B2BGet`.
-type B2BGetResponse struct {
+// GetResponse: Response type for `RecoveryCodes.Get`.
+type GetResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.

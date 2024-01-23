@@ -56,14 +56,14 @@ func (c *RecoveryCodesClient) Recover(
 	return &retVal, err
 }
 
-// B2BGet: Returns a Member's full set of active recovery codes.
-func (c *RecoveryCodesClient) B2BGet(
+// Get: Returns a Member's full set of active recovery codes.
+func (c *RecoveryCodesClient) Get(
 	ctx context.Context,
-	body *recoverycodes.B2BGetParams,
-) (*recoverycodes.B2BGetResponse, error) {
+	body *recoverycodes.GetParams,
+) (*recoverycodes.GetResponse, error) {
 	headers := make(map[string][]string)
 
-	var retVal recoverycodes.B2BGetResponse
+	var retVal recoverycodes.GetResponse
 	err := c.C.NewRequest(
 		ctx,
 		"GET",
