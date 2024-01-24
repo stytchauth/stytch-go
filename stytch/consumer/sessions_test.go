@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -128,6 +129,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 					},
 				},
 			},
+			CustomClaims: map[string]any{},
 		}
 		assert.Equal(t, expected, session)
 	})
@@ -165,6 +167,43 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 					},
 				},
 			},
+			CustomClaims: map[string]any{},
+		}
+		assert.Equal(t, expected, session)
+	})
+
+	t.Run("map claims", func(t *testing.T) {
+		iat := time.Now().UTC().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaimsCustom(t, iat, exp, map[string]any{"extra": "special"})
+		token := signJWT(t, keyID, key, claims)
+
+		session, err := sessionClient.AuthenticateJWTLocal(token, 3*time.Minute)
+		require.NoError(t, err)
+
+		expected := &sessions.Session{
+			SessionID:      "session-live-e26a0ccb-0dc0-4edb-a4bb-e70210f43555",
+			UserID:         "user-live-fde03dd1-fff7-4b3c-9b31-ead3fbc224de",
+			StartedAt:      &iat,
+			LastAccessedAt: &iat,
+			ExpiresAt:      &exp,
+			Attributes: &attribute.Attributes{
+				IPAddress: "",
+				UserAgent: "",
+			},
+			AuthenticationFactors: []sessions.AuthenticationFactor{
+				{
+					Type:                "magic_link",
+					DeliveryMethod:      "email",
+					LastAuthenticatedAt: &iat,
+					EmailFactor: &sessions.EmailFactor{
+						EmailAddress: "sandbox@stytch.com",
+						EmailID:      "email-live-cca9d7d0-11b6-4167-9385-d7e0c9a77418",
+					},
+				},
+			},
+			CustomClaims: map[string]any{"extra": "special"},
 		}
 		assert.Equal(t, expected, session)
 	})
@@ -444,4 +483,26 @@ func sandboxClaims(t *testing.T, iat, exp time.Time) sessions.Claims {
 			ExpiresAt: jwt.NewNumericDate(iat.Add(5 * time.Minute)),
 		},
 	}
+}
+
+func sandboxClaimsCustom(t *testing.T, iat, exp time.Time, custom map[string]any) jwt.MapClaims {
+	claims := sandboxClaims(t, iat, exp)
+	b, err := json.Marshal(claims)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var mapClaims map[string]any
+	if err := json.Unmarshal(b, &mapClaims); err != nil {
+		t.Fatal(err)
+	}
+
+	for key, val := range custom {
+		if _, exists := mapClaims[key]; exists {
+			t.Fatalf("Reserved key used in custom claims: %s", key)
+		}
+		mapClaims[key] = val
+	}
+
+	return mapClaims
 }
