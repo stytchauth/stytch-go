@@ -93,9 +93,13 @@ func (c *SessionsClient) Authenticate(
 }
 
 // AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
-// Pass in a map with the types of values you're expecting so that this function can marshal
-// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
-// ExampleClient_AuthenticateWithClaims_struct for examples
+//
+// The value for claims must be one of these types:
+//   - A pointer to a map (*map[string]any), which will be overwritten with the custom claims.
+//   - A pointer to a struct (*T), which will be populated using its "json" struct tags.
+//
+// See ExampleClient_AuthenticateWithClaims_map, ExampleClient_AuthenticateWithClaims_struct for
+// examples.
 func (c *SessionsClient) AuthenticateWithClaims(
 	ctx context.Context,
 	body *sessions.AuthenticateParams,
