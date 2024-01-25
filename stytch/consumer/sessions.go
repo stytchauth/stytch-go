@@ -258,19 +258,42 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	body *sessions.AuthenticateParams,
 	claims map[string]any,
 ) (*sessions.AuthenticateResponse, error) {
+	// This method has a different signature than AuthenticateWithClaims, which we can't change in
+	// this version of the library. For backward compatibility, populate the claims map by
+	// mutating it instead of replacing it like the non-JWT version does.
+	//
+	// TODO(v12.x): Change claims to `any`, also allow pointer-to-map and pointer-to-struct.
+	// TODO(v13): Remove support for populating a pre-existing map this way.
+
+	var resp *sessions.AuthenticateResponse
+
+	// Some special cases can force remote authentication. Otherwise, prefer local validation.
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.AuthenticateWithClaims(ctx, body, claims)
-	}
-
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
-	if err != nil {
+		var err error
+		resp, err = c.AuthenticateWithClaims(ctx, body, nil)
+		if err != nil {
+			return nil, err
+		}
+	} else if session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge); err == nil {
+		resp = &sessions.AuthenticateResponse{
+			Session: *session,
+		}
+	} else {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(ctx, body)
+		resp, err = c.Authenticate(ctx, body)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return &sessions.AuthenticateResponse{
-		Session: *session,
-	}, nil
+	// Populate claims if possible.
+	if claims != nil {
+		for key, val := range resp.Session.CustomClaims {
+			claims[key] = val
+		}
+	}
+
+	return resp, nil
 }
 
 func (c *SessionsClient) AuthenticateJWTLocal(
