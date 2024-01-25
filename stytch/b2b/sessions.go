@@ -10,7 +10,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
@@ -111,9 +110,13 @@ func (c *SessionsClient) Authenticate(
 }
 
 // AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
-// Pass in a map with the types of values you're expecting so that this function can marshal
-// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
-// ExampleClient_AuthenticateWithClaims_struct for examples
+//
+// The value for claims must be one of these types:
+//   - A pointer to a map (*map[string]any), which will be overwritten with the custom claims.
+//   - A pointer to a struct (*T), which will be populated using its "json" struct tags.
+//
+// See ExampleSessionsClient_AuthenticateWithClaims_map,
+// ExampleSessionsClient_AuthenticateWithClaims_struct for examples
 func (c *SessionsClient) AuthenticateWithClaims(
 	ctx context.Context,
 	body *sessions.AuthenticateParams,
@@ -404,7 +407,7 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 
 	// Remove all the reserved claims that are already present in staticClaims.
 	for key := range customClaims {
-		if reservedClaim(key) {
+		if shared.ReservedClaim(key) {
 			delete(customClaims, key)
 		}
 	}
@@ -428,24 +431,6 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	}
 
 	return memberSession, nil
-}
-
-// reservedClaim returns true if the key is reserved by the JWT standard or the Stytch platform.
-func reservedClaim(key string) bool {
-	// Reserved claims
-	switch key {
-	case
-		"iss",
-		"aud",
-		"sub",
-		"iat",
-		"nbf",
-		"exp":
-		return true
-	}
-
-	// Stytch-specific claims are scoped by a URL prefix.
-	return strings.HasPrefix(key, "https://stytch.com/")
 }
 
 func marshalJWTIntoSession(claims sessions.Claims, customClaims map[string]any) (*sessions.MemberSession, error) {

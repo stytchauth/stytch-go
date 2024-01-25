@@ -10,7 +10,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
@@ -18,6 +17,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v12/stytch"
 	"github.com/stytchauth/stytch-go/v12/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v12/stytch/shared"
 	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
 )
 
@@ -338,30 +338,12 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 
 	// Remove all the reserved claims that are already present in staticClaims.
 	for key := range customClaims {
-		if reservedClaim(key) {
+		if shared.ReservedClaim(key) {
 			delete(customClaims, key)
 		}
 	}
 
 	return marshalJWTIntoSession(staticClaims, customClaims)
-}
-
-// reservedClaim returns true if the key is reserved by the JWT standard or the Stytch platform.
-func reservedClaim(key string) bool {
-	// Reserved claims
-	switch key {
-	case
-		"iss",
-		"aud",
-		"sub",
-		"iat",
-		"nbf",
-		"exp":
-		return true
-	}
-
-	// Stytch-specific claims are scoped by a URL prefix.
-	return strings.HasPrefix(key, "https://stytch.com/")
 }
 
 func marshalJWTIntoSession(claims sessions.Claims, customClaims map[string]any) (*sessions.Session, error) {
