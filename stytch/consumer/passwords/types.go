@@ -169,6 +169,13 @@ type MigrateParams struct {
 	// **cannot be used to store critical information.** See the
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+	// SetEmailVerified: Whether to set the user's email as verified. This is a dangerous field. Incorrect use
+	// may lead to users getting erroneously
+	//                 deduplicated into one user object. This flag should only be set if you can attest that
+	// the user owns the email address in question.
+	//                 Access to this field is restricted. To enable it, please send us a note at
+	// support@stytch.com.
+	SetEmailVerified bool `json:"set_email_verified,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name *users.Name `json:"name,omitempty"`
 }
