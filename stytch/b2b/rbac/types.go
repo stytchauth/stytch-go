@@ -17,21 +17,116 @@ type Policy struct {
 // PolicyParams: Request type for `RBAC.Policy`.
 type PolicyParams struct{}
 
+// PolicyResource:
 type PolicyResource struct {
-	ResourceID  string   `json:"resource_id,omitempty"`
-	Description string   `json:"description,omitempty"`
-	Actions     []string `json:"actions,omitempty"`
+	// ResourceID: A unique identifier of the RBAC Resource, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
+	// default Resources with reserved  `resource_id`s. These include:
+	//
+	//   * `stytch.organization`
+	//   * `stytch.member`
+	//   * `stytch.sso`
+	//   * `stytch.self`
+	//
+	//   Check out the
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for a more
+	// detailed explanation.
+	//
+	//
+	ResourceID string `json:"resource_id,omitempty"`
+	// Description: The description of the RBAC Resource.
+	Description string `json:"description,omitempty"`
+	// Actions: A list of all possible actions for a provided Resource.
+	//
+	//   Reserved `actions` that are predefined by Stytch include:
+	//
+	//   * `*`
+	//   * For the `stytch.organization` Resource:
+	//     * `update.info.name`
+	//     * `update.info.slug`
+	//     * `update.info.untrusted_metadata`
+	//     * `update.info.email_jit_provisioning`
+	//     * `update.info.logo_url`
+	//     * `update.info.email_invites`
+	//     * `update.info.allowed_domains`
+	//     * `update.info.default_sso_connection`
+	//     * `update.info.sso_jit_provisioning`
+	//     * `update.info.mfa_policy`
+	//     * `update.info.implicit_roles`
+	//     * `delete`
+	//   * For the `stytch.member` Resource:
+	//     * `create`
+	//     * `update.info.name`
+	//     * `update.info.untrusted_metadata`
+	//     * `update.info.mfa-phone`
+	//     * `update.info.delete.mfa-phone`
+	//     * `update.settings.is-breakglass`
+	//     * `update.settings.mfa_enrolled`
+	//     * `update.settings.roles`
+	//     * `search`
+	//     * `delete`
+	//   * For the `stytch.sso` Resource:
+	//     * `create`
+	//     * `update`
+	//     * `delete`
+	//   * For the `stytch.self` Resource:
+	//     * `update.info.name`
+	//     * `update.info.untrusted_metadata`
+	//     * `update.info.mfa-phone`
+	//     * `update.info.delete.mfa-phone`
+	//     * `update.info.delete.password`
+	//     * `update.settings.mfa_enrolled`
+	//     * `delete`
+	//
+	Actions []string `json:"actions,omitempty"`
 }
 
+// PolicyRole:
 type PolicyRole struct {
-	RoleID      string                 `json:"role_id,omitempty"`
-	Description string                 `json:"description,omitempty"`
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	// for a more detailed explanation.
+	//
+	//
+	RoleID string `json:"role_id,omitempty"`
+	// Description: The description of the RBAC Role.
+	Description string `json:"description,omitempty"`
+	// Permissions: A list of permissions that link a
+	// [Resource](https://stytch.com/docs/b2b/api/rbac-resource-object) to a list of actions.
 	Permissions []PolicyRolePermission `json:"permissions,omitempty"`
 }
 
+// PolicyRolePermission:
 type PolicyRolePermission struct {
-	ResourceID string   `json:"resource_id,omitempty"`
-	Actions    []string `json:"actions,omitempty"`
+	// ResourceID: A unique identifier of the RBAC Resource, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
+	// default Resources with reserved  `resource_id`s. These include:
+	//
+	//   * `stytch.organization`
+	//   * `stytch.member`
+	//   * `stytch.sso`
+	//   * `stytch.self`
+	//
+	//   Check out the
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for a more
+	// detailed explanation.
+	//
+	//
+	ResourceID string `json:"resource_id,omitempty"`
+	// Actions: A list of permitted actions the Role is authorized to take with the provided Resource. You can
+	// use `*` as a wildcard to grant a Role permission to use all possible actions related to the Resource.
+	Actions []string `json:"actions,omitempty"`
 }
 
 // PolicyResponse: Response type for `RBAC.Policy`.
@@ -45,7 +140,7 @@ type PolicyResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// Policy: The RBAC Policy document that contains all defined Roles and Resources – which are managed in
-	// the [Dashboard](/dashboard). Read more about these entities and how they work in our
+	// the [Dashboard](/dashboard/rbac). Read more about these entities and how they work in our
 	// [RBAC overview](https://stytch.com/docs/b2b/guides/rbac/overview).
 	Policy *Policy `json:"policy,omitempty"`
 }
