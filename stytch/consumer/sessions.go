@@ -17,6 +17,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v12/stytch"
 	"github.com/stytchauth/stytch-go/v12/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v12/stytch/shared"
 	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
 )
 
@@ -92,9 +93,13 @@ func (c *SessionsClient) Authenticate(
 }
 
 // AuthenticateWithClaims fills in the claims pointer with custom claims from the response.
-// Pass in a map with the types of values you're expecting so that this function can marshal
-// the claims from the response. See ExampleClient_AuthenticateWithClaims_map,
-// ExampleClient_AuthenticateWithClaims_struct for examples
+//
+// The value for claims must be one of these types:
+//   - A pointer to a map (*map[string]any), which will be overwritten with the custom claims.
+//   - A pointer to a struct (*T), which will be populated using its "json" struct tags.
+//
+// See ExampleClient_AuthenticateWithClaims_map, ExampleClient_AuthenticateWithClaims_struct for
+// examples.
 func (c *SessionsClient) AuthenticateWithClaims(
 	ctx context.Context,
 	body *sessions.AuthenticateParams,
@@ -253,19 +258,42 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	body *sessions.AuthenticateParams,
 	claims map[string]any,
 ) (*sessions.AuthenticateResponse, error) {
+	// This method has a different signature than AuthenticateWithClaims, which we can't change in
+	// this version of the library. For backward compatibility, populate the claims map by
+	// mutating it instead of replacing it like the non-JWT version does.
+	//
+	// TODO(v12.x): Change claims to `any`, also allow pointer-to-map and pointer-to-struct.
+	// TODO(v13): Remove support for populating a pre-existing map this way.
+
+	var resp *sessions.AuthenticateResponse
+
+	// Some special cases can force remote authentication. Otherwise, prefer local validation.
 	if body.SessionJWT == "" || maxTokenAge == time.Duration(0) {
-		return c.AuthenticateWithClaims(ctx, body, claims)
-	}
-
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
-	if err != nil {
+		var err error
+		resp, err = c.AuthenticateWithClaims(ctx, body, nil)
+		if err != nil {
+			return nil, err
+		}
+	} else if session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge); err == nil {
+		resp = &sessions.AuthenticateResponse{
+			Session: *session,
+		}
+	} else {
 		// JWT couldn't be verified locally. Check with the Stytch API.
-		return c.Authenticate(ctx, body)
+		resp, err = c.Authenticate(ctx, body)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return &sessions.AuthenticateResponse{
-		Session: *session,
-	}, nil
+	// Populate claims if possible.
+	if claims != nil {
+		for key, val := range resp.Session.CustomClaims {
+			claims[key] = val
+		}
+	}
+
+	return resp, nil
 }
 
 func (c *SessionsClient) AuthenticateJWTLocal(
@@ -276,25 +304,49 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, stytcherror.ErrJWKSNotInitialized
 	}
 
-	var claims sessions.Claims
-
 	aud := c.C.GetConfig().ProjectID
 	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
 
-	_, err := jwt.ParseWithClaims(token, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	// It's difficult to extract all sets of claims (standard/registered, Stytch, custom) all at
+	// once. So we parse the token twice.
+	//
+	// The first parse is for validating and extracting the statically-known claims. It will fail
+	// if the token is invalid for any reason.
+	//
+	// The second parse is for extracting the custom claims.
+	var staticClaims sessions.Claims
+	_, err := jwt.ParseWithClaims(token, &staticClaims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse JWT: %w", err)
 	}
 
-	if claims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
+	if staticClaims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
 		// The JWT is valid, but older than the tolerable maximum age.
 		return nil, sessions.ErrJWTTooOld
 	}
 
-	return marshalJWTIntoSession(claims)
+	// The token has already been verified at this point, so its claims and signature are all
+	// valid. This call to ParseUnverified is _only_ for extracting the remaining custom claims.
+	//
+	// Using ParseWithClaims again would cause this to re-validate the token's timestamps and
+	// signature, which fail if it was very close to its expiration on the previous parse.
+	var customClaims jwt.MapClaims
+	_, _, err = jwt.NewParser().ParseUnverified(token, &customClaims)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+	}
+
+	// Remove all the reserved claims that are already present in staticClaims.
+	for key := range customClaims {
+		if shared.ReservedClaim(key) {
+			delete(customClaims, key)
+		}
+	}
+
+	return marshalJWTIntoSession(staticClaims, customClaims)
 }
 
-func marshalJWTIntoSession(claims sessions.Claims) (*sessions.Session, error) {
+func marshalJWTIntoSession(claims sessions.Claims, customClaims map[string]any) (*sessions.Session, error) {
 	// For JWTs that include it, prefer the inner expires_at claim.
 	expiresAt := claims.StytchSession.ExpiresAt
 	if expiresAt == "" {
@@ -327,6 +379,7 @@ func marshalJWTIntoSession(claims sessions.Claims) (*sessions.Session, error) {
 		ExpiresAt:             &expires,
 		Attributes:            &claims.StytchSession.Attributes,
 		AuthenticationFactors: claims.StytchSession.AuthenticationFactors,
+		CustomClaims:          customClaims,
 	}, nil
 }
 
