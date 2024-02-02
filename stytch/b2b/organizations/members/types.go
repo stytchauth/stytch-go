@@ -178,7 +178,7 @@ type UpdateParams struct {
 	// more details.
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have
-	// permission to perform the `update.info.is-breakglass` action on the `stytch.member` Resource.
+	// permission to perform the `update.settings.is-breakglass` action on the `stytch.member` Resource.
 	IsBreakglass bool `json:"is_breakglass,omitempty"`
 	// MFAPhoneNumber: Sets the Member's phone number. Throws an error if the Member already has a phone
 	// number. To change the Member's phone number, use the
