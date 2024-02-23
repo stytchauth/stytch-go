@@ -10,6 +10,8 @@ package mfa
 type MemberOptions struct {
 	// MFAPhoneNumber: The Member's MFA phone number.
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
+	// TOTPRegistrationID: The Member's MFA TOTP registration ID.
+	TOTPRegistrationID string `json:"totp_registration_id,omitempty"`
 }
 
 // MfaRequired:

@@ -81,9 +81,10 @@ type AuthenticationFactor struct {
 	// GoogleOAuthFactor: Information about the Google OAuth factor, if one is present.
 	GoogleOAuthFactor *GoogleOAuthFactor `json:"google_oauth_factor,omitempty"`
 	// MicrosoftOAuthFactor: Information about the Microsoft OAuth factor, if one is present.
-	MicrosoftOAuthFactor      *MicrosoftOAuthFactor      `json:"microsoft_oauth_factor,omitempty"`
-	AppleOAuthFactor          *AppleOAuthFactor          `json:"apple_oauth_factor,omitempty"`
-	WebAuthnFactor            *WebAuthnFactor            `json:"webauthn_factor,omitempty"`
+	MicrosoftOAuthFactor *MicrosoftOAuthFactor `json:"microsoft_oauth_factor,omitempty"`
+	AppleOAuthFactor     *AppleOAuthFactor     `json:"apple_oauth_factor,omitempty"`
+	WebAuthnFactor       *WebAuthnFactor       `json:"webauthn_factor,omitempty"`
+	// AuthenticatorAppFactor: Information about the TOTP-backed Authenticator App factor, if one is present.
 	AuthenticatorAppFactor    *AuthenticatorAppFactor    `json:"authenticator_app_factor,omitempty"`
 	GithubOAuthFactor         *GithubOAuthFactor         `json:"github_oauth_factor,omitempty"`
 	RecoveryCodeFactor        *RecoveryCodeFactor        `json:"recovery_code_factor,omitempty"`
@@ -116,7 +117,9 @@ type AuthenticationFactor struct {
 	HubspotOAuthFactor    *HubspotOAuthFactor    `json:"hubspot_oauth_factor,omitempty"`
 }
 
+// AuthenticatorAppFactor:
 type AuthenticatorAppFactor struct {
+	// TOTPID: Globally unique UUID that identifies a TOTP instance.
 	TOTPID string `json:"totp_id,omitempty"`
 }
 
