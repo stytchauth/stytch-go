@@ -17,12 +17,15 @@ import (
 )
 
 type OrganizationsMembersClient struct {
-	C stytch.Client
+	C              stytch.Client
+	OAuthProviders *OrganizationsMembersOAuthProvidersClient
 }
 
 func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient {
 	return &OrganizationsMembersClient{
 		C: c,
+
+		OAuthProviders: NewOrganizationsMembersOAuthProvidersClient(c),
 	}
 }
 
