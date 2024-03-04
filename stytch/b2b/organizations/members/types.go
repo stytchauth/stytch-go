@@ -226,6 +226,8 @@ type UpdateParams struct {
 	// method to use in the case of multiple methods registered for a Member. The current possible values are
 	// `sms_otp` and `totp`.
 	DefaultMFAMethod string `json:"default_mfa_method,omitempty"`
+	// EmailAddress: Updates the Member's `email_address`, if provided.
+	EmailAddress string `json:"email_address,omitempty"`
 }
 
 // CreateRequestOptions:
