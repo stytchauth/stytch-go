@@ -110,8 +110,8 @@ type RegisterStartParams struct {
 // UpdateParams: Request type for `WebAuthn.Update`.
 type UpdateParams struct {
 	// WebAuthnRegistrationID: Globally unique UUID that identifies a Passkey or WebAuthn registration in the
-	// Stytch API. The `webautn_registration_id` is used when you need to operate on a specific User's WebAuthn
-	// registration.
+	// Stytch API. The `webauthn_registration_id` is used when you need to operate on a specific User's
+	// WebAuthn registration.
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	// Name: The `name` of the WebAuthn registration or Passkey.
 	Name string `json:"name,omitempty"`
