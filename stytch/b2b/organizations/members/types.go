@@ -232,6 +232,8 @@ type UpdateParams struct {
 	// request, the authorization check will also allow a Member Session that has permission to perform the
 	// `update.settings.default-mfa-method` action on the `stytch.self` Resource.
 	DefaultMFAMethod string `json:"default_mfa_method,omitempty"`
+	// EmailAddress: Updates the Member's `email_address`, if provided.
+	EmailAddress string `json:"email_address,omitempty"`
 }
 
 // CreateRequestOptions:
