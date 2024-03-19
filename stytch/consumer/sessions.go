@@ -227,6 +227,7 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v12/stytch/shared"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,

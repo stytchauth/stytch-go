@@ -61,7 +61,8 @@ type AuthenticateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale AuthenticateRequestLocale `json:"locale,omitempty"`
+	Locale                   AuthenticateRequestLocale `json:"locale,omitempty"`
+	IntermediateSessionToken string                    `json:"intermediate_session_token,omitempty"`
 }
 
 // ProviderValues:
@@ -138,7 +139,8 @@ type AuthenticateResponse struct {
 	ProviderValues *ProviderValues `json:"provider_values,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired     *mfa.MfaRequired          `json:"mfa_required,omitempty"`
+	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
 }
 
 type AuthenticateRequestLocale string

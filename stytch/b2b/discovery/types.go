@@ -9,6 +9,7 @@ package discovery
 import (
 	"github.com/stytchauth/stytch-go/v12/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v12/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v12/stytch/b2b/sessions"
 )
 
 // DiscoveredOrganization:
@@ -22,7 +23,7 @@ type DiscoveredOrganization struct {
 	// Membership: Information about the membership.
 	Membership *Membership `json:"membership,omitempty"`
 	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
-	PrimaryRequired *PrimaryRequired `json:"primary_required,omitempty"`
+	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
 	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
@@ -37,14 +38,4 @@ type Membership struct {
 	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object) if one already exists, or
 	// null if one does not.
 	Member *organizations.Member `json:"member,omitempty"`
-}
-
-// PrimaryRequired:
-type PrimaryRequired struct {
-	// AllowedAuthMethods: If non-empty, indicates that the Organization restricts the authentication methods
-	// it allows for login (such as `sso` or `password`), and the end user must complete one of those
-	// authentication methods to log in. If empty, indicates that the Organization does not restrict the
-	// authentication method it allows for login, but the end user does not have any transferrable primary
-	// factors. Only email magic link and OAuth factors can be transferred between Organizations.
-	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
 }
