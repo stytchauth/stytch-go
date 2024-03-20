@@ -188,6 +188,16 @@ type MemberSession struct {
 	CustomClaims map[string]any `json:"custom_claims,omitempty"`
 }
 
+// PrimaryRequired:
+type PrimaryRequired struct {
+	// AllowedAuthMethods: If non-empty, indicates that the Organization restricts the authentication methods
+	// it allows for login (such as `sso` or `password`), and the end user must complete one of those
+	// authentication methods to log in. If empty, indicates that the Organization does not restrict the
+	// authentication method it allows for login, but the end user does not have any transferrable primary
+	// factors. Only email magic link and OAuth factors can be transferred between Organizations.
+	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
+}
+
 // RevokeParams: Request type for `Sessions.Revoke`.
 type RevokeParams struct {
 	// MemberSessionID: Globally unique UUID that identifies a specific Session in the Stytch API. The
@@ -269,7 +279,8 @@ type ExchangeResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired     *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	PrimaryRequired *PrimaryRequired `json:"primary_required,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.

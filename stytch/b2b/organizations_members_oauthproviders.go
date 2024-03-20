@@ -37,6 +37,15 @@ func (c *OrganizationsMembersOAuthProvidersClient) Google(
 	ctx context.Context,
 	body *oauthproviders.MicrosoftParams,
 ) (*oauthproviders.GoogleResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		if body.IncludeRefreshToken {
+			queryParams["include_refresh_token"] = "true"
+		} else {
+			queryParams["include_refresh_token"] = "false"
+		}
+	}
+
 	headers := make(map[string][]string)
 
 	var retVal oauthproviders.GoogleResponse
@@ -44,7 +53,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Google(
 		ctx,
 		"GET",
 		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/google", body.OrganizationID, body.MemberID),
-		nil,
+		queryParams,
 		nil,
 		&retVal,
 		headers,
@@ -61,6 +70,15 @@ func (c *OrganizationsMembersOAuthProvidersClient) Microsoft(
 	ctx context.Context,
 	body *oauthproviders.MicrosoftParams,
 ) (*oauthproviders.MicrosoftResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		if body.IncludeRefreshToken {
+			queryParams["include_refresh_token"] = "true"
+		} else {
+			queryParams["include_refresh_token"] = "false"
+		}
+	}
+
 	headers := make(map[string][]string)
 
 	var retVal oauthproviders.MicrosoftResponse
@@ -68,7 +86,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Microsoft(
 		ctx,
 		"GET",
 		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/microsoft", body.OrganizationID, body.MemberID),
-		nil,
+		queryParams,
 		nil,
 		&retVal,
 		headers,

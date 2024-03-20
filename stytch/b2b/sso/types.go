@@ -62,7 +62,8 @@ type AuthenticateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale AuthenticateRequestLocale `json:"locale,omitempty"`
+	Locale                   AuthenticateRequestLocale `json:"locale,omitempty"`
+	IntermediateSessionToken string                    `json:"intermediate_session_token,omitempty"`
 }
 
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
@@ -138,13 +139,40 @@ type SAMLConnection struct {
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 
+// SAMLConnectionImplicitRoleAssignment:
 type SAMLConnectionImplicitRoleAssignment struct {
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	// for a more detailed explanation.
+	//
+	//
 	RoleID string `json:"role_id,omitempty"`
 }
 
+// SAMLGroupImplicitRoleAssignment:
 type SAMLGroupImplicitRoleAssignment struct {
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	// for a more detailed explanation.
+	//
+	//
 	RoleID string `json:"role_id,omitempty"`
-	Group  string `json:"group,omitempty"`
+	// Group: The name of the SAML group that grants the specified role assignment.
+	Group string `json:"group,omitempty"`
 }
 
 type X509Certificate struct {

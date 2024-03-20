@@ -111,10 +111,12 @@ type AuthenticationFactor struct {
 	// SAMLSSOFactor: Information about the SAML SSO factor, if one is present.
 	SAMLSSOFactor *SAMLSSOFactor `json:"saml_sso_factor,omitempty"`
 	// OIDCSSOFactor: Information about the OIDC SSO factor, if one is present.
-	OIDCSSOFactor         *OIDCSSOFactor         `json:"oidc_sso_factor,omitempty"`
-	SalesforceOAuthFactor *SalesforceOAuthFactor `json:"salesforce_oauth_factor,omitempty"`
-	YahooOAuthFactor      *YahooOAuthFactor      `json:"yahoo_oauth_factor,omitempty"`
-	HubspotOAuthFactor    *HubspotOAuthFactor    `json:"hubspot_oauth_factor,omitempty"`
+	OIDCSSOFactor              *OIDCSSOFactor              `json:"oidc_sso_factor,omitempty"`
+	SalesforceOAuthFactor      *SalesforceOAuthFactor      `json:"salesforce_oauth_factor,omitempty"`
+	YahooOAuthFactor           *YahooOAuthFactor           `json:"yahoo_oauth_factor,omitempty"`
+	HubspotOAuthFactor         *HubspotOAuthFactor         `json:"hubspot_oauth_factor,omitempty"`
+	SlackOAuthExchangeFactor   *SlackOAuthExchangeFactor   `json:"slack_oauth_exchange_factor,omitempty"`
+	HubspotOAuthExchangeFactor *HubspotOAuthExchangeFactor `json:"hubspot_oauth_exchange_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -208,6 +210,10 @@ type GoogleOAuthFactor struct {
 	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
 	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type HubspotOAuthExchangeFactor struct {
+	EmailID string `json:"email_id,omitempty"`
 }
 
 type HubspotOAuthFactor struct {
@@ -327,6 +333,10 @@ type ShopifyOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
+}
+
+type SlackOAuthExchangeFactor struct {
+	EmailID string `json:"email_id,omitempty"`
 }
 
 type SlackOAuthFactor struct {
@@ -488,6 +498,8 @@ const (
 	AuthenticationFactorDeliveryMethodOAuthYahoo           AuthenticationFactorDeliveryMethod = "oauth_yahoo"
 	AuthenticationFactorDeliveryMethodOAuthHubspot         AuthenticationFactorDeliveryMethod = "oauth_hubspot"
 	AuthenticationFactorDeliveryMethodImportedAuth0        AuthenticationFactorDeliveryMethod = "imported_auth0"
+	AuthenticationFactorDeliveryMethodOAuthExchangeSlack   AuthenticationFactorDeliveryMethod = "oauth_exchange_slack"
+	AuthenticationFactorDeliveryMethodOAuthExchangeHubspot AuthenticationFactorDeliveryMethod = "oauth_exchange_hubspot"
 )
 
 type AuthenticationFactorType string
