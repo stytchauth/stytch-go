@@ -624,7 +624,7 @@ type UpdateParams struct {
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have
 	// permission to perform the `update.settings.implicit-roles` action on the `stytch.organization` Resource.
-	RBACEmailImplicitRoleAssignments []string `json:"rbac_email_implicit_role_assignments,omitempty"`
+	RBACEmailImplicitRoleAssignments []*EmailImplicitRoleAssignment `json:"rbac_email_implicit_role_assignments,omitempty"`
 	// MFAMethods: The setting that controls which MFA methods can be used by Members of an Organization. The
 	// accepted values are:
 	//
