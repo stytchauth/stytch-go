@@ -61,8 +61,12 @@ type AuthenticateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale                   AuthenticateRequestLocale `json:"locale,omitempty"`
-	IntermediateSessionToken string                    `json:"intermediate_session_token,omitempty"`
+	Locale AuthenticateRequestLocale `json:"locale,omitempty"`
+	// IntermediateSessionToken: Adds this primary authentication factor to the intermediate session token. If
+	// the resulting set of factors satisfies the organization's primary authentication requirements and MFA
+	// requirements, the intermediate session token will be consumed and converted to a member session. If not,
+	// the same intermediate session token will be returned.
+	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 }
 
 // ProviderValues:
@@ -72,7 +76,8 @@ type ProviderValues struct {
 	// Scopes: The OAuth scopes included for a given provider. See each provider's section above to see which
 	// scopes are included by default and how to add custom scopes.
 	Scopes []string `json:"scopes,omitempty"`
-	// RefreshToken: The `refresh_token` that you may use to refresh a User's session within the provider's API.
+	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
+	// the provider's API.
 	RefreshToken string     `json:"refresh_token,omitempty"`
 	ExpiresAt    *time.Time `json:"expires_at,omitempty"`
 	// IDToken: The `id_token` returned by the OAuth provider. ID Tokens are JWTs that contain structured
@@ -112,17 +117,16 @@ type AuthenticateResponse struct {
 	// complete an MFA step to log in to the Organization.
 	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
 	// IntermediateSessionToken: The returned Intermediate Session Token contains an OAuth factor associated
-	// with the Member's email address.
-	//       The token can be used with the
+	// with the Member's email address. If this value is non-empty, the member must complete an MFA step to
+	// finish logging in to the Organization. The token can be used with the
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
-	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp),
-	//       or [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to
-	// complete the MFA flow and log in to the Organization.
-	//       It can also be used with the
+	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
+	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
+	// MFA flow and log in to the Organization. It can also be used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
-	// to join a different existing Organization that allows login with OAuth,
-	//       or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization.
+	// to join a specific Organization that allows the factors represented by the intermediate session token;
+	// or the
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

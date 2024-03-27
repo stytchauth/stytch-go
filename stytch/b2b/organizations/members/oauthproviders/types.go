@@ -13,8 +13,11 @@ type MicrosoftParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value.
-	MemberID            string `json:"member_id,omitempty"`
-	IncludeRefreshToken bool   `json:"include_refresh_token,omitempty"`
+	MemberID string `json:"member_id,omitempty"`
+	// IncludeRefreshToken: Whether to return the refresh token Stytch has stored for the OAuth Provider.
+	// Defaults to false. **Important:** If your application exchanges the refresh token, Stytch may not be
+	// able to automatically refresh access tokens in the future.
+	IncludeRefreshToken bool `json:"include_refresh_token,omitempty"`
 }
 
 // GoogleResponse: Response type for `OAuthProviders.Google`.
@@ -44,7 +47,9 @@ type GoogleResponse struct {
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
-	StatusCode   int32  `json:"status_code,omitempty"`
+	StatusCode int32 `json:"status_code,omitempty"`
+	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
+	// the provider's API.
 	RefreshToken string `json:"refresh_token,omitempty"`
 }
 
@@ -75,6 +80,8 @@ type MicrosoftResponse struct {
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
-	StatusCode   int32  `json:"status_code,omitempty"`
+	StatusCode int32 `json:"status_code,omitempty"`
+	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
+	// the provider's API.
 	RefreshToken string `json:"refresh_token,omitempty"`
 }
