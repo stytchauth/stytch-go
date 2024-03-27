@@ -35,7 +35,7 @@ func NewOrganizationsMembersOAuthProvidersClient(c stytch.Client) *Organizations
 // [Start Google OAuth flow](https://stytch.com/docs/b2b/api/oauth-google-start) endpoint.
 func (c *OrganizationsMembersOAuthProvidersClient) Google(
 	ctx context.Context,
-	body *oauthproviders.MicrosoftParams,
+	body *oauthproviders.ProviderInformationParams,
 ) (*oauthproviders.GoogleResponse, error) {
 	queryParams := make(map[string]string)
 	if body != nil {
@@ -68,7 +68,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Google(
 // access token automatically.
 func (c *OrganizationsMembersOAuthProvidersClient) Microsoft(
 	ctx context.Context,
-	body *oauthproviders.MicrosoftParams,
+	body *oauthproviders.ProviderInformationParams,
 ) (*oauthproviders.MicrosoftResponse, error) {
 	queryParams := make(map[string]string)
 	if body != nil {

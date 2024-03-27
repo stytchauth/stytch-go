@@ -6,8 +6,8 @@ package oauthproviders
 // or your changes may be overwritten later!
 // !!!
 
-// MicrosoftParams: Request type for `OAuthProviders.Google`, `OAuthProviders.Microsoft`.
-type MicrosoftParams struct {
+// ProviderInformationParams: Request type for `OAuthProviders.Google`, `OAuthProviders.Microsoft`.
+type ProviderInformationParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
