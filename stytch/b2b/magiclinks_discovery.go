@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/magiclinks/discovery"
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/magiclinks/discovery"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 )
 
 type MagicLinksDiscoveryClient struct {

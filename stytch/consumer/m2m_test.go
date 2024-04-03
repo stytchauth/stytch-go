@@ -9,16 +9,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/config"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/config"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/m2m"
 )
 
 func TestM2MClient_Token(t *testing.T) {

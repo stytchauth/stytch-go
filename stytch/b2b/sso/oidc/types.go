@@ -7,8 +7,8 @@ package oidc
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v12/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v13/stytch/methodoptions"
 )
 
 // CreateConnectionParams: Request type for `OIDC.CreateConnection`.

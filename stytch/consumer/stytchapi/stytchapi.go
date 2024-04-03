@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/config"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/config"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer"
 )
 
 type Logger interface {

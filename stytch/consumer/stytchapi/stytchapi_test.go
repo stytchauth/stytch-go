@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/stytchapi"
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/stytchapi"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

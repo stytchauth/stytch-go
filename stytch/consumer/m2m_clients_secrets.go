@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/m2m/clients/secrets"
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/m2m/clients/secrets"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 )
 
 type M2MClientsSecretsClient struct {

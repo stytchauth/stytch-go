@@ -7,7 +7,7 @@ package clients
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/m2m"
 )
 
 // CreateParams: Request type for `Clients.Create`.
