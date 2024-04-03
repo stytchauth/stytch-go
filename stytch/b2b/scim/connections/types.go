@@ -189,6 +189,11 @@ const (
 	CreateRequestIdpUnknown        CreateRequestIdp = "unknown"
 	CreateRequestIdpOkta           CreateRequestIdp = "okta"
 	CreateRequestIdpMicrosoftentra CreateRequestIdp = "microsoft-entra"
+	CreateRequestIdpCyberark       CreateRequestIdp = "cyberark"
+	CreateRequestIdpJumpcloud      CreateRequestIdp = "jumpcloud"
+	CreateRequestIdpOnelogin       CreateRequestIdp = "onelogin"
+	CreateRequestIdpPingfederate   CreateRequestIdp = "pingfederate"
+	CreateRequestIdpRippling       CreateRequestIdp = "rippling"
 )
 
 type UpdateRequestIdp string

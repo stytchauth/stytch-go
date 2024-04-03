@@ -311,6 +311,10 @@ type MemberRoleSource struct {
 	Details map[string]any `json:"details,omitempty"`
 }
 
+type MetricsParams struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+}
+
 // OAuthRegistration:
 type OAuthRegistration struct {
 	// ProviderType: Denotes the OAuth identity provider that the user has authenticated with, e.g. Google,
@@ -703,6 +707,12 @@ type GetResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type MetricsResponse struct {
+	RequestID   string `json:"request_id,omitempty"`
+	MemberCount uint32 `json:"member_count,omitempty"`
+	StatusCode  int32  `json:"status_code,omitempty"`
 }
 
 // SearchResponse: Response type for `Organizations.Search`.
