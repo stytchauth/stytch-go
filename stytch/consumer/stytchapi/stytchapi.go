@@ -39,6 +39,7 @@ type API struct {
 	OAuth         *consumer.OAuthClient
 	OTPs          *consumer.OTPsClient
 	Passwords     *consumer.PasswordsClient
+	Project       *consumer.ProjectClient
 	Sessions      *consumer.SessionsClient
 	TOTPs         *consumer.TOTPsClient
 	Users         *consumer.UsersClient
@@ -141,6 +142,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.OAuth = consumer.NewOAuthClient(a.client)
 	a.OTPs = consumer.NewOTPsClient(a.client)
 	a.Passwords = consumer.NewPasswordsClient(a.client)
+	a.Project = consumer.NewProjectClient(a.client)
 	a.Sessions = consumer.NewSessionsClient(a.client, jwks)
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.Users = consumer.NewUsersClient(a.client)
