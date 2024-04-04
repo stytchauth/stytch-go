@@ -7,7 +7,7 @@ package connections
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/scim"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/scim"
 )
 
 // CreateParams: Request type for `Connections.Create`.
@@ -189,6 +189,11 @@ const (
 	CreateRequestIdpUnknown        CreateRequestIdp = "unknown"
 	CreateRequestIdpOkta           CreateRequestIdp = "okta"
 	CreateRequestIdpMicrosoftentra CreateRequestIdp = "microsoft-entra"
+	CreateRequestIdpCyberark       CreateRequestIdp = "cyberark"
+	CreateRequestIdpJumpcloud      CreateRequestIdp = "jumpcloud"
+	CreateRequestIdpOnelogin       CreateRequestIdp = "onelogin"
+	CreateRequestIdpPingfederate   CreateRequestIdp = "pingfederate"
+	CreateRequestIdpRippling       CreateRequestIdp = "rippling"
 )
 
 type UpdateRequestIdp string

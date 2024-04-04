@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/config"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/config"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer"
 )
 
 type Logger interface {
@@ -39,6 +39,7 @@ type API struct {
 	OAuth         *consumer.OAuthClient
 	OTPs          *consumer.OTPsClient
 	Passwords     *consumer.PasswordsClient
+	Project       *consumer.ProjectClient
 	Sessions      *consumer.SessionsClient
 	TOTPs         *consumer.TOTPsClient
 	Users         *consumer.UsersClient
@@ -141,6 +142,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.OAuth = consumer.NewOAuthClient(a.client)
 	a.OTPs = consumer.NewOTPsClient(a.client)
 	a.Passwords = consumer.NewPasswordsClient(a.client)
+	a.Project = consumer.NewProjectClient(a.client)
 	a.Sessions = consumer.NewSessionsClient(a.client, jwks)
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.Users = consumer.NewUsersClient(a.client)

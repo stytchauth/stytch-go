@@ -12,17 +12,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b"
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/b2bstytchapi"
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/sessions"
-	consumersessions "github.com/stytchauth/stytch-go/v12/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/b2bstytchapi"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/sessions"
+	consumersessions "github.com/stytchauth/stytch-go/v13/stytch/consumer/sessions"
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/config"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/config"
 )
 
 func TestAuthenticateJWTLocal(t *testing.T) {

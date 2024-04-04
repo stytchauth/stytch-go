@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/otp/sms"
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/otp/sms"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 )
 
 type OTPsSmsClient struct {

@@ -9,7 +9,7 @@ package users
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/attribute"
 )
 
 // BiometricRegistration:

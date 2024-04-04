@@ -7,8 +7,8 @@ package totps
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.

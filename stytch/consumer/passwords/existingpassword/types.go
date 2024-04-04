@@ -7,8 +7,8 @@ package existingpassword
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v13/stytch/consumer/users"
 )
 
 // ResetParams: Request type for `ExistingPassword.Reset`.

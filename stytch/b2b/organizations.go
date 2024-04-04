@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 )
 
 type OrganizationsClient struct {
@@ -193,6 +193,25 @@ func (c *OrganizationsClient) Search(
 		"/v1/b2b/organizations/search",
 		nil,
 		jsonBody,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
+func (c *OrganizationsClient) Metrics(
+	ctx context.Context,
+	body *organizations.MetricsParams,
+) (*organizations.MetricsResponse, error) {
+	headers := make(map[string][]string)
+
+	var retVal organizations.MetricsResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/organizations/%s/metrics", body.OrganizationID),
+		nil,
+		nil,
 		&retVal,
 		headers,
 	)

@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/b2b/otp/sms"
-	"github.com/stytchauth/stytch-go/v12/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v13/stytch"
+	"github.com/stytchauth/stytch-go/v13/stytch/b2b/otp/sms"
+	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
 )
 
 type OTPsSmsClient struct {
