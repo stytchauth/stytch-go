@@ -7,8 +7,17 @@ package organizations
 // !!!
 
 import (
+	"time"
+
 	"github.com/stytchauth/stytch-go/v13/stytch/methodoptions"
 )
+
+type ActiveSCIMConnection struct {
+	ConnectionID         string     `json:"connection_id,omitempty"`
+	DisplayName          string     `json:"display_name,omitempty"`
+	BearerTokenLastFour  string     `json:"bearer_token_last_four,omitempty"`
+	BearerTokenExpiresAt *time.Time `json:"bearer_token_expires_at,omitempty"`
+}
 
 // ActiveSSOConnection:
 type ActiveSSOConnection struct {
@@ -427,7 +436,8 @@ type Organization struct {
 	// `mfa_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
-	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
+	AllowedMFAMethods     []string               `json:"allowed_mfa_methods,omitempty"`
+	SCIMActiveConnections []ActiveSCIMConnection `json:"scim_active_connections,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`

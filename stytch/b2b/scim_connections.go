@@ -30,6 +30,7 @@ func NewSCIMConnectionsClient(c stytch.Client) *SCIMConnectionsClient {
 func (c *SCIMConnectionsClient) Update(
 	ctx context.Context,
 	body *connections.UpdateParams,
+	methodOptions ...*connections.UpdateRequestOptions,
 ) (*connections.UpdateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -41,6 +42,9 @@ func (c *SCIMConnectionsClient) Update(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.UpdateResponse
 	err = c.C.NewRequest(
@@ -59,8 +63,12 @@ func (c *SCIMConnectionsClient) Update(
 func (c *SCIMConnectionsClient) Delete(
 	ctx context.Context,
 	body *connections.DeleteParams,
+	methodOptions ...*connections.DeleteRequestOptions,
 ) (*connections.DeleteResponse, error) {
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.DeleteResponse
 	err := c.C.NewRequest(
@@ -79,6 +87,7 @@ func (c *SCIMConnectionsClient) Delete(
 func (c *SCIMConnectionsClient) RotateStart(
 	ctx context.Context,
 	body *connections.RotateStartParams,
+	methodOptions ...*connections.RotateStartRequestOptions,
 ) (*connections.RotateStartResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -90,6 +99,9 @@ func (c *SCIMConnectionsClient) RotateStart(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.RotateStartResponse
 	err = c.C.NewRequest(
@@ -110,6 +122,7 @@ func (c *SCIMConnectionsClient) RotateStart(
 func (c *SCIMConnectionsClient) RotateComplete(
 	ctx context.Context,
 	body *connections.RotateCompleteParams,
+	methodOptions ...*connections.RotateCompleteRequestOptions,
 ) (*connections.RotateCompleteResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -121,6 +134,9 @@ func (c *SCIMConnectionsClient) RotateComplete(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.RotateCompleteResponse
 	err = c.C.NewRequest(
@@ -140,6 +156,7 @@ func (c *SCIMConnectionsClient) RotateComplete(
 func (c *SCIMConnectionsClient) RotateCancel(
 	ctx context.Context,
 	body *connections.RotateCancelParams,
+	methodOptions ...*connections.RotateCancelRequestOptions,
 ) (*connections.RotateCancelResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -151,6 +168,9 @@ func (c *SCIMConnectionsClient) RotateCancel(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.RotateCancelResponse
 	err = c.C.NewRequest(
@@ -169,6 +189,7 @@ func (c *SCIMConnectionsClient) RotateCancel(
 func (c *SCIMConnectionsClient) Create(
 	ctx context.Context,
 	body *connections.CreateParams,
+	methodOptions ...*connections.CreateRequestOptions,
 ) (*connections.CreateResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -180,6 +201,9 @@ func (c *SCIMConnectionsClient) Create(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.CreateResponse
 	err = c.C.NewRequest(
@@ -198,8 +222,12 @@ func (c *SCIMConnectionsClient) Create(
 func (c *SCIMConnectionsClient) Get(
 	ctx context.Context,
 	body *connections.GetParams,
+	methodOptions ...*connections.GetRequestOptions,
 ) (*connections.GetResponse, error) {
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal connections.GetResponse
 	err := c.C.NewRequest(
