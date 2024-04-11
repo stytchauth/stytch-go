@@ -255,6 +255,38 @@ func (c *SessionsClient) Exchange(
 	return &retVal, err
 }
 
+// Migrate a session from an external endpoint. Stytch will call the UserInfo endpoint specified in your
+// project settings, performing a lookup using the session token passed in. If the endpoint responds and
+// the response contains a valid email, Stytch will attempt to match that email with a member in your
+// organization, and create a Stytch Session for you.
+func (c *SessionsClient) Migrate(
+	ctx context.Context,
+	body *sessions.MigrateParams,
+) (*sessions.MigrateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal sessions.MigrateResponse
+	err = c.C.NewRequest(
+		ctx,
+		"POST",
+		"/v1/b2b/sessions/migrate",
+		nil,
+		jsonBody,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
 // GetJWKS: Get the JSON Web Key Set (JWKS) for a project.
 //
 // JWKS are rotated every ~6 months. Upon rotation, new JWTs will be signed using the new key set, and both
