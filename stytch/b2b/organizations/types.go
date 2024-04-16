@@ -12,8 +12,11 @@ import (
 	"github.com/stytchauth/stytch-go/v13/stytch/methodoptions"
 )
 
+// ActiveSCIMConnection:
 type ActiveSCIMConnection struct {
-	ConnectionID         string     `json:"connection_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
 	DisplayName          string     `json:"display_name,omitempty"`
 	BearerTokenLastFour  string     `json:"bearer_token_last_four,omitempty"`
 	BearerTokenExpiresAt *time.Time `json:"bearer_token_expires_at,omitempty"`
@@ -186,8 +189,8 @@ type Member struct {
 	Status string `json:"status,omitempty"`
 	// Name: The name of the Member.
 	Name string `json:"name,omitempty"`
-	// SSORegistrations: An array of registered [SAML Connection](saml-connection-object) objects the Member
-	// has authenticated with.
+	// SSORegistrations: An array of registered [SAML Connection](saml-connection-object) or
+	// [OIDC Connection](oidc-connection-object) objects the Member has authenticated with.
 	SSORegistrations []SSORegistration `json:"sso_registrations,omitempty"`
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
 	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
@@ -210,6 +213,9 @@ type Member struct {
 	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for more details on this Role.
 	IsAdmin            bool   `json:"is_admin,omitempty"`
 	TOTPRegistrationID string `json:"totp_registration_id,omitempty"`
+	// SCIMRegistrations: An array of scim member registrations, each one referencing a
+	// [SCIM Connection](scim-connection-object) object in use for the Member creation.
+	SCIMRegistrations []SCIMRegistration `json:"scim_registrations,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
@@ -372,7 +378,8 @@ type Organization struct {
 	// set to `RESTRICTED`.
 	SSOJITProvisioningAllowedConnections []string `json:"sso_jit_provisioning_allowed_connections,omitempty"`
 	// SSOActiveConnections: An array of active
-	// [SAML Connection references](https://stytch.com/docs/b2b/api/saml-connection-object).
+	// [SAML Connection references](https://stytch.com/docs/b2b/api/saml-connection-object) or
+	// [OIDC Connection references](https://stytch.com/docs/b2b/api/oidc-connection-object).
 	SSOActiveConnections []ActiveSSOConnection `json:"sso_active_connections,omitempty"`
 	// EmailAllowedDomains: An array of email domains that allow invites or JIT provisioning for new Members.
 	// This list is enforced when either `email_invites` or `email_jit_provisioning` is set to `RESTRICTED`.
@@ -436,7 +443,9 @@ type Organization struct {
 	// `mfa_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
-	AllowedMFAMethods     []string               `json:"allowed_mfa_methods,omitempty"`
+	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
+	// SCIMActiveConnections: An array of active
+	// [SCIM Connection references](https://stytch.com/docs/b2b/api/scim-connection-object).
 	SCIMActiveConnections []ActiveSCIMConnection `json:"scim_active_connections,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
@@ -452,6 +461,18 @@ type ResultsMetadata struct {
 	// NextCursor: The `next_cursor` string is returned when your search result contains more than one page of
 	// results. This value is passed into your next search call in the `cursor` field.
 	NextCursor string `json:"next_cursor,omitempty"`
+}
+
+// SCIMRegistration:
+type SCIMRegistration struct {
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// RegistrationID: The unique ID of a SCIM Registration.
+	RegistrationID string `json:"registration_id,omitempty"`
+	// ExternalID: The ID of the member given by the identity provider.
+	ExternalID string `json:"external_id,omitempty"`
+	// SCIMAttributes: An object for storing SCIM attributes brought over from the identity provider.
+	SCIMAttributes map[string]any `json:"scim_attributes,omitempty"`
 }
 
 // SSORegistration:
