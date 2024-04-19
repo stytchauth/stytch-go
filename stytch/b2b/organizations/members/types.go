@@ -215,7 +215,7 @@ type UpdateParams struct {
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have
 	// permission to perform the `update.settings.roles` action on the `stytch.member` Resource.
-	Roles []string `json:"roles,omitempty"`
+	Roles *[]string `json:"roles,omitempty"`
 	// PreserveExistingSessions: Whether to preserve existing sessions when explicit Roles that are revoked are
 	// also implicitly assigned
 	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
