@@ -17,7 +17,8 @@ type CreateConnectionParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName string `json:"display_name,omitempty"`
+	DisplayName      string                                  `json:"display_name,omitempty"`
+	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // DeleteVerificationCertificateParams: Request type for `SAML.DeleteVerificationCertificate`.
@@ -81,7 +82,8 @@ type UpdateConnectionParams struct {
 	SAMLGroupImplicitRoleAssignments []*sso.SAMLGroupImplicitRoleAssignment `json:"saml_group_implicit_role_assignments,omitempty"`
 	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
 	// when you wish to migrate an existing SAML integration to Stytch with zero downtime.
-	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
+	AlternativeAudienceURI string                                  `json:"alternative_audience_uri,omitempty"`
+	IdentityProvider       UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // CreateConnectionRequestOptions:
@@ -197,3 +199,21 @@ type UpdateConnectionResponse struct {
 	// field details.
 	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }
+
+type CreateConnectionRequestIdentityProvider string
+
+const (
+	CreateConnectionRequestIdentityProviderGeneric         CreateConnectionRequestIdentityProvider = "generic"
+	CreateConnectionRequestIdentityProviderOkta            CreateConnectionRequestIdentityProvider = "okta"
+	CreateConnectionRequestIdentityProviderMicrosoftentra  CreateConnectionRequestIdentityProvider = "microsoft-entra"
+	CreateConnectionRequestIdentityProviderGoogleworkspace CreateConnectionRequestIdentityProvider = "google-workspace"
+)
+
+type UpdateConnectionRequestIdentityProvider string
+
+const (
+	UpdateConnectionRequestIdentityProviderGeneric         UpdateConnectionRequestIdentityProvider = "generic"
+	UpdateConnectionRequestIdentityProviderOkta            UpdateConnectionRequestIdentityProvider = "okta"
+	UpdateConnectionRequestIdentityProviderMicrosoftentra  UpdateConnectionRequestIdentityProvider = "microsoft-entra"
+	UpdateConnectionRequestIdentityProviderGoogleworkspace UpdateConnectionRequestIdentityProvider = "google-workspace"
+)

@@ -17,7 +17,8 @@ type CreateConnectionParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName string `json:"display_name,omitempty"`
+	DisplayName      string                                  `json:"display_name,omitempty"`
+	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // UpdateConnectionParams: Request type for `OIDC.UpdateConnection`.
@@ -49,7 +50,8 @@ type UpdateConnectionParams struct {
 	UserinfoURL string `json:"userinfo_url,omitempty"`
 	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
-	JWKSURL string `json:"jwks_url,omitempty"`
+	JWKSURL          string                                  `json:"jwks_url,omitempty"`
+	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // CreateConnectionRequestOptions:
@@ -113,3 +115,21 @@ type UpdateConnectionResponse struct {
 	// overall request succeeds, there could be relevant warnings related to the connection update.
 	Warning string `json:"warning,omitempty"`
 }
+
+type CreateConnectionRequestIdentityProvider string
+
+const (
+	CreateConnectionRequestIdentityProviderGeneric         CreateConnectionRequestIdentityProvider = "generic"
+	CreateConnectionRequestIdentityProviderOkta            CreateConnectionRequestIdentityProvider = "okta"
+	CreateConnectionRequestIdentityProviderMicrosoftentra  CreateConnectionRequestIdentityProvider = "microsoft-entra"
+	CreateConnectionRequestIdentityProviderGoogleworkspace CreateConnectionRequestIdentityProvider = "google-workspace"
+)
+
+type UpdateConnectionRequestIdentityProvider string
+
+const (
+	UpdateConnectionRequestIdentityProviderGeneric         UpdateConnectionRequestIdentityProvider = "generic"
+	UpdateConnectionRequestIdentityProviderOkta            UpdateConnectionRequestIdentityProvider = "okta"
+	UpdateConnectionRequestIdentityProviderMicrosoftentra  UpdateConnectionRequestIdentityProvider = "microsoft-entra"
+	UpdateConnectionRequestIdentityProviderGoogleworkspace UpdateConnectionRequestIdentityProvider = "google-workspace"
+)

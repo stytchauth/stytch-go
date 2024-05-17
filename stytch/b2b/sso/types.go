@@ -124,6 +124,7 @@ type OIDCConnection struct {
 	TokenURL         string `json:"token_url,omitempty"`
 	UserinfoURL      string `json:"userinfo_url,omitempty"`
 	JWKSURL          string `json:"jwks_url,omitempty"`
+	IdentityProvider string `json:"identity_provider,omitempty"`
 }
 
 type SAMLConnection struct {
@@ -140,6 +141,7 @@ type SAMLConnection struct {
 	SAMLConnectionImplicitRoleAssignments []SAMLConnectionImplicitRoleAssignment `json:"saml_connection_implicit_role_assignments,omitempty"`
 	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
 	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`
+	IdentityProvider                      string                                 `json:"identity_provider,omitempty"`
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 
@@ -153,7 +155,7 @@ type SAMLConnectionImplicitRoleAssignment struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//
@@ -170,7 +172,7 @@ type SAMLGroupImplicitRoleAssignment struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//

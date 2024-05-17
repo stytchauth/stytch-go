@@ -174,6 +174,15 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	return &retVal, err
 }
 
+// DeleteTOTP: Delete a Member's MFA TOTP registration.
+//
+// To mint a new registration for a Member, you must first call this endpoint to delete the existing
+// registration.
+//
+// Existing Member Sessions that include the TOTP authentication factor will not be revoked if the
+// registration is deleted, and MFA will not be enforced until the Member logs in again.
+//
+//	/%}
 func (c *OrganizationsMembersClient) DeleteTOTP(
 	ctx context.Context,
 	body *members.DeleteTOTPParams,

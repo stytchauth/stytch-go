@@ -84,7 +84,7 @@ type AuthorizationCheck struct {
 	//   * `stytch.self`
 	//
 	//   Check out the
-	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for a more
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for a more
 	// detailed explanation.
 	//
 	//

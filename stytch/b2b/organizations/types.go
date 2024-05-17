@@ -161,7 +161,7 @@ type EmailImplicitRoleAssignment struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//
@@ -210,7 +210,7 @@ type Member struct {
 	// Members
 	//   who create an Organization through the
 	// [discovery flow](https://stytch.com/docs/b2b/api/create-organization-via-discovery). See the
-	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for more details on this Role.
+	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for more details on this Role.
 	IsAdmin            bool   `json:"is_admin,omitempty"`
 	TOTPRegistrationID string `json:"totp_registration_id,omitempty"`
 	// SCIMRegistrations: An array of scim member registrations, each one referencing a
@@ -249,7 +249,7 @@ type MemberRole struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//
