@@ -31,7 +31,7 @@ type PolicyResource struct {
 	//   * `stytch.self`
 	//
 	//   Check out the
-	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for a more
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for a more
 	// detailed explanation.
 	//
 	//
@@ -93,7 +93,7 @@ type PolicyRole struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//
@@ -119,7 +119,7 @@ type PolicyRolePermission struct {
 	//   * `stytch.self`
 	//
 	//   Check out the
-	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults) for a more
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for a more
 	// detailed explanation.
 	//
 	//

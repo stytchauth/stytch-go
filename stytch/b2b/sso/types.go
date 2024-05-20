@@ -70,6 +70,15 @@ type AuthenticateParams struct {
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 }
 
+type Connection struct {
+	OrganizationID         string `json:"organization_id,omitempty"`
+	ConnectionID           string `json:"connection_id,omitempty"`
+	ExternalOrganizationID string `json:"external_organization_id,omitempty"`
+	ExternalConnectionID   string `json:"external_connection_id,omitempty"`
+	DisplayName            string `json:"display_name,omitempty"`
+	Status                 string `json:"status,omitempty"`
+}
+
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
 type DeleteConnectionParams struct {
 	// OrganizationID: The organization ID that the SSO connection belongs to.
@@ -124,6 +133,7 @@ type OIDCConnection struct {
 	TokenURL         string `json:"token_url,omitempty"`
 	UserinfoURL      string `json:"userinfo_url,omitempty"`
 	JWKSURL          string `json:"jwks_url,omitempty"`
+	IdentityProvider string `json:"identity_provider,omitempty"`
 }
 
 type SAMLConnection struct {
@@ -140,6 +150,7 @@ type SAMLConnection struct {
 	SAMLConnectionImplicitRoleAssignments []SAMLConnectionImplicitRoleAssignment `json:"saml_connection_implicit_role_assignments,omitempty"`
 	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
 	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`
+	IdentityProvider                      string                                 `json:"identity_provider,omitempty"`
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 
@@ -153,7 +164,7 @@ type SAMLConnectionImplicitRoleAssignment struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//
@@ -170,7 +181,7 @@ type SAMLGroupImplicitRoleAssignment struct {
 	//   * `stytch_member`
 	//   * `stytch_admin`
 	//
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-defaults)
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
 	// for a more detailed explanation.
 	//
 	//
@@ -259,7 +270,8 @@ type GetConnectionsResponse struct {
 	SAMLConnections []SAMLConnection `json:"saml_connections,omitempty"`
 	// OIDCConnections: The list of [OIDC Connections](https://stytch.com/docs/b2b/api/oidc-connection-object)
 	// owned by this organization.
-	OIDCConnections []OIDCConnection `json:"oidc_connections,omitempty"`
+	OIDCConnections     []OIDCConnection `json:"oidc_connections,omitempty"`
+	ExternalConnections []Connection     `json:"external_connections,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

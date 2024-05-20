@@ -19,7 +19,9 @@ type SCIMConnection struct {
 	BaseURL                          string                             `json:"base_url,omitempty"`
 	BearerTokenLastFour              string                             `json:"bearer_token_last_four,omitempty"`
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
+	NextBearerTokenLastFour          string                             `json:"next_bearer_token_last_four,omitempty"`
 	BearerTokenExpiresAt             *time.Time                         `json:"bearer_token_expires_at,omitempty"`
+	NextBearerTokenExpiresAt         *time.Time                         `json:"next_bearer_token_expires_at,omitempty"`
 }
 
 type SCIMConnectionWithNextToken struct {

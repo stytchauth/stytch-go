@@ -89,9 +89,14 @@ type DeletePasswordParams struct {
 	MemberPasswordID string `json:"member_password_id,omitempty"`
 }
 
+// DeleteTOTPParams: Request type for `Members.DeleteTOTP`.
 type DeleteTOTPParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
 }
 
 // GetParams: Request type for `Members.Get`.
@@ -415,12 +420,22 @@ type DeleteResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
+// DeleteTOTPResponse: Response type for `Members.DeleteTOTP`.
 type DeleteTOTPResponse struct {
-	RequestID    string                     `json:"request_id,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
-	Member       organizations.Member       `json:"member,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Members.DangerouslyGet`, `Members.Get`.

@@ -68,7 +68,9 @@ func (c *SessionsClient) Get(
 // It will return an error if both are present.
 //
 // You may provide a JWT that needs to be refreshed and is expired according to its `exp` claim. A new JWT
-// will be returned if both the signature and the underlying Session are still valid.
+// will be returned if both the signature and the underlying Session are still valid. See our
+// [How to use Stytch Session JWTs](https://stytch.com/docs/b2b/guides/sessions/using-jwts) guide for more
+// information.
 //
 // If an `authorization_check` object is passed in, this method will also check if the Member is authorized
 // to perform the given action on the given Resource in the specified Organization. A Member is authorized
@@ -258,7 +260,8 @@ func (c *SessionsClient) Exchange(
 // Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
 // endpoint defined in your Stytch Project settings in the [Dashboard](/dashboard), and then perform a
 // lookup using the `session_token`. If the response contains a valid email address, Stytch will attempt to
-// match that email address with a Member in your Organization and create a Stytch Session.
+// match that email address with an existing Member in your Organization and create a Stytch Session. You
+// will need to create the member before using this endpoint.
 func (c *SessionsClient) Migrate(
 	ctx context.Context,
 	body *sessions.MigrateParams,
@@ -302,6 +305,9 @@ func (c *SessionsClient) Migrate(
 // If you're using your own JWT validation library, many have built-in support for JWKS rotation, and
 // you'll just need to supply this API endpoint. If not, your application should decide which JWKS to use
 // for validation by inspecting the `kid` value.
+//
+// See our [How to use Stytch Session JWTs](https://stytch.com/docs/b2b/guides/sessions/using-jwts) guide
+// for more information.
 func (c *SessionsClient) GetJWKS(
 	ctx context.Context,
 	body *sessions.GetJWKSParams,

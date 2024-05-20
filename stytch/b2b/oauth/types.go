@@ -71,11 +71,11 @@ type AuthenticateParams struct {
 
 // ProviderValues:
 type ProviderValues struct {
-	// AccessToken: The `access_token` that you may use to access the User's data in the provider's API.
-	AccessToken string `json:"access_token,omitempty"`
 	// Scopes: The OAuth scopes included for a given provider. See each provider's section above to see which
 	// scopes are included by default and how to add custom scopes.
 	Scopes []string `json:"scopes,omitempty"`
+	// AccessToken: The `access_token` that you may use to access the User's data in the provider's API.
+	AccessToken string `json:"access_token,omitempty"`
 	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
 	// the provider's API.
 	RefreshToken string     `json:"refresh_token,omitempty"`
@@ -139,7 +139,7 @@ type AuthenticateResponse struct {
 	// access the provider's API for a given user.
 	//
 	//   Note that these values will vary based on the OAuth provider in question, e.g. `id_token` is only
-	// returned by Microsoft.
+	// returned by Microsoft. Google One Tap does not return access tokens or refresh tokens.
 	ProviderValues *ProviderValues `json:"provider_values,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.

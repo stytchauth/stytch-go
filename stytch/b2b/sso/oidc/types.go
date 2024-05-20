@@ -18,6 +18,10 @@ type CreateConnectionParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName string `json:"display_name,omitempty"`
+	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
+	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
+	// and `google-workspace`.
+	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // UpdateConnectionParams: Request type for `OIDC.UpdateConnection`.
@@ -50,6 +54,10 @@ type UpdateConnectionParams struct {
 	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
 	JWKSURL string `json:"jwks_url,omitempty"`
+	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
+	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
+	// and `google-workspace`.
+	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // CreateConnectionRequestOptions:
@@ -113,3 +121,21 @@ type UpdateConnectionResponse struct {
 	// overall request succeeds, there could be relevant warnings related to the connection update.
 	Warning string `json:"warning,omitempty"`
 }
+
+type CreateConnectionRequestIdentityProvider string
+
+const (
+	CreateConnectionRequestIdentityProviderGeneric         CreateConnectionRequestIdentityProvider = "generic"
+	CreateConnectionRequestIdentityProviderOkta            CreateConnectionRequestIdentityProvider = "okta"
+	CreateConnectionRequestIdentityProviderMicrosoftentra  CreateConnectionRequestIdentityProvider = "microsoft-entra"
+	CreateConnectionRequestIdentityProviderGoogleworkspace CreateConnectionRequestIdentityProvider = "google-workspace"
+)
+
+type UpdateConnectionRequestIdentityProvider string
+
+const (
+	UpdateConnectionRequestIdentityProviderGeneric         UpdateConnectionRequestIdentityProvider = "generic"
+	UpdateConnectionRequestIdentityProviderOkta            UpdateConnectionRequestIdentityProvider = "okta"
+	UpdateConnectionRequestIdentityProviderMicrosoftentra  UpdateConnectionRequestIdentityProvider = "microsoft-entra"
+	UpdateConnectionRequestIdentityProviderGoogleworkspace UpdateConnectionRequestIdentityProvider = "google-workspace"
+)
