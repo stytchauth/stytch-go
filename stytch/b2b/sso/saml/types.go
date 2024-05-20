@@ -17,7 +17,10 @@ type CreateConnectionParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                                  `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
+	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
+	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
+	// and `google-workspace`.
 	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
@@ -82,8 +85,11 @@ type UpdateConnectionParams struct {
 	SAMLGroupImplicitRoleAssignments []*sso.SAMLGroupImplicitRoleAssignment `json:"saml_group_implicit_role_assignments,omitempty"`
 	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
 	// when you wish to migrate an existing SAML integration to Stytch with zero downtime.
-	AlternativeAudienceURI string                                  `json:"alternative_audience_uri,omitempty"`
-	IdentityProvider       UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
+	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
+	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
+	// and `google-workspace`.
+	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // CreateConnectionRequestOptions:

@@ -17,7 +17,10 @@ type CreateConnectionParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                                  `json:"display_name,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
+	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
+	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
+	// and `google-workspace`.
 	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
@@ -50,7 +53,10 @@ type UpdateConnectionParams struct {
 	UserinfoURL string `json:"userinfo_url,omitempty"`
 	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
-	JWKSURL          string                                  `json:"jwks_url,omitempty"`
+	JWKSURL string `json:"jwks_url,omitempty"`
+	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
+	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
+	// and `google-workspace`.
 	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
