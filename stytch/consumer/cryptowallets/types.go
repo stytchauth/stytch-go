@@ -7,8 +7,8 @@ package cryptowallets
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `CryptoWallets.Authenticate`.

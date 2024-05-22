@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v13/stytch"
-	"github.com/stytchauth/stytch-go/v13/stytch/b2b/oauth/discovery"
-	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v14/stytch"
+	"github.com/stytchauth/stytch-go/v14/stytch/b2b/oauth/discovery"
+	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
 )
 
 type OAuthDiscoveryClient struct {

@@ -7,10 +7,10 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/users"
 )
 
 // ResetParams: Request type for `Email.Reset`.
