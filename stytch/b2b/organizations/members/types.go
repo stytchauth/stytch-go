@@ -7,8 +7,8 @@ package members
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v13/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v13/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v14/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v14/stytch/methodoptions"
 )
 
 // CreateParams: Request type for `Members.Create`.

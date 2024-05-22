@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v13/stytch"
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/magiclinks/email"
-	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v14/stytch"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/magiclinks/email"
+	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
 )
 
 type MagicLinksEmailClient struct {
