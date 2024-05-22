@@ -7,7 +7,7 @@ package sms
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/attribute"
 )
 
 // LoginOrCreateParams: Request type for `Sms.LoginOrCreate`.

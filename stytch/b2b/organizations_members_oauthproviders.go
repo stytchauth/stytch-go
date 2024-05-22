@@ -10,8 +10,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v13/stytch"
-	"github.com/stytchauth/stytch-go/v13/stytch/b2b/organizations/members/oauthproviders"
+	"github.com/stytchauth/stytch-go/v14/stytch"
+	"github.com/stytchauth/stytch-go/v14/stytch/b2b/organizations/members/oauthproviders"
 )
 
 type OrganizationsMembersOAuthProvidersClient struct {

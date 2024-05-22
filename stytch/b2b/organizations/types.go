@@ -9,7 +9,7 @@ package organizations
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v13/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v14/stytch/methodoptions"
 )
 
 // ActiveSCIMConnection:

@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v13/stytch"
-	"github.com/stytchauth/stytch-go/v13/stytch/consumer/m2m/clients"
-	"github.com/stytchauth/stytch-go/v13/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v14/stytch"
+	"github.com/stytchauth/stytch-go/v14/stytch/consumer/m2m/clients"
+	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
 )
 
 type M2MClientsClient struct {
