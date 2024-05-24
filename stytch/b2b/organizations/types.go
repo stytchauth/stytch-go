@@ -237,6 +237,12 @@ type Member struct {
 	// [Metadata resource](https://stytch.com/docs/b2b/api/metadata)
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
+	// CreatedAt: The timestamp of the Member's creation. Values conform to the RFC 3339 standard and are
+	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// UpdatedAt: The timestamp of when the Member was last updated. Values conform to the RFC 3339 standard
+	// and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // MemberRole:
@@ -450,6 +456,12 @@ type Organization struct {
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
+	// CreatedAt: The timestamp of the Organization's creation. Values conform to the RFC 3339 standard and are
+	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// UpdatedAt: The timestamp of when the Organization was last updated. Values conform to the RFC 3339
+	// standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
 	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
 }
