@@ -7,8 +7,8 @@ package connection
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/scim"
-	"github.com/stytchauth/stytch-go/v14/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/scim"
+	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
 // CreateParams: Request type for `Connection.Create`.

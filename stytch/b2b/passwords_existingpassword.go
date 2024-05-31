@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v14/stytch"
 	"github.com/stytchauth/stytch-go/v14/stytch/b2b/passwords/existingpassword"
 	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
 )
 
 type PasswordsExistingPasswordClient struct {
