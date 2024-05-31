@@ -397,7 +397,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	return resp, nil
 }
 
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/shared"
 func (c *SessionsClient) AuthenticateJWTLocal(
 	ctx context.Context,
 	token string,

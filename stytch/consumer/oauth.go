@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/consumer/oauth"
-	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/oauth"
+	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
 type OAuthClient struct {

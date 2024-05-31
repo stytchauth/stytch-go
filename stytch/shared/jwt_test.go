@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stytchauth/stytch-go/v14/stytch/shared"
+	"github.com/stytchauth/stytch-go/v15/stytch/shared"
 )
 
 func TestReservedClaim(t *testing.T) {
