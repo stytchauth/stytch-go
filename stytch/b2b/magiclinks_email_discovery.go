@@ -25,7 +25,7 @@ func NewMagicLinksEmailDiscoveryClient(c stytch.Client) *MagicLinksEmailDiscover
 	}
 }
 
-// Send a discovery magic link to an email address.
+// Send a discovery magic link to an email address. The magic link is valid for 60 minutes.
 func (c *MagicLinksEmailDiscoveryClient) Send(
 	ctx context.Context,
 	body *discovery.SendParams,

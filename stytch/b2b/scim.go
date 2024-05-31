@@ -11,14 +11,14 @@ import (
 )
 
 type SCIMClient struct {
-	C           stytch.Client
-	Connections *SCIMConnectionsClient
+	C          stytch.Client
+	Connection *SCIMConnectionClient
 }
 
 func NewSCIMClient(c stytch.Client) *SCIMClient {
 	return &SCIMClient{
 		C: c,
 
-		Connections: NewSCIMConnectionsClient(c),
+		Connection: NewSCIMConnectionClient(c),
 	}
 }

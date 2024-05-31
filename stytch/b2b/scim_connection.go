@@ -12,26 +12,26 @@ import (
 	"fmt"
 
 	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/scim/connections"
+	"github.com/stytchauth/stytch-go/v14/stytch/b2b/scim/connection"
 	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
 )
 
-type SCIMConnectionsClient struct {
+type SCIMConnectionClient struct {
 	C stytch.Client
 }
 
-func NewSCIMConnectionsClient(c stytch.Client) *SCIMConnectionsClient {
-	return &SCIMConnectionsClient{
+func NewSCIMConnectionClient(c stytch.Client) *SCIMConnectionClient {
+	return &SCIMConnectionClient{
 		C: c,
 	}
 }
 
 // Update a SCIM Connection. /%}
-func (c *SCIMConnectionsClient) Update(
+func (c *SCIMConnectionClient) Update(
 	ctx context.Context,
-	body *connections.UpdateParams,
-	methodOptions ...*connections.UpdateRequestOptions,
-) (*connections.UpdateResponse, error) {
+	body *connection.UpdateParams,
+	methodOptions ...*connection.UpdateRequestOptions,
+) (*connection.UpdateResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -46,11 +46,11 @@ func (c *SCIMConnectionsClient) Update(
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.UpdateResponse
+	var retVal connection.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
 		"PUT",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
 		nil,
 		jsonBody,
 		&retVal,
@@ -60,21 +60,21 @@ func (c *SCIMConnectionsClient) Update(
 }
 
 // Delete: Deletes a SCIM Connection. /%}
-func (c *SCIMConnectionsClient) Delete(
+func (c *SCIMConnectionClient) Delete(
 	ctx context.Context,
-	body *connections.DeleteParams,
-	methodOptions ...*connections.DeleteRequestOptions,
-) (*connections.DeleteResponse, error) {
+	body *connection.DeleteParams,
+	methodOptions ...*connection.DeleteRequestOptions,
+) (*connection.DeleteResponse, error) {
 	headers := make(map[string][]string)
 	for _, methodOption := range methodOptions {
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.DeleteResponse
+	var retVal connection.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
 		"DELETE",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
 		nil,
 		nil,
 		&retVal,
@@ -84,11 +84,11 @@ func (c *SCIMConnectionsClient) Delete(
 }
 
 // RotateStart: Start a SCIM token rotation. /%}
-func (c *SCIMConnectionsClient) RotateStart(
+func (c *SCIMConnectionClient) RotateStart(
 	ctx context.Context,
-	body *connections.RotateStartParams,
-	methodOptions ...*connections.RotateStartRequestOptions,
-) (*connections.RotateStartResponse, error) {
+	body *connection.RotateStartParams,
+	methodOptions ...*connection.RotateStartRequestOptions,
+) (*connection.RotateStartResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -103,11 +103,11 @@ func (c *SCIMConnectionsClient) RotateStart(
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.RotateStartResponse
+	var retVal connection.RotateStartResponse
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections/%s/rotate/start", body.OrganizationID, body.ConnectionID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/start", body.OrganizationID, body.ConnectionID),
 		nil,
 		jsonBody,
 		&retVal,
@@ -119,11 +119,11 @@ func (c *SCIMConnectionsClient) RotateStart(
 // RotateComplete: Completes a SCIM token rotation. This will complete the current token rotation process
 // and update the active token to be the new token supplied in the
 // [start SCIM token rotation](https://stytch.com/docs/b2b/api/scim-rotate-token-start) response. /%}
-func (c *SCIMConnectionsClient) RotateComplete(
+func (c *SCIMConnectionClient) RotateComplete(
 	ctx context.Context,
-	body *connections.RotateCompleteParams,
-	methodOptions ...*connections.RotateCompleteRequestOptions,
-) (*connections.RotateCompleteResponse, error) {
+	body *connection.RotateCompleteParams,
+	methodOptions ...*connection.RotateCompleteRequestOptions,
+) (*connection.RotateCompleteResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -138,11 +138,11 @@ func (c *SCIMConnectionsClient) RotateComplete(
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.RotateCompleteResponse
+	var retVal connection.RotateCompleteResponse
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections/%s/rotate/complete", body.OrganizationID, body.ConnectionID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/complete", body.OrganizationID, body.ConnectionID),
 		nil,
 		jsonBody,
 		&retVal,
@@ -153,11 +153,11 @@ func (c *SCIMConnectionsClient) RotateComplete(
 
 // RotateCancel: Cancel a SCIM token rotation. This will cancel the current token rotation process, keeping
 // the original token active. /%}
-func (c *SCIMConnectionsClient) RotateCancel(
+func (c *SCIMConnectionClient) RotateCancel(
 	ctx context.Context,
-	body *connections.RotateCancelParams,
-	methodOptions ...*connections.RotateCancelRequestOptions,
-) (*connections.RotateCancelResponse, error) {
+	body *connection.RotateCancelParams,
+	methodOptions ...*connection.RotateCancelRequestOptions,
+) (*connection.RotateCancelResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -172,11 +172,11 @@ func (c *SCIMConnectionsClient) RotateCancel(
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.RotateCancelResponse
+	var retVal connection.RotateCancelResponse
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections/%s/rotate/cancel", body.OrganizationID, body.ConnectionID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/cancel", body.OrganizationID, body.ConnectionID),
 		nil,
 		jsonBody,
 		&retVal,
@@ -186,11 +186,11 @@ func (c *SCIMConnectionsClient) RotateCancel(
 }
 
 // Create a new SCIM Connection. /%}
-func (c *SCIMConnectionsClient) Create(
+func (c *SCIMConnectionClient) Create(
 	ctx context.Context,
-	body *connections.CreateParams,
-	methodOptions ...*connections.CreateRequestOptions,
-) (*connections.CreateResponse, error) {
+	body *connection.CreateParams,
+	methodOptions ...*connection.CreateRequestOptions,
+) (*connection.CreateResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -205,11 +205,11 @@ func (c *SCIMConnectionsClient) Create(
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.CreateResponse
+	var retVal connection.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections", body.OrganizationID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
 		nil,
 		jsonBody,
 		&retVal,
@@ -219,21 +219,21 @@ func (c *SCIMConnectionsClient) Create(
 }
 
 // Get SCIM Connections. /%}
-func (c *SCIMConnectionsClient) Get(
+func (c *SCIMConnectionClient) Get(
 	ctx context.Context,
-	body *connections.GetParams,
-	methodOptions ...*connections.GetRequestOptions,
-) (*connections.GetResponse, error) {
+	body *connection.GetParams,
+	methodOptions ...*connection.GetRequestOptions,
+) (*connection.GetResponse, error) {
 	headers := make(map[string][]string)
 	for _, methodOption := range methodOptions {
 		headers = methodOption.AddHeaders(headers)
 	}
 
-	var retVal connections.GetResponse
+	var retVal connection.GetResponse
 	err := c.C.NewRequest(
 		ctx,
 		"GET",
-		fmt.Sprintf("/v1/b2b/scim/%s/connections", body.OrganizationID),
+		fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
 		nil,
 		nil,
 		&retVal,

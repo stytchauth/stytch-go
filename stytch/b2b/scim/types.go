@@ -15,7 +15,7 @@ type SCIMConnection struct {
 	ConnectionID                     string                             `json:"connection_id,omitempty"`
 	Status                           string                             `json:"status,omitempty"`
 	DisplayName                      string                             `json:"display_name,omitempty"`
-	IdentityProvider                 string                             `json:"idp,omitempty"`
+	IdentityProvider                 string                             `json:"identity_provider,omitempty"`
 	BaseURL                          string                             `json:"base_url,omitempty"`
 	BearerTokenLastFour              string                             `json:"bearer_token_last_four,omitempty"`
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
@@ -30,7 +30,7 @@ type SCIMConnectionWithNextToken struct {
 	Status                           string                             `json:"status,omitempty"`
 	DisplayName                      string                             `json:"display_name,omitempty"`
 	BaseURL                          string                             `json:"base_url,omitempty"`
-	IdentityProvider                 string                             `json:"idp,omitempty"`
+	IdentityProvider                 string                             `json:"identity_provider,omitempty"`
 	BearerTokenLastFour              string                             `json:"bearer_token_last_four,omitempty"`
 	NextBearerToken                  string                             `json:"next_bearer_token,omitempty"`
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
@@ -43,7 +43,7 @@ type SCIMConnectionWithToken struct {
 	ConnectionID                     string                             `json:"connection_id,omitempty"`
 	Status                           string                             `json:"status,omitempty"`
 	DisplayName                      string                             `json:"display_name,omitempty"`
-	IdentityProvider                 string                             `json:"idp,omitempty"`
+	IdentityProvider                 string                             `json:"identity_provider,omitempty"`
 	BaseURL                          string                             `json:"base_url,omitempty"`
 	BearerToken                      string                             `json:"bearer_token,omitempty"`
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
