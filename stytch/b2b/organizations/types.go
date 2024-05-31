@@ -240,8 +240,8 @@ type Member struct {
 	// UpdatedAt: The timestamp of when the Member was last updated. Values conform to the RFC 3339 standard
 	// and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// SCIMRegistration: An array of scim member registrations, each one referencing a
-	// [SCIM Connection](scim-connection-object) object in use for the Member creation.
+	// SCIMRegistration: A scim member registration, referencing a [SCIM Connection](scim-connection-object)
+	// object in use for the Member creation.
 	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
 }
 
@@ -461,7 +461,7 @@ type Organization struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
 	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
-	// SCIMActiveConnection: An array of active
+	// SCIMActiveConnection: An active
 	// [SCIM Connection references](https://stytch.com/docs/b2b/api/scim-connection-object).
 	SCIMActiveConnection *ActiveSCIMConnection `json:"scim_active_connection,omitempty"`
 }
