@@ -21,6 +21,7 @@ import (
 	"github.com/stytchauth/stytch-go/v15/stytch"
 	"github.com/stytchauth/stytch-go/v15/stytch/config"
 	"github.com/stytchauth/stytch-go/v15/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v15/stytch/shared"
 	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
@@ -133,6 +134,7 @@ func (c *M2MClient) Token(
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/shared"
 
 // AuthenticateToken validates an access token issued by Stytch from the Token endpoint.
 // M2M access tokens are JWTs signed with the project's JWKs, and can be validated locally using any Stytch client library.
@@ -171,16 +173,10 @@ func (c *M2MClient) AuthenticateToken(
 		return nil, fmt.Errorf("could not find scope claim in claims: %v", claims)
 	}
 
-	for _, want := range req.RequiredScopes {
-		found := false
-		for _, have := range strings.Split(scope, " ") {
-			if have == want {
-				found = true
-			}
-		}
-		if !found {
-			return nil, fmt.Errorf("%w: scope %s was not found in [%s]", m2m.ErrMissingScope, want, scope)
-		}
+	hasScopes := strings.Split(scope, " ")
+	err = shared.PerformM2MAuthorizationCheck(hasScopes, req.RequiredScopes)
+	if err != nil {
+		return nil, err
 	}
 
 	return marshalJWTIntoResponse(claims, scope)

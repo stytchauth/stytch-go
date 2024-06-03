@@ -97,4 +97,14 @@ func NewPermissionError() error {
 	}
 }
 
+func NewM2MPermissionError() error {
+	msg := "The Client is not authorized to perform the requested action on that resource."
+	return Error{
+		StatusCode:   403,
+		ErrorType:    "m2m_authorization_error",
+		ErrorMessage: Message(msg + ", v" + config.APIVersion),
+		ErrorURL:     "https://stytch.com/docs/api/errors/403",
+	}
+}
+
 var ErrJWKSNotInitialized = errors.New("JWKS not initialized")

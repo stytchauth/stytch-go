@@ -136,10 +136,7 @@ type TokenResponse struct {
 	TokenType string `json:"token_type"`
 }
 
-var (
-	ErrJWTTooOld    = errors.New("JWT too old")
-	ErrMissingScope = errors.New("missing requested scope")
-)
+var ErrJWTTooOld = errors.New("JWT too old")
 
 type AuthenticateTokenParams struct {
 	AccessToken    string
