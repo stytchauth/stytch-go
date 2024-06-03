@@ -7,9 +7,9 @@ package magiclinks
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `MagicLinks.Authenticate`.

@@ -9,10 +9,10 @@ package sso
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v14/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.

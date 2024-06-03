@@ -11,9 +11,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/sso/saml"
-	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sso/saml"
+	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
 type SSOSAMLClient struct {

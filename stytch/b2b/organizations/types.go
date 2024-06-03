@@ -9,7 +9,7 @@ package organizations
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v14/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
 // ActiveSCIMConnection:
@@ -213,9 +213,6 @@ type Member struct {
 	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for more details on this Role.
 	IsAdmin            bool   `json:"is_admin,omitempty"`
 	TOTPRegistrationID string `json:"totp_registration_id,omitempty"`
-	// SCIMRegistrations: An array of scim member registrations, each one referencing a
-	// [SCIM Connection](scim-connection-object) object in use for the Member creation.
-	SCIMRegistrations []SCIMRegistration `json:"scim_registrations,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
@@ -243,6 +240,9 @@ type Member struct {
 	// UpdatedAt: The timestamp of when the Member was last updated. Values conform to the RFC 3339 standard
 	// and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// SCIMRegistration: A scim member registration, referencing a [SCIM Connection](scim-connection-object)
+	// object in use for the Member creation.
+	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
 }
 
 // MemberRole:
@@ -450,9 +450,6 @@ type Organization struct {
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
 	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
-	// SCIMActiveConnections: An array of active
-	// [SCIM Connection references](https://stytch.com/docs/b2b/api/scim-connection-object).
-	SCIMActiveConnections []ActiveSCIMConnection `json:"scim_active_connections,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -464,6 +461,9 @@ type Organization struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
 	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
+	// SCIMActiveConnection: An active
+	// [SCIM Connection references](https://stytch.com/docs/b2b/api/scim-connection-object).
+	SCIMActiveConnection *ActiveSCIMConnection `json:"scim_active_connection,omitempty"`
 }
 
 // ResultsMetadata:

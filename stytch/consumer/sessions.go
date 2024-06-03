@@ -15,10 +15,10 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v14/stytch/shared"
-	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v15/stytch/shared"
+	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -234,8 +234,8 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/shared"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
@@ -268,7 +268,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	// mutating it instead of replacing it like the non-JWT version does.
 	//
 	// TODO(v12.x): Change claims to `any`, also allow pointer-to-map and pointer-to-struct.
-	// TODO(v14): Remove support for populating a pre-existing map this way.
+	// TODO(v15): Remove support for populating a pre-existing map this way.
 
 	var resp *sessions.AuthenticateResponse
 

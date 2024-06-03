@@ -7,18 +7,18 @@ package b2b
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v14/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch"
 )
 
 type SCIMClient struct {
-	C           stytch.Client
-	Connections *SCIMConnectionsClient
+	C          stytch.Client
+	Connection *SCIMConnectionClient
 }
 
 func NewSCIMClient(c stytch.Client) *SCIMClient {
 	return &SCIMClient{
 		C: c,
 
-		Connections: NewSCIMConnectionsClient(c),
+		Connection: NewSCIMConnectionClient(c),
 	}
 }

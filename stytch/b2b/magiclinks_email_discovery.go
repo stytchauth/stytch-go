@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/magiclinks/email/discovery"
-	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/magiclinks/email/discovery"
+	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
 type MagicLinksEmailDiscoveryClient struct {
@@ -25,7 +25,7 @@ func NewMagicLinksEmailDiscoveryClient(c stytch.Client) *MagicLinksEmailDiscover
 	}
 }
 
-// Send a discovery magic link to an email address.
+// Send a discovery magic link to an email address. The magic link is valid for 60 minutes.
 func (c *MagicLinksEmailDiscoveryClient) Send(
 	ctx context.Context,
 	body *discovery.SendParams,

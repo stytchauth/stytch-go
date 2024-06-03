@@ -18,10 +18,10 @@ import (
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/config"
-	"github.com/stytchauth/stytch-go/v14/stytch/consumer/m2m"
-	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/config"
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
 type M2MClient struct {
@@ -42,9 +42,9 @@ func NewM2MClient(c stytch.Client, jwks *keyfunc.JWKS) *M2MClient {
 // MANUAL(Token)(SERVICE_METHOD)
 // ADDIMPORT: "context"
 // ADDIMPORT: "fmt"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/config"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/consumer/m2m"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/config"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/consumer/m2m"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 // ADDIMPORT: "io"
 // ADDIMPORT: "net/http"
 // ADDIMPORT: "net/url"
@@ -132,7 +132,7 @@ func (c *M2MClient) Token(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 
 // AuthenticateToken validates an access token issued by Stytch from the Token endpoint.
 // M2M access tokens are JWTs signed with the project's JWKs, and can be validated locally using any Stytch client library.

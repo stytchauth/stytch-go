@@ -9,8 +9,8 @@ package consumer
 import (
 	"context"
 
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/consumer/project"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/project"
 )
 
 type ProjectClient struct {

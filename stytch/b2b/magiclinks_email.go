@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v14/stytch"
-	"github.com/stytchauth/stytch-go/v14/stytch/b2b/magiclinks/email"
-	"github.com/stytchauth/stytch-go/v14/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/magiclinks/email"
+	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
 type MagicLinksEmailClient struct {
@@ -31,6 +31,8 @@ func NewMagicLinksEmailClient(c stytch.Client) *MagicLinksEmailClient {
 // LoginOrSignup: Send either a login or signup magic link to a Member. A new, pending, or invited Member
 // will receive a signup Email Magic Link. Members will have a `pending` status until they successfully
 // authenticate. An active Member will receive a login Email Magic Link.
+//
+// The magic link is valid for 60 minutes.
 func (c *MagicLinksEmailClient) LoginOrSignup(
 	ctx context.Context,
 	body *email.LoginOrSignupParams,
@@ -61,7 +63,11 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 
 // Invite: Send an invite email to a new Member to join an Organization. The Member will be created with an
 // `invited` status until they successfully authenticate. Sending invites to `pending` Members will update
-// their status to `invited`. Sending invites to already `active` Members will return an error. /%}
+// their status to `invited`. Sending invites to already `active` Members will return an error.
+//
+// The magic link invite will be valid for 1 week.
+//
+//	/%}
 func (c *MagicLinksEmailClient) Invite(
 	ctx context.Context,
 	body *email.InviteParams,
