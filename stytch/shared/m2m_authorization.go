@@ -3,17 +3,15 @@ package shared
 import (
 	"strings"
 
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/m2m"
 	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
-func PerformM2MAuthorizationCheck(
-	hasScopes []string,
-	requiredScopes []string,
-) error {
+func PerformM2MAuthorizationCheck(params m2m.ScopeAuthorizationFuncParams) error {
 	clientScopes := map[string][]string{}
-	for _, scope := range hasScopes {
+	for _, scope := range params.HasScopes {
 		action := scope
-		resource := "*"
+		resource := "-"
 		if strings.Contains(scope, ":") {
 			parts := strings.SplitN(scope, ":", 2)
 			action = parts[0]
@@ -22,9 +20,9 @@ func PerformM2MAuthorizationCheck(
 		clientScopes[action] = append(clientScopes[action], resource)
 	}
 
-	for _, requiredScope := range requiredScopes {
+	for _, requiredScope := range params.RequiredScopes {
 		requiredAction := requiredScope
-		requiredResource := "*"
+		requiredResource := "-"
 		if strings.Contains(requiredScope, ":") {
 			parts := strings.SplitN(requiredScope, ":", 2)
 			requiredAction = parts[0]

@@ -174,7 +174,15 @@ func (c *M2MClient) AuthenticateToken(
 	}
 
 	hasScopes := strings.Split(scope, " ")
-	err = shared.PerformM2MAuthorizationCheck(hasScopes, req.RequiredScopes)
+	var authorizationFunc m2m.ScopeAuthorizationFunc = shared.PerformM2MAuthorizationCheck
+	if req.AuthorizationFunc != nil {
+		authorizationFunc = *req.AuthorizationFunc
+	}
+
+	err = authorizationFunc(m2m.ScopeAuthorizationFuncParams{
+		HasScopes:      hasScopes,
+		RequiredScopes: req.RequiredScopes,
+	})
 	if err != nil {
 		return nil, err
 	}

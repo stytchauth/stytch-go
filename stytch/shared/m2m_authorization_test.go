@@ -3,6 +3,7 @@ package shared_test
 import (
 	"testing"
 
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/m2m"
 	"github.com/stytchauth/stytch-go/v15/stytch/shared"
 )
 
@@ -49,11 +50,26 @@ func TestPerformM2MAuthorizationCheck(t *testing.T) {
 			needs:       []string{"delete:books"},
 			expectError: true,
 		},
+		{
+			name:        "has simple scope and wants specific scope",
+			has:         []string{"read"},
+			needs:       []string{"read:users"},
+			expectError: true,
+		},
+		{
+			name:        "has specific scope and wants simple scope",
+			has:         []string{"read:users"},
+			needs:       []string{"read"},
+			expectError: true,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := shared.PerformM2MAuthorizationCheck(tt.has, tt.needs)
+			err := shared.PerformM2MAuthorizationCheck(m2m.ScopeAuthorizationFuncParams{
+				HasScopes:      tt.has,
+				RequiredScopes: tt.needs,
+			})
 			if (err != nil) != tt.expectError {
 				t.Errorf("PerformM2MAuthorizationCheck(%v, %v) error = %v, expectError %v", tt.has, tt.needs, err, tt.expectError)
 			}
