@@ -118,11 +118,11 @@ const (
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 
 type TokenParams struct {
-	// The ID of the client.
+	// ClientID is the ID of the client.
 	ClientID string
-	// The secret of the client.
+	// ClientSecret is the secret of the client.
 	ClientSecret string
-	// An array scopes requested. If omitted, all scopes assigned to the client will be returned.
+	// Scopes is an array scopes requested. If omitted, all scopes assigned to the client will be returned.
 	Scopes []string
 }
 
@@ -136,23 +136,31 @@ type TokenResponse struct {
 	TokenType string `json:"token_type"`
 }
 
-var (
-	ErrJWTTooOld    = errors.New("JWT too old")
-	ErrMissingScope = errors.New("missing requested scope")
-)
+var ErrJWTTooOld = errors.New("JWT too old")
+
+type ScopeAuthorizationFuncParams struct {
+	HasScopes      []string
+	RequiredScopes []string
+}
+
+type ScopeAuthorizationFunc func(ScopeAuthorizationFuncParams) error
 
 type AuthenticateTokenParams struct {
 	AccessToken    string
 	RequiredScopes []string
 	MaxTokenAge    time.Duration
+	// AuthorizationFunc is a custom function to authorize the client's scopes. If omitted, the default function will be used.
+	// The default function assumes scopes are either direct string matches or written in the form "action:resource".
+	// See the documentation for `shared.PerformAuthorizationCheck` for more information.
+	AuthorizationFunc *ScopeAuthorizationFunc
 }
 
 type AuthenticateTokenResponse struct {
-	// An array of scopes granted to the token holder.
+	// Scopes is an array of scopes granted to the token holder.
 	Scopes []string
-	// The ID of the client that was issued the token
+	// ClientID is the ID of the client that was issued the token
 	ClientID string
-	// A map of custom claims present in the token
+	// CustomClaims is a map of custom claims present in the token
 	CustomClaims map[string]any
 }
 

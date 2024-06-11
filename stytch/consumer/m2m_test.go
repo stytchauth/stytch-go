@@ -186,7 +186,7 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 			AccessToken:    token,
 			RequiredScopes: []string{"write:users"},
 		})
-		assert.ErrorIs(t, err, m2m.ErrMissingScope)
+		assert.ErrorIs(t, err, stytcherror.NewM2MPermissionError())
 		assert.Nil(t, s)
 	})
 
