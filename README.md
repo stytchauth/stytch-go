@@ -138,8 +138,8 @@ import (
 )
 
 stytchClient, err := b2bstytchapi.NewClient(
-"project-test-2c30c6b2-45d0-4022-a08f-d1048b6156d9",
-"secret-test-trvQ17_xQidL-MW8ywNXbPH01rbAYSW9z2M=",
+"project-test-uuid",
+"secret-test-uuid",
 )
 if err != nil {
 panic(err)
