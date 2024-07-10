@@ -15,6 +15,9 @@ $ go get github.com/stytchauth/stytch-go/v12
 You can find your API credentials in the [Stytch Dashboard](https://stytch.com/dashboard/api-keys).
 
 This client library supports all Stytch's live products:
+
+### B2C
+
   - [x] [Email Magic Links](https://stytch.com/docs/api/send-by-email)
   - [x] [Embeddable Magic Links](https://stytch.com/docs/guides/magic-links/embeddable-magic-links/api)
   - [x] [OAuth logins](https://stytch.com/docs/guides/oauth/idp-overview)
@@ -28,8 +31,18 @@ This client library supports all Stytch's live products:
   - [x] [Passwords](https://stytch.com/docs/guides/passwords/api)
   - [x] [M2M](https://stytch.com/docs/api/m2m-client)
 
+### B2B
 
-### Example usage
+- [x] [Organizations](https://stytch.com/docs/b2b/api/organization-object)
+- [x] [Members](https://stytch.com/docs/b2b/api/member-object)
+- [x] [Email Magic Links](https://stytch.com/docs/b2b/api/send-login-signup-email)
+- [x] [OAuth logins](https://stytch.com/docs/b2b/api/oauth-google-start)
+- [x] [Session Management](https://stytch.com/docs/b2b/api/session-object)
+- [x] [Single-Sign On](https://stytch.com/docs/b2b/api/sso-authenticate-start)
+- [x] [Discovery](https://stytch.com/docs/b2b/api/discovered-organization-object)
+- [x] [Passwords](https://stytch.com/docs/b2b/api/passwords-authenticate)
+
+### Example B2C usage
 Create an API client:
 ```go
 import (
@@ -110,6 +123,62 @@ Iterate over all pages of users for a search query
 		}
 		users = append(users, res...)
 	}
+```
+
+### Example B2B usage
+
+Create an API client:
+```go
+import (
+"context"
+
+"github.com/stytchauth/stytch-go/v13/stytch"
+"github.com/stytchauth/stytch-go/v13/stytch/b2b/b2bstytchapi"
+"github.com/stytchauth/stytch-go/v13/stytch/b2b/organizations"
+)
+
+stytchClient, err := b2bstytchapi.NewClient(
+"project-test-2c30c6b2-45d0-4022-a08f-d1048b6156d9",
+"secret-test-trvQ17_xQidL-MW8ywNXbPH01rbAYSW9z2M=",
+)
+if err != nil {
+panic(err)
+}
+```
+
+Create an organization
+
+```go
+params := &organizations.CreateParams{
+    OrganizationName: "Example Org Inc.",
+    OrganizationSlug: "example-org",
+}
+
+resp, err := client.Organizations.Create(context.Background(), params)
+if err != nil {
+    log.Fatalf("error in method call: %v", err)
+}
+```
+
+Log the first user into the organization
+
+```go
+import (
+"context"
+"log"
+
+"github.com/stytchauth/stytch-go/v13/stytch/b2b/b2bstytchapi"
+"github.com/stytchauth/stytch-go/v13/stytch/b2b/magiclinks/email"
+)
+params := &email.LoginOrSignupParams{
+    OrganizationID: "organization-test-07971b06-ac8b-4cdb-9c15-63b17e653931",
+    EmailAddress:   "sandbox@stytch.com",
+}
+
+resp, err := client.MagicLinks.Email.LoginOrSignup(context.Background(), params)
+if err != nil {
+    log.Fatalf("error in method call: %v", err)
+}
 ```
 
 ## Handling Errors
