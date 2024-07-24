@@ -92,8 +92,6 @@ func (c *OrganizationsClient) Get(
 // *See the [Organization authentication settings](https://stytch.com/docs/b2b/api/org-auth-settings)
 // resource to learn more about fields like `email_jit_provisioning`, `email_invites`,
 // `sso_jit_provisioning`, etc., and their behaviors.
-//
-//	/%}
 func (c *OrganizationsClient) Update(
 	ctx context.Context,
 	body *organizations.UpdateParams,
@@ -127,7 +125,7 @@ func (c *OrganizationsClient) Update(
 }
 
 // Delete: Deletes an Organization specified by `organization_id`. All Members of the Organization will
-// also be deleted. /%}
+// also be deleted.
 func (c *OrganizationsClient) Delete(
 	ctx context.Context,
 	body *organizations.DeleteParams,

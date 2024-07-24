@@ -66,8 +66,6 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 // their status to `invited`. Sending invites to already `active` Members will return an error.
 //
 // The magic link invite will be valid for 1 week.
-//
-//	/%}
 func (c *MagicLinksEmailClient) Invite(
 	ctx context.Context,
 	body *email.InviteParams,

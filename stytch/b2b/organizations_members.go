@@ -30,8 +30,6 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 }
 
 // Update: Updates a Member specified by `organization_id` and `member_id`.
-//
-//	/%}
 func (c *OrganizationsMembersClient) Update(
 	ctx context.Context,
 	body *members.UpdateParams,
@@ -64,7 +62,7 @@ func (c *OrganizationsMembersClient) Update(
 	return &retVal, err
 }
 
-// Delete: Deletes a Member specified by `organization_id` and `member_id`. /%}
+// Delete: Deletes a Member specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Delete(
 	ctx context.Context,
 	body *members.DeleteParams,
@@ -89,7 +87,7 @@ func (c *OrganizationsMembersClient) Delete(
 }
 
 // Reactivate: Reactivates a deleted Member's status and its associated email status (if applicable) to
-// active, specified by `organization_id` and `member_id`. /%}
+// active, specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Reactivate(
 	ctx context.Context,
 	body *members.ReactivateParams,
@@ -132,8 +130,6 @@ func (c *OrganizationsMembersClient) Reactivate(
 // Member to enter a new phone number
 // and calling the [OTP SMS send](https://stytch.com/docs/b2b/api/otp-sms-send) endpoint, then calling the
 // [OTP SMS Authenticate](https://stytch.com/docs/b2b/api/authenticate-otp-sms) endpoint.
-//
-//	/%}
 func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 	ctx context.Context,
 	body *members.DeleteMFAPhoneNumberParams,
@@ -164,8 +160,6 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 //
 // Existing Member Sessions that include the TOTP authentication factor will not be revoked if the
 // registration is deleted, and MFA will not be enforced until the Member logs in again.
-//
-//	/%}
 func (c *OrganizationsMembersClient) DeleteTOTP(
 	ctx context.Context,
 	body *members.DeleteTOTPParams,
@@ -193,8 +187,6 @@ func (c *OrganizationsMembersClient) DeleteTOTP(
 // required. Submitting an empty `query` returns all non-deleted Members within the specified Organizations.
 //
 // *All fuzzy search filters require a minimum of three characters.
-//
-//	/%}
 func (c *OrganizationsMembersClient) Search(
 	ctx context.Context,
 	body *members.SearchParams,
@@ -227,7 +219,7 @@ func (c *OrganizationsMembersClient) Search(
 	return &retVal, err
 }
 
-// DeletePassword: Delete a Member's password. /%}
+// DeletePassword: Delete a Member's password.
 func (c *OrganizationsMembersClient) DeletePassword(
 	ctx context.Context,
 	body *members.DeletePasswordParams,
@@ -327,7 +319,7 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 	return &retVal, err
 }
 
-// Create: Creates a Member. An `organization_id` and `email_address` are required. /%}
+// Create: Creates a Member. An `organization_id` and `email_address` are required.
 func (c *OrganizationsMembersClient) Create(
 	ctx context.Context,
 	body *members.CreateParams,
