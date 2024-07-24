@@ -29,7 +29,8 @@ type Argon2Config struct {
 type AuthenticateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
-	// Password: The password of the user
+	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
+	// characers, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -62,7 +63,8 @@ type AuthenticateParams struct {
 type CreateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
-	// Password: The password of the user
+	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
+	// characers, etc.
 	Password string `json:"password,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,
@@ -204,7 +206,7 @@ type ScryptConfig struct {
 	Salt string `json:"salt,omitempty"`
 	// NParameter: The N value, also known as the iterations count. It must be a power of two greater than 1
 	// and less than 262,145.
-	//       If your applicaiton's N parameter is larger than 262,144, please reach out to
+	//       If your application's N parameter is larger than 262,144, please reach out to
 	// [support@stytch.com](mailto:support@stytch.com)
 	NParameter int32 `json:"n_parameter,omitempty"`
 	// RParameter: The r parameter, also known as the block size.
@@ -217,7 +219,8 @@ type ScryptConfig struct {
 
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
 type StrengthCheckParams struct {
-	// Password: The password of the user
+	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
+	// characers, etc.
 	Password string `json:"password,omitempty"`
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`

@@ -30,6 +30,26 @@ type DeleteParams struct {
 	ConnectionID string `json:"connection_id,omitempty"`
 }
 
+// GetGroupsParams: Request type for `Connection.GetGroups`.
+type GetGroupsParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited to
+	// 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
+	// using the `cursor`. If you receive a response that includes a non-null `next_cursor` in the
+	// `results_metadata` object, repeat the search call with the `next_cursor` value set to the `cursor` field
+	// to retrieve the next page of results. Continue to make search calls until the `next_cursor` in the
+	// response is null.
+	Cursor string `json:"cursor,omitempty"`
+	// Limit: The number of search results to return per page. The default limit is 100. A maximum of 1000
+	// results can be returned by a single search request. If the total size of your result set is greater than
+	// one page size, you must paginate the response. See the `cursor` field.
+	Limit uint32 `json:"limit,omitempty"`
+}
+
 // GetParams: Request type for `Connection.Get`.
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -99,6 +119,19 @@ type DeleteRequestOptions struct {
 }
 
 func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// GetGroupsRequestOptions:
+type GetGroupsRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *GetGroupsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
 }
@@ -196,6 +229,16 @@ type DeleteResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+// GetGroupsResponse: Response type for `Connection.GetGroups`.
+type GetGroupsResponse struct {
+	// SCIMGroups: A list of SCIM Connection Groups belonging to the connection.
+	SCIMGroups []scim.SCIMGroup `json:"scim_groups,omitempty"`
+	StatusCode int32            `json:"status_code,omitempty"`
+	// NextCursor: The `next_cursor` string is returned when your search result contains more than one page of
+	// results. This value is passed into your next search call in the `cursor` field.
+	NextCursor string `json:"next_cursor,omitempty"`
 }
 
 // GetResponse: Response type for `Connection.Get`.

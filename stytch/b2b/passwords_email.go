@@ -80,6 +80,8 @@ func (c *PasswordsEmailClient) ResetStart(
 //
 // If a valid `session_token` or `session_jwt` is passed in, the Member will not be required to complete an
 // MFA step.
+//
+// Note that a successful password reset by email will revoke all active sessions for the `member_id`.
 func (c *PasswordsEmailClient) Reset(
 	ctx context.Context,
 	body *email.ResetParams,

@@ -69,8 +69,8 @@ func (c *SessionsClient) Get(
 //
 // You may provide a JWT that needs to be refreshed and is expired according to its `exp` claim. A new JWT
 // will be returned if both the signature and the underlying Session are still valid. See our
-// [How to use Stytch Session JWTs](https://stytch.com/docs/b2b/guides/sessions/using-jwts) guide for more
-// information.
+// [How to use Stytch Session JWTs](https://stytch.com/docs/b2b/guides/sessions/resources/using-jwts) guide
+// for more information.
 //
 // If an `authorization_check` object is passed in, this method will also check if the Member is authorized
 // to perform the given action on the given Resource in the specified Organization. A Member is authorized
@@ -181,6 +181,7 @@ func (c *SessionsClient) AuthenticateWithClaims(
 func (c *SessionsClient) Revoke(
 	ctx context.Context,
 	body *sessions.RevokeParams,
+	methodOptions ...*sessions.RevokeRequestOptions,
 ) (*sessions.RevokeResponse, error) {
 	var jsonBody []byte
 	var err error
@@ -192,6 +193,9 @@ func (c *SessionsClient) Revoke(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
 	var retVal sessions.RevokeResponse
 	err = c.C.NewRequest(
@@ -306,7 +310,8 @@ func (c *SessionsClient) Migrate(
 // you'll just need to supply this API endpoint. If not, your application should decide which JWKS to use
 // for validation by inspecting the `kid` value.
 //
-// See our [How to use Stytch Session JWTs](https://stytch.com/docs/b2b/guides/sessions/using-jwts) guide
+// See our
+// [How to use Stytch Session JWTs](https://stytch.com/docs/b2b/guides/sessions/resources/using-jwts) guide
 // for more information.
 func (c *SessionsClient) GetJWKS(
 	ctx context.Context,

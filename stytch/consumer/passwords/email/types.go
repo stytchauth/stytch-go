@@ -22,7 +22,8 @@ type ResetParams struct {
 	//       See examples and read more about redirect URLs
 	// [here](https://stytch.com/docs/guides/dashboard/redirect-urls).
 	Token string `json:"token,omitempty"`
-	// Password: The password of the user
+	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
+	// characers, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`

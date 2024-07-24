@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/stytchauth/stytch-go/v15/stytch"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/scim/connection"
@@ -179,6 +180,36 @@ func (c *SCIMConnectionClient) RotateCancel(
 		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/cancel", body.OrganizationID, body.ConnectionID),
 		nil,
 		jsonBody,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
+// GetGroups: Gets a paginated list of all SCIM Groups associated with a given Connection.
+func (c *SCIMConnectionClient) GetGroups(
+	ctx context.Context,
+	body *connection.GetGroupsParams,
+	methodOptions ...*connection.GetGroupsRequestOptions,
+) (*connection.GetGroupsResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		queryParams["cursor"] = body.Cursor
+		queryParams["limit"] = strconv.FormatUint(uint64(body.Limit), 10)
+	}
+
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal connection.GetGroupsResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+		queryParams,
+		nil,
 		&retVal,
 		headers,
 	)
