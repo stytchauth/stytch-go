@@ -450,8 +450,7 @@ type Organization struct {
 	// `mfa_methods` is set to `RESTRICTED`.
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
-	AllowedMFAMethods          []string `json:"allowed_mfa_methods,omitempty"`
-	OAuthTenantJITProvisioning string   `json:"oauth_tenant_jit_provisioning,omitempty"`
+	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -695,9 +694,7 @@ type UpdateParams struct {
 	// If this field is provided and a session header is passed into the request, the Member Session must have
 	// permission to perform the `update.settings.allowed-mfa-methods` action on the `stytch.organization`
 	// Resource.
-	AllowedMFAMethods          []string       `json:"allowed_mfa_methods,omitempty"`
-	OAuthTenantJITProvisioning string         `json:"oauth_tenant_jit_provisioning,omitempty"`
-	AllowedOAuthTenants        map[string]any `json:"allowed_oauth_tenants,omitempty"`
+	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
 }
 
 // UpdateRequestOptions:
