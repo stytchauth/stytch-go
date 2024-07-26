@@ -92,10 +92,8 @@ type UpdateParams struct {
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                        `json:"display_name,omitempty"`
-	IdentityProvider UpdateRequestIdentityProvider `json:"identity_provider,omitempty"`
-	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
-	// array must contain a `group` and a `role_id`.
+	DisplayName                      string                                   `json:"display_name,omitempty"`
+	IdentityProvider                 UpdateRequestIdentityProvider            `json:"identity_provider,omitempty"`
 	SCIMGroupImplicitRoleAssignments []*scim.SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
 }
 
