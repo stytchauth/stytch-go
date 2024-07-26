@@ -257,6 +257,12 @@ type MicrosoftOAuthFactor struct {
 	EmailID string `json:"email_id,omitempty"`
 }
 
+type MigrateParams struct {
+	SessionToken           string         `json:"session_token,omitempty"`
+	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
+}
+
 // OIDCSSOFactor:
 type OIDCSSOFactor struct {
 	// ID: The unique ID of an SSO Registration.
@@ -444,6 +450,16 @@ type GetResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type MigrateResponse struct {
+	RequestID    string     `json:"request_id,omitempty"`
+	UserID       string     `json:"user_id,omitempty"`
+	SessionToken string     `json:"session_token,omitempty"`
+	SessionJWT   string     `json:"session_jwt,omitempty"`
+	User         users.User `json:"user,omitempty"`
+	StatusCode   int32      `json:"status_code,omitempty"`
+	Session      *Session   `json:"session,omitempty"`
 }
 
 // RevokeResponse: Response type for `Sessions.Revoke`.

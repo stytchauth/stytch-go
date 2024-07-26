@@ -142,18 +142,11 @@ type SearchParams struct {
 	Query *organizations.SearchQuery `json:"query,omitempty"`
 }
 
-// UnlinkRetiredEmailParams: Request type for `Members.UnlinkRetiredEmail`.
 type UnlinkRetiredEmailParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
-	MemberID string `json:"member_id,omitempty"`
-	// EmailID: The globally unique UUID of a Member's email.
-	EmailID string `json:"email_id,omitempty"`
-	// EmailAddress: The email address of the Member.
-	EmailAddress string `json:"email_address,omitempty"`
+	MemberID       string `json:"member_id,omitempty"`
+	EmailID        string `json:"email_id,omitempty"`
+	EmailAddress   string `json:"email_address,omitempty"`
 }
 
 // UpdateParams: Request type for `Members.Update`.
@@ -522,25 +515,13 @@ type SearchResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-// UnlinkRetiredEmailResponse: Response type for `Members.UnlinkRetiredEmail`.
 type UnlinkRetiredEmailResponse struct {
-	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
-	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
-	// debug an issue.
-	RequestID string `json:"request_id,omitempty"`
-	// MemberID: Globally unique UUID that identifies a specific Member.
-	MemberID string `json:"member_id,omitempty"`
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
-	Member organizations.Member `json:"member,omitempty"`
-	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-	Organization organizations.Organization `json:"organization,omitempty"`
-	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
-	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
-	// are server errors.
-	StatusCode int32 `json:"status_code,omitempty"`
+	RequestID      string                     `json:"request_id,omitempty"`
+	MemberID       string                     `json:"member_id,omitempty"`
+	OrganizationID string                     `json:"organization_id,omitempty"`
+	Member         organizations.Member       `json:"member,omitempty"`
+	Organization   organizations.Organization `json:"organization,omitempty"`
+	StatusCode     int32                      `json:"status_code,omitempty"`
 }
 
 // UpdateResponse: Response type for `Members.Update`.

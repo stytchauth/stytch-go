@@ -192,6 +192,34 @@ func (c *SessionsClient) Revoke(
 	return &retVal, err
 }
 
+func (c *SessionsClient) Migrate(
+	ctx context.Context,
+	body *sessions.MigrateParams,
+) (*sessions.MigrateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal sessions.MigrateResponse
+	err = c.C.NewRequest(
+		ctx,
+		"POST",
+		"/v1/sessions/migrate",
+		nil,
+		jsonBody,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
 // GetJWKS: Get the JSON Web Key Set (JWKS) for a project.
 //
 // JWKS are rotated every ~6 months. Upon rotation, new JWTs will be signed using the new key set, and both
