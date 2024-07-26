@@ -16,7 +16,8 @@ import (
 type ResetParams struct {
 	// PasswordResetToken: The password reset token to authenticate.
 	PasswordResetToken string `json:"password_reset_token,omitempty"`
-	// Password: The password to reset.
+	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
+	// e.g. spaces, emojis, non-English characers, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: Reuse an existing session instead of creating a new one. If you provide a `session_token`,
 	// Stytch will update the session.

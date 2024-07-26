@@ -10,6 +10,79 @@ import (
 	"time"
 )
 
+type Address struct {
+	Formatted     string `json:"formatted,omitempty"`
+	StreetAddress string `json:"street_address,omitempty"`
+	Locality      string `json:"locality,omitempty"`
+	Region        string `json:"region,omitempty"`
+	PostalCode    string `json:"postal_code,omitempty"`
+	Country       string `json:"country,omitempty"`
+	Type          string `json:"type,omitempty"`
+	Primary       bool   `json:"primary,omitempty"`
+}
+
+type Email struct {
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
+}
+
+type EnterpriseExtension struct {
+	EmployeeNumber string   `json:"employee_number,omitempty"`
+	CostCenter     string   `json:"cost_center,omitempty"`
+	Division       string   `json:"division,omitempty"`
+	Department     string   `json:"department,omitempty"`
+	Organization   string   `json:"organization,omitempty"`
+	Manager        *Manager `json:"manager,omitempty"`
+}
+
+type Group struct {
+	Value   string `json:"value,omitempty"`
+	Display string `json:"display,omitempty"`
+}
+
+type Manager struct {
+	Value       string `json:"value,omitempty"`
+	Ref         string `json:"ref,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
+}
+
+type Name struct {
+	Formatted       string `json:"formatted,omitempty"`
+	FamilyName      string `json:"family_name,omitempty"`
+	GivenName       string `json:"given_name,omitempty"`
+	MiddleName      string `json:"middle_name,omitempty"`
+	HonorificPrefix string `json:"honorific_prefix,omitempty"`
+	HonorificSuffix string `json:"honorific_suffix,omitempty"`
+}
+
+type PhoneNumber struct {
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
+}
+
+type SCIMAttributes struct {
+	UserName            string               `json:"user_name,omitempty"`
+	ID                  string               `json:"id,omitempty"`
+	ExternalID          string               `json:"external_id,omitempty"`
+	Active              bool                 `json:"active,omitempty"`
+	Groups              []Group              `json:"groups,omitempty"`
+	DisplayName         string               `json:"display_name,omitempty"`
+	NickName            string               `json:"nick_name,omitempty"`
+	ProfileURL          string               `json:"profile_url,omitempty"`
+	UserType            string               `json:"user_type,omitempty"`
+	Title               string               `json:"title,omitempty"`
+	PreferredLanguage   string               `json:"preferred_language,omitempty"`
+	Locale              string               `json:"locale,omitempty"`
+	Timezone            string               `json:"timezone,omitempty"`
+	Emails              []Email              `json:"emails,omitempty"`
+	PhoneNumbers        []PhoneNumber        `json:"phone_numbers,omitempty"`
+	Addresses           []Address            `json:"addresses,omitempty"`
+	Name                *Name                `json:"name,omitempty"`
+	EnterpriseExtension *EnterpriseExtension `json:"enterprise_extension,omitempty"`
+}
+
 type SCIMConnection struct {
 	OrganizationID                   string                             `json:"organization_id,omitempty"`
 	ConnectionID                     string                             `json:"connection_id,omitempty"`
@@ -48,6 +121,19 @@ type SCIMConnectionWithToken struct {
 	BearerToken                      string                             `json:"bearer_token,omitempty"`
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
 	BearerTokenExpiresAt             *time.Time                         `json:"bearer_token_expires_at,omitempty"`
+}
+
+// SCIMGroup:
+type SCIMGroup struct {
+	// GroupID: Globally unique UUID that identifies a specific SCIM Group.
+	GroupID string `json:"group_id,omitempty"`
+	// GroupName: The name of the SCIM group.
+	GroupName string `json:"group_name,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The organization_id is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
 }
 
 type SCIMGroupImplicitRoleAssignments struct {

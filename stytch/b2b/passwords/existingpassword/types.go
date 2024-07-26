@@ -16,9 +16,9 @@ import (
 type ResetParams struct {
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
-	// ExistingPassword: The member's current password that they supplied.
+	// ExistingPassword: The Member's current password that they supplied.
 	ExistingPassword string `json:"existing_password,omitempty"`
-	// NewPassword: The member's elected new password.
+	// NewPassword: The Member's elected new password.
 	NewPassword string `json:"new_password,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.

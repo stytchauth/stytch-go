@@ -13,7 +13,8 @@ import (
 
 // ResetParams: Request type for `Sessions.Reset`.
 type ResetParams struct {
-	// Password: The password of the user
+	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
+	// characers, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`

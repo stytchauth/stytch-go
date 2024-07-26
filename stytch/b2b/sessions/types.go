@@ -14,6 +14,7 @@ import (
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v15/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
@@ -242,6 +243,19 @@ type RevokeParams struct {
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
+}
+
+// RevokeRequestOptions:
+type RevokeRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *RevokeRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.

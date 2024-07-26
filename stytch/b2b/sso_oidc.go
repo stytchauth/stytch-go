@@ -26,7 +26,7 @@ func NewSSOOIDCClient(c stytch.Client) *SSOOIDCClient {
 	}
 }
 
-// CreateConnection: Create a new OIDC Connection. /%}
+// CreateConnection: Create a new OIDC Connection.
 func (c *SSOOIDCClient) CreateConnection(
 	ctx context.Context,
 	body *oidc.CreateConnectionParams,
@@ -78,14 +78,13 @@ func (c *SSOOIDCClient) CreateConnection(
 //
 // Note that a newly created connection will not become active until all of the following fields are
 // provided:
-//   - `issuer`
-//   - `client_id`
-//   - `client_secret`
-//   - `authorization_url`
-//   - `token_url`
-//   - `userinfo_url`
-//   - `jwks_url`
-//     /%}
+// * `issuer`
+// * `client_id`
+// * `client_secret`
+// * `authorization_url`
+// * `token_url`
+// * `userinfo_url`
+// * `jwks_url`
 func (c *SSOOIDCClient) UpdateConnection(
 	ctx context.Context,
 	body *oidc.UpdateConnectionParams,

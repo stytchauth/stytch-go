@@ -17,7 +17,8 @@ type ResetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// Password: The password to authenticate.
+	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
+	// e.g. spaces, emojis, non-English characers, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`

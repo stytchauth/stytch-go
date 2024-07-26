@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/stytchauth/stytch-go/v15/stytch"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/scim/connection"
@@ -26,7 +27,7 @@ func NewSCIMConnectionClient(c stytch.Client) *SCIMConnectionClient {
 	}
 }
 
-// Update a SCIM Connection. /%}
+// Update a SCIM Connection.
 func (c *SCIMConnectionClient) Update(
 	ctx context.Context,
 	body *connection.UpdateParams,
@@ -59,7 +60,7 @@ func (c *SCIMConnectionClient) Update(
 	return &retVal, err
 }
 
-// Delete: Deletes a SCIM Connection. /%}
+// Delete: Deletes a SCIM Connection.
 func (c *SCIMConnectionClient) Delete(
 	ctx context.Context,
 	body *connection.DeleteParams,
@@ -83,7 +84,7 @@ func (c *SCIMConnectionClient) Delete(
 	return &retVal, err
 }
 
-// RotateStart: Start a SCIM token rotation. /%}
+// RotateStart: Start a SCIM token rotation.
 func (c *SCIMConnectionClient) RotateStart(
 	ctx context.Context,
 	body *connection.RotateStartParams,
@@ -118,7 +119,7 @@ func (c *SCIMConnectionClient) RotateStart(
 
 // RotateComplete: Completes a SCIM token rotation. This will complete the current token rotation process
 // and update the active token to be the new token supplied in the
-// [start SCIM token rotation](https://stytch.com/docs/b2b/api/scim-rotate-token-start) response. /%}
+// [start SCIM token rotation](https://stytch.com/docs/b2b/api/scim-rotate-token-start) response.
 func (c *SCIMConnectionClient) RotateComplete(
 	ctx context.Context,
 	body *connection.RotateCompleteParams,
@@ -152,7 +153,7 @@ func (c *SCIMConnectionClient) RotateComplete(
 }
 
 // RotateCancel: Cancel a SCIM token rotation. This will cancel the current token rotation process, keeping
-// the original token active. /%}
+// the original token active.
 func (c *SCIMConnectionClient) RotateCancel(
 	ctx context.Context,
 	body *connection.RotateCancelParams,
@@ -185,7 +186,37 @@ func (c *SCIMConnectionClient) RotateCancel(
 	return &retVal, err
 }
 
-// Create a new SCIM Connection. /%}
+// GetGroups: Gets a paginated list of all SCIM Groups associated with a given Connection.
+func (c *SCIMConnectionClient) GetGroups(
+	ctx context.Context,
+	body *connection.GetGroupsParams,
+	methodOptions ...*connection.GetGroupsRequestOptions,
+) (*connection.GetGroupsResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		queryParams["cursor"] = body.Cursor
+		queryParams["limit"] = strconv.FormatUint(uint64(body.Limit), 10)
+	}
+
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal connection.GetGroupsResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+		queryParams,
+		nil,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
+// Create a new SCIM Connection.
 func (c *SCIMConnectionClient) Create(
 	ctx context.Context,
 	body *connection.CreateParams,
@@ -218,7 +249,7 @@ func (c *SCIMConnectionClient) Create(
 	return &retVal, err
 }
 
-// Get SCIM Connections. /%}
+// Get SCIM Connections.
 func (c *SCIMConnectionClient) Get(
 	ctx context.Context,
 	body *connection.GetParams,

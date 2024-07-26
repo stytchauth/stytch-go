@@ -9,6 +9,7 @@ package organizations
 import (
 	"time"
 
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/scim"
 	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
@@ -211,8 +212,9 @@ type Member struct {
 	//   who create an Organization through the
 	// [discovery flow](https://stytch.com/docs/b2b/api/create-organization-via-discovery). See the
 	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for more details on this Role.
-	IsAdmin            bool   `json:"is_admin,omitempty"`
-	TOTPRegistrationID string `json:"totp_registration_id,omitempty"`
+	IsAdmin               bool           `json:"is_admin,omitempty"`
+	TOTPRegistrationID    string         `json:"totp_registration_id,omitempty"`
+	RetiredEmailAddresses []RetiredEmail `json:"retired_email_addresses,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
@@ -475,6 +477,11 @@ type ResultsMetadata struct {
 	NextCursor string `json:"next_cursor,omitempty"`
 }
 
+type RetiredEmail struct {
+	EmailID      string `json:"email_id,omitempty"`
+	EmailAddress string `json:"email_address,omitempty"`
+}
+
 // SCIMRegistration:
 type SCIMRegistration struct {
 	// ConnectionID: The ID of the SCIM connection.
@@ -484,7 +491,7 @@ type SCIMRegistration struct {
 	// ExternalID: The ID of the member given by the identity provider.
 	ExternalID string `json:"external_id,omitempty"`
 	// SCIMAttributes: An object for storing SCIM attributes brought over from the identity provider.
-	SCIMAttributes map[string]any `json:"scim_attributes,omitempty"`
+	SCIMAttributes *scim.SCIMAttributes `json:"scim_attributes,omitempty"`
 }
 
 // SSORegistration:
