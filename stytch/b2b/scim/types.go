@@ -136,7 +136,9 @@ type SCIMGroup struct {
 	ConnectionID string `json:"connection_id,omitempty"`
 }
 
+// SCIMGroupImplicitRoleAssignments:
 type SCIMGroupImplicitRoleAssignments struct {
+	// RoleID: The ID of the role.
 	RoleID    string `json:"role_id,omitempty"`
 	GroupID   string `json:"group_id,omitempty"`
 	GroupName string `json:"group_name,omitempty"`
