@@ -7,6 +7,8 @@ package cryptowallets
 // !!!
 
 import (
+	"time"
+
 	"github.com/stytchauth/stytch-go/v15/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v15/stytch/consumer/users"
 )
@@ -62,6 +64,35 @@ type AuthenticateStartParams struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The `session_jwt` associated with a User's existing Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
+	// SiweParams: The parameters for a Sign In With Ethereum (SIWE) message. May only be passed if the
+	// `crypto_wallet_type` is `ethereum`.
+	SiweParams *SIWEParams `json:"siwe_params,omitempty"`
+}
+
+// SIWEParams:
+type SIWEParams struct {
+	// Domain: Only required if `siwe_params` is passed. The domain that is requesting the crypto wallet
+	// signature. Must be an RFC 3986 authority.
+	Domain string `json:"domain,omitempty"`
+	// URI: Only required if `siwe_params` is passed. An RFC 3986 URI referring to the resource that is the
+	// subject of the signing.
+	URI string `json:"uri,omitempty"`
+	// Resources:  A list of information or references to information the user wishes to have resolved as part
+	// of authentication. Every resource must be an RFC 3986 URI.
+	Resources []string `json:"resources,omitempty"`
+	// ChainID: The EIP-155 Chain ID to which the session is bound. Defaults to 1.
+	ChainID uint32 `json:"chain_id,omitempty"`
+	// Statement: A human-readable ASCII assertion that the user will sign.
+	Statement string `json:"statement,omitempty"`
+	// IssuedAt: The time when the message was generated. Defaults to the current time. All timestamps in our
+	// API conform to the RFC 3339 standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	IssuedAt *time.Time `json:"issued_at,omitempty"`
+	// NotBefore: The time when the signed authentication message will become valid. Defaults to the current
+	// time. All timestamps in our API conform to the RFC 3339 standard and are expressed in UTC, e.g.
+	// `2021-12-29T12:33:09Z`.
+	NotBefore *time.Time `json:"not_before,omitempty"`
+	// MessageRequestID: A system-specific identifier that may be used to uniquely refer to the sign-in request.
+	MessageRequestID string `json:"message_request_id,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `CryptoWallets.Authenticate`.
@@ -89,6 +120,8 @@ type AuthenticateResponse struct {
 	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
+	// SiweParams: The parameters of the Sign In With Ethereum (SIWE) message that was signed.
+	SiweParams *SIWEParamsResponse `json:"siwe_params,omitempty"`
 }
 
 // AuthenticateStartResponse: Response type for `CryptoWallets.AuthenticateStart`.
@@ -107,4 +140,23 @@ type AuthenticateStartResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+// SIWEParamsResponse:
+type SIWEParamsResponse struct {
+	// Domain: The domain that requested the crypto wallet signature.
+	Domain string `json:"domain,omitempty"`
+	// URI: An RFC 3986 URI referring to the resource that is the subject of the signing.
+	URI string `json:"uri,omitempty"`
+	// ChainID: The EIP-155 Chain ID to which the session is bound.
+	ChainID uint32 `json:"chain_id,omitempty"`
+	// Resources:  A list of information or references to information the user wishes to have resolved as part
+	// of authentication. Every resource must be an RFC 3986 URI.
+	Resources  []string `json:"resources,omitempty"`
+	StatusCode int32    `json:"status_code,omitempty"`
+	// IssuedAt: The time when the message was generated. All timestamps in our API conform to the RFC 3339
+	// standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	IssuedAt *time.Time `json:"issued_at,omitempty"`
+	// MessageRequestID: A system-specific identifier that may be used to uniquely refer to the sign-in request.
+	MessageRequestID string `json:"message_request_id,omitempty"`
 }
