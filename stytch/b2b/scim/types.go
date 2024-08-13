@@ -41,6 +41,11 @@ type Group struct {
 	Display string `json:"display,omitempty"`
 }
 
+type IMs struct {
+	Value string `json:"value,omitempty"`
+	Type  string `json:"type,omitempty"`
+}
+
 type Manager struct {
 	Value       string `json:"value,omitempty"`
 	Ref         string `json:"ref,omitempty"`
@@ -79,6 +84,7 @@ type SCIMAttributes struct {
 	Emails              []Email              `json:"emails,omitempty"`
 	PhoneNumbers        []PhoneNumber        `json:"phone_numbers,omitempty"`
 	Addresses           []Address            `json:"addresses,omitempty"`
+	Ims                 []IMs                `json:"ims,omitempty"`
 	Name                *Name                `json:"name,omitempty"`
 	EnterpriseExtension *EnterpriseExtension `json:"enterprise_extension,omitempty"`
 }
@@ -139,7 +145,8 @@ type SCIMGroup struct {
 // SCIMGroupImplicitRoleAssignments:
 type SCIMGroupImplicitRoleAssignments struct {
 	// RoleID: The ID of the role.
-	RoleID    string `json:"role_id,omitempty"`
+	RoleID string `json:"role_id,omitempty"`
+	// GroupID: The ID of the group.
 	GroupID   string `json:"group_id,omitempty"`
 	GroupName string `json:"group_name,omitempty"`
 }

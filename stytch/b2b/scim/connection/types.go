@@ -95,7 +95,7 @@ type UpdateParams struct {
 	DisplayName      string                        `json:"display_name,omitempty"`
 	IdentityProvider UpdateRequestIdentityProvider `json:"identity_provider,omitempty"`
 	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
-	// array must contain a `group` and a `role_id`.
+	// array must contain a `group_id` and a `role_id`.
 	SCIMGroupImplicitRoleAssignments []*scim.SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
 }
 

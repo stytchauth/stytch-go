@@ -80,9 +80,12 @@ type SIWEParams struct {
 	// Resources:  A list of information or references to information the user wishes to have resolved as part
 	// of authentication. Every resource must be an RFC 3986 URI.
 	Resources []string `json:"resources,omitempty"`
-	// ChainID: The EIP-155 Chain ID to which the session is bound. Defaults to 1.
-	ChainID uint32 `json:"chain_id,omitempty"`
-	// Statement: A human-readable ASCII assertion that the user will sign.
+	// ChainID: The EIP-155 Chain ID to which the session is bound. Defaults to 1. Must be the string
+	// representation of an integer between 1 and 9,223,372,036,854,775,771, inclusive.
+	ChainID string `json:"chain_id,omitempty"`
+	// Statement: A human-readable ASCII assertion that the user will sign. The statement may only include
+	// reserved, unreserved, or space characters according to RFC 3986 definitions, and must not contain other
+	// forms of whitespace such as newlines, tabs, and carriage returns.
 	Statement string `json:"statement,omitempty"`
 	// IssuedAt: The time when the message was generated. Defaults to the current time. All timestamps in our
 	// API conform to the RFC 3339 standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
@@ -91,7 +94,8 @@ type SIWEParams struct {
 	// time. All timestamps in our API conform to the RFC 3339 standard and are expressed in UTC, e.g.
 	// `2021-12-29T12:33:09Z`.
 	NotBefore *time.Time `json:"not_before,omitempty"`
-	// MessageRequestID: A system-specific identifier that may be used to uniquely refer to the sign-in request.
+	// MessageRequestID: A system-specific identifier that may be used to uniquely refer to the sign-in
+	// request. The `message_request_id` must be a valid pchar according to RFC 3986 definitions.
 	MessageRequestID string `json:"message_request_id,omitempty"`
 }
 
@@ -149,7 +153,7 @@ type SIWEParamsResponse struct {
 	// URI: An RFC 3986 URI referring to the resource that is the subject of the signing.
 	URI string `json:"uri,omitempty"`
 	// ChainID: The EIP-155 Chain ID to which the session is bound.
-	ChainID uint32 `json:"chain_id,omitempty"`
+	ChainID string `json:"chain_id,omitempty"`
 	// Resources:  A list of information or references to information the user wishes to have resolved as part
 	// of authentication. Every resource must be an RFC 3986 URI.
 	Resources  []string `json:"resources,omitempty"`
