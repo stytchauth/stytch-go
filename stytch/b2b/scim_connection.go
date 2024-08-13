@@ -249,7 +249,7 @@ func (c *SCIMConnectionClient) Create(
 	return &retVal, err
 }
 
-// Get SCIM Connections.
+// Get SCIM Connection.
 func (c *SCIMConnectionClient) Get(
 	ctx context.Context,
 	body *connection.GetParams,
