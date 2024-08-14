@@ -153,6 +153,17 @@ type CreateParams struct {
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
 	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
+	// OAuthTenantJITProvisioning: The authentication setting that controls how a new Member can JIT provision
+	// into an organization by tenant. The accepted values are:
+	//
+	//   `RESTRICTED` – only new Members with tenants in `allowed_oauth_tenants` can JIT provision via tenant.
+	//
+	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
+	//
+	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
+	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
+	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack" and "hubspot".
+	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.

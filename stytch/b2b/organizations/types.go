@@ -128,6 +128,17 @@ type CreateParams struct {
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
 	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
+	// OAuthTenantJITProvisioning: The authentication setting that controls how a new Member can JIT provision
+	// into an organization by tenant. The accepted values are:
+	//
+	//   `RESTRICTED` – only new Members with tenants in `allowed_oauth_tenants` can JIT provision via tenant.
+	//
+	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
+	//
+	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
+	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
+	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack" and "hubspot".
+	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -479,6 +490,14 @@ type Organization struct {
 	//   The list's accepted values are: `sms_otp` and `totp`.
 	//
 	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
+	// OAuthTenantJITProvisioning: The authentication setting that controls how a new Member can JIT provision
+	// into an organization by tenant. The accepted values are:
+	//
+	//   `RESTRICTED` – only new Members with tenants in `allowed_oauth_tenants` can JIT provision via tenant.
+	//
+	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
+	//
+	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -493,6 +512,9 @@ type Organization struct {
 	// SCIMActiveConnection: An active
 	// [SCIM Connection references](https://stytch.com/docs/b2b/api/scim-connection-object).
 	SCIMActiveConnection *ActiveSCIMConnection `json:"scim_active_connection,omitempty"`
+	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
+	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack" and "hubspot".
+	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 }
 
 // ResultsMetadata:
@@ -731,6 +753,25 @@ type UpdateParams struct {
 	// permission to perform the `update.settings.allowed-mfa-methods` action on the `stytch.organization`
 	// Resource.
 	AllowedMFAMethods []string `json:"allowed_mfa_methods,omitempty"`
+	// OAuthTenantJITProvisioning: The authentication setting that controls how a new Member can JIT provision
+	// into an organization by tenant. The accepted values are:
+	//
+	//   `RESTRICTED` – only new Members with tenants in `allowed_oauth_tenants` can JIT provision via tenant.
+	//
+	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
+	//
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.oauth-tenant-jit-provisioning` action on the
+	// `stytch.organization` Resource.
+	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
+	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
+	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack" and "hubspot".
+	//
+	// If this field is provided and a session header is passed into the request, the Member Session must have
+	// permission to perform the `update.settings.allowed-oauth-tenants` action on the `stytch.organization`
+	// Resource.
+	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 }
 
 // UpdateRequestOptions:
