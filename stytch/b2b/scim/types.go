@@ -36,14 +36,21 @@ type EnterpriseExtension struct {
 	Manager        *Manager `json:"manager,omitempty"`
 }
 
+type Entitlement struct {
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
+}
+
 type Group struct {
 	Value   string `json:"value,omitempty"`
 	Display string `json:"display,omitempty"`
 }
 
 type IMs struct {
-	Value string `json:"value,omitempty"`
-	Type  string `json:"type,omitempty"`
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
 }
 
 type Manager struct {
@@ -67,6 +74,18 @@ type PhoneNumber struct {
 	Primary bool   `json:"primary,omitempty"`
 }
 
+type Photo struct {
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
+}
+
+type Role struct {
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
+}
+
 type SCIMAttributes struct {
 	UserName            string               `json:"user_name,omitempty"`
 	ID                  string               `json:"id,omitempty"`
@@ -85,6 +104,10 @@ type SCIMAttributes struct {
 	PhoneNumbers        []PhoneNumber        `json:"phone_numbers,omitempty"`
 	Addresses           []Address            `json:"addresses,omitempty"`
 	Ims                 []IMs                `json:"ims,omitempty"`
+	Photos              []Photo              `json:"photos,omitempty"`
+	Entitlements        []Entitlement        `json:"entitlements,omitempty"`
+	Roles               []Role               `json:"roles,omitempty"`
+	X509Certificates    []X509Certificate    `json:"x509certificates,omitempty"`
 	Name                *Name                `json:"name,omitempty"`
 	EnterpriseExtension *EnterpriseExtension `json:"enterprise_extension,omitempty"`
 }
@@ -149,4 +172,10 @@ type SCIMGroupImplicitRoleAssignments struct {
 	// GroupID: The ID of the group.
 	GroupID   string `json:"group_id,omitempty"`
 	GroupName string `json:"group_name,omitempty"`
+}
+
+type X509Certificate struct {
+	Value   string `json:"value,omitempty"`
+	Type    string `json:"type,omitempty"`
+	Primary bool   `json:"primary,omitempty"`
 }
