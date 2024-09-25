@@ -49,9 +49,9 @@ type AuthenticateParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// Locale: If the Member needs to complete an MFA step, and the Member has a phone number, this endpoint
-	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
-	// be used to determine which language to use when sending the passcode.
+	// Locale: If the needs to complete an MFA step, and the Member has a phone number, this endpoint will
+	// pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will be
+	// used to determine which language to use when sending the passcode.
 	//
 	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
@@ -71,12 +71,18 @@ type AuthenticateParams struct {
 }
 
 type Connection struct {
-	OrganizationID         string `json:"organization_id,omitempty"`
-	ConnectionID           string `json:"connection_id,omitempty"`
-	ExternalOrganizationID string `json:"external_organization_id,omitempty"`
-	ExternalConnectionID   string `json:"external_connection_id,omitempty"`
-	DisplayName            string `json:"display_name,omitempty"`
-	Status                 string `json:"status,omitempty"`
+	OrganizationID                            string                             `json:"organization_id,omitempty"`
+	ConnectionID                              string                             `json:"connection_id,omitempty"`
+	ExternalOrganizationID                    string                             `json:"external_organization_id,omitempty"`
+	ExternalConnectionID                      string                             `json:"external_connection_id,omitempty"`
+	DisplayName                               string                             `json:"display_name,omitempty"`
+	Status                                    string                             `json:"status,omitempty"`
+	ExternalConnectionImplicitRoleAssignments []ConnectionImplicitRoleAssignment `json:"external_connection_implicit_role_assignments,omitempty"`
+	ExternalGroupImplicitRoleAssignments      []GroupImplicitRoleAssignment      `json:"external_group_implicit_role_assignments,omitempty"`
+}
+
+type ConnectionImplicitRoleAssignment struct {
+	RoleID string `json:"role_id,omitempty"`
 }
 
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
@@ -118,6 +124,11 @@ type GetConnectionsRequestOptions struct {
 func (o *GetConnectionsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
+}
+
+type GroupImplicitRoleAssignment struct {
+	RoleID string `json:"role_id,omitempty"`
+	Group  string `json:"group,omitempty"`
 }
 
 type OIDCConnection struct {
