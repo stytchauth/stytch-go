@@ -12,12 +12,6 @@ import (
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
 )
 
-type DeleteParams struct {
-	EmailAddress   string `json:"email_address,omitempty"`
-	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
-}
-
 // ResetParams: Request type for `Email.Reset`.
 type ResetParams struct {
 	// PasswordResetToken: The password reset token to authenticate.
@@ -63,9 +57,9 @@ type ResetParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// Locale: If the needs to complete an MFA step, and the Member has a phone number, this endpoint will
-	// pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will be
-	// used to determine which language to use when sending the passcode.
+	// Locale: If the Member needs to complete an MFA step, and the Member has a phone number, this endpoint
+	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
+	// be used to determine which language to use when sending the passcode.
 	//
 	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
@@ -126,13 +120,6 @@ type ResetStartParams struct {
 	// default email template. The template must be a template using our built-in customizations or a custom
 	// HTML email for Magic Links - Reset Password.
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
-}
-
-type DeleteResponse struct {
-	Member       organizations.Member       `json:"member,omitempty"`
-	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
 }
 
 // ResetResponse: Response type for `Email.Reset`.

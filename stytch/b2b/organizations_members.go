@@ -29,7 +29,7 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 	}
 }
 
-// Update: Updates a specified by `organization_id` and `member_id`.
+// Update: Updates a Member specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Update(
 	ctx context.Context,
 	body *members.UpdateParams,
@@ -62,7 +62,7 @@ func (c *OrganizationsMembersClient) Update(
 	return &retVal, err
 }
 
-// Delete: Deletes a specified by `organization_id` and `member_id`.
+// Delete: Deletes a Member specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Delete(
 	ctx context.Context,
 	body *members.DeleteParams,
@@ -86,9 +86,8 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
-// Reactivate: Reactivates a deleted's status and its associated email status (if applicable) to active,
-// specified by `organization_id` and `member_id`. This endpoint will only work for Members with at least
-// one verified email where their `email_address_verified` is `true`.
+// Reactivate: Reactivates a deleted Member's status and its associated email status (if applicable) to
+// active, specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Reactivate(
 	ctx context.Context,
 	body *members.ReactivateParams,
@@ -121,7 +120,7 @@ func (c *OrganizationsMembersClient) Reactivate(
 	return &retVal, err
 }
 
-// DeleteMFAPhoneNumber: Delete a's MFA phone number.
+// DeleteMFAPhoneNumber: Delete a Member's MFA phone number.
 //
 // To change a Member's phone number, you must first call this endpoint to delete the existing phone number.
 //
@@ -220,7 +219,7 @@ func (c *OrganizationsMembersClient) Search(
 	return &retVal, err
 }
 
-// DeletePassword: Delete a's password.
+// DeletePassword: Delete a Member's password.
 func (c *OrganizationsMembersClient) DeletePassword(
 	ctx context.Context,
 	body *members.DeletePasswordParams,
@@ -267,8 +266,8 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 	return &retVal, err
 }
 
-// UnlinkRetiredEmail: Unlinks a retired email address from a specified by their `organization_id` and
-// `member_id`. The email address
+// UnlinkRetiredEmail: Unlinks a retired email address from a Member specified by their `organization_id`
+// and `member_id`. The email address
 // to be retired can be identified in the request body by either its `email_id`, its `email_address`, or
 // both. If using
 // both identifiers they must refer to the same email.
@@ -320,7 +319,7 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 	return &retVal, err
 }
 
-// Create: Creates a. An `organization_id` and `email_address` are required.
+// Create: Creates a Member. An `organization_id` and `email_address` are required.
 func (c *OrganizationsMembersClient) Create(
 	ctx context.Context,
 	body *members.CreateParams,

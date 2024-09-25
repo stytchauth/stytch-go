@@ -50,9 +50,9 @@ type AuthenticateParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// Locale: If the needs to complete an MFA step, and the Member has a phone number, this endpoint will
-	// pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will be
-	// used to determine which language to use when sending the passcode.
+	// Locale: If the Member needs to complete an MFA step, and the Member has a phone number, this endpoint
+	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
+	// be used to determine which language to use when sending the passcode.
 	//
 	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
@@ -98,8 +98,8 @@ type MigrateParams struct {
 	EmailAddress string `json:"email_address,omitempty"`
 	// Hash: The password hash. For a Scrypt or PBKDF2 hash, the hash needs to be a base64 encoded string.
 	Hash string `json:"hash,omitempty"`
-	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon2_id`, `md_5`,
-	// `sha_1`, and `pbkdf_2` are supported.
+	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon2i`, `argon2id`, `md_5`, `sha_1`,
+	// and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.

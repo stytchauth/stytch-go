@@ -64,8 +64,8 @@ func (c *PasswordsEmailClient) ResetStart(
 	return &retVal, err
 }
 
-// Reset the's password and authenticate them. This endpoint checks that the password reset token is valid,
-// hasn’t expired, or already been used.
+// Reset the member's password and authenticate them. This endpoint checks that the password reset token is
+// valid, hasn’t expired, or already been used.
 //
 // The provided password needs to meet our password strength requirements, which can be checked in advance
 // with the password strength endpoint. If the token and password are accepted, the password is securely
@@ -102,34 +102,6 @@ func (c *PasswordsEmailClient) Reset(
 		ctx,
 		"POST",
 		"/v1/b2b/passwords/email/reset",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
-	)
-	return &retVal, err
-}
-
-func (c *PasswordsEmailClient) Delete(
-	ctx context.Context,
-	body *email.DeleteParams,
-) (*email.DeleteResponse, error) {
-	var jsonBody []byte
-	var err error
-	if body != nil {
-		jsonBody, err = json.Marshal(body)
-		if err != nil {
-			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
-		}
-	}
-
-	headers := make(map[string][]string)
-
-	var retVal email.DeleteResponse
-	err = c.C.NewRequest(
-		ctx,
-		"POST",
-		"/v1/b2b/passwords/email/delete",
 		nil,
 		jsonBody,
 		&retVal,

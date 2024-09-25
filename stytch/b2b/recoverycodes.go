@@ -26,8 +26,8 @@ func NewRecoveryCodesClient(c stytch.Client) *RecoveryCodesClient {
 	}
 }
 
-// Recover: Allows a to complete an MFA flow by consuming a recovery code. This consumes the recovery code
-// and returns a session token that can be used to authenticate the Member.
+// Recover: Allows a Member to complete an MFA flow by consuming a recovery code. This consumes the
+// recovery code and returns a session token that can be used to authenticate the Member.
 func (c *RecoveryCodesClient) Recover(
 	ctx context.Context,
 	body *recoverycodes.RecoverParams,
@@ -56,7 +56,7 @@ func (c *RecoveryCodesClient) Recover(
 	return &retVal, err
 }
 
-// Get: Returns a's full set of active recovery codes.
+// Get: Returns a Member's full set of active recovery codes.
 func (c *RecoveryCodesClient) Get(
 	ctx context.Context,
 	body *recoverycodes.GetParams,
@@ -76,8 +76,8 @@ func (c *RecoveryCodesClient) Get(
 	return &retVal, err
 }
 
-// Rotate a's recovery codes. This invalidates all existing recovery codes and generates a new set of
-// recovery codes.
+// Rotate a Member's recovery codes. This invalidates all existing recovery codes and generates a new set
+// of recovery codes.
 func (c *RecoveryCodesClient) Rotate(
 	ctx context.Context,
 	body *recoverycodes.RotateParams,
