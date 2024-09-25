@@ -29,7 +29,7 @@ func NewOrganizationsClient(c stytch.Client) *OrganizationsClient {
 	}
 }
 
-// Create: Creates an Organization. An `organization_name` and a unique `organization_slug` are required.
+// Create: Creates an. An `organization_name` and a unique `organization_slug` are required.
 //
 // By default, `email_invites` and `sso_jit_provisioning` will be set to `ALL_ALLOWED`, and `mfa_policy`
 // will be set to `OPTIONAL` if no Organization authentication settings are explicitly defined in the
@@ -66,7 +66,7 @@ func (c *OrganizationsClient) Create(
 	return &retVal, err
 }
 
-// Get: Returns an Organization specified by `organization_id`.
+// Get: Returns an specified by `organization_id`.
 func (c *OrganizationsClient) Get(
 	ctx context.Context,
 	body *organizations.GetParams,
@@ -86,8 +86,8 @@ func (c *OrganizationsClient) Get(
 	return &retVal, err
 }
 
-// Update: Updates an Organization specified by `organization_id`. An Organization must always have at
-// least one auth setting set to either `RESTRICTED` or `ALL_ALLOWED` in order to provision new Members.
+// Update: Updates an specified by `organization_id`. An Organization must always have at least one auth
+// setting set to either `RESTRICTED` or `ALL_ALLOWED` in order to provision new Members.
 //
 // *See the [Organization authentication settings](https://stytch.com/docs/b2b/api/org-auth-settings)
 // resource to learn more about fields like `email_jit_provisioning`, `email_invites`,
@@ -124,8 +124,7 @@ func (c *OrganizationsClient) Update(
 	return &retVal, err
 }
 
-// Delete: Deletes an Organization specified by `organization_id`. All Members of the Organization will
-// also be deleted.
+// Delete: Deletes an specified by `organization_id`. All Members of the Organization will also be deleted.
 func (c *OrganizationsClient) Delete(
 	ctx context.Context,
 	body *organizations.DeleteParams,
