@@ -225,7 +225,8 @@ type CreateResponse struct {
 	Organization *organizations.Organization `json:"organization,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired     *mfa.MfaRequired          `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
 	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
 }
 

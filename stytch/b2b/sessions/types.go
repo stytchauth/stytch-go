@@ -131,9 +131,9 @@ type ExchangeParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// Locale: If the Member needs to complete an MFA step, and the Member has a phone number, this endpoint
-	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
-	// be used to determine which language to use when sending the passcode.
+	// Locale: If the needs to complete an MFA step, and the Member has a phone number, this endpoint will
+	// pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will be
+	// used to determine which language to use when sending the passcode.
 	//
 	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
@@ -223,11 +223,10 @@ type MigrateParams struct {
 
 // PrimaryRequired:
 type PrimaryRequired struct {
-	// AllowedAuthMethods: If non-empty, indicates that the Organization restricts the authentication methods
-	// it allows for login (such as `sso` or `password`), and the end user must complete one of those
-	// authentication methods to log in. If empty, indicates that the Organization does not restrict the
-	// authentication method it allows for login, but the end user does not have any transferrable primary
-	// factors. Only email magic link and OAuth factors can be transferred between Organizations.
+	// AllowedAuthMethods: Details the auth method that the member must also complete to fulfill the primary
+	// authentication requirements of the Organization. For example, a value of `[magic_link]` indicates that
+	// the Member must also complete a magic link authentication step. If you have an intermediate session
+	// token, you must pass it into that primary authentication step.
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
 }
 
