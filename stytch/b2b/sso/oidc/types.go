@@ -58,6 +58,8 @@ type UpdateConnectionParams struct {
 	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
 	// and `google-workspace`.
 	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	CustomScopes     string                                  `json:"custom_scopes,omitempty"`
+	AttributeMapping map[string]any                          `json:"attribute_mapping,omitempty"`
 }
 
 // CreateConnectionRequestOptions:

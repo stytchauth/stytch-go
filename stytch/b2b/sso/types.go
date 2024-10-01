@@ -132,19 +132,21 @@ type GroupImplicitRoleAssignment struct {
 }
 
 type OIDCConnection struct {
-	OrganizationID   string `json:"organization_id,omitempty"`
-	ConnectionID     string `json:"connection_id,omitempty"`
-	Status           string `json:"status,omitempty"`
-	DisplayName      string `json:"display_name,omitempty"`
-	RedirectURL      string `json:"redirect_url,omitempty"`
-	ClientID         string `json:"client_id,omitempty"`
-	ClientSecret     string `json:"client_secret,omitempty"`
-	Issuer           string `json:"issuer,omitempty"`
-	AuthorizationURL string `json:"authorization_url,omitempty"`
-	TokenURL         string `json:"token_url,omitempty"`
-	UserinfoURL      string `json:"userinfo_url,omitempty"`
-	JWKSURL          string `json:"jwks_url,omitempty"`
-	IdentityProvider string `json:"identity_provider,omitempty"`
+	OrganizationID   string         `json:"organization_id,omitempty"`
+	ConnectionID     string         `json:"connection_id,omitempty"`
+	Status           string         `json:"status,omitempty"`
+	DisplayName      string         `json:"display_name,omitempty"`
+	RedirectURL      string         `json:"redirect_url,omitempty"`
+	ClientID         string         `json:"client_id,omitempty"`
+	ClientSecret     string         `json:"client_secret,omitempty"`
+	Issuer           string         `json:"issuer,omitempty"`
+	AuthorizationURL string         `json:"authorization_url,omitempty"`
+	TokenURL         string         `json:"token_url,omitempty"`
+	UserinfoURL      string         `json:"userinfo_url,omitempty"`
+	JWKSURL          string         `json:"jwks_url,omitempty"`
+	IdentityProvider string         `json:"identity_provider,omitempty"`
+	CustomScopes     string         `json:"custom_scopes,omitempty"`
+	AttributeMapping map[string]any `json:"attribute_mapping,omitempty"`
 }
 
 type SAMLConnection struct {

@@ -18,17 +18,19 @@ import (
 )
 
 type SSOClient struct {
-	C    stytch.Client
-	OIDC *SSOOIDCClient
-	SAML *SSOSAMLClient
+	C        stytch.Client
+	OIDC     *SSOOIDCClient
+	SAML     *SSOSAMLClient
+	External *SSOExternalClient
 }
 
 func NewSSOClient(c stytch.Client) *SSOClient {
 	return &SSOClient{
 		C: c,
 
-		OIDC: NewSSOOIDCClient(c),
-		SAML: NewSSOSAMLClient(c),
+		OIDC:     NewSSOOIDCClient(c),
+		SAML:     NewSSOSAMLClient(c),
+		External: NewSSOExternalClient(c),
 	}
 }
 
