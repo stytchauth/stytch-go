@@ -267,6 +267,34 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 	return &retVal, err
 }
 
+func (c *OrganizationsMembersClient) OIDCProviders(
+	ctx context.Context,
+	body *members.OIDCProviderInformationParams,
+) (*members.OIDCProvidersResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		if body.IncludeRefreshToken {
+			queryParams["include_refresh_token"] = "true"
+		} else {
+			queryParams["include_refresh_token"] = "false"
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal members.OIDCProvidersResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oidc_providers", body.OrganizationID, body.MemberID),
+		queryParams,
+		nil,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
 // UnlinkRetiredEmail: Unlinks a retired email address from a specified by their `organization_id` and
 // `member_id`. The email address
 // to be retired can be identified in the request body by either its `email_id`, its `email_address`, or
