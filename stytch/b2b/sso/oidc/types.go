@@ -58,6 +58,13 @@ type UpdateConnectionParams struct {
 	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
 	// and `google-workspace`.
 	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	// CustomScopes: Include a space-separated list of custom scopes that you'd like to include. Note that this
+	// list must be URL encoded, e.g. the spaces must be expressed as %20.
+	CustomScopes string `json:"custom_scopes,omitempty"`
+	// AttributeMapping: An object that represents the attributes used to identify a Member. This object will
+	// map the IdP-defined User attributes to Stytch-specific values, which will appear on the member's Trusted
+	// Metadata.
+	AttributeMapping map[string]any `json:"attribute_mapping,omitempty"`
 }
 
 // CreateConnectionRequestOptions:

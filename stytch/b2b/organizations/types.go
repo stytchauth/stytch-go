@@ -394,6 +394,16 @@ type OAuthRegistration struct {
 	Locale string `json:"locale,omitempty"`
 }
 
+type OIDCProviderInfo struct {
+	ProviderSubject      string   `json:"provider_subject,omitempty"`
+	IDToken              string   `json:"id_token,omitempty"`
+	AccessToken          string   `json:"access_token,omitempty"`
+	AccessTokenExpiresIn int32    `json:"access_token_expires_in,omitempty"`
+	Scopes               []string `json:"scopes,omitempty"`
+	ConnectionID         string   `json:"connection_id,omitempty"`
+	RefreshToken         string   `json:"refresh_token,omitempty"`
+}
+
 // Organization:
 type Organization struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is

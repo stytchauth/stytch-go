@@ -84,7 +84,9 @@ type UpdateConnectionParams struct {
 	// information.
 	SAMLGroupImplicitRoleAssignments []*sso.SAMLGroupImplicitRoleAssignment `json:"saml_group_implicit_role_assignments,omitempty"`
 	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
-	// when you wish to migrate an existing SAML integration to Stytch with zero downtime.
+	// when you wish to migrate an existing SAML integration to Stytch with zero downtime. Read our
+	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
+	// for more info.
 	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
 	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
 	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,

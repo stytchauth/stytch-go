@@ -117,6 +117,7 @@ type AuthenticationFactor struct {
 	HubspotOAuthFactor         *HubspotOAuthFactor         `json:"hubspot_oauth_factor,omitempty"`
 	SlackOAuthExchangeFactor   *SlackOAuthExchangeFactor   `json:"slack_oauth_exchange_factor,omitempty"`
 	HubspotOAuthExchangeFactor *HubspotOAuthExchangeFactor `json:"hubspot_oauth_exchange_factor,omitempty"`
+	GithubOAuthExchangeFactor  *GithubOAuthExchangeFactor  `json:"github_oauth_exchange_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -193,6 +194,10 @@ type GitLabOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
+}
+
+type GithubOAuthExchangeFactor struct {
+	EmailID string `json:"email_id,omitempty"`
 }
 
 type GithubOAuthFactor struct {
@@ -551,6 +556,7 @@ const (
 	AuthenticationFactorDeliveryMethodImportedAuth0        AuthenticationFactorDeliveryMethod = "imported_auth0"
 	AuthenticationFactorDeliveryMethodOAuthExchangeSlack   AuthenticationFactorDeliveryMethod = "oauth_exchange_slack"
 	AuthenticationFactorDeliveryMethodOAuthExchangeHubspot AuthenticationFactorDeliveryMethod = "oauth_exchange_hubspot"
+	AuthenticationFactorDeliveryMethodOAuthExchangeGithub  AuthenticationFactorDeliveryMethod = "oauth_exchange_github"
 )
 
 type AuthenticationFactorType string

@@ -111,6 +111,12 @@ type GetParams struct {
 	EmailAddress string `json:"email_address,omitempty"`
 }
 
+type OIDCProviderInformationParams struct {
+	OrganizationID      string `json:"organization_id,omitempty"`
+	MemberID            string `json:"member_id,omitempty"`
+	IncludeRefreshToken bool   `json:"include_refresh_token,omitempty"`
+}
+
 // ReactivateParams: Request type for `Members.Reactivate`.
 type ReactivateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -481,6 +487,12 @@ type GetResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type OIDCProvidersResponse struct {
+	RequestID     string                           `json:"request_id,omitempty"`
+	Registrations []organizations.OIDCProviderInfo `json:"registrations,omitempty"`
+	StatusCode    int32                            `json:"status_code,omitempty"`
 }
 
 // ReactivateResponse: Response type for `Members.Reactivate`.
