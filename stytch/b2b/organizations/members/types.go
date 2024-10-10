@@ -58,6 +58,8 @@ type DangerouslyGetParams struct {
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
+	// IncludeDeleted: Whether to include deleted Members in the response. Defaults to false.
+	IncludeDeleted bool `json:"include_deleted,omitempty"`
 }
 
 // DeleteMFAPhoneNumberParams: Request type for `Members.DeleteMFAPhoneNumber`.
