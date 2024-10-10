@@ -252,6 +252,15 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 	ctx context.Context,
 	body *members.DangerouslyGetParams,
 ) (*members.GetResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		if body.IncludeDeleted {
+			queryParams["include_deleted"] = "true"
+		} else {
+			queryParams["include_deleted"] = "false"
+		}
+	}
+
 	headers := make(map[string][]string)
 
 	var retVal members.GetResponse
@@ -259,7 +268,7 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 		ctx,
 		"GET",
 		fmt.Sprintf("/v1/b2b/organizations/members/dangerously_get/%s", body.MemberID),
-		nil,
+		queryParams,
 		nil,
 		&retVal,
 		headers,

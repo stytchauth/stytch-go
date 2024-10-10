@@ -81,7 +81,20 @@ type Connection struct {
 	ExternalGroupImplicitRoleAssignments      []GroupImplicitRoleAssignment      `json:"external_group_implicit_role_assignments,omitempty"`
 }
 
+// ConnectionImplicitRoleAssignment:
 type ConnectionImplicitRoleAssignment struct {
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
+	// for a more detailed explanation.
+	//
+	//
 	RoleID string `json:"role_id,omitempty"`
 }
 
@@ -89,7 +102,7 @@ type ConnectionImplicitRoleAssignment struct {
 type DeleteConnectionParams struct {
 	// OrganizationID: The organization ID that the SSO connection belongs to.
 	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SSO connection. Both SAML and OIDC connection IDs can be provided.
+	// ConnectionID: The ID of the SSO connection. SAML, OIDC, and External connection IDs can be provided.
 	ConnectionID string `json:"connection_id,omitempty"`
 }
 
@@ -126,9 +139,23 @@ func (o *GetConnectionsRequestOptions) AddHeaders(headers map[string][]string) m
 	return headers
 }
 
+// GroupImplicitRoleAssignment:
 type GroupImplicitRoleAssignment struct {
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
+	// for a more detailed explanation.
+	//
+	//
 	RoleID string `json:"role_id,omitempty"`
-	Group  string `json:"group,omitempty"`
+	// Group: The name of the group that grants the specified role assignment.
+	Group string `json:"group,omitempty"`
 }
 
 type OIDCConnection struct {
@@ -199,7 +226,7 @@ type SAMLGroupImplicitRoleAssignment struct {
 	//
 	//
 	RoleID string `json:"role_id,omitempty"`
-	// Group: The name of the SAML group that grants the specified role assignment.
+	// Group: The name of the group that grants the specified role assignment.
 	Group string `json:"group,omitempty"`
 }
 
@@ -283,8 +310,11 @@ type GetConnectionsResponse struct {
 	SAMLConnections []SAMLConnection `json:"saml_connections,omitempty"`
 	// OIDCConnections: The list of [OIDC Connections](https://stytch.com/docs/b2b/api/oidc-connection-object)
 	// owned by this organization.
-	OIDCConnections     []OIDCConnection `json:"oidc_connections,omitempty"`
-	ExternalConnections []Connection     `json:"external_connections,omitempty"`
+	OIDCConnections []OIDCConnection `json:"oidc_connections,omitempty"`
+	// ExternalConnections: The list of
+	// [External Connections](https://stytch.com/docs/b2b/api/external-connection-object) owned by this
+	// organization.
+	ExternalConnections []Connection `json:"external_connections,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

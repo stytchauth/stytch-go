@@ -264,7 +264,7 @@ type MicrosoftOAuthFactor struct {
 
 // MigrateParams: Request type for `Sessions.Migrate`.
 type MigrateParams struct {
-	// SessionToken: The `session_token` associated with a User's existing Session.
+	// SessionToken: The authorization token Stytch will pass in to the external userinfo endpoint.
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,
