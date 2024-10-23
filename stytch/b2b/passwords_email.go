@@ -110,10 +110,11 @@ func (c *PasswordsEmailClient) Reset(
 	return &retVal, err
 }
 
-func (c *PasswordsEmailClient) Delete(
+func (c *PasswordsEmailClient) RequireReset(
 	ctx context.Context,
-	body *email.DeleteParams,
-) (*email.DeleteResponse, error) {
+	body *email.RequireResetParams,
+	methodOptions ...*email.RequireResetRequestOptions,
+) (*email.RequireResetResponse, error) {
 	var jsonBody []byte
 	var err error
 	if body != nil {
@@ -124,12 +125,15 @@ func (c *PasswordsEmailClient) Delete(
 	}
 
 	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
 
-	var retVal email.DeleteResponse
+	var retVal email.RequireResetResponse
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		"/v1/b2b/passwords/email/delete",
+		"/v1/b2b/passwords/email/require_reset",
 		nil,
 		jsonBody,
 		&retVal,

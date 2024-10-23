@@ -10,9 +10,10 @@ import (
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
-type DeleteParams struct {
+type RequireResetParams struct {
 	EmailAddress   string `json:"email_address,omitempty"`
 	OrganizationID string `json:"organization_id,omitempty"`
 	MemberID       string `json:"member_id,omitempty"`
@@ -128,7 +129,20 @@ type ResetStartParams struct {
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
 }
 
-type DeleteResponse struct {
+// RequireResetRequestOptions:
+type RequireResetRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *RequireResetRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+type RequireResetResponse struct {
 	Member       organizations.Member       `json:"member,omitempty"`
 	Organization organizations.Organization `json:"organization,omitempty"`
 	StatusCode   int32                      `json:"status_code,omitempty"`
