@@ -110,6 +110,8 @@ func (c *PasswordsEmailClient) Reset(
 	return &retVal, err
 }
 
+// RequireReset: Require a password be reset by the associated email address. This endpoint is only
+// functional for cross-org password use cases.
 func (c *PasswordsEmailClient) RequireReset(
 	ctx context.Context,
 	body *email.RequireResetParams,
