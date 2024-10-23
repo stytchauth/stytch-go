@@ -206,8 +206,8 @@ type GithubProviderInfo struct {
 	Scopes []string `json:"scopes,omitempty"`
 }
 
-// HubspOTPRoviderInfo:
-type HubspOTPRoviderInfo struct {
+// HubspotProviderInfo:
+type HubspotProviderInfo struct {
 	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
 	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`

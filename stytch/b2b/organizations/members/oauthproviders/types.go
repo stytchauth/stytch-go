@@ -95,7 +95,7 @@ type HubspotResponse struct {
 	// Microsoft, GitHub etc.
 	ProviderType string `json:"provider_type,omitempty"`
 	// Registrations: A list of tokens the member is registered with.
-	Registrations []organizations.HubspOTPRoviderInfo `json:"registrations,omitempty"`
+	Registrations []organizations.HubspotProviderInfo `json:"registrations,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
