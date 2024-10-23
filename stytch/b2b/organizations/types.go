@@ -187,6 +187,33 @@ type GetParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
+type GithubProviderInfo struct {
+	ProviderSubject   string   `json:"provider_subject,omitempty"`
+	ProviderTenantIds []string `json:"provider_tenant_ids,omitempty"`
+	AccessToken       string   `json:"access_token,omitempty"`
+	Scopes            []string `json:"scopes,omitempty"`
+}
+
+// HubspOTPRoviderInfo:
+type HubspOTPRoviderInfo struct {
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
+	ProviderSubject string `json:"provider_subject,omitempty"`
+	// ProviderTenantID: The tenant ID returned by the OAuth provider. This is typically used to identify the
+	// organization. For example, in HubSpot, this is the Hub ID, and for Slack, this is the Workspace ID.
+	ProviderTenantID string `json:"provider_tenant_id,omitempty"`
+	// AccessToken: The `access_token` that you may use to access the User's data in the provider's API.
+	AccessToken string `json:"access_token,omitempty"`
+	// AccessTokenExpiresIn: The number of seconds until the access token expires.
+	AccessTokenExpiresIn int32 `json:"access_token_expires_in,omitempty"`
+	// Scopes: The OAuth scopes included for a given provider. See each provider's section above to see which
+	// scopes are included by default and how to add custom scopes.
+	Scopes []string `json:"scopes,omitempty"`
+	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
+	// the provider's API.
+	RefreshToken string `json:"refresh_token,omitempty"`
+}
+
 // Member:
 type Member struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -394,14 +421,28 @@ type OAuthRegistration struct {
 	Locale string `json:"locale,omitempty"`
 }
 
+// OIDCProviderInfo:
 type OIDCProviderInfo struct {
-	ProviderSubject      string   `json:"provider_subject,omitempty"`
-	IDToken              string   `json:"id_token,omitempty"`
-	AccessToken          string   `json:"access_token,omitempty"`
-	AccessTokenExpiresIn int32    `json:"access_token_expires_in,omitempty"`
-	Scopes               []string `json:"scopes,omitempty"`
-	ConnectionID         string   `json:"connection_id,omitempty"`
-	RefreshToken         string   `json:"refresh_token,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
+	ProviderSubject string `json:"provider_subject,omitempty"`
+	// IDToken: The `id_token` returned by the OAuth provider. ID Tokens are JWTs that contain structured
+	// information about a user. The exact content of each ID Token varies from provider to provider. ID Tokens
+	// are returned from OAuth providers that conform to the [OpenID Connect](https://openid.net/foundation/)
+	// specification, which is based on OAuth.
+	IDToken string `json:"id_token,omitempty"`
+	// AccessToken: The `access_token` that you may use to access the User's data in the provider's API.
+	AccessToken string `json:"access_token,omitempty"`
+	// AccessTokenExpiresIn: The number of seconds until the access token expires.
+	AccessTokenExpiresIn int32 `json:"access_token_expires_in,omitempty"`
+	// Scopes: The OAuth scopes included for a given provider. See each provider's section above to see which
+	// scopes are included by default and how to add custom scopes.
+	Scopes []string `json:"scopes,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
+	// the provider's API.
+	RefreshToken string `json:"refresh_token,omitempty"`
 }
 
 // Organization:
@@ -598,6 +639,26 @@ type SearchQuery struct {
 	// Operands: An array of operand objects that contains all of the filters and values to apply to your
 	// search query.
 	Operands []map[string]any `json:"operands,omitempty"`
+}
+
+// SlackProviderInfo:
+type SlackProviderInfo struct {
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
+	ProviderSubject string `json:"provider_subject,omitempty"`
+	// ProviderTenantID: The tenant ID returned by the OAuth provider. This is typically used to identify the
+	// organization. For example, in HubSpot, this is the Hub ID, and for Slack, this is the Workspace ID.
+	ProviderTenantID string `json:"provider_tenant_id,omitempty"`
+	// AccessToken: The `access_token` that you may use to access the User's data in the provider's API.
+	AccessToken string `json:"access_token,omitempty"`
+	// Scopes: The OAuth scopes included for a given provider. See each provider's section above to see which
+	// scopes are included by default and how to add custom scopes.
+	Scopes []string `json:"scopes,omitempty"`
+	// BotAccessToken: The `access_token` that you may use to access data as a bot application in Slack. Use in
+	// conjunction with `bot_scopes`.
+	BotAccessToken string `json:"bot_access_token,omitempty"`
+	// BotScopes: The scopes that the bot application has access to in Slack.
+	BotScopes []string `json:"bot_scopes,omitempty"`
 }
 
 // UpdateParams: Request type for `Organizations.Update`.

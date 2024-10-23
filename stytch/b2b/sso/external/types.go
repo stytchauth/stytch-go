@@ -40,7 +40,7 @@ type UpdateConnectionParams struct {
 	// ExternalConnectionImplicitRoleAssignments: All Members who log in with this External connection will
 	// implicitly receive the specified Roles. See the
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
-	// assignment.Implicit role assignments are not supported for External connections if the underlying SSO
+	// assignment. Implicit role assignments are not supported for External connections if the underlying SSO
 	// connection is an OIDC connection.
 	ExternalConnectionImplicitRoleAssignments []*sso.ConnectionImplicitRoleAssignment `json:"external_connection_implicit_role_assignments,omitempty"`
 	// ExternalGroupImplicitRoleAssignments: Defines the names of the groups
@@ -48,8 +48,7 @@ type UpdateConnectionParams struct {
 	// connection and
 	//  belongs to the specified group, they will be granted the associated Role. See the
 	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
-	// assignment.
-	//          Before adding any group implicit role assignments to an external connection, you must add a
+	// assignment. Before adding any group implicit role assignments to an external connection, you must add a
 	// "groups" key to the underlying SAML connection's
 	//          `attribute_mapping`. Make sure that the SAML connection IdP is configured to correctly send the
 	// group information. Implicit role assignments are not supported

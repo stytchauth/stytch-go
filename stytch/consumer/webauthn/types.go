@@ -104,7 +104,10 @@ type RegisterStartParams struct {
 	// optimized for Passkeys with `residentKey` set to `"required"` and `userVerification` set to
 	// `"preferred"`.
 	//
-	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
+	ReturnPasskeyCredentialOptions bool   `json:"return_passkey_credential_options,omitempty"`
+	OverrideID                     string `json:"override_id,omitempty"`
+	OverrideName                   string `json:"override_name,omitempty"`
+	OverrideDisplayName            string `json:"override_display_name,omitempty"`
 }
 
 // UpdateParams: Request type for `WebAuthn.Update`.

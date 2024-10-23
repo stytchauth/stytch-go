@@ -6,7 +6,12 @@ package oauthproviders
 // or your changes may be overwritten later!
 // !!!
 
-// ProviderInformationParams: Request type for `OAuthProviders.Google`, `OAuthProviders.Microsoft`.
+import (
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
+)
+
+// ProviderInformationParams: Request type for `OAuthProviders.Google`, `OAuthProviders.Hubspot`,
+// `OAuthProviders.Microsoft`.
 type ProviderInformationParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.
@@ -18,6 +23,23 @@ type ProviderInformationParams struct {
 	// Defaults to false. **Important:** If your application exchanges the refresh token, Stytch may not be
 	// able to automatically refresh access tokens in the future.
 	IncludeRefreshToken bool `json:"include_refresh_token,omitempty"`
+}
+
+// SlackParams: Request type for `OAuthProviders.Slack`.
+type SlackParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
+}
+
+type GithubResponse struct {
+	RequestID     string                             `json:"request_id,omitempty"`
+	ProviderType  string                             `json:"provider_type,omitempty"`
+	Registrations []organizations.GithubProviderInfo `json:"registrations,omitempty"`
+	StatusCode    int32                              `json:"status_code,omitempty"`
 }
 
 // GoogleResponse: Response type for `OAuthProviders.Google`.
@@ -53,6 +75,23 @@ type GoogleResponse struct {
 	RefreshToken string `json:"refresh_token,omitempty"`
 }
 
+// HubspotResponse: Response type for `OAuthProviders.Hubspot`.
+type HubspotResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// ProviderType: Denotes the OAuth identity provider that the user has authenticated with, e.g. Google,
+	// Microsoft, GitHub etc.
+	ProviderType string `json:"provider_type,omitempty"`
+	// Registrations: A list of tokens the member is registered with.
+	Registrations []organizations.HubspOTPRoviderInfo `json:"registrations,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+}
+
 // MicrosoftResponse: Response type for `OAuthProviders.Microsoft`.
 type MicrosoftResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
@@ -84,4 +123,21 @@ type MicrosoftResponse struct {
 	// RefreshToken: The `refresh_token` that you may use to obtain a new `access_token` for the User within
 	// the provider's API.
 	RefreshToken string `json:"refresh_token,omitempty"`
+}
+
+// SlackResponse: Response type for `OAuthProviders.Slack`.
+type SlackResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// ProviderType: Denotes the OAuth identity provider that the user has authenticated with, e.g. Google,
+	// Microsoft, GitHub etc.
+	ProviderType string `json:"provider_type,omitempty"`
+	// Registrations: A list of tokens the member is registered with.
+	Registrations []organizations.SlackProviderInfo `json:"registrations,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }

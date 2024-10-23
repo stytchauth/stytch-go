@@ -12,15 +12,11 @@ import (
 
 // AuthenticateParams: Request type for `Discovery.Authenticate`.
 type AuthenticateParams struct {
-	// DiscoveryOAuthToken: The Discovery OAuth token to authenticate.
-	DiscoveryOAuthToken    string         `json:"discovery_oauth_token,omitempty"`
-	SessionToken           string         `json:"session_token,omitempty"`
-	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
-	SessionJWT             string         `json:"session_jwt,omitempty"`
-	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
-	// PkceCodeVerifier: A base64url encoded one time secret used to validate that the request starts and ends
-	// on the same device.
-	PkceCodeVerifier string `json:"pkce_code_verifier,omitempty"`
+	// EmailAddress: The email address of the Member.
+	EmailAddress string `json:"email_address,omitempty"`
+	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
+	// e.g. spaces, emojis, non-English characers, etc.
+	Password string `json:"password,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Discovery.Authenticate`.
@@ -29,20 +25,17 @@ type AuthenticateResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// IntermediateSessionToken: The Intermediate Session Token. This token does not necessarily belong to a
-	// specific instance of a Member, but represents a bag of factors that may be converted to a member
-	// session. The token can be used with the
+	// EmailAddress: The email address.
+	EmailAddress string `json:"email_address,omitempty"`
+	// IntermediateSessionToken: The returned Intermediate Session Token contains a password factor associated
+	// with the Member. If this value is non-empty, the member must complete an MFA step to finish logging in
+	// to the Organization. The token can be used with the
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
-	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
-	// to join a specific Organization that allows the factors represented by the intermediate session token;
-	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// MFA flow and log in to the Organization. Password factors are not transferable between Organizations, so
+	// the intermediate session token is not valid for use with discovery endpoints.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
-	// EmailAddress: The email address.
-	EmailAddress string `json:"email_address,omitempty"`
 	// DiscoveredOrganizations: An array of `discovered_organization` objects tied to the
 	// `intermediate_session_token`, `session_token`, or `session_jwt`. See the
 	// [Discovered Organization Object](https://stytch.com/docs/b2b/api/discovered-organization-object) for
@@ -60,9 +53,6 @@ type AuthenticateResponse struct {
 	//       c) The Organization has at least one other Member with a verified email address with the same
 	// domain as the end user (to prevent phishing attacks).
 	DiscoveredOrganizations []discovery.DiscoveredOrganization `json:"discovered_organizations,omitempty"`
-	ProviderType            string                             `json:"provider_type,omitempty"`
-	ProviderTenantID        string                             `json:"provider_tenant_id,omitempty"`
-	ProviderTenantIds       []string                           `json:"provider_tenant_ids,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
