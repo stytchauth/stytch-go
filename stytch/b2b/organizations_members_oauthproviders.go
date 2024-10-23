@@ -96,3 +96,91 @@ func (c *OrganizationsMembersOAuthProvidersClient) Microsoft(
 	)
 	return &retVal, err
 }
+
+// Slack: Retrieve the saved Slack access token and ID token for a member. After a successful OAuth login,
+// Stytch will save the
+// issued access token and ID token from the identity provider.
+func (c *OrganizationsMembersOAuthProvidersClient) Slack(
+	ctx context.Context,
+	body *oauthproviders.SlackParams,
+) (*oauthproviders.SlackResponse, error) {
+	headers := make(map[string][]string)
+
+	var retVal oauthproviders.SlackResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/slack", body.OrganizationID, body.MemberID),
+		nil,
+		nil,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
+// Hubspot: Retrieve the saved Hubspot access token and ID token for a member. After a successful OAuth
+// login, Stytch will save the
+// issued access token and ID token from the identity provider. If a refresh token has been issued, Stytch
+// will refresh the
+// access token automatically.
+func (c *OrganizationsMembersOAuthProvidersClient) Hubspot(
+	ctx context.Context,
+	body *oauthproviders.ProviderInformationParams,
+) (*oauthproviders.HubspotResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		if body.IncludeRefreshToken {
+			queryParams["include_refresh_token"] = "true"
+		} else {
+			queryParams["include_refresh_token"] = "false"
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal oauthproviders.HubspotResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/hubspot", body.OrganizationID, body.MemberID),
+		queryParams,
+		nil,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}
+
+// Github: Retrieve the saved GitHub access token for a Member. After a successful OAuth login, Stytch will
+// save the
+// issued access token from the identity provider. GitHub does not issue refresh tokens, but will
+// invalidate access
+// tokens after very long periods of inactivity.
+func (c *OrganizationsMembersOAuthProvidersClient) Github(
+	ctx context.Context,
+	body *oauthproviders.ProviderInformationParams,
+) (*oauthproviders.GithubResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		if body.IncludeRefreshToken {
+			queryParams["include_refresh_token"] = "true"
+		} else {
+			queryParams["include_refresh_token"] = "false"
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal oauthproviders.GithubResponse
+	err := c.C.NewRequest(
+		ctx,
+		"GET",
+		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/github", body.OrganizationID, body.MemberID),
+		queryParams,
+		nil,
+		&retVal,
+		headers,
+	)
+	return &retVal, err
+}

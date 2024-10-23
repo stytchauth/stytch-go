@@ -60,8 +60,16 @@ type AuthenticateResponse struct {
 	//       c) The Organization has at least one other Member with a verified email address with the same
 	// domain as the end user (to prevent phishing attacks).
 	DiscoveredOrganizations []discovery.DiscoveredOrganization `json:"discovered_organizations,omitempty"`
-	ProviderType            string                             `json:"provider_type,omitempty"`
-	ProviderTenantID        string                             `json:"provider_tenant_id,omitempty"`
+	// ProviderType: Denotes the OAuth identity provider that the user has authenticated with, e.g. Google,
+	// Microsoft, GitHub etc.
+	ProviderType string `json:"provider_type,omitempty"`
+	// ProviderTenantID: The tenant ID returned by the OAuth provider. This is typically used to identify the
+	// organization. For example, for HubSpot this is the Hub ID, for Slack, this is the Workspace ID, and for
+	// GitHub this is an organization ID.
+	ProviderTenantID string `json:"provider_tenant_id,omitempty"`
+	// ProviderTenantIds: The IDs of tenants returned from a completed OAuth authentication. Some providers do
+	// not return tenants.
+	ProviderTenantIds []string `json:"provider_tenant_ids,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

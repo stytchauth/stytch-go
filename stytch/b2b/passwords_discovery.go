@@ -11,24 +11,24 @@ import (
 	"encoding/json"
 
 	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/oauth/discovery"
+	"github.com/stytchauth/stytch-go/v15/stytch/b2b/passwords/discovery"
 	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
 )
 
-type OAuthDiscoveryClient struct {
-	C stytch.Client
+type PasswordsDiscoveryClient struct {
+	C     stytch.Client
+	Email *PasswordsDiscoveryEmailClient
 }
 
-func NewOAuthDiscoveryClient(c stytch.Client) *OAuthDiscoveryClient {
-	return &OAuthDiscoveryClient{
+func NewPasswordsDiscoveryClient(c stytch.Client) *PasswordsDiscoveryClient {
+	return &PasswordsDiscoveryClient{
 		C: c,
+
+		Email: NewPasswordsDiscoveryEmailClient(c),
 	}
 }
 
-// Authenticate: Authenticates the Discovery token and exchanges it for an Intermediate
-// Session Token. Intermediate Session Tokens can be used for various Discovery login flows and are valid
-// for 10 minutes.
-func (c *OAuthDiscoveryClient) Authenticate(
+func (c *PasswordsDiscoveryClient) Authenticate(
 	ctx context.Context,
 	body *discovery.AuthenticateParams,
 ) (*discovery.AuthenticateResponse, error) {
@@ -47,7 +47,7 @@ func (c *OAuthDiscoveryClient) Authenticate(
 	err = c.C.NewRequest(
 		ctx,
 		"POST",
-		"/v1/b2b/oauth/discovery/authenticate",
+		"/v1/b2b/passwords/discovery/authenticate",
 		nil,
 		jsonBody,
 		&retVal,

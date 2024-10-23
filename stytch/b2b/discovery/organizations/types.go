@@ -162,7 +162,7 @@ type CreateParams struct {
 	//
 	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
 	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
-	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack" and "hubspot".
+	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack", "hubspot", and "github".
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 }
 

@@ -22,6 +22,7 @@ type PasswordsClient struct {
 	Email            *PasswordsEmailClient
 	Sessions         *PasswordsSessionsClient
 	ExistingPassword *PasswordsExistingPasswordClient
+	Discovery        *PasswordsDiscoveryClient
 }
 
 func NewPasswordsClient(c stytch.Client) *PasswordsClient {
@@ -31,6 +32,7 @@ func NewPasswordsClient(c stytch.Client) *PasswordsClient {
 		Email:            NewPasswordsEmailClient(c),
 		Sessions:         NewPasswordsSessionsClient(c),
 		ExistingPassword: NewPasswordsExistingPasswordClient(c),
+		Discovery:        NewPasswordsDiscoveryClient(c),
 	}
 }
 
