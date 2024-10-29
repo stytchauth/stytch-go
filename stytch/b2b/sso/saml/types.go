@@ -77,8 +77,7 @@ type UpdateConnectionParams struct {
 	// connection and
 	//  belongs to the specified SAML group, they will be granted the associated Role. See the
 	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
-	// assignment.
-	//          Before adding any group implicit role assignments, you must add a "groups" key to your SAML
+	// assignment. Before adding any group implicit role assignments, you must add a "groups" key to your SAML
 	// connection's
 	//          `attribute_mapping`. Make sure that your IdP is configured to correctly send the group
 	// information.
@@ -211,17 +210,39 @@ type UpdateConnectionResponse struct {
 type CreateConnectionRequestIdentityProvider string
 
 const (
+	CreateConnectionRequestIdentityProviderClasslink       CreateConnectionRequestIdentityProvider = "classlink"
+	CreateConnectionRequestIdentityProviderCyberark        CreateConnectionRequestIdentityProvider = "cyberark"
+	CreateConnectionRequestIdentityProviderDuo             CreateConnectionRequestIdentityProvider = "duo"
 	CreateConnectionRequestIdentityProviderGeneric         CreateConnectionRequestIdentityProvider = "generic"
-	CreateConnectionRequestIdentityProviderOkta            CreateConnectionRequestIdentityProvider = "okta"
-	CreateConnectionRequestIdentityProviderMicrosoftentra  CreateConnectionRequestIdentityProvider = "microsoft-entra"
 	CreateConnectionRequestIdentityProviderGoogleworkspace CreateConnectionRequestIdentityProvider = "google-workspace"
+	CreateConnectionRequestIdentityProviderJumpcloud       CreateConnectionRequestIdentityProvider = "jumpcloud"
+	CreateConnectionRequestIdentityProviderKeycloak        CreateConnectionRequestIdentityProvider = "keycloak"
+	CreateConnectionRequestIdentityProviderMiniorange      CreateConnectionRequestIdentityProvider = "miniorange"
+	CreateConnectionRequestIdentityProviderMicrosoftentra  CreateConnectionRequestIdentityProvider = "microsoft-entra"
+	CreateConnectionRequestIdentityProviderOkta            CreateConnectionRequestIdentityProvider = "okta"
+	CreateConnectionRequestIdentityProviderOnelogin        CreateConnectionRequestIdentityProvider = "onelogin"
+	CreateConnectionRequestIdentityProviderPingfederate    CreateConnectionRequestIdentityProvider = "pingfederate"
+	CreateConnectionRequestIdentityProviderRippling        CreateConnectionRequestIdentityProvider = "rippling"
+	CreateConnectionRequestIdentityProviderSalesforce      CreateConnectionRequestIdentityProvider = "salesforce"
+	CreateConnectionRequestIdentityProviderShibboleth      CreateConnectionRequestIdentityProvider = "shibboleth"
 )
 
 type UpdateConnectionRequestIdentityProvider string
 
 const (
+	UpdateConnectionRequestIdentityProviderClasslink       UpdateConnectionRequestIdentityProvider = "classlink"
+	UpdateConnectionRequestIdentityProviderCyberark        UpdateConnectionRequestIdentityProvider = "cyberark"
+	UpdateConnectionRequestIdentityProviderDuo             UpdateConnectionRequestIdentityProvider = "duo"
 	UpdateConnectionRequestIdentityProviderGeneric         UpdateConnectionRequestIdentityProvider = "generic"
-	UpdateConnectionRequestIdentityProviderOkta            UpdateConnectionRequestIdentityProvider = "okta"
-	UpdateConnectionRequestIdentityProviderMicrosoftentra  UpdateConnectionRequestIdentityProvider = "microsoft-entra"
 	UpdateConnectionRequestIdentityProviderGoogleworkspace UpdateConnectionRequestIdentityProvider = "google-workspace"
+	UpdateConnectionRequestIdentityProviderJumpcloud       UpdateConnectionRequestIdentityProvider = "jumpcloud"
+	UpdateConnectionRequestIdentityProviderKeycloak        UpdateConnectionRequestIdentityProvider = "keycloak"
+	UpdateConnectionRequestIdentityProviderMiniorange      UpdateConnectionRequestIdentityProvider = "miniorange"
+	UpdateConnectionRequestIdentityProviderMicrosoftentra  UpdateConnectionRequestIdentityProvider = "microsoft-entra"
+	UpdateConnectionRequestIdentityProviderOkta            UpdateConnectionRequestIdentityProvider = "okta"
+	UpdateConnectionRequestIdentityProviderOnelogin        UpdateConnectionRequestIdentityProvider = "onelogin"
+	UpdateConnectionRequestIdentityProviderPingfederate    UpdateConnectionRequestIdentityProvider = "pingfederate"
+	UpdateConnectionRequestIdentityProviderRippling        UpdateConnectionRequestIdentityProvider = "rippling"
+	UpdateConnectionRequestIdentityProviderSalesforce      UpdateConnectionRequestIdentityProvider = "salesforce"
+	UpdateConnectionRequestIdentityProviderShibboleth      UpdateConnectionRequestIdentityProvider = "shibboleth"
 )

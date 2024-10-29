@@ -113,10 +113,18 @@ type GetParams struct {
 	EmailAddress string `json:"email_address,omitempty"`
 }
 
+// OIDCProviderInformationParams: Request type for `Members.OIDCProviders`.
 type OIDCProviderInformationParams struct {
-	OrganizationID      string `json:"organization_id,omitempty"`
-	MemberID            string `json:"member_id,omitempty"`
-	IncludeRefreshToken bool   `json:"include_refresh_token,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
+	// IncludeRefreshToken: Whether to return the refresh token Stytch has stored for the OAuth Provider.
+	// Defaults to false. **Important:** If your application exchanges the refresh token, Stytch may not be
+	// able to automatically refresh access tokens in the future.
+	IncludeRefreshToken bool `json:"include_refresh_token,omitempty"`
 }
 
 // ReactivateParams: Request type for `Members.Reactivate`.
@@ -491,10 +499,18 @@ type GetResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
+// OIDCProvidersResponse: Response type for `Members.OIDCProviders`.
 type OIDCProvidersResponse struct {
-	RequestID     string                           `json:"request_id,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// Registrations: A list of tokens the member is registered with.
 	Registrations []organizations.OIDCProviderInfo `json:"registrations,omitempty"`
-	StatusCode    int32                            `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // ReactivateResponse: Response type for `Members.Reactivate`.

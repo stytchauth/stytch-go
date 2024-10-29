@@ -10,12 +10,19 @@ import (
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
 )
 
-type DeleteParams struct {
-	EmailAddress   string `json:"email_address,omitempty"`
+// RequireResetParams: Request type for `Email.RequireReset`.
+type RequireResetParams struct {
+	// EmailAddress: The email address of the Member to start the email reset process for.
+	EmailAddress string `json:"email_address,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
-	MemberID       string `json:"member_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value.
+	MemberID string `json:"member_id,omitempty"`
 }
 
 // ResetParams: Request type for `Email.Reset`.
@@ -128,11 +135,31 @@ type ResetStartParams struct {
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
 }
 
-type DeleteResponse struct {
-	Member       organizations.Member       `json:"member,omitempty"`
+// RequireResetRequestOptions:
+type RequireResetRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *RequireResetRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// RequireResetResponse: Response type for `Email.RequireReset`.
+type RequireResetResponse struct {
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
-	StatusCode   int32                      `json:"status_code,omitempty"`
-	MemberID     string                     `json:"member_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
 }
 
 // ResetResponse: Response type for `Email.Reset`.
