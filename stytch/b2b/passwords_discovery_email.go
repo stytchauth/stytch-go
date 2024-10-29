@@ -25,6 +25,18 @@ func NewPasswordsDiscoveryEmailClient(c stytch.Client) *PasswordsDiscoveryEmailC
 	}
 }
 
+// ResetStart: Initiates a password reset for the email address provided, when cross-org passwords are
+// enabled. This will trigger an email to be sent to the address, containing a magic link that will allow
+// them to set a new password and authenticate.
+//
+// This endpoint adapts to your Project's password strength configuration.
+// If you're using [zxcvbn](https://stytch.com/docs/guides/passwords/strength-policy), the default, your
+// passwords are considered valid
+// if the strength score is >= 3. If you're using
+// [LUDS](https://stytch.com/docs/guides/passwords/strength-policy), your passwords are
+// considered valid if they meet the requirements that you've set with Stytch.
+// You may update your password strength configuration in the
+// [stytch dashboard](https://stytch.com/dashboard/password-strength-config).
 func (c *PasswordsDiscoveryEmailClient) ResetStart(
 	ctx context.Context,
 	body *email.ResetStartParams,
@@ -53,6 +65,15 @@ func (c *PasswordsDiscoveryEmailClient) ResetStart(
 	return &retVal, err
 }
 
+// Reset the password associated with an email and start an intermediate session. This endpoint checks that
+// the password reset token is valid, hasn’t expired, or already been used.
+//
+// The provided password needs to meet the project's password strength requirements, which can be checked
+// in advance with the password strength endpoint. If the token and password are accepted, the password is
+// securely stored for future authentication and the user is authenticated.
+//
+// Resetting a password will start an intermediate session and return a list of discovered organizations
+// the session can be exchanged into.
 func (c *PasswordsDiscoveryEmailClient) Reset(
 	ctx context.Context,
 	body *email.ResetParams,
