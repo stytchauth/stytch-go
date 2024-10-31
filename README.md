@@ -7,7 +7,7 @@ It pairs well with the Stytch [Web SDK](https://www.npmjs.com/package/@stytch/va
 ## Install
 
 ```console
-$ go get github.com/stytchauth/stytch-go/v12
+$ go get github.com/stytchauth/stytch-go/v15
 ```
 
 ## Usage
@@ -48,8 +48,8 @@ Create an API client:
 import (
 	"context"
 
-	"github.com/stytchauth/stytch-go/v12/stytch"
-	"github.com/stytchauth/stytch-go/v12/stytch/consumer/stytchapi"
+	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v15/stytch/consumer/stytchapi"
 )
 
 stytchAPIClient, err := stytchapi.NewClient(
@@ -132,9 +132,9 @@ Create an API client:
 import (
 "context"
 
-"github.com/stytchauth/stytch-go/v13/stytch"
-"github.com/stytchauth/stytch-go/v13/stytch/b2b/b2bstytchapi"
-"github.com/stytchauth/stytch-go/v13/stytch/b2b/organizations"
+"github.com/stytchauth/stytch-go/v15/stytch"
+"github.com/stytchauth/stytch-go/v15/stytch/b2b/b2bstytchapi"
+"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
 )
 
 stytchClient, err := b2bstytchapi.NewClient(
@@ -167,8 +167,8 @@ import (
 "context"
 "log"
 
-"github.com/stytchauth/stytch-go/v13/stytch/b2b/b2bstytchapi"
-"github.com/stytchauth/stytch-go/v13/stytch/b2b/magiclinks/email"
+"github.com/stytchauth/stytch-go/v15/stytch/b2b/b2bstytchapi"
+"github.com/stytchauth/stytch-go/v15/stytch/b2b/magiclinks/email"
 )
 params := &email.LoginOrSignupParams{
     OrganizationID: "organization-test-07971b06-ac8b-4cdb-9c15-63b17e653931",
