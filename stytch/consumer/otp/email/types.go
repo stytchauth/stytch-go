@@ -76,11 +76,11 @@ type SendParams struct {
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Login.
+	// OTP - Login.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Sign-up.
+	// OTP - Sign-up.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 }
 

@@ -52,14 +52,14 @@ type AuthenticateParams struct {
 // AuthenticationFactor:
 type AuthenticationFactor struct {
 	// Type: The type of authentication factor. The possible values are: `magic_link`, `otp`,
-	//        `oauth`, `password`, or `sso`.
+	//        `oauth`, `password`, `email_otp`, or `sso` .
 	Type AuthenticationFactorType `json:"type,omitempty"`
 	// DeliveryMethod: The method that was used to deliver the authentication factor. The possible values
 	// depend on the `type`:
 	//
 	//       `magic_link` – Only `email`.
 	//
-	//       `otp` – Only `sms`.
+	//       `otp` –  Either `sms` or `email` .
 	//
 	//       `oauth` – Either `oauth_google` or `oauth_microsoft`.
 	//
@@ -573,6 +573,7 @@ const (
 	AuthenticationFactorTypeSSO                AuthenticationFactorType = "sso"
 	AuthenticationFactorTypeImported           AuthenticationFactorType = "imported"
 	AuthenticationFactorTypeRecoveryCodes      AuthenticationFactorType = "recovery_codes"
+	AuthenticationFactorTypeEmailOTP           AuthenticationFactorType = "email_otp"
 )
 
 // MANUAL(Types)(TYPES)
