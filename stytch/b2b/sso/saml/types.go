@@ -18,9 +18,11 @@ type CreateConnectionParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName string `json:"display_name,omitempty"`
-	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
-	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
-	// and `google-workspace`.
+	// IdentityProvider: Name of the IdP. Enum with possible values: `classlink`, `cyberark`, `duo`,
+	// `google-workspace`, `jumpcloud`, `keycloak`, `miniorange`, `microsoft-entra`, `okta`, `onelogin`,
+	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic.
 	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
@@ -87,9 +89,11 @@ type UpdateConnectionParams struct {
 	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
 	// for more info.
 	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
-	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
-	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
-	// and `google-workspace`.
+	// IdentityProvider: Name of the IdP. Enum with possible values: `classlink`, `cyberark`, `duo`,
+	// `google-workspace`, `jumpcloud`, `keycloak`, `miniorange`, `microsoft-entra`, `okta`, `onelogin`,
+	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic.
 	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 

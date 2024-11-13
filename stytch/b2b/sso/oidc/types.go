@@ -18,9 +18,11 @@ type CreateConnectionParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName string `json:"display_name,omitempty"`
-	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
-	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
-	// and `google-workspace`.
+	// IdentityProvider: Name of the IdP. Enum with possible values: `classlink`, `cyberark`, `duo`,
+	// `google-workspace`, `jumpcloud`, `keycloak`, `miniorange`, `microsoft-entra`, `okta`, `onelogin`,
+	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic.
 	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
@@ -54,9 +56,11 @@ type UpdateConnectionParams struct {
 	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
 	// will be provided by the IdP.
 	JWKSURL string `json:"jwks_url,omitempty"`
-	// IdentityProvider: The identity provider of this connection. For OIDC, the accepted values are `generic`,
-	// `okta`, and `microsoft-entra`. For SAML, the accepted values are `generic`, `okta`, `microsoft-entra`,
-	// and `google-workspace`.
+	// IdentityProvider: Name of the IdP. Enum with possible values: `classlink`, `cyberark`, `duo`,
+	// `google-workspace`, `jumpcloud`, `keycloak`, `miniorange`, `microsoft-entra`, `okta`, `onelogin`,
+	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic.
 	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 	// CustomScopes: Include a space-separated list of custom scopes that you'd like to include. Note that this
 	// list must be URL encoded, e.g. the spaces must be expressed as %20.
