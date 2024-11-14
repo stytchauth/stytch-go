@@ -11,14 +11,16 @@ import (
 )
 
 type OTPsClient struct {
-	C   stytch.Client
-	Sms *OTPsSmsClient
+	C     stytch.Client
+	Sms   *OTPsSmsClient
+	Email *OTPsEmailClient
 }
 
 func NewOTPsClient(c stytch.Client) *OTPsClient {
 	return &OTPsClient{
 		C: c,
 
-		Sms: NewOTPsSmsClient(c),
+		Sms:   NewOTPsSmsClient(c),
+		Email: NewOTPsEmailClient(c),
 	}
 }
