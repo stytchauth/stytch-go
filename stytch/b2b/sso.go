@@ -48,12 +48,14 @@ func (c *SSOClient) GetConnections(
 	var retVal sso.GetConnectionsResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/sso/%s", body.OrganizationID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/sso/%s", body.OrganizationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -72,12 +74,14 @@ func (c *SSOClient) DeleteConnection(
 	var retVal sso.DeleteConnectionResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/b2b/sso/%s/connections/%s", body.OrganizationID, body.ConnectionID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/b2b/sso/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -120,12 +124,14 @@ func (c *SSOClient) Authenticate(
 	var retVal sso.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/sso/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/sso/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -152,11 +158,13 @@ func (c *SSOClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/sso/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/sso/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err

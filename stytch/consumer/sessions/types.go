@@ -118,6 +118,8 @@ type AuthenticationFactor struct {
 	SlackOAuthExchangeFactor   *SlackOAuthExchangeFactor   `json:"slack_oauth_exchange_factor,omitempty"`
 	HubspotOAuthExchangeFactor *HubspotOAuthExchangeFactor `json:"hubspot_oauth_exchange_factor,omitempty"`
 	GithubOAuthExchangeFactor  *GithubOAuthExchangeFactor  `json:"github_oauth_exchange_factor,omitempty"`
+	GoogleOAuthExchangeFactor  *GoogleOAuthExchangeFactor  `json:"google_oauth_exchange_factor,omitempty"`
+	ImpersonatedFactor         *ImpersonatedFactor         `json:"impersonated_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -206,6 +208,10 @@ type GithubOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+type GoogleOAuthExchangeFactor struct {
+	EmailID string `json:"email_id,omitempty"`
+}
+
 // GoogleOAuthFactor:
 type GoogleOAuthFactor struct {
 	// ID: The unique ID of an OAuth registration.
@@ -225,6 +231,11 @@ type HubspotOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
+}
+
+type ImpersonatedFactor struct {
+	ImpersonatorID           string `json:"impersonator_id,omitempty"`
+	ImpersonatorEmailAddress string `json:"impersonator_email_address,omitempty"`
 }
 
 type InstagramOAuthFactor struct {
@@ -557,6 +568,8 @@ const (
 	AuthenticationFactorDeliveryMethodOAuthExchangeSlack   AuthenticationFactorDeliveryMethod = "oauth_exchange_slack"
 	AuthenticationFactorDeliveryMethodOAuthExchangeHubspot AuthenticationFactorDeliveryMethod = "oauth_exchange_hubspot"
 	AuthenticationFactorDeliveryMethodOAuthExchangeGithub  AuthenticationFactorDeliveryMethod = "oauth_exchange_github"
+	AuthenticationFactorDeliveryMethodOAuthExchangeGoogle  AuthenticationFactorDeliveryMethod = "oauth_exchange_google"
+	AuthenticationFactorDeliveryMethodImpersonation        AuthenticationFactorDeliveryMethod = "impersonation"
 )
 
 type AuthenticationFactorType string
@@ -574,6 +587,7 @@ const (
 	AuthenticationFactorTypeImported           AuthenticationFactorType = "imported"
 	AuthenticationFactorTypeRecoveryCodes      AuthenticationFactorType = "recovery_codes"
 	AuthenticationFactorTypeEmailOTP           AuthenticationFactorType = "email_otp"
+	AuthenticationFactorTypeImpersonated       AuthenticationFactorType = "impersonated"
 )
 
 // MANUAL(Types)(TYPES)

@@ -49,12 +49,14 @@ func (c *SSOOIDCClient) CreateConnection(
 	var retVal oidc.CreateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/sso/oidc/%s", body.OrganizationID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/sso/oidc/%s", body.OrganizationID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -107,12 +109,14 @@ func (c *SSOOIDCClient) UpdateConnection(
 	var retVal oidc.UpdateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/b2b/sso/oidc/%s/connections/%s", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/b2b/sso/oidc/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

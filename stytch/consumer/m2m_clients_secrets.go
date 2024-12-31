@@ -55,12 +55,14 @@ func (c *M2MClientsSecretsClient) RotateStart(
 	var retVal secrets.RotateStartResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/start", body.ClientID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/start", body.ClientID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -88,12 +90,14 @@ func (c *M2MClientsSecretsClient) RotateCancel(
 	var retVal secrets.RotateCancelResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/cancel", body.ClientID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/cancel", body.ClientID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -121,12 +125,14 @@ func (c *M2MClientsSecretsClient) Rotate(
 	var retVal secrets.RotateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate", body.ClientID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate", body.ClientID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

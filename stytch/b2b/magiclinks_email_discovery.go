@@ -44,12 +44,14 @@ func (c *MagicLinksEmailDiscoveryClient) Send(
 	var retVal discovery.SendResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/magic_links/email/discovery/send",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/magic_links/email/discovery/send",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

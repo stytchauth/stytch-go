@@ -49,12 +49,14 @@ func (c *SSOExternalClient) CreateConnection(
 	var retVal external.CreateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/sso/external/%s", body.OrganizationID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/sso/external/%s", body.OrganizationID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -82,12 +84,14 @@ func (c *SSOExternalClient) UpdateConnection(
 	var retVal external.UpdateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/b2b/sso/external/%s/connections/%s", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/b2b/sso/external/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

@@ -39,12 +39,14 @@ func (c *M2MClientsClient) Get(
 	var retVal clients.GetResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -74,12 +76,14 @@ func (c *M2MClientsClient) Search(
 	var retVal clients.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/m2m/clients/search",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/m2m/clients/search",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -110,12 +114,14 @@ func (c *M2MClientsClient) Update(
 	var retVal clients.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -135,12 +141,14 @@ func (c *M2MClientsClient) Delete(
 	var retVal clients.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -172,12 +180,14 @@ func (c *M2MClientsClient) Create(
 	var retVal clients.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/m2m/clients",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/m2m/clients",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

@@ -111,8 +111,9 @@ type AuthenticateResponse struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-	Organization  organizations.Organization `json:"organization,omitempty"`
-	ResetSessions bool                       `json:"reset_sessions,omitempty"`
+	Organization organizations.Organization `json:"organization,omitempty"`
+	// ResetSessions: This field is deprecated.
+	ResetSessions bool `json:"reset_sessions,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
 	MemberAuthenticated bool `json:"member_authenticated,omitempty"`

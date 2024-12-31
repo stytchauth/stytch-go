@@ -50,12 +50,14 @@ func (c *SCIMConnectionClient) Update(
 	var retVal connection.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -74,12 +76,14 @@ func (c *SCIMConnectionClient) Delete(
 	var retVal connection.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -107,12 +111,14 @@ func (c *SCIMConnectionClient) RotateStart(
 	var retVal connection.RotateStartResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/start", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/start", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -142,12 +148,14 @@ func (c *SCIMConnectionClient) RotateComplete(
 	var retVal connection.RotateCompleteResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/complete", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/complete", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -176,12 +184,14 @@ func (c *SCIMConnectionClient) RotateCancel(
 	var retVal connection.RotateCancelResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/cancel", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/cancel", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -206,12 +216,14 @@ func (c *SCIMConnectionClient) GetGroups(
 	var retVal connection.GetGroupsResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
-		queryParams,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -239,12 +251,14 @@ func (c *SCIMConnectionClient) Create(
 	var retVal connection.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -263,12 +277,14 @@ func (c *SCIMConnectionClient) Get(
 	var retVal connection.GetResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

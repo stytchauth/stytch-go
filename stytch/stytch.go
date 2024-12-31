@@ -20,8 +20,8 @@ const (
 )
 
 type Client interface {
-	NewRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, v interface{}, headers map[string][]string) error
-	RawRequest(ctx context.Context, method string, path string, queryParams map[string]string, body []byte, headers map[string][]string) ([]byte, error)
+	NewRequest(ctx context.Context, params RequestParams) error
+	RawRequest(ctx context.Context, params RequestParams) ([]byte, error)
 	GetConfig() *config.Config
 	GetHTTPClient() *http.Client
 }
@@ -51,22 +51,26 @@ func New(projectID string, secret string) *DefaultClient {
 	return stytchClient
 }
 
+type RequestParams struct {
+	Method      string
+	Path        string
+	QueryParams map[string]string
+	Body        []byte
+	V           interface{}
+	Headers     map[string][]string
+}
+
 // newRequest is used by Call to generate and Do a http.Request
 func (c *DefaultClient) NewRequest(
 	ctx context.Context,
-	method string,
-	path string,
-	queryParams map[string]string,
-	body []byte,
-	v interface{},
-	headers map[string][]string,
+	params RequestParams,
 ) error {
-	b, err := c.RawRequest(ctx, method, path, queryParams, body, headers)
+	b, err := c.RawRequest(ctx, params)
 	if err != nil {
 		return err
 	}
 
-	if err = json.Unmarshal(b, v); err != nil {
+	if err = json.Unmarshal(b, params.V); err != nil {
 		return fmt.Errorf("error decoding http request: %w", err)
 	}
 	return nil
@@ -78,26 +82,22 @@ func (c *DefaultClient) NewRequest(
 // Prefer using NewRequest (which unmarshals the response JSON) unless you need the actual bytes.
 func (c *DefaultClient) RawRequest(
 	ctx context.Context,
-	method string,
-	path string,
-	queryParams map[string]string,
-	body []byte,
-	headers map[string][]string,
+	params RequestParams,
 ) ([]byte, error) {
-	if !strings.HasPrefix(path, "/") {
-		path = "/" + path
+	if !strings.HasPrefix(params.Path, "/") {
+		params.Path = "/" + params.Path
 	}
 
-	path = string(c.Config.BaseURI) + path
+	params.Path = string(c.Config.BaseURI) + params.Path
 
-	req, err := http.NewRequestWithContext(ctx, method, path, bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(ctx, params.Method, params.Path, bytes.NewReader(params.Body))
 	if err != nil {
 		return nil, fmt.Errorf("error creating http request: %w", err)
 	}
 
 	// add query params
 	q := req.URL.Query()
-	for k, v := range queryParams {
+	for k, v := range params.QueryParams {
 		if v != "" {
 			q.Add(k, v)
 		}
@@ -114,7 +114,7 @@ func (c *DefaultClient) RawRequest(
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("User-Agent", "Stytch Go v"+config.APIVersion)
 
-	for k, vSlice := range headers {
+	for k, vSlice := range params.Headers {
 		for _, v := range vSlice {
 			req.Header.Add(k, v)
 		}

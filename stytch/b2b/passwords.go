@@ -76,12 +76,14 @@ func (c *PasswordsClient) StrengthCheck(
 	var retVal passwords.StrengthCheckResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/passwords/strength_check",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/passwords/strength_check",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -109,12 +111,14 @@ func (c *PasswordsClient) Migrate(
 	var retVal passwords.MigrateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/passwords/migrate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/passwords/migrate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -156,12 +160,14 @@ func (c *PasswordsClient) Authenticate(
 	var retVal passwords.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/passwords/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/passwords/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -188,11 +194,13 @@ func (c *PasswordsClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/passwords/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/passwords/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err

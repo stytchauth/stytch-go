@@ -85,10 +85,7 @@ type AuthenticateResponse struct {
 	MemberID string `json:"member_id,omitempty"`
 	// MethodID: The email or device involved in the authentication.
 	MethodID string `json:"method_id,omitempty"`
-	// ResetSessions: Indicates if all Sessions linked to the Member need to be reset. You should check this
-	// field if you aren't using
-	//     Stytch's Session product. If you are using Stytch's Session product, we revoke the Member’s other
-	// Sessions for you.
+	// ResetSessions: This field is deprecated.
 	ResetSessions bool `json:"reset_sessions,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value.

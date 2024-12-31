@@ -75,12 +75,14 @@ func (c *OTPsSmsClient) Send(
 	var retVal sms.SendResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/otps/sms/send",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/otps/sms/send",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -123,12 +125,14 @@ func (c *OTPsSmsClient) LoginOrCreate(
 	var retVal sms.LoginOrCreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/otps/sms/login_or_create",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/otps/sms/login_or_create",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

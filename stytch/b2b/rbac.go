@@ -46,12 +46,14 @@ func (c *RBACClient) Policy(
 	var retVal rbac.PolicyResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		"/v1/b2b/rbac/policy",
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        "/v1/b2b/rbac/policy",
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

@@ -32,12 +32,14 @@ func (c *ProjectClient) Metrics(
 	var retVal project.MetricsResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		"/v1/projects/metrics",
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        "/v1/projects/metrics",
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

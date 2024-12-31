@@ -255,10 +255,7 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// ResetSession: Indicates if all Sessions linked to the Member need to be reset. You should check this
-	// field if you aren't using
-	//     Stytch's Session product. If you are using Stytch's Session product, we revoke the Member’s other
-	// Sessions for you.
+	// ResetSession: This field is deprecated.
 	ResetSession bool `json:"reset_session,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`

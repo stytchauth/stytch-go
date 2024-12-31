@@ -31,7 +31,8 @@ type DiscoveredOrganization struct {
 
 // Membership:
 type Membership struct {
-	// Type: Either `active_member`, `pending_member`, `invited_member`, or `eligible_to_join_by_email_domain`
+	// Type: Either `active_member`, `pending_member`, `invited_member`, `eligible_to_join_by_email_domain`, or
+	// `eligible_to_join_by_oauth_tenant`
 	Type string `json:"type,omitempty"`
 	// Details: An object containing additional metadata about the membership, if available.
 	Details map[string]any `json:"details,omitempty"`

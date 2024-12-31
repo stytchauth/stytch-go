@@ -54,12 +54,14 @@ func (c *CryptoWalletsClient) AuthenticateStart(
 	var retVal cryptowallets.AuthenticateStartResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/crypto_wallets/authenticate/start",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/crypto_wallets/authenticate/start",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -83,12 +85,14 @@ func (c *CryptoWalletsClient) Authenticate(
 	var retVal cryptowallets.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/crypto_wallets/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/crypto_wallets/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -115,11 +119,13 @@ func (c *CryptoWalletsClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/crypto_wallets/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/crypto_wallets/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err
