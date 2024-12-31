@@ -61,12 +61,14 @@ func (c *WebAuthnClient) RegisterStart(
 	var retVal webauthn.RegisterStartResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/webauthn/register/start",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/webauthn/register/start",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -99,12 +101,14 @@ func (c *WebAuthnClient) Register(
 	var retVal webauthn.RegisterResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/webauthn/register",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/webauthn/register",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -140,12 +144,14 @@ func (c *WebAuthnClient) AuthenticateStart(
 	var retVal webauthn.AuthenticateStartResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/webauthn/authenticate/start",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/webauthn/authenticate/start",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -177,12 +183,14 @@ func (c *WebAuthnClient) Authenticate(
 	var retVal webauthn.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/webauthn/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/webauthn/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -209,11 +217,13 @@ func (c *WebAuthnClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/webauthn/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/webauthn/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err
@@ -270,12 +280,14 @@ func (c *WebAuthnClient) Update(
 	var retVal webauthn.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/webauthn/%s", body.WebAuthnRegistrationID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/webauthn/%s", body.WebAuthnRegistrationID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

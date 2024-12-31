@@ -68,12 +68,14 @@ func (c *OTPsWhatsappClient) Send(
 	var retVal whatsapp.SendResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/otps/whatsapp/send",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/otps/whatsapp/send",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -109,12 +111,14 @@ func (c *OTPsWhatsappClient) LoginOrCreate(
 	var retVal whatsapp.LoginOrCreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/otps/whatsapp/login_or_create",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/otps/whatsapp/login_or_create",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

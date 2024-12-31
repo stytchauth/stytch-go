@@ -49,12 +49,14 @@ func (c *SessionsClient) Get(
 	var retVal sessions.GetResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		"/v1/sessions",
-		queryParams,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        "/v1/sessions",
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -87,12 +89,14 @@ func (c *SessionsClient) Authenticate(
 	var retVal sessions.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/sessions/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/sessions/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -119,11 +123,13 @@ func (c *SessionsClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/sessions/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/sessions/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err
@@ -182,12 +188,14 @@ func (c *SessionsClient) Revoke(
 	var retVal sessions.RevokeResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/sessions/revoke",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/sessions/revoke",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -215,12 +223,14 @@ func (c *SessionsClient) Migrate(
 	var retVal sessions.MigrateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/sessions/migrate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/sessions/migrate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -252,12 +262,14 @@ func (c *SessionsClient) GetJWKS(
 	var retVal sessions.GetJWKSResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/sessions/jwks/%s", body.ProjectID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/sessions/jwks/%s", body.ProjectID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

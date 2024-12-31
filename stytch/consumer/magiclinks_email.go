@@ -61,12 +61,14 @@ func (c *MagicLinksEmailClient) Send(
 	var retVal email.SendResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/magic_links/email/send",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/magic_links/email/send",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -100,12 +102,14 @@ func (c *MagicLinksEmailClient) LoginOrCreate(
 	var retVal email.LoginOrCreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/magic_links/email/login_or_create",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/magic_links/email/login_or_create",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -137,12 +141,14 @@ func (c *MagicLinksEmailClient) Invite(
 	var retVal email.InviteResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/magic_links/email/invite",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/magic_links/email/invite",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -166,12 +172,14 @@ func (c *MagicLinksEmailClient) RevokeInvite(
 	var retVal email.RevokeInviteResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/magic_links/email/revoke_invite",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/magic_links/email/revoke_invite",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

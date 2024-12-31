@@ -54,12 +54,14 @@ func (c *OrganizationsMembersOAuthProvidersClient) Google(
 	var retVal oauthproviders.GoogleResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/google", body.OrganizationID, body.MemberID),
-		queryParams,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/google", body.OrganizationID, body.MemberID),
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -87,12 +89,14 @@ func (c *OrganizationsMembersOAuthProvidersClient) Microsoft(
 	var retVal oauthproviders.MicrosoftResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/microsoft", body.OrganizationID, body.MemberID),
-		queryParams,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/microsoft", body.OrganizationID, body.MemberID),
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -109,12 +113,14 @@ func (c *OrganizationsMembersOAuthProvidersClient) Slack(
 	var retVal oauthproviders.SlackResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/slack", body.OrganizationID, body.MemberID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/slack", body.OrganizationID, body.MemberID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -142,12 +148,14 @@ func (c *OrganizationsMembersOAuthProvidersClient) Hubspot(
 	var retVal oauthproviders.HubspotResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/hubspot", body.OrganizationID, body.MemberID),
-		queryParams,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/hubspot", body.OrganizationID, body.MemberID),
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -175,12 +183,14 @@ func (c *OrganizationsMembersOAuthProvidersClient) Github(
 	var retVal oauthproviders.GithubResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/github", body.OrganizationID, body.MemberID),
-		queryParams,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/github", body.OrganizationID, body.MemberID),
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

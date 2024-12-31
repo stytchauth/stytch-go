@@ -68,12 +68,14 @@ func (c *DiscoveryIntermediateSessionsClient) Exchange(
 	var retVal intermediatesessions.ExchangeResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/discovery/intermediate_sessions/exchange",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/discovery/intermediate_sessions/exchange",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

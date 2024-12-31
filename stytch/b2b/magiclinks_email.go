@@ -51,12 +51,14 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 	var retVal email.LoginOrSignupResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/magic_links/email/login_or_signup",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/magic_links/email/login_or_signup",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -88,12 +90,14 @@ func (c *MagicLinksEmailClient) Invite(
 	var retVal email.InviteResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/magic_links/email/invite",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/magic_links/email/invite",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

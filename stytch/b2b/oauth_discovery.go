@@ -46,12 +46,14 @@ func (c *OAuthDiscoveryClient) Authenticate(
 	var retVal discovery.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/oauth/discovery/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/oauth/discovery/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

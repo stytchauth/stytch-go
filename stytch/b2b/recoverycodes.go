@@ -46,12 +46,14 @@ func (c *RecoveryCodesClient) Recover(
 	var retVal recoverycodes.RecoverResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/recovery_codes/recover",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/recovery_codes/recover",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -66,12 +68,14 @@ func (c *RecoveryCodesClient) Get(
 	var retVal recoverycodes.GetResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/b2b/recovery_codes/%s/%s", body.OrganizationID, body.MemberID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/recovery_codes/%s/%s", body.OrganizationID, body.MemberID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -96,12 +100,14 @@ func (c *RecoveryCodesClient) Rotate(
 	var retVal recoverycodes.RotateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/recovery_codes/rotate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/recovery_codes/rotate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

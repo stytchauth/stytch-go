@@ -66,12 +66,14 @@ func (c *DiscoveryOrganizationsClient) Create(
 	var retVal organizations.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/discovery/organizations/create",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/discovery/organizations/create",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -86,7 +88,7 @@ func (c *DiscoveryOrganizationsClient) Create(
 //
 // When an Intermediate Session is passed in, all relationship types - `active_member`, `pending_member`,
 // `invited_member`,
-// and `eligible_to_join_by_email_domain` - will be returned,
+// `eligible_to_join_by_email_domain`, and `eligible_to_join_by_oauth_tenant` - will be returned,
 // and any membership can be assumed by calling the
 // [Exchange Intermediate Session](https://stytch.com/docs/b2b/api/exchange-intermediate-session) endpoint.
 //
@@ -113,12 +115,14 @@ func (c *DiscoveryOrganizationsClient) List(
 	var retVal organizations.ListResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/b2b/discovery/organizations",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/discovery/organizations",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

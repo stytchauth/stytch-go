@@ -47,12 +47,14 @@ func (c *TOTPsClient) Create(
 	var retVal totps.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/totps",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/totps",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -76,12 +78,14 @@ func (c *TOTPsClient) Authenticate(
 	var retVal totps.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/totps/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/totps/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -108,11 +112,13 @@ func (c *TOTPsClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/totps/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/totps/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err
@@ -169,12 +175,14 @@ func (c *TOTPsClient) RecoveryCodes(
 	var retVal totps.RecoveryCodesResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/totps/recovery_codes",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/totps/recovery_codes",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -198,12 +206,14 @@ func (c *TOTPsClient) Recover(
 	var retVal totps.RecoverResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/totps/recover",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/totps/recover",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

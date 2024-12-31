@@ -98,7 +98,8 @@ type M2MSearchQuery struct {
 
 // ResultsMetadata:
 type ResultsMetadata struct {
-	// Total: The total number of results returned by your search query.
+	// Total: The total number of results returned by your search query. If totals have been disabled for your
+	// Stytch Workspace to improve search performance, the value will always be -1.
 	Total int32 `json:"total,omitempty"`
 	// NextCursor: The `next_cursor` string is returned when your search result contains more than one page of
 	// results. This value is passed into your next search call in the `cursor` field.

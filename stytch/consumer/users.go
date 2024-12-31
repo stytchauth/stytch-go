@@ -46,12 +46,14 @@ func (c *UsersClient) Create(
 	var retVal users.CreateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/users",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/users",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -66,12 +68,14 @@ func (c *UsersClient) Get(
 	var retVal users.GetResponse
 	err := c.C.NewRequest(
 		ctx,
-		"GET",
-		fmt.Sprintf("/v1/users/%s", body.UserID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/users/%s", body.UserID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -105,12 +109,14 @@ func (c *UsersClient) Search(
 	var retVal users.SearchResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/users/search",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/users/search",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -143,12 +149,14 @@ func (c *UsersClient) Update(
 	var retVal users.UpdateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/users/%s", body.UserID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/users/%s", body.UserID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -179,12 +187,14 @@ func (c *UsersClient) ExchangePrimaryFactor(
 	var retVal users.ExchangePrimaryFactorResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/users/%s/exchange_primary_factor", body.UserID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/users/%s/exchange_primary_factor", body.UserID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -199,12 +209,14 @@ func (c *UsersClient) Delete(
 	var retVal users.DeleteResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/%s", body.UserID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/%s", body.UserID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -219,12 +231,14 @@ func (c *UsersClient) DeleteEmail(
 	var retVal users.DeleteEmailResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/emails/%s", body.EmailID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/emails/%s", body.EmailID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -239,12 +253,14 @@ func (c *UsersClient) DeletePhoneNumber(
 	var retVal users.DeletePhoneNumberResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/phone_numbers/%s", body.PhoneID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/phone_numbers/%s", body.PhoneID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -259,12 +275,14 @@ func (c *UsersClient) DeleteWebAuthnRegistration(
 	var retVal users.DeleteWebAuthnRegistrationResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebAuthnRegistrationID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebAuthnRegistrationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -279,12 +297,14 @@ func (c *UsersClient) DeleteBiometricRegistration(
 	var retVal users.DeleteBiometricRegistrationResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/biometric_registrations/%s", body.BiometricRegistrationID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/biometric_registrations/%s", body.BiometricRegistrationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -299,12 +319,14 @@ func (c *UsersClient) DeleteTOTP(
 	var retVal users.DeleteTOTPResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/totps/%s", body.TOTPID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/totps/%s", body.TOTPID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -319,12 +341,14 @@ func (c *UsersClient) DeleteCryptoWallet(
 	var retVal users.DeleteCryptoWalletResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/crypto_wallets/%s", body.CryptoWalletID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/crypto_wallets/%s", body.CryptoWalletID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -339,12 +363,14 @@ func (c *UsersClient) DeletePassword(
 	var retVal users.DeletePasswordResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/passwords/%s", body.PasswordID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/passwords/%s", body.PasswordID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -359,12 +385,14 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	var retVal users.DeleteOAuthRegistrationResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/users/oauth/%s", body.OAuthUserRegistrationID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/oauth/%s", body.OAuthUserRegistrationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }

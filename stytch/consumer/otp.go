@@ -57,12 +57,14 @@ func (c *OTPsClient) Authenticate(
 	var retVal otp.AuthenticateResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		"/v1/otps/authenticate",
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/otps/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -89,11 +91,13 @@ func (c *OTPsClient) AuthenticateWithClaims(
 
 	b, err := c.C.RawRequest(
 		ctx,
-		"POST",
-		"/v1/otps/authenticate",
-		nil,
-		jsonBody,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/otps/authenticate",
+			QueryParams: nil,
+			Body:        jsonBody,
+			Headers:     headers,
+		},
 	)
 	if err != nil {
 		return nil, err

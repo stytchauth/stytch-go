@@ -49,12 +49,14 @@ func (c *SSOSAMLClient) CreateConnection(
 	var retVal saml.CreateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
-		"POST",
-		fmt.Sprintf("/v1/b2b/sso/saml/%s", body.OrganizationID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s", body.OrganizationID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -88,12 +90,14 @@ func (c *SSOSAMLClient) UpdateConnection(
 	var retVal saml.UpdateConnectionResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -127,12 +131,14 @@ func (c *SSOSAMLClient) UpdateByURL(
 	var retVal saml.UpdateByURLResponse
 	err = c.C.NewRequest(
 		ctx,
-		"PUT",
-		fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/url", body.OrganizationID, body.ConnectionID),
-		nil,
-		jsonBody,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "PUT",
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/url", body.OrganizationID, body.ConnectionID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
@@ -154,12 +160,14 @@ func (c *SSOSAMLClient) DeleteVerificationCertificate(
 	var retVal saml.DeleteVerificationCertificateResponse
 	err := c.C.NewRequest(
 		ctx,
-		"DELETE",
-		fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/verification_certificates/%s", body.OrganizationID, body.ConnectionID, body.CertificateID),
-		nil,
-		nil,
-		&retVal,
-		headers,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/verification_certificates/%s", body.OrganizationID, body.ConnectionID, body.CertificateID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
 	)
 	return &retVal, err
 }
