@@ -3,8 +3,9 @@ package config
 type BaseURI string
 
 const (
-	BaseURITest BaseURI = "https://test.stytch.com"
-	BaseURILive BaseURI = "https://api.stytch.com"
+	BaseURITest  BaseURI = "https://test.stytch.com"
+	BaseURILive  BaseURI = "https://api.stytch.com"
+	BaseURIFraud BaseURI = "https://telemetry.stytch.com"
 )
 
 type Env string
@@ -15,8 +16,9 @@ const (
 )
 
 type Config struct {
-	Env     Env
-	BaseURI BaseURI
+	Env          Env
+	BaseURI      BaseURI
+	FraudBaseURI BaseURI
 	/** The ProjectID to use with basic authentication */
 	/** Replace the value of ProjectID with SetBasicAuthProjectID function */
 	ProjectID string
