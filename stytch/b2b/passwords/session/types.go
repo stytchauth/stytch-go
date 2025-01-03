@@ -56,7 +56,7 @@ type ResetParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale ResetRequestLocale `json:"locale,omitempty"`
+	Locale *ResetRequestLocale `json:"locale,omitempty"`
 }
 
 // ResetResponse: Response type for `Sessions.Reset`.

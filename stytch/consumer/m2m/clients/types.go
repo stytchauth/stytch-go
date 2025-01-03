@@ -71,7 +71,7 @@ type UpdateParams struct {
 	// ClientDescription: A human-readable description for the client.
 	ClientDescription string `json:"client_description,omitempty"`
 	// Status: The status of the client - either `active` or `inactive`.
-	Status UpdateRequestStatus `json:"status,omitempty"`
+	Status *UpdateRequestStatus `json:"status,omitempty"`
 	// Scopes: An array of scopes assigned to the client.
 	Scopes []string `json:"scopes,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific

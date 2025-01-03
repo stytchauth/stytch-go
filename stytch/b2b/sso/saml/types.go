@@ -23,7 +23,7 @@ type CreateConnectionParams struct {
 	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
 	//
 	// Specifying a known provider allows Stytch to handle any provider-specific logic.
-	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	IdentityProvider *CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // DeleteVerificationCertificateParams: Request type for `SAML.DeleteVerificationCertificate`.
@@ -94,7 +94,7 @@ type UpdateConnectionParams struct {
 	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
 	//
 	// Specifying a known provider allows Stytch to handle any provider-specific logic.
-	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	IdentityProvider *UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // CreateConnectionRequestOptions:

@@ -23,7 +23,7 @@ type CreateConnectionParams struct {
 	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
 	//
 	// Specifying a known provider allows Stytch to handle any provider-specific logic.
-	IdentityProvider CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	IdentityProvider *CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // UpdateConnectionParams: Request type for `OIDC.UpdateConnection`.
@@ -61,7 +61,7 @@ type UpdateConnectionParams struct {
 	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
 	//
 	// Specifying a known provider allows Stytch to handle any provider-specific logic.
-	IdentityProvider UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
+	IdentityProvider *UpdateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 	// CustomScopes: Include a space-separated list of custom scopes that you'd like to include. Note that this
 	// list must be URL encoded, e.g. the spaces must be expressed as %20.
 	CustomScopes string `json:"custom_scopes,omitempty"`

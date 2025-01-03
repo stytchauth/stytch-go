@@ -35,6 +35,7 @@ type API struct {
 	shouldSkipJWKSInitialization bool
 
 	Discovery     *b2b.DiscoveryClient
+	Fraud         *consumer.FraudClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *b2b.MagicLinksClient
 	OAuth         *b2b.OAuthClient
@@ -95,6 +96,19 @@ func WithBaseURI(uri string) Option {
 	}
 }
 
+// WithFraudBaseURI overrides the client base fraud URI. This is implemented to make it easier to use
+// this client to access internal development versions of the API.
+//
+// NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
+// stytch.Client with one that may not be a stytch.DefaultClient.
+func WithFraudBaseURI(uri string) Option {
+	return func(api *API) {
+		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
+			defaultClient.Config.FraudBaseURI = config.BaseURI(uri)
+		}
+	}
+}
+
 // WithInitializationContext overrides the context used during initialization.
 //
 // The context argument is used only during client setup and can be used to cancel client
@@ -143,6 +157,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	}
 
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
+	a.Fraud = consumer.NewFraudClient(a.client)
 	a.M2M = consumer.NewM2MClient(a.client, jwks)
 	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
 	a.OAuth = b2b.NewOAuthClient(a.client)
