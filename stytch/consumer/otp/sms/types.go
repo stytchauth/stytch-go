@@ -38,7 +38,7 @@ type LoginOrCreateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale LoginOrCreateRequestLocale `json:"locale,omitempty"`
+	Locale *LoginOrCreateRequestLocale `json:"locale,omitempty"`
 }
 
 // SendParams: Request type for `Sms.Send`.
@@ -61,7 +61,7 @@ type SendParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale SendRequestLocale `json:"locale,omitempty"`
+	Locale *SendRequestLocale `json:"locale,omitempty"`
 	// UserID: The unique ID of a specific User.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.

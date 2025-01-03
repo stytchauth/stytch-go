@@ -9,8 +9,8 @@ package project
 type MetricsParams struct{}
 
 type ProjectMetric struct {
-	Count      uint32                  `json:"count,omitempty"`
 	MetricType ProjectMetricMetricType `json:"metric_type,omitempty"`
+	Count      uint32                  `json:"count,omitempty"`
 }
 
 type MetricsResponse struct {
