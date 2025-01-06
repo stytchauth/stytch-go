@@ -274,10 +274,10 @@ func (c *SessionsClient) Exchange(
 }
 
 // Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
-// endpoint defined in your Stytch Project settings in the [Dashboard](/dashboard), and then perform a
-// lookup using the `session_token`. If the response contains a valid email address, Stytch will attempt to
-// match that email address with an existing in your and create a Stytch Session. You will need to create
-// the member before using this endpoint.
+// endpoint defined in your Stytch Project settings in the [Dashboard](https://stytch.com/docs/dashboard),
+// and then perform a lookup using the `session_token`. If the response contains a valid email address,
+// Stytch will attempt to match that email address with an existing in your and create a Stytch Session.
+// You will need to create the member before using this endpoint.
 func (c *SessionsClient) Migrate(
 	ctx context.Context,
 	body *sessions.MigrateParams,
