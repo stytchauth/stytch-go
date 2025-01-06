@@ -10,8 +10,14 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v15/stytch/config"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch/config"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+)
+
+type BaseURLType string
+
+const (
+	baseURLFraud BaseURLType = "FRAUD"
 )
 
 const (
@@ -45,6 +51,7 @@ func New(projectID string, secret string) *DefaultClient {
 	stytchClient.Config.SetBasicAuthProjectID(projectID)
 	stytchClient.Config.SetBasicAuthSecret(secret)
 	stytchClient.Config.SetEnv(detectedEnv)
+	stytchClient.Config.FraudBaseURI = config.BaseURIFraud
 
 	stytchClient.HTTPClient = &http.Client{}
 
@@ -58,6 +65,7 @@ type RequestParams struct {
 	Body        []byte
 	V           interface{}
 	Headers     map[string][]string
+	BaseURLType BaseURLType
 }
 
 // newRequest is used by Call to generate and Do a http.Request
@@ -88,7 +96,12 @@ func (c *DefaultClient) RawRequest(
 		params.Path = "/" + params.Path
 	}
 
-	params.Path = string(c.Config.BaseURI) + params.Path
+	baseURI := c.Config.BaseURI
+	if params.BaseURLType == baseURLFraud {
+		baseURI = c.Config.FraudBaseURI
+	}
+
+	params.Path = string(baseURI) + params.Path
 
 	req, err := http.NewRequestWithContext(ctx, params.Method, params.Path, bytes.NewReader(params.Body))
 	if err != nil {

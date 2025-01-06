@@ -3,8 +3,8 @@ package shared
 import (
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/m2m"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
 func PerformM2MAuthorizationCheck(params m2m.ScopeAuthorizationFuncParams) error {

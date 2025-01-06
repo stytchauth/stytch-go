@@ -7,10 +7,10 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
 // RequireResetParams: Request type for `Email.RequireReset`.
@@ -83,7 +83,7 @@ type ResetParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale ResetRequestLocale `json:"locale,omitempty"`
+	Locale *ResetRequestLocale `json:"locale,omitempty"`
 	// IntermediateSessionToken: Adds this primary authentication factor to the intermediate session token. If
 	// the resulting set of factors satisfies the organization's primary authentication requirements and MFA
 	// requirements, the intermediate session token will be consumed and converted to a member session. If not,
@@ -128,7 +128,7 @@ type ResetStartParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale ResetStartRequestLocale `json:"locale,omitempty"`
+	Locale *ResetStartRequestLocale `json:"locale,omitempty"`
 	// ResetPasswordTemplateID: Use a custom template for reset password emails. By default, it will use your
 	// default email template. The template must be a template using our built-in customizations or a custom
 	// HTML email for Magic Links - Reset Password.

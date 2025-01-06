@@ -7,8 +7,8 @@ package passwords
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
 
 // Argon2Config:

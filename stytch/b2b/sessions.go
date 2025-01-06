@@ -15,11 +15,11 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/shared"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/shared"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -274,10 +274,10 @@ func (c *SessionsClient) Exchange(
 }
 
 // Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
-// endpoint defined in your Stytch Project settings in the [Dashboard](/dashboard), and then perform a
-// lookup using the `session_token`. If the response contains a valid email address, Stytch will attempt to
-// match that email address with an existing in your and create a Stytch Session. You will need to create
-// the member before using this endpoint.
+// endpoint defined in your Stytch Project settings in the [Dashboard](https://stytch.com/docs/dashboard),
+// and then perform a lookup using the `session_token`. If the response contains a valid email address,
+// Stytch will attempt to match that email address with an existing in your and create a Stytch Session.
+// You will need to create the member before using this endpoint.
 func (c *SessionsClient) Migrate(
 	ctx context.Context,
 	body *sessions.MigrateParams,
@@ -353,7 +353,7 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
@@ -418,7 +418,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	return resp, nil
 }
 
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/shared"
 func (c *SessionsClient) AuthenticateJWTLocal(
 	ctx context.Context,
 	token string,

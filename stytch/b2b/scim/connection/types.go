@@ -7,8 +7,8 @@ package connection
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/scim"
-	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/scim"
+	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
 // CreateParams: Request type for `Connection.Create`.
@@ -17,8 +17,8 @@ type CreateParams struct {
 	// critical to perform operations on an Organization, so be sure to preserve this value.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                        `json:"display_name,omitempty"`
-	IdentityProvider CreateRequestIdentityProvider `json:"identity_provider,omitempty"`
+	DisplayName      string                         `json:"display_name,omitempty"`
+	IdentityProvider *CreateRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
 // DeleteParams: Request type for `Connection.Delete`.
@@ -92,8 +92,8 @@ type UpdateParams struct {
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                        `json:"display_name,omitempty"`
-	IdentityProvider UpdateRequestIdentityProvider `json:"identity_provider,omitempty"`
+	DisplayName      string                         `json:"display_name,omitempty"`
+	IdentityProvider *UpdateRequestIdentityProvider `json:"identity_provider,omitempty"`
 	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
 	// array must contain a `group_id` and a `role_id`.
 	SCIMGroupImplicitRoleAssignments []*scim.SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`

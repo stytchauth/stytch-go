@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/scim/connection"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/scim/connection"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
 type SCIMConnectionClient struct {

@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
 // InviteParams: Request type for `Email.Invite`.
@@ -51,7 +51,7 @@ type InviteParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale InviteRequestLocale `json:"locale,omitempty"`
+	Locale *InviteRequestLocale `json:"locale,omitempty"`
 	// Roles to explicitly assign to this Member. See the
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
 	//    for more information about role assignment.
@@ -99,7 +99,7 @@ type LoginOrSignupParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale LoginOrSignupRequestLocale `json:"locale,omitempty"`
+	Locale *LoginOrSignupRequestLocale `json:"locale,omitempty"`
 }
 
 // InviteRequestOptions:

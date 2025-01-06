@@ -7,9 +7,9 @@ package intermediatesessions
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 )
 
 // ExchangeParams: Request type for `IntermediateSessions.Exchange`.
@@ -65,7 +65,7 @@ type ExchangeParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale ExchangeRequestLocale `json:"locale,omitempty"`
+	Locale *ExchangeRequestLocale `json:"locale,omitempty"`
 }
 
 // ExchangeResponse: Response type for `IntermediateSessions.Exchange`.

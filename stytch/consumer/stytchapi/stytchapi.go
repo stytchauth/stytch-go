@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/config"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/config"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer"
 )
 
 type Logger interface {
@@ -34,6 +34,7 @@ type API struct {
 	shouldSkipJWKSInitialization bool
 
 	CryptoWallets *consumer.CryptoWalletsClient
+	Fraud         *consumer.FraudClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *consumer.MagicLinksClient
 	OAuth         *consumer.OAuthClient
@@ -91,6 +92,19 @@ func WithBaseURI(uri string) Option {
 	}
 }
 
+// WithFraudBaseURI overrides the client base fraud URI. This is implemented to make it easier to use
+// this client to access internal development versions of the API.
+//
+// NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
+// stytch.Client with one that may not be a stytch.DefaultClient.
+func WithFraudBaseURI(uri string) Option {
+	return func(api *API) {
+		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
+			defaultClient.Config.FraudBaseURI = config.BaseURI(uri)
+		}
+	}
+}
+
 // WithInitializationContext overrides the context used during initialization.
 //
 // The context argument is used only during client setup and can be used to cancel client
@@ -137,6 +151,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	}
 
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
+	a.Fraud = consumer.NewFraudClient(a.client)
 	a.M2M = consumer.NewM2MClient(a.client, jwks)
 	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
 	a.OAuth = consumer.NewOAuthClient(a.client)

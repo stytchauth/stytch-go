@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
 
 // InviteParams: Request type for `Email.Invite`.
@@ -40,7 +40,7 @@ type InviteParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale InviteRequestLocale `json:"locale,omitempty"`
+	Locale *InviteRequestLocale `json:"locale,omitempty"`
 }
 
 // LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
@@ -93,7 +93,7 @@ type LoginOrCreateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale LoginOrCreateRequestLocale `json:"locale,omitempty"`
+	Locale *LoginOrCreateRequestLocale `json:"locale,omitempty"`
 }
 
 // RevokeInviteParams: Request type for `Email.RevokeInvite`.
@@ -146,7 +146,7 @@ type SendParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale SendRequestLocale `json:"locale,omitempty"`
+	Locale *SendRequestLocale `json:"locale,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
 	// Magic links - Sign-up.

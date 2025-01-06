@@ -9,10 +9,10 @@ package sso
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.
@@ -62,7 +62,7 @@ type AuthenticateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale AuthenticateRequestLocale `json:"locale,omitempty"`
+	Locale *AuthenticateRequestLocale `json:"locale,omitempty"`
 	// IntermediateSessionToken: Adds this primary authentication factor to the intermediate session token. If
 	// the resulting set of factors satisfies the organization's primary authentication requirements and MFA
 	// requirements, the intermediate session token will be consumed and converted to a member session. If not,

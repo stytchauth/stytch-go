@@ -7,9 +7,9 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `Email.Authenticate`.
@@ -69,7 +69,7 @@ type AuthenticateParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale AuthenticateRequestLocale `json:"locale,omitempty"`
+	Locale *AuthenticateRequestLocale `json:"locale,omitempty"`
 }
 
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
@@ -96,7 +96,7 @@ type LoginOrSignupParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale LoginOrSignupRequestLocale `json:"locale,omitempty"`
+	Locale *LoginOrSignupRequestLocale `json:"locale,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Email.Authenticate`.

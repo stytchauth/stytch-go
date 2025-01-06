@@ -7,10 +7,10 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/magiclinks"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
 
 // ResetParams: Request type for `Email.Reset`.
@@ -19,7 +19,8 @@ type ResetParams struct {
 	//
 	//       In the redirect URL, the `stytch_token_type` will be `login` or `reset_password`.
 	//
-	//       See examples and read more about redirect URLs [here](/workspace-management/redirect-urls).
+	//       See examples and read more about redirect URLs
+	// [here](https://stytch.com/docs/workspace-management/redirect-urls).
 	Token string `json:"token,omitempty"`
 	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
 	// characers, etc.
@@ -84,8 +85,9 @@ type ResetStartParams struct {
 	// exists. This URL should be a route in your application which will run `oauth.authenticate` (see below)
 	// and finish the login.
 	//
-	//   The URL must be configured as a Login URL in the [Redirect URL page](/dashboard/redirect-urls). If the
-	// field is not specified, the default Login URL will be used.
+	//   The URL must be configured as a Login URL in the
+	// [Redirect URL page](https://stytch.com/docs/dashboard/redirect-urls). If the field is not specified, the
+	// default Login URL will be used.
 	LoginRedirectURL string `json:"login_redirect_url,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
@@ -96,7 +98,7 @@ type ResetStartParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale ResetStartRequestLocale `json:"locale,omitempty"`
+	Locale *ResetStartRequestLocale `json:"locale,omitempty"`
 	// ResetPasswordTemplateID: Use a custom template for password reset emails. By default, it will use your
 	// default email template.
 	//   The template must be a template using our built-in customizations or a custom HTML email for Passwords

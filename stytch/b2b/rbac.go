@@ -10,8 +10,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
 )
 
 type RBACClient struct {
@@ -31,7 +31,8 @@ func NewRBACClient(c stytch.Client) *RBACClient {
 // the need for an extra request to Stytch. The policy will be refreshed if an authorization check is
 // requested and the RBAC policy was last updated more than 5 minutes ago.
 //
-// Resources and Roles can be created and managed within the [Dashboard](/dashboard/rbac). Additionally,
+// Resources and Roles can be created and managed within the
+// [Dashboard](https://stytch.com/docs/dashboard/rbac). Additionally,
 // [Role assignment](https://stytch.com/docs/b2b/guides/rbac/role-assignment) can be programmatically
 // managed through certain Stytch API endpoints.
 //
