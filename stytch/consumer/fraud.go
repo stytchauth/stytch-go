@@ -7,7 +7,7 @@ package consumer
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch"
 )
 
 type FraudClient struct {

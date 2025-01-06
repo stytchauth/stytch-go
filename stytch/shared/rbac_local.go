@@ -1,9 +1,9 @@
 package shared
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
 func PerformAuthorizationCheck(

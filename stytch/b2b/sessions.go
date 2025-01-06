@@ -15,11 +15,11 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v15/stytch/shared"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/shared"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -353,7 +353,7 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
@@ -418,7 +418,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	return resp, nil
 }
 
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v15/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/shared"
 func (c *SessionsClient) AuthenticateJWTLocal(
 	ctx context.Context,
 	token string,

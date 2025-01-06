@@ -10,8 +10,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
 )
 
 type RBACClient struct {

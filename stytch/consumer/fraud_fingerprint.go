@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v15/stytch"
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/fraud/fingerprint"
-	"github.com/stytchauth/stytch-go/v15/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/fraud/fingerprint"
+	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
 type FraudFingerprintClient struct {

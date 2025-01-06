@@ -7,8 +7,8 @@ package external
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v15/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
 // CreateConnectionParams: Request type for `External.CreateConnection`.

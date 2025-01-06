@@ -7,7 +7,7 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
 )
 
 // LoginOrCreateParams: Request type for `Email.LoginOrCreate`.

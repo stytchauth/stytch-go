@@ -9,7 +9,7 @@ package fingerprint
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v15/stytch/consumer/fraud"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/fraud"
 )
 
 // LookupParams: Request type for `Fingerprint.Lookup`.
