@@ -144,7 +144,9 @@ type MigrateParams struct {
 	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
 	// SSO
 	//   authentication factors with the affected SSO connection IDs will be revoked.
-	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
+	PreserveExistingSessions bool   `json:"preserve_existing_sessions,omitempty"`
+	MFAPhoneNumber           string `json:"mfa_phone_number,omitempty"`
+	SetPhoneNumberVerified   bool   `json:"set_phone_number_verified,omitempty"`
 }
 
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
