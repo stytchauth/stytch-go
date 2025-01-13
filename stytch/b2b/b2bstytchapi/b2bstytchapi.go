@@ -36,6 +36,7 @@ type API struct {
 
 	Discovery     *b2b.DiscoveryClient
 	Fraud         *consumer.FraudClient
+	Impersonation *b2b.ImpersonationClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *b2b.MagicLinksClient
 	OAuth         *b2b.OAuthClient
@@ -158,6 +159,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
 	a.Fraud = consumer.NewFraudClient(a.client)
+	a.Impersonation = b2b.NewImpersonationClient(a.client)
 	a.M2M = consumer.NewM2MClient(a.client, jwks)
 	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
 	a.OAuth = b2b.NewOAuthClient(a.client)
