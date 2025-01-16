@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 type AmazonOAuthFactor struct {
@@ -119,7 +119,8 @@ type AuthenticationFactor struct {
 	HubspotOAuthExchangeFactor *HubspotOAuthExchangeFactor `json:"hubspot_oauth_exchange_factor,omitempty"`
 	GithubOAuthExchangeFactor  *GithubOAuthExchangeFactor  `json:"github_oauth_exchange_factor,omitempty"`
 	GoogleOAuthExchangeFactor  *GoogleOAuthExchangeFactor  `json:"google_oauth_exchange_factor,omitempty"`
-	ImpersonatedFactor         *ImpersonatedFactor         `json:"impersonated_factor,omitempty"`
+	// ImpersonatedFactor: Information about the impersonated factor, if one is present.
+	ImpersonatedFactor *ImpersonatedFactor `json:"impersonated_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -233,8 +234,12 @@ type HubspotOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+// ImpersonatedFactor:
 type ImpersonatedFactor struct {
-	ImpersonatorID           string `json:"impersonator_id,omitempty"`
+	// ImpersonatorID: The unique UUID of the impersonator. For impersonation sessions initiated via the Stytch
+	// dashboard, the `impersonator_id` will be the impersonator's Stytch workspace id.
+	ImpersonatorID string `json:"impersonator_id,omitempty"`
+	// ImpersonatorEmailAddress: The email address of the impersonator.
 	ImpersonatorEmailAddress string `json:"impersonator_email_address,omitempty"`
 }
 

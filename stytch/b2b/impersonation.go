@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/impersonation"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/impersonation"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 type ImpersonationClient struct {
@@ -27,6 +27,10 @@ func NewImpersonationClient(c stytch.Client) *ImpersonationClient {
 	}
 }
 
+// Authenticate an impersonation token to impersonate a. This endpoint requires an impersonation token that
+// is not expired or previously used.
+// A Stytch session will be created for the impersonated member with a 60 minute duration. Impersonated
+// sessions cannot be extended.
 func (c *ImpersonationClient) Authenticate(
 	ctx context.Context,
 	body *impersonation.AuthenticateParams,

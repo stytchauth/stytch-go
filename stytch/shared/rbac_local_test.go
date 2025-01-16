@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/shared"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/shared"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 const orgID = "organization-1234"

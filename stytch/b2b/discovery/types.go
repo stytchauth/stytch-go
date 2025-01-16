@@ -7,9 +7,9 @@ package discovery
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 )
 
 // DiscoveredOrganization:
