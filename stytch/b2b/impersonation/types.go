@@ -12,21 +12,44 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 )
 
+// AuthenticateParams: Request type for `Impersonation.Authenticate`.
 type AuthenticateParams struct {
-	Token string `json:"token,omitempty"`
+	// ImpersonationToken: The User Impersonation token to authenticate.
+	ImpersonationToken string `json:"impersonation_token,omitempty"`
 }
 
+// AuthenticateResponse: Response type for `Impersonation.Authenticate`.
 type AuthenticateResponse struct {
-	RequestID                string                     `json:"request_id,omitempty"`
-	MemberID                 string                     `json:"member_id,omitempty"`
-	OrganizationID           string                     `json:"organization_id,omitempty"`
-	Member                   organizations.Member       `json:"member,omitempty"`
-	SessionToken             string                     `json:"session_token,omitempty"`
-	SessionJWT               string                     `json:"session_jwt,omitempty"`
-	Organization             organizations.Organization `json:"organization,omitempty"`
-	IntermediateSessionToken string                     `json:"intermediate_session_token,omitempty"`
-	MemberAuthenticated      bool                       `json:"member_authenticated,omitempty"`
-	StatusCode               int32                      `json:"status_code,omitempty"`
-	MemberSession            *sessions.MemberSession    `json:"member_session,omitempty"`
-	MFARequired              *mfa.MfaRequired           `json:"mfa_required,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
+	Member organizations.Member `json:"member,omitempty"`
+	// SessionToken: A secret token for a given Stytch Session.
+	SessionToken string `json:"session_token,omitempty"`
+	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
+	SessionJWT string `json:"session_jwt,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
+	Organization organizations.Organization `json:"organization,omitempty"`
+	// IntermediateSessionToken: Successfully authenticating an impersonation token will never result in an
+	// intermediate session. If the token is valid, a full session will be created.
+	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
+	// MemberAuthenticated: The member will always be fully authenticated if an impersonation token is
+	// successfully authenticated.
+	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object) for the impersonated
+	// Member.
+	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
+	// MFARequired: MFA will not be required when authenticating impersonation tokens.
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 }
