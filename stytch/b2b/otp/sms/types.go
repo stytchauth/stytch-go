@@ -161,4 +161,6 @@ const (
 	SendRequestLocaleEn   SendRequestLocale = "en"
 	SendRequestLocaleEs   SendRequestLocale = "es"
 	SendRequestLocalePtbr SendRequestLocale = "pt-br"
+	SendRequestLocaleFr   SendRequestLocale = "fr"
+	SendRequestLocaleIt   SendRequestLocale = "it"
 )

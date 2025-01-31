@@ -110,6 +110,8 @@ const (
 	LoginOrCreateRequestLocaleEn   LoginOrCreateRequestLocale = "en"
 	LoginOrCreateRequestLocaleEs   LoginOrCreateRequestLocale = "es"
 	LoginOrCreateRequestLocalePtbr LoginOrCreateRequestLocale = "pt-br"
+	LoginOrCreateRequestLocaleFr   LoginOrCreateRequestLocale = "fr"
+	LoginOrCreateRequestLocaleIt   LoginOrCreateRequestLocale = "it"
 )
 
 type SendRequestLocale string
@@ -118,4 +120,6 @@ const (
 	SendRequestLocaleEn   SendRequestLocale = "en"
 	SendRequestLocaleEs   SendRequestLocale = "es"
 	SendRequestLocalePtbr SendRequestLocale = "pt-br"
+	SendRequestLocaleFr   SendRequestLocale = "fr"
+	SendRequestLocaleIt   SendRequestLocale = "it"
 )

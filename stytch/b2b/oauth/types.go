@@ -155,4 +155,6 @@ const (
 	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
 	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
 	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
+	AuthenticateRequestLocaleIt   AuthenticateRequestLocale = "it"
 )

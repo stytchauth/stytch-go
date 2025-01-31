@@ -118,4 +118,6 @@ const (
 	ExchangeRequestLocaleEn   ExchangeRequestLocale = "en"
 	ExchangeRequestLocaleEs   ExchangeRequestLocale = "es"
 	ExchangeRequestLocalePtbr ExchangeRequestLocale = "pt-br"
+	ExchangeRequestLocaleFr   ExchangeRequestLocale = "fr"
+	ExchangeRequestLocaleIt   ExchangeRequestLocale = "it"
 )
