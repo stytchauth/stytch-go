@@ -28,7 +28,8 @@ type ActiveSSOConnection struct {
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
 	ConnectionID string `json:"connection_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
-	DisplayName string `json:"display_name,omitempty"`
+	DisplayName      string `json:"display_name,omitempty"`
+	IdentityProvider string `json:"identity_provider,omitempty"`
 }
 
 // CreateParams: Request type for `Organizations.Create`.
