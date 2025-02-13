@@ -12,6 +12,7 @@ type Policy struct {
 	Roles []PolicyRole `json:"roles,omitempty"`
 	// Resources: An array of [Resource objects](https://stytch.com/docs/b2b/api/rbac-resource-object).
 	Resources []PolicyResource `json:"resources,omitempty"`
+	Scopes    []PolicyScope    `json:"scopes,omitempty"`
 }
 
 // PolicyParams: Request type for `RBAC.Policy`.
@@ -127,6 +128,17 @@ type PolicyRolePermission struct {
 	// Actions: A list of permitted actions the Role is authorized to take with the provided Resource. You can
 	// use `*` as a wildcard to grant a Role permission to use all possible actions related to the Resource.
 	Actions []string `json:"actions,omitempty"`
+}
+
+type PolicyScope struct {
+	Scope       string                  `json:"scope,omitempty"`
+	Description string                  `json:"description,omitempty"`
+	Permissions []PolicyScopePermission `json:"permissions,omitempty"`
+}
+
+type PolicyScopePermission struct {
+	ResourceID string   `json:"resource_id,omitempty"`
+	Actions    []string `json:"actions,omitempty"`
 }
 
 // PolicyResponse: Response type for `RBAC.Policy`.

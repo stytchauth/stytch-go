@@ -468,7 +468,7 @@ type AuthenticateResponse struct {
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
 type GetJWKSResponse struct {
-	// Keys: The JWK
+	// Keys: The list of JWKs associated with the project.
 	Keys []JWK `json:"keys,omitempty"`
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
