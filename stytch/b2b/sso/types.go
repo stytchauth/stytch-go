@@ -236,6 +236,7 @@ type X509Certificate struct {
 	Issuer        string     `json:"issuer,omitempty"`
 	CreatedAt     *time.Time `json:"created_at,omitempty"`
 	ExpiresAt     *time.Time `json:"expires_at,omitempty"`
+	UpdatedAt     *time.Time `json:"updated_at,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `SSO.Authenticate`.
