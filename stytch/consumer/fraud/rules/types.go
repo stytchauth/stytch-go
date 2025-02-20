@@ -14,26 +14,25 @@ import (
 
 // SetParams: Request type for `Rules.Set`.
 type SetParams struct {
-	// Action: The action that should be returned by a fingerprint lookup for that fingerprint or ID with a
-	// `RULE_MATCH` reason. The following values are valid: `ALLOW`, `BLOCK`, `CHALLENGE`, or `NONE`. If a
-	// `NONE` action is specified, it will clear the stored rule.
+	// Action: The action that should be returned by a fingerprint lookup for that identifier with a
+	// `RULE_MATCH` reason. The following values are valid: `ALLOW`, `BLOCK`, `CHALLENGE`, or `NONE`. For
+	// country codes, `ALLOW` actions are not allowed. If a `NONE` action is specified, it will clear the
+	// stored rule.
 	Action fraud.RuleAction `json:"action,omitempty"`
-	// VisitorID: The visitor ID we want to set a rule for. Only one fingerprint or ID can be specified in the
-	// request.
+	// VisitorID: The visitor ID we want to set a rule for. Only one identifier can be specified in the request.
 	VisitorID string `json:"visitor_id,omitempty"`
-	// BrowserID: The browser ID we want to set a rule for. Only one fingerprint or ID can be specified in the
-	// request.
+	// BrowserID: The browser ID we want to set a rule for. Only one identifier can be specified in the request.
 	BrowserID string `json:"browser_id,omitempty"`
-	// VisitorFingerprint: The visitor fingerprint we want to set a rule for. Only one fingerprint or ID can be
+	// VisitorFingerprint: The visitor fingerprint we want to set a rule for. Only one identifier can be
 	// specified in the request.
 	VisitorFingerprint string `json:"visitor_fingerprint,omitempty"`
-	// BrowserFingerprint: The browser fingerprint we want to set a rule for. Only one fingerprint or ID can be
+	// BrowserFingerprint: The browser fingerprint we want to set a rule for. Only one identifier can be
 	// specified in the request.
 	BrowserFingerprint string `json:"browser_fingerprint,omitempty"`
-	// HardwareFingerprint: The hardware fingerprint we want to set a rule for. Only one fingerprint or ID can
-	// be specified in the request.
+	// HardwareFingerprint: The hardware fingerprint we want to set a rule for. Only one identifier can be
+	// specified in the request.
 	HardwareFingerprint string `json:"hardware_fingerprint,omitempty"`
-	// NetworkFingerprint: The network fingerprint we want to set a rule for. Only one fingerprint or ID can be
+	// NetworkFingerprint: The network fingerprint we want to set a rule for. Only one identifier can be
 	// specified in the request.
 	NetworkFingerprint string `json:"network_fingerprint,omitempty"`
 	// ExpiresInMinutes: The number of minutes until this rule expires. If no `expires_in_minutes` is
@@ -41,6 +40,17 @@ type SetParams struct {
 	ExpiresInMinutes int32 `json:"expires_in_minutes,omitempty"`
 	// Description: An optional description for the rule.
 	Description string `json:"description,omitempty"`
+	// CidrBlock: The CIDR block we want to set a rule for. You may pass either an IP address or a CIDR block.
+	// The CIDR block prefix must be between 16 and 32, inclusive. If an end user's IP address is within this
+	// CIDR block, this rule will be applied. Only one identifier can be specified in the request.
+	CidrBlock string `json:"cidr_block,omitempty"`
+	// CountryCode: The country code we want to set a rule for. The country code must be a valid ISO 3166-1
+	// alpha-2 code. You may not set `ALLOW` rules for country codes. Only one identifier can be specified in
+	// the request.
+	CountryCode string `json:"country_code,omitempty"`
+	// Asn: The ASN we want to set a rule for. The ASN must be the string representation of an integer between
+	// 0 and 4294967295, inclusive. Only one identifier can be specified in the request.
+	Asn string `json:"asn,omitempty"`
 }
 
 // SetResponse: Response type for `Rules.Set`.
@@ -55,20 +65,26 @@ type SetResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// VisitorID: The cookie stored on the user's device that uniquely identifies them.
+	// VisitorID: The visitor ID that a rule was set for.
 	VisitorID string `json:"visitor_id,omitempty"`
-	// BrowserID: Combination of VisitorID and NetworkFingerprint to create a clear identifier of a browser.
+	// BrowserID: The browser ID that a rule was set for.
 	BrowserID string `json:"browser_id,omitempty"`
-	// VisitorFingerprint: Cookie-less way of identifying a unique user.
+	// VisitorFingerprint: The visitor fingerprint that a rule was set for.
 	VisitorFingerprint string `json:"visitor_fingerprint,omitempty"`
-	// BrowserFingerprint: Combination of signals to identify a browser and its specific version.
+	// BrowserFingerprint: The browser fingerprint that a rule was set for.
 	BrowserFingerprint string `json:"browser_fingerprint,omitempty"`
-	// HardwareFingerprint: Combinations of signals to identify an operating system and architecture.
+	// HardwareFingerprint: The hardware fingerprint that a rule was set for.
 	HardwareFingerprint string `json:"hardware_fingerprint,omitempty"`
-	// NetworkFingerprint: Combination of signals associated with a specific network commonly known as TLS
-	// fingerprinting.
+	// NetworkFingerprint: The network fingerprint that a rule was set for.
 	NetworkFingerprint string `json:"network_fingerprint,omitempty"`
 	// ExpiresAt: The timestamp when the rule expires. Values conform to the RFC 3339 standard and are
 	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	// CidrBlock: The CIDR block that a rule was set for. If an end user's IP address is within this CIDR
+	// block, this rule will be applied.
+	CidrBlock string `json:"cidr_block,omitempty"`
+	// CountryCode: The country code that a rule was set for.
+	CountryCode string `json:"country_code,omitempty"`
+	// Asn: The ASN that a rule was set for.
+	Asn string `json:"asn,omitempty"`
 }
