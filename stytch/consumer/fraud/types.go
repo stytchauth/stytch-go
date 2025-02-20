@@ -100,6 +100,12 @@ type Verdict struct {
 	// IsAuthenticDevice: The assessment of whether this is an authentic device. It will be false if hardware
 	// or browser deception is detected.
 	IsAuthenticDevice bool `json:"is_authentic_device,omitempty"`
+	// RuleMatchType: The type of rule match that was applied (e.g. `VISITOR_ID`), if any. This field will only
+	// be present if there is a `RULE_MATCH` reason in the list of verdict reasons.
+	RuleMatchType *RuleType `json:"rule_match_type,omitempty"`
+	// RuleMatchIdentifier: The rule that was applied (e.g. a specific visitor ID value), if any. This field
+	// will only be present if there is a `RULE_MATCH` reason in the list of verdict reasons.
+	RuleMatchIdentifier string `json:"rule_match_identifier,omitempty"`
 }
 
 type RuleAction string
@@ -109,6 +115,20 @@ const (
 	RuleActionCHALLENGE RuleAction = "CHALLENGE"
 	RuleActionBLOCK     RuleAction = "BLOCK"
 	RuleActionNONE      RuleAction = "NONE"
+)
+
+type RuleType string
+
+const (
+	RuleTypeVISITORID           RuleType = "VISITOR_ID"
+	RuleTypeBROWSERID           RuleType = "BROWSER_ID"
+	RuleTypeVISITORFINGERPRINT  RuleType = "VISITOR_FINGERPRINT"
+	RuleTypeBROWSERFINGERPRINT  RuleType = "BROWSER_FINGERPRINT"
+	RuleTypeHARDWAREFINGERPRINT RuleType = "HARDWARE_FINGERPRINT"
+	RuleTypeNETWORKFINGERPRINT  RuleType = "NETWORK_FINGERPRINT"
+	RuleTypeCIDRBLOCK           RuleType = "CIDR_BLOCK"
+	RuleTypeASN                 RuleType = "ASN"
+	RuleTypeCOUNTRYCODE         RuleType = "COUNTRY_CODE"
 )
 
 type VerdictAction string
