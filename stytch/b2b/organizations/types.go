@@ -35,7 +35,8 @@ type ActiveSSOConnection struct {
 // CreateParams: Request type for `Organizations.Create`.
 type CreateParams struct {
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
-	OrganizationName string `json:"organization_name,omitempty"`
+	OrganizationName    string   `json:"organization_name,omitempty"`
+	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
 	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
 	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
@@ -567,7 +568,8 @@ type Organization struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
 	//
-	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
+	OAuthTenantJITProvisioning string   `json:"oauth_tenant_jit_provisioning,omitempty"`
+	ClaimedEmailDomains        []string `json:"claimed_email_domains,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -868,6 +870,7 @@ type UpdateParams struct {
 	// permission to perform the `update.settings.allowed-oauth-tenants` action on the `stytch.organization`
 	// Resource.
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
+	ClaimedEmailDomains []string       `json:"claimed_email_domains,omitempty"`
 }
 
 // UpdateRequestOptions:
