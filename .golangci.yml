@@ -13,6 +13,9 @@ issues:
     - linters:
         - lll
       source: "^\\s*//\\s+https:"
+    # Ignore false postitive hardcoded credentials warning in types.go
+    - path: stytch/consumer/sessions/types.go
+      text: "G101"
 linters:
   enable:
     - bodyclose

@@ -141,6 +141,8 @@ type CreateParams struct {
 	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
 	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack", "hubspot", and "github".
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
+	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
+	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -567,7 +569,8 @@ type Organization struct {
 	//
 	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
 	//
-	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
+	OAuthTenantJITProvisioning string   `json:"oauth_tenant_jit_provisioning,omitempty"`
+	ClaimedEmailDomains        []string `json:"claimed_email_domains,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -868,6 +871,8 @@ type UpdateParams struct {
 	// permission to perform the `update.settings.allowed-oauth-tenants` action on the `stytch.organization`
 	// Resource.
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
+	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
+	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
 }
 
 // UpdateRequestOptions:
