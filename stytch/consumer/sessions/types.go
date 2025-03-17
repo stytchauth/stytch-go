@@ -120,7 +120,8 @@ type AuthenticationFactor struct {
 	GithubOAuthExchangeFactor  *GithubOAuthExchangeFactor  `json:"github_oauth_exchange_factor,omitempty"`
 	GoogleOAuthExchangeFactor  *GoogleOAuthExchangeFactor  `json:"google_oauth_exchange_factor,omitempty"`
 	// ImpersonatedFactor: Information about the impersonated factor, if one is present.
-	ImpersonatedFactor *ImpersonatedFactor `json:"impersonated_factor,omitempty"`
+	ImpersonatedFactor             *ImpersonatedFactor             `json:"impersonated_factor,omitempty"`
+	OAuthAccessTokenExchangeFactor *OAuthAccessTokenExchangeFactor `json:"oauth_access_token_exchange_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -303,6 +304,10 @@ type MigrateParams struct {
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+}
+
+type OAuthAccessTokenExchangeFactor struct {
+	ClientID string `json:"client_id,omitempty"`
 }
 
 // OIDCSSOFactor:
@@ -533,48 +538,49 @@ type RevokeResponse struct {
 type AuthenticationFactorDeliveryMethod string
 
 const (
-	AuthenticationFactorDeliveryMethodEmail                AuthenticationFactorDeliveryMethod = "email"
-	AuthenticationFactorDeliveryMethodSms                  AuthenticationFactorDeliveryMethod = "sms"
-	AuthenticationFactorDeliveryMethodWhatsapp             AuthenticationFactorDeliveryMethod = "whatsapp"
-	AuthenticationFactorDeliveryMethodEmbedded             AuthenticationFactorDeliveryMethod = "embedded"
-	AuthenticationFactorDeliveryMethodOAuthGoogle          AuthenticationFactorDeliveryMethod = "oauth_google"
-	AuthenticationFactorDeliveryMethodOAuthMicrosoft       AuthenticationFactorDeliveryMethod = "oauth_microsoft"
-	AuthenticationFactorDeliveryMethodOAuthApple           AuthenticationFactorDeliveryMethod = "oauth_apple"
-	AuthenticationFactorDeliveryMethodWebAuthnRegistration AuthenticationFactorDeliveryMethod = "webauthn_registration"
-	AuthenticationFactorDeliveryMethodAuthenticatorApp     AuthenticationFactorDeliveryMethod = "authenticator_app"
-	AuthenticationFactorDeliveryMethodOAuthGithub          AuthenticationFactorDeliveryMethod = "oauth_github"
-	AuthenticationFactorDeliveryMethodRecoveryCode         AuthenticationFactorDeliveryMethod = "recovery_code"
-	AuthenticationFactorDeliveryMethodOAuthFacebook        AuthenticationFactorDeliveryMethod = "oauth_facebook"
-	AuthenticationFactorDeliveryMethodCryptoWallet         AuthenticationFactorDeliveryMethod = "crypto_wallet"
-	AuthenticationFactorDeliveryMethodOAuthAmazon          AuthenticationFactorDeliveryMethod = "oauth_amazon"
-	AuthenticationFactorDeliveryMethodOAuthBitbucket       AuthenticationFactorDeliveryMethod = "oauth_bitbucket"
-	AuthenticationFactorDeliveryMethodOAuthCoinbase        AuthenticationFactorDeliveryMethod = "oauth_coinbase"
-	AuthenticationFactorDeliveryMethodOAuthDiscord         AuthenticationFactorDeliveryMethod = "oauth_discord"
-	AuthenticationFactorDeliveryMethodOAuthFigma           AuthenticationFactorDeliveryMethod = "oauth_figma"
-	AuthenticationFactorDeliveryMethodOAuthGitlab          AuthenticationFactorDeliveryMethod = "oauth_gitlab"
-	AuthenticationFactorDeliveryMethodOAuthInstagram       AuthenticationFactorDeliveryMethod = "oauth_instagram"
-	AuthenticationFactorDeliveryMethodOAuthLinkedin        AuthenticationFactorDeliveryMethod = "oauth_linkedin"
-	AuthenticationFactorDeliveryMethodOAuthShopify         AuthenticationFactorDeliveryMethod = "oauth_shopify"
-	AuthenticationFactorDeliveryMethodOAuthSlack           AuthenticationFactorDeliveryMethod = "oauth_slack"
-	AuthenticationFactorDeliveryMethodOAuthSnapchat        AuthenticationFactorDeliveryMethod = "oauth_snapchat"
-	AuthenticationFactorDeliveryMethodOAuthSpotify         AuthenticationFactorDeliveryMethod = "oauth_spotify"
-	AuthenticationFactorDeliveryMethodOAuthSteam           AuthenticationFactorDeliveryMethod = "oauth_steam"
-	AuthenticationFactorDeliveryMethodOAuthTiktok          AuthenticationFactorDeliveryMethod = "oauth_tiktok"
-	AuthenticationFactorDeliveryMethodOAuthTwitch          AuthenticationFactorDeliveryMethod = "oauth_twitch"
-	AuthenticationFactorDeliveryMethodOAuthTwitter         AuthenticationFactorDeliveryMethod = "oauth_twitter"
-	AuthenticationFactorDeliveryMethodKnowledge            AuthenticationFactorDeliveryMethod = "knowledge"
-	AuthenticationFactorDeliveryMethodBiometric            AuthenticationFactorDeliveryMethod = "biometric"
-	AuthenticationFactorDeliveryMethodSSOSAML              AuthenticationFactorDeliveryMethod = "sso_saml"
-	AuthenticationFactorDeliveryMethodSSOOIDC              AuthenticationFactorDeliveryMethod = "sso_oidc"
-	AuthenticationFactorDeliveryMethodOAuthSalesforce      AuthenticationFactorDeliveryMethod = "oauth_salesforce"
-	AuthenticationFactorDeliveryMethodOAuthYahoo           AuthenticationFactorDeliveryMethod = "oauth_yahoo"
-	AuthenticationFactorDeliveryMethodOAuthHubspot         AuthenticationFactorDeliveryMethod = "oauth_hubspot"
-	AuthenticationFactorDeliveryMethodImportedAuth0        AuthenticationFactorDeliveryMethod = "imported_auth0"
-	AuthenticationFactorDeliveryMethodOAuthExchangeSlack   AuthenticationFactorDeliveryMethod = "oauth_exchange_slack"
-	AuthenticationFactorDeliveryMethodOAuthExchangeHubspot AuthenticationFactorDeliveryMethod = "oauth_exchange_hubspot"
-	AuthenticationFactorDeliveryMethodOAuthExchangeGithub  AuthenticationFactorDeliveryMethod = "oauth_exchange_github"
-	AuthenticationFactorDeliveryMethodOAuthExchangeGoogle  AuthenticationFactorDeliveryMethod = "oauth_exchange_google"
-	AuthenticationFactorDeliveryMethodImpersonation        AuthenticationFactorDeliveryMethod = "impersonation"
+	AuthenticationFactorDeliveryMethodEmail                    AuthenticationFactorDeliveryMethod = "email"
+	AuthenticationFactorDeliveryMethodSms                      AuthenticationFactorDeliveryMethod = "sms"
+	AuthenticationFactorDeliveryMethodWhatsapp                 AuthenticationFactorDeliveryMethod = "whatsapp"
+	AuthenticationFactorDeliveryMethodEmbedded                 AuthenticationFactorDeliveryMethod = "embedded"
+	AuthenticationFactorDeliveryMethodOAuthGoogle              AuthenticationFactorDeliveryMethod = "oauth_google"
+	AuthenticationFactorDeliveryMethodOAuthMicrosoft           AuthenticationFactorDeliveryMethod = "oauth_microsoft"
+	AuthenticationFactorDeliveryMethodOAuthApple               AuthenticationFactorDeliveryMethod = "oauth_apple"
+	AuthenticationFactorDeliveryMethodWebAuthnRegistration     AuthenticationFactorDeliveryMethod = "webauthn_registration"
+	AuthenticationFactorDeliveryMethodAuthenticatorApp         AuthenticationFactorDeliveryMethod = "authenticator_app"
+	AuthenticationFactorDeliveryMethodOAuthGithub              AuthenticationFactorDeliveryMethod = "oauth_github"
+	AuthenticationFactorDeliveryMethodRecoveryCode             AuthenticationFactorDeliveryMethod = "recovery_code"
+	AuthenticationFactorDeliveryMethodOAuthFacebook            AuthenticationFactorDeliveryMethod = "oauth_facebook"
+	AuthenticationFactorDeliveryMethodCryptoWallet             AuthenticationFactorDeliveryMethod = "crypto_wallet"
+	AuthenticationFactorDeliveryMethodOAuthAmazon              AuthenticationFactorDeliveryMethod = "oauth_amazon"
+	AuthenticationFactorDeliveryMethodOAuthBitbucket           AuthenticationFactorDeliveryMethod = "oauth_bitbucket"
+	AuthenticationFactorDeliveryMethodOAuthCoinbase            AuthenticationFactorDeliveryMethod = "oauth_coinbase"
+	AuthenticationFactorDeliveryMethodOAuthDiscord             AuthenticationFactorDeliveryMethod = "oauth_discord"
+	AuthenticationFactorDeliveryMethodOAuthFigma               AuthenticationFactorDeliveryMethod = "oauth_figma"
+	AuthenticationFactorDeliveryMethodOAuthGitlab              AuthenticationFactorDeliveryMethod = "oauth_gitlab"
+	AuthenticationFactorDeliveryMethodOAuthInstagram           AuthenticationFactorDeliveryMethod = "oauth_instagram"
+	AuthenticationFactorDeliveryMethodOAuthLinkedin            AuthenticationFactorDeliveryMethod = "oauth_linkedin"
+	AuthenticationFactorDeliveryMethodOAuthShopify             AuthenticationFactorDeliveryMethod = "oauth_shopify"
+	AuthenticationFactorDeliveryMethodOAuthSlack               AuthenticationFactorDeliveryMethod = "oauth_slack"
+	AuthenticationFactorDeliveryMethodOAuthSnapchat            AuthenticationFactorDeliveryMethod = "oauth_snapchat"
+	AuthenticationFactorDeliveryMethodOAuthSpotify             AuthenticationFactorDeliveryMethod = "oauth_spotify"
+	AuthenticationFactorDeliveryMethodOAuthSteam               AuthenticationFactorDeliveryMethod = "oauth_steam"
+	AuthenticationFactorDeliveryMethodOAuthTiktok              AuthenticationFactorDeliveryMethod = "oauth_tiktok"
+	AuthenticationFactorDeliveryMethodOAuthTwitch              AuthenticationFactorDeliveryMethod = "oauth_twitch"
+	AuthenticationFactorDeliveryMethodOAuthTwitter             AuthenticationFactorDeliveryMethod = "oauth_twitter"
+	AuthenticationFactorDeliveryMethodKnowledge                AuthenticationFactorDeliveryMethod = "knowledge"
+	AuthenticationFactorDeliveryMethodBiometric                AuthenticationFactorDeliveryMethod = "biometric"
+	AuthenticationFactorDeliveryMethodSSOSAML                  AuthenticationFactorDeliveryMethod = "sso_saml"
+	AuthenticationFactorDeliveryMethodSSOOIDC                  AuthenticationFactorDeliveryMethod = "sso_oidc"
+	AuthenticationFactorDeliveryMethodOAuthSalesforce          AuthenticationFactorDeliveryMethod = "oauth_salesforce"
+	AuthenticationFactorDeliveryMethodOAuthYahoo               AuthenticationFactorDeliveryMethod = "oauth_yahoo"
+	AuthenticationFactorDeliveryMethodOAuthHubspot             AuthenticationFactorDeliveryMethod = "oauth_hubspot"
+	AuthenticationFactorDeliveryMethodImportedAuth0            AuthenticationFactorDeliveryMethod = "imported_auth0"
+	AuthenticationFactorDeliveryMethodOAuthExchangeSlack       AuthenticationFactorDeliveryMethod = "oauth_exchange_slack"
+	AuthenticationFactorDeliveryMethodOAuthExchangeHubspot     AuthenticationFactorDeliveryMethod = "oauth_exchange_hubspot"
+	AuthenticationFactorDeliveryMethodOAuthExchangeGithub      AuthenticationFactorDeliveryMethod = "oauth_exchange_github"
+	AuthenticationFactorDeliveryMethodOAuthExchangeGoogle      AuthenticationFactorDeliveryMethod = "oauth_exchange_google"
+	AuthenticationFactorDeliveryMethodImpersonation            AuthenticationFactorDeliveryMethod = "impersonation"
+	AuthenticationFactorDeliveryMethodOAuthAccessTokenExchange AuthenticationFactorDeliveryMethod = "oauth_access_token_exchange"
 )
 
 type AuthenticationFactorType string

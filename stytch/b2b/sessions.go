@@ -273,6 +273,46 @@ func (c *SessionsClient) Exchange(
 	return &retVal, err
 }
 
+// ExchangeAccessToken: Use this endpoint to exchange a Connected Apps Access Token back into a Member
+// Session for the underlying Member.
+// This session can be used with the Stytch SDKs and APIs.
+//
+// The Access Token must contain the `full_access` scope and must not be more than 5 minutes old. Access
+// Tokens may only be exchanged a single time.
+//
+// Because the Member previously completed MFA and satisfied all Organization authentication requirements
+// at the time of the original Access Token issuance, this endpoint will never return an
+// `intermediate_session_token` or require MFA.
+func (c *SessionsClient) ExchangeAccessToken(
+	ctx context.Context,
+	body *sessions.ExchangeAccessTokenParams,
+) (*sessions.ExchangeAccessTokenResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal sessions.ExchangeAccessTokenResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/sessions/exchange_access_token",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
 // Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
 // endpoint defined in your Stytch Project settings in the [Dashboard](https://stytch.com/docs/dashboard),
 // and then perform a lookup using the `session_token`. If the response contains a valid email address,

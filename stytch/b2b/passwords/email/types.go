@@ -150,16 +150,16 @@ func (o *RequireResetRequestOptions) AddHeaders(headers map[string][]string) map
 
 // RequireResetResponse: Response type for `Email.RequireReset`.
 type RequireResetResponse struct {
-	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
-	Member organizations.Member `json:"member,omitempty"`
-	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-	Organization organizations.Organization `json:"organization,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member.
 	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
+	Member *organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
+	Organization *organizations.Organization `json:"organization,omitempty"`
 }
 
 // ResetResponse: Response type for `Email.Reset`.
