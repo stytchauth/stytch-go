@@ -54,7 +54,8 @@ type ResetStartParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale string `json:"locale,omitempty"`
+	Locale                string `json:"locale,omitempty"`
+	VerifyEmailTemplateID string `json:"verify_email_template_id,omitempty"`
 }
 
 // ResetResponse: Response type for `Email.Reset`.

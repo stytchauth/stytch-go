@@ -55,6 +55,11 @@ type AuthenticateStartParams struct {
 	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
 }
 
+type CredentialsParams struct {
+	UserID string `json:"user_id,omitempty"`
+	Domain string `json:"domain,omitempty"`
+}
+
 // RegisterParams: Request type for `WebAuthn.Register`.
 type RegisterParams struct {
 	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to.
@@ -120,6 +125,12 @@ type UpdateParams struct {
 	Name string `json:"name,omitempty"`
 }
 
+type WebAuthnCredential struct {
+	CredentialID           string `json:"credential_id,omitempty"`
+	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
+	Type                   string `json:"type,omitempty"`
+}
+
 // AuthenticateResponse: Response type for `WebAuthn.Authenticate`.
 type AuthenticateResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
@@ -163,6 +174,11 @@ type AuthenticateStartResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type CredentialsResponse struct {
+	Credentials []WebAuthnCredential `json:"credentials,omitempty"`
+	StatusCode  int32                `json:"status_code,omitempty"`
 }
 
 // RegisterResponse: Response type for `WebAuthn.Register`.
