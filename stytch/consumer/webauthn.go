@@ -291,3 +291,30 @@ func (c *WebAuthnClient) Update(
 	)
 	return &retVal, err
 }
+
+func (c *WebAuthnClient) Credentials(
+	ctx context.Context,
+	body *webauthn.CredentialsParams,
+) (*webauthn.CredentialsResponse, error) {
+	queryParams := make(map[string]string)
+	if body != nil {
+		queryParams["user_id"] = body.UserID
+		queryParams["domain"] = body.Domain
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal webauthn.CredentialsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        "/v1/webauthn/credentials",
+			QueryParams: queryParams,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}

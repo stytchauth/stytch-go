@@ -133,6 +133,7 @@ type ResetStartParams struct {
 	// default email template. The template must be a template using our built-in customizations or a custom
 	// HTML email for Magic Links - Reset Password.
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
+	VerifyEmailTemplateID   string `json:"verify_email_template_id,omitempty"`
 }
 
 // RequireResetRequestOptions:
