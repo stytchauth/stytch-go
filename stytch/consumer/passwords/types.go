@@ -180,6 +180,14 @@ type MigrateParams struct {
 	SetEmailVerified bool `json:"set_email_verified,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name *users.Name `json:"name,omitempty"`
+	// PhoneNumber: The phone number of the user. The phone number should be in E.164 format (i.e.
+	// +1XXXXXXXXXX).
+	PhoneNumber string `json:"phone_number,omitempty"`
+	// SetPhoneNumberVerified: Whether to set the user's phone number as verified. This is a dangerous field.
+	// This flag should only be set if you can attest that
+	//    the user owns the phone number in question. Access to this field is restricted. To enable it, please
+	// send us a note at support@stytch.com.
+	SetPhoneNumberVerified bool `json:"set_phone_number_verified,omitempty"`
 }
 
 // PBKDF2Config:
