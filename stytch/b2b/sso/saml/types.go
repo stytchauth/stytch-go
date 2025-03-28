@@ -99,6 +99,16 @@ type UpdateConnectionParams struct {
 	// (starting with "-----BEGIN RSA PRIVATE KEY-----") is supported. When provided, Stytch will generate a
 	// new x509 certificate from this key and return it in the signing_certificates array.
 	SigningPrivateKey string `json:"signing_private_key,omitempty"`
+	// NameidFormat: The NameID format the SAML Connection expects to use. Defaults to
+	// `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`.
+	NameidFormat string `json:"nameid_format,omitempty"`
+	// AlternativeAcsURL: An alternative URL to use for the `AssertionConsumerServiceURL` in SP initiated SAML
+	// AuthNRequests. This value can be used when you wish to migrate an existing SAML integration to Stytch
+	// with zero downtime. Note that you will be responsible for proxying requests sent to the Alternative ACS
+	// URL to Stytch. Read our
+	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
+	// for more info.
+	AlternativeAcsURL string `json:"alternative_acs_url,omitempty"`
 }
 
 // CreateConnectionRequestOptions:

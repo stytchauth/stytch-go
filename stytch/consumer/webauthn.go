@@ -292,6 +292,8 @@ func (c *WebAuthnClient) Update(
 	return &retVal, err
 }
 
+// Credentials: List the public key credentials of the WebAuthn Registrations or Passkeys registered to a
+// specific User.
 func (c *WebAuthnClient) Credentials(
 	ctx context.Context,
 	body *webauthn.CredentialsParams,

@@ -55,8 +55,11 @@ type AuthenticateStartParams struct {
 	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
 }
 
+// CredentialsParams: Request type for `WebAuthn.Credentials`.
 type CredentialsParams struct {
+	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to.
 	UserID string `json:"user_id,omitempty"`
+	// Domain: The domain for Passkeys or WebAuthn. Defaults to `window.location.hostname`.
 	Domain string `json:"domain,omitempty"`
 }
 
@@ -125,10 +128,14 @@ type UpdateParams struct {
 	Name string `json:"name,omitempty"`
 }
 
+// WebAuthnCredential:
 type WebAuthnCredential struct {
-	CredentialID           string `json:"credential_id,omitempty"`
+	// CredentialID: The unique, public ID of the WebAuthn credential.
+	CredentialID string `json:"credential_id,omitempty"`
+	// WebAuthnRegistrationID: The unique ID for the Passkey or WebAuthn registration.
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
-	Type                   string `json:"type,omitempty"`
+	// Type: The type of the WebAuthn credential. Examples include `public-key`.
+	Type string `json:"type,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `WebAuthn.Authenticate`.
@@ -176,9 +183,14 @@ type AuthenticateStartResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
+// CredentialsResponse: Response type for `WebAuthn.Credentials`.
 type CredentialsResponse struct {
+	// Credentials: A list of WebAuthn credential objects.
 	Credentials []WebAuthnCredential `json:"credentials,omitempty"`
-	StatusCode  int32                `json:"status_code,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // RegisterResponse: Response type for `WebAuthn.Register`.

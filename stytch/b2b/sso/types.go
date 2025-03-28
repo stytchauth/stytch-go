@@ -191,6 +191,8 @@ type SAMLConnection struct {
 	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
 	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`
 	IdentityProvider                      string                                 `json:"identity_provider,omitempty"`
+	NameidFormat                          string                                 `json:"nameid_format,omitempty"`
+	AlternativeAcsURL                     string                                 `json:"alternative_acs_url,omitempty"`
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 
