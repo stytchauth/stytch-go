@@ -15,7 +15,8 @@ import (
 // ResetParams: Request type for `Sessions.Reset`.
 type ResetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
 	// e.g. spaces, emojis, non-English characers, etc.

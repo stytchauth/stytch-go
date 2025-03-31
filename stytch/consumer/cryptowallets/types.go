@@ -58,7 +58,7 @@ type AuthenticateStartParams struct {
 	CryptoWalletType string `json:"crypto_wallet_type,omitempty"`
 	// CryptoWalletAddress: The crypto wallet address to authenticate.
 	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
