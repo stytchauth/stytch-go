@@ -14,7 +14,8 @@ import (
 // CreateConnectionParams: Request type for `OIDC.CreateConnection`.
 type CreateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName string `json:"display_name,omitempty"`
@@ -29,7 +30,8 @@ type CreateConnectionParams struct {
 // UpdateConnectionParams: Request type for `OIDC.UpdateConnection`.
 type UpdateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
 	ConnectionID string `json:"connection_id,omitempty"`

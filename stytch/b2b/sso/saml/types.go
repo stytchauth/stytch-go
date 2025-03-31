@@ -14,7 +14,8 @@ import (
 // CreateConnectionParams: Request type for `SAML.CreateConnection`.
 type CreateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName string `json:"display_name,omitempty"`
@@ -28,7 +29,8 @@ type CreateConnectionParams struct {
 
 // DeleteVerificationCertificateParams: Request type for `SAML.DeleteVerificationCertificate`.
 type DeleteVerificationCertificateParams struct {
-	// OrganizationID: The organization ID that the SAML connection belongs to.
+	// OrganizationID: The organization ID that the SAML connection belongs to. You may also use the
+	// organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SAML connection.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -39,7 +41,8 @@ type DeleteVerificationCertificateParams struct {
 // UpdateByURLParams: Request type for `SAML.UpdateByURL`.
 type UpdateByURLParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -50,7 +53,8 @@ type UpdateByURLParams struct {
 // UpdateConnectionParams: Request type for `SAML.UpdateConnection`.
 type UpdateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
 	ConnectionID string `json:"connection_id,omitempty"`
