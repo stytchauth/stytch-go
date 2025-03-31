@@ -7,15 +7,16 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `Email.Authenticate`.
 type AuthenticateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -75,7 +76,8 @@ type AuthenticateParams struct {
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
 type LoginOrSignupParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`

@@ -9,7 +9,7 @@ package users
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
 )
 
 // BiometricRegistration:
@@ -91,7 +91,7 @@ type DeleteOAuthRegistrationParams struct {
 
 // DeleteParams: Request type for `Users.Delete`.
 type DeleteParams struct {
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 }
 
@@ -132,7 +132,7 @@ type Email struct {
 
 // ExchangePrimaryFactorParams: Request type for `Users.ExchangePrimaryFactor`.
 type ExchangePrimaryFactorParams struct {
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// EmailAddress: The email address to exchange to.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -143,7 +143,7 @@ type ExchangePrimaryFactorParams struct {
 
 // GetParams: Request type for `Users.Get`.
 type GetParams struct {
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 }
 
@@ -247,7 +247,7 @@ type TOTP struct {
 
 // UpdateParams: Request type for `Users.Update`.
 type UpdateParams struct {
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name *Name `json:"name,omitempty"`

@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/webauthn"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/webauthn"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 type WebAuthnClient struct {
@@ -292,27 +292,21 @@ func (c *WebAuthnClient) Update(
 	return &retVal, err
 }
 
-// Credentials: List the public key credentials of the WebAuthn Registrations or Passkeys registered to a
-// specific User.
-func (c *WebAuthnClient) Credentials(
+// ListCredentials: List the public key credentials of the WebAuthn Registrations or Passkeys registered to
+// a specific User.
+func (c *WebAuthnClient) ListCredentials(
 	ctx context.Context,
-	body *webauthn.CredentialsParams,
-) (*webauthn.CredentialsResponse, error) {
-	queryParams := make(map[string]string)
-	if body != nil {
-		queryParams["user_id"] = body.UserID
-		queryParams["domain"] = body.Domain
-	}
-
+	body *webauthn.ListCredentialsParams,
+) (*webauthn.ListCredentialsResponse, error) {
 	headers := make(map[string][]string)
 
-	var retVal webauthn.CredentialsResponse
+	var retVal webauthn.ListCredentialsResponse
 	err := c.C.NewRequest(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        "/v1/webauthn/credentials",
-			QueryParams: queryParams,
+			Path:        fmt.Sprintf("/v1/webauthn/credentials/%s/%s", body.UserID, body.Domain),
+			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
 			Headers:     headers,

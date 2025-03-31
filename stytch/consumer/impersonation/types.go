@@ -7,8 +7,8 @@ package impersonation
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `Impersonation.Authenticate`.

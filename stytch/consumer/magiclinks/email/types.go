@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // InviteParams: Request type for `Email.Invite`.
@@ -131,7 +131,7 @@ type SendParams struct {
 	// CodeChallenge: A base64url encoded SHA256 hash of a one time secret used to validate that the request
 	// starts and ends on the same device.
 	CodeChallenge string `json:"code_challenge,omitempty"`
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` of the user to associate the email with.
 	SessionToken string `json:"session_token,omitempty"`

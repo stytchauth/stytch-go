@@ -7,9 +7,9 @@ package intermediatesessions
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 )
 
 // ExchangeParams: Request type for `IntermediateSessions.Exchange`.
@@ -27,7 +27,8 @@ type ExchangeParams struct {
 	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,

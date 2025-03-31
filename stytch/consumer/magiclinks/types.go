@@ -7,9 +7,9 @@ package magiclinks
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `MagicLinks.Authenticate`.
@@ -58,7 +58,7 @@ type AuthenticateParams struct {
 
 // CreateParams: Request type for `MagicLinks.Create`.
 type CreateParams struct {
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// ExpirationMinutes: Set the expiration for the Magic Link `token` in minutes. By default, it expires in 1
 	// hour. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).

@@ -7,17 +7,19 @@ package totps
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 )
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.
 type AuthenticateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// Code: The code to authenticate.
 	Code string `json:"code,omitempty"`
@@ -80,10 +82,12 @@ type AuthenticateParams struct {
 // CreateParams: Request type for `TOTPs.Create`.
 type CreateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// ExpirationMinutes: The expiration for the TOTP registration. If the newly created TOTP registration is
 	// not authenticated within this time frame the member will have to restart the registration flow. Defaults
@@ -110,10 +114,12 @@ type CreateParams struct {
 // MigrateParams: Request type for `TOTPs.Migrate`.
 type MigrateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// Secret: The TOTP secret key shared between the authenticator app and the server used to generate TOTP
 	// codes.

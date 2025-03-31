@@ -9,15 +9,15 @@ package oauth
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // AttachParams: Request type for `OAuth.Attach`.
 type AttachParams struct {
 	// Provider: The OAuth provider's name.
 	Provider string `json:"provider,omitempty"`
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`

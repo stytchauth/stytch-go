@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 type AmazonOAuthFactor struct {
@@ -190,7 +190,8 @@ type GetJWKSParams struct {
 
 // GetParams: Request type for `Sessions.Get`.
 type GetParams struct {
-	// UserID: The `user_id` to get active Sessions for.
+	// UserID: The `user_id` to get active Sessions for. You may use an external_id here if one is set for the
+	// user.
 	UserID string `json:"user_id,omitempty"`
 }
 

@@ -7,8 +7,8 @@ package webauthn
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `WebAuthn.Authenticate`.
@@ -47,7 +47,8 @@ type AuthenticateParams struct {
 type AuthenticateStartParams struct {
 	// Domain: The domain for Passkeys or WebAuthn. Defaults to `window.location.hostname`.
 	Domain string `json:"domain,omitempty"`
-	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to.
+	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to. You may
+	// use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// ReturnPasskeyCredentialOptions: If true, the `public_key_credential_creation_options` returned will be
 	// optimized for Passkeys with `userVerification` set to `"preferred"`.
@@ -55,8 +56,8 @@ type AuthenticateStartParams struct {
 	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
 }
 
-// CredentialsParams: Request type for `WebAuthn.Credentials`.
-type CredentialsParams struct {
+// ListCredentialsParams: Request type for `WebAuthn.ListCredentials`.
+type ListCredentialsParams struct {
 	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to.
 	UserID string `json:"user_id,omitempty"`
 	// Domain: The domain for Passkeys or WebAuthn. Defaults to `window.location.hostname`.
@@ -65,7 +66,8 @@ type CredentialsParams struct {
 
 // RegisterParams: Request type for `WebAuthn.Register`.
 type RegisterParams struct {
-	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to.
+	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to. You may
+	// use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// PublicKeyCredential: The response of the
 	// [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential).
@@ -99,7 +101,8 @@ type RegisterParams struct {
 
 // RegisterStartParams: Request type for `WebAuthn.RegisterStart`.
 type RegisterStartParams struct {
-	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to.
+	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to. You may
+	// use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// Domain: The domain for Passkeys or WebAuthn. Defaults to `window.location.hostname`.
 	Domain string `json:"domain,omitempty"`
@@ -136,6 +139,8 @@ type WebAuthnCredential struct {
 	WebAuthnRegistrationID string `json:"webauthn_registration_id,omitempty"`
 	// Type: The type of the WebAuthn credential. Examples include `public-key`.
 	Type string `json:"type,omitempty"`
+	// PublicKey: The public key for the WebAuthn credential in base64 format.
+	PublicKey string `json:"public_key,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `WebAuthn.Authenticate`.
@@ -183,10 +188,14 @@ type AuthenticateStartResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-// CredentialsResponse: Response type for `WebAuthn.Credentials`.
-type CredentialsResponse struct {
+// ListCredentialsResponse: Response type for `WebAuthn.ListCredentials`.
+type ListCredentialsResponse struct {
 	// Credentials: A list of WebAuthn credential objects.
 	Credentials []WebAuthnCredential `json:"credentials,omitempty"`
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

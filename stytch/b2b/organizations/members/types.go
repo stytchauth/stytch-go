@@ -7,14 +7,15 @@ package members
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
 )
 
 // CreateParams: Request type for `Members.Create`.
 type CreateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -65,27 +66,32 @@ type DangerouslyGetParams struct {
 // DeleteMFAPhoneNumberParams: Request type for `Members.DeleteMFAPhoneNumber`.
 type DeleteMFAPhoneNumberParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 }
 
 // DeleteParams: Request type for `Members.Delete`.
 type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 }
 
 // DeletePasswordParams: Request type for `Members.DeletePassword`.
 type DeletePasswordParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberPasswordID: Globally unique UUID that identifies a Member's password.
 	MemberPasswordID string `json:"member_password_id,omitempty"`
@@ -94,20 +100,24 @@ type DeletePasswordParams struct {
 // DeleteTOTPParams: Request type for `Members.DeleteTOTP`.
 type DeleteTOTPParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 }
 
 // GetParams: Request type for `Members.Get`.
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -116,10 +126,12 @@ type GetParams struct {
 // OIDCProviderInformationParams: Request type for `Members.OIDCProviders`.
 type OIDCProviderInformationParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// IncludeRefreshToken: Whether to return the refresh token Stytch has stored for the OAuth Provider.
 	// Defaults to false. **Important:** If your application exchanges the refresh token, Stytch may not be
@@ -130,10 +142,12 @@ type OIDCProviderInformationParams struct {
 // ReactivateParams: Request type for `Members.Reactivate`.
 type ReactivateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 }
 
@@ -161,10 +175,12 @@ type SearchParams struct {
 // UnlinkRetiredEmailParams: Request type for `Members.UnlinkRetiredEmail`.
 type UnlinkRetiredEmailParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// EmailID: The globally unique UUID of a Member's email.
 	EmailID string `json:"email_id,omitempty"`
@@ -175,10 +191,12 @@ type UnlinkRetiredEmailParams struct {
 // UpdateParams: Request type for `Members.Update`.
 type UpdateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// Name: The name of the Member.
 	//

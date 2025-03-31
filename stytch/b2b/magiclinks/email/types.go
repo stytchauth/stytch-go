@@ -7,14 +7,15 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
 )
 
 // InviteParams: Request type for `Email.Invite`.
 type InviteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -61,7 +62,8 @@ type InviteParams struct {
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
 type LoginOrSignupParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`

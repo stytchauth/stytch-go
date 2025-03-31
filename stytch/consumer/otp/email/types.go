@@ -7,7 +7,7 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
 )
 
 // LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
@@ -68,7 +68,7 @@ type SendParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *SendRequestLocale `json:"locale,omitempty"`
-	// UserID: The unique ID of a specific User.
+	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`

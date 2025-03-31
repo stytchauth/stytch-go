@@ -7,14 +7,15 @@ package external
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
 )
 
 // CreateConnectionParams: Request type for `External.CreateConnection`.
 type CreateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ExternalOrganizationID: Globally unique UUID that identifies a different Organization within your
 	// Project.
@@ -31,7 +32,8 @@ type CreateConnectionParams struct {
 // UpdateConnectionParams: Request type for `External.UpdateConnection`.
 type UpdateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: Globally unique UUID that identifies a specific External SSO Connection.
 	ConnectionID string `json:"connection_id,omitempty"`
