@@ -190,7 +190,8 @@ type GetJWKSParams struct {
 
 // GetParams: Request type for `Sessions.Get`.
 type GetParams struct {
-	// UserID: The `user_id` to get active Sessions for.
+	// UserID: The `user_id` to get active Sessions for. You may use an external_id here if one is set for the
+	// user.
 	UserID string `json:"user_id,omitempty"`
 }
 
