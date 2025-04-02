@@ -59,7 +59,7 @@ type SetResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// Action: The action that will be returned for the specified fingerprint or ID.
+	// Action: The action that will be returned for the specified identifier.
 	Action fraud.RuleAction `json:"action,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
