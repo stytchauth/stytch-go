@@ -39,7 +39,7 @@ type ResetStartParams struct {
 	DiscoveryRedirectURL string `json:"discovery_redirect_url,omitempty"`
 	// ResetPasswordTemplateID: Use a custom template for reset password emails. By default, it will use your
 	// default email template. The template must be a template using our built-in customizations or a custom
-	// HTML email for Magic Links - Reset Password.
+	// HTML email for Passwords - Reset Password.
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
 	// ResetPasswordExpirationMinutes: Sets a time limit after which the email link to reset the member's
 	// password will no longer be valid.
@@ -54,7 +54,11 @@ type ResetStartParams struct {
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
-	Locale                string `json:"locale,omitempty"`
+	Locale string `json:"locale,omitempty"`
+	// VerifyEmailTemplateID: Use a custom template for verification emails sent during password reset flows.
+	// This template will be used the first time a user sets a password via a
+	//   password reset flow. By default, it will use your default email template. The template must be a
+	// template using our built-in customizations or a custom HTML email for Passwords - Email Verification.
 	VerifyEmailTemplateID string `json:"verify_email_template_id,omitempty"`
 }
 
