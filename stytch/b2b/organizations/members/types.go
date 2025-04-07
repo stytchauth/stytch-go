@@ -52,6 +52,11 @@ type CreateParams struct {
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
 	//    for more information about role assignment.
 	Roles []string `json:"roles,omitempty"`
+	// ExternalID: An identifier that can be used in API calls wherever a member_id is expected. This is a
+	// string consisting of alphanumeric, `.`, `_`, or `-` characters with a maximum length of 128 characters.
+	// External IDs must be unique within an organization, but may be reused across different organizations in
+	// the same project.
+	ExternalID string `json:"external_id,omitempty"`
 }
 
 // DangerouslyGetParams: Request type for `Members.DangerouslyGet`.
