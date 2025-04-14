@@ -64,8 +64,8 @@ type AuthenticateParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
@@ -92,13 +92,21 @@ type LoginOrSignupParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *LoginOrSignupRequestLocale `json:"locale,omitempty"`
+	// LoginExpirationMinutes: The expiration time, in minutes, for a login OTP email to a Member. If not
+	// authenticated within this time frame, the OTP will need to be resent. Defaults to 10 with a minimum of 2
+	// and a maximum of 15.
+	LoginExpirationMinutes uint32 `json:"login_expiration_minutes,omitempty"`
+	// SignupExpirationMinutes: The expiration time, in minutes, for a signup OTP email to a Member. If not
+	// authenticated within this time frame, the OTP will need to be resent. Defaults to 10 with a minimum of 2
+	// and a maximum of 15.
+	SignupExpirationMinutes uint32 `json:"signup_expiration_minutes,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Email.Authenticate`.
@@ -175,6 +183,7 @@ const (
 	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
 	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
 	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
 )
 
 type LoginOrSignupRequestLocale string
@@ -183,4 +192,5 @@ const (
 	LoginOrSignupRequestLocaleEn   LoginOrSignupRequestLocale = "en"
 	LoginOrSignupRequestLocaleEs   LoginOrSignupRequestLocale = "es"
 	LoginOrSignupRequestLocalePtbr LoginOrSignupRequestLocale = "pt-br"
+	LoginOrSignupRequestLocaleFr   LoginOrSignupRequestLocale = "fr"
 )

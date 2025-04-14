@@ -53,9 +53,9 @@ type CreateParams struct {
 	//    for more information about role assignment.
 	Roles []string `json:"roles,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a member_id is expected. This is a
-	// string consisting of alphanumeric, `.`, `_`, or `-` characters with a maximum length of 128 characters.
-	// External IDs must be unique within an organization, but may be reused across different organizations in
-	// the same project.
+	// string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128
+	// characters. External IDs must be unique within an organization, but may be reused across different
+	// organizations in the same project.
 	ExternalID string `json:"external_id,omitempty"`
 }
 
@@ -300,9 +300,9 @@ type UpdateParams struct {
 	// update their own email address.
 	EmailAddress string `json:"email_address,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a member_id is expected. This is a
-	// string consisting of alphanumeric, `.`, `_`, or `-` characters with a maximum length of 128 characters.
-	// External IDs must be unique within an organization, but may be reused across different organizations in
-	// the same project.
+	// string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128
+	// characters. External IDs must be unique within an organization, but may be reused across different
+	// organizations in the same project.
 	ExternalID string `json:"external_id,omitempty"`
 }
 

@@ -150,7 +150,7 @@ type MigrateParams struct {
 	MFAPhoneNumber           string `json:"mfa_phone_number,omitempty"`
 	SetPhoneNumberVerified   bool   `json:"set_phone_number_verified,omitempty"`
 	// ExternalID: If a new member is created, this will set an identifier that can be used in API calls
-	// wherever a member_id is expected. This is a string consisting of alphanumeric, `.`, `_`, or `-`
+	// wherever a member_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|`
 	// characters with a maximum length of 128 characters. External IDs must be unique within an organization,
 	// but may be reused across different organizations in the same project. Note that if a member already
 	// exists, this field will be ignored.
@@ -286,6 +286,7 @@ const (
 	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
 	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
 	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
 )
 
 type MigrateRequestHashType string

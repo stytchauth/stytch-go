@@ -326,9 +326,12 @@ type GetConnectionsResponse struct {
 type AuthenticateRequestLocale string
 
 const (
-	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
-	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
-	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
-	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
-	AuthenticateRequestLocaleIt   AuthenticateRequestLocale = "it"
+	AuthenticateRequestLocaleEn     AuthenticateRequestLocale = "en"
+	AuthenticateRequestLocaleEs     AuthenticateRequestLocale = "es"
+	AuthenticateRequestLocalePtbr   AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr     AuthenticateRequestLocale = "fr"
+	AuthenticateRequestLocaleIt     AuthenticateRequestLocale = "it"
+	AuthenticateRequestLocaleDeDE   AuthenticateRequestLocale = "de-DE"
+	AuthenticateRequestLocaleZhHans AuthenticateRequestLocale = "zh-Hans"
+	AuthenticateRequestLocaleCaES   AuthenticateRequestLocale = "ca-ES"
 )

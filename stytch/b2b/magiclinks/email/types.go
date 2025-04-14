@@ -46,8 +46,8 @@ type InviteParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
@@ -57,6 +57,10 @@ type InviteParams struct {
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
 	//    for more information about role assignment.
 	Roles []string `json:"roles,omitempty"`
+	// InviteExpirationMinutes: The expiration time, in minutes, for an invite email. If not accepted within
+	// this time frame, the invite will need to be resent. Defaults to 10080 (1 week) with a minimum of 5 and a
+	// maximum of 10080.
+	InviteExpirationMinutes uint32 `json:"invite_expiration_minutes,omitempty"`
 }
 
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
@@ -95,13 +99,21 @@ type LoginOrSignupParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *LoginOrSignupRequestLocale `json:"locale,omitempty"`
+	// LoginExpirationMinutes: The expiration time, in minutes, for a login Email Magic Link. If not
+	// authenticated within this time frame, the email will need to be resent. Defaults to 60 (1 hour) with a
+	// minimum of 5 and a maximum of 10080 (1 week).
+	LoginExpirationMinutes uint32 `json:"login_expiration_minutes,omitempty"`
+	// SignupExpirationMinutes: The expiration time, in minutes, for a signup Email Magic Link. If not
+	// authenticated within this time frame, the email will need to be resent. Defaults to 60 (1 hour) with a
+	// minimum of 5 and a maximum of 10080 (1 week).
+	SignupExpirationMinutes uint32 `json:"signup_expiration_minutes,omitempty"`
 }
 
 // InviteRequestOptions:
@@ -162,6 +174,7 @@ const (
 	InviteRequestLocaleEn   InviteRequestLocale = "en"
 	InviteRequestLocaleEs   InviteRequestLocale = "es"
 	InviteRequestLocalePtbr InviteRequestLocale = "pt-br"
+	InviteRequestLocaleFr   InviteRequestLocale = "fr"
 )
 
 type LoginOrSignupRequestLocale string
@@ -170,4 +183,5 @@ const (
 	LoginOrSignupRequestLocaleEn   LoginOrSignupRequestLocale = "en"
 	LoginOrSignupRequestLocaleEs   LoginOrSignupRequestLocale = "es"
 	LoginOrSignupRequestLocalePtbr LoginOrSignupRequestLocale = "pt-br"
+	LoginOrSignupRequestLocaleFr   LoginOrSignupRequestLocale = "fr"
 )
