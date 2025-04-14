@@ -112,4 +112,5 @@ const (
 	ResetRequestLocaleEn   ResetRequestLocale = "en"
 	ResetRequestLocaleEs   ResetRequestLocale = "es"
 	ResetRequestLocalePtbr ResetRequestLocale = "pt-br"
+	ResetRequestLocaleFr   ResetRequestLocale = "fr"
 )

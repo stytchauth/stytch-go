@@ -116,9 +116,12 @@ type ExchangeResponse struct {
 type ExchangeRequestLocale string
 
 const (
-	ExchangeRequestLocaleEn   ExchangeRequestLocale = "en"
-	ExchangeRequestLocaleEs   ExchangeRequestLocale = "es"
-	ExchangeRequestLocalePtbr ExchangeRequestLocale = "pt-br"
-	ExchangeRequestLocaleFr   ExchangeRequestLocale = "fr"
-	ExchangeRequestLocaleIt   ExchangeRequestLocale = "it"
+	ExchangeRequestLocaleEn     ExchangeRequestLocale = "en"
+	ExchangeRequestLocaleEs     ExchangeRequestLocale = "es"
+	ExchangeRequestLocalePtbr   ExchangeRequestLocale = "pt-br"
+	ExchangeRequestLocaleFr     ExchangeRequestLocale = "fr"
+	ExchangeRequestLocaleIt     ExchangeRequestLocale = "it"
+	ExchangeRequestLocaleDeDE   ExchangeRequestLocale = "de-DE"
+	ExchangeRequestLocaleZhHans ExchangeRequestLocale = "zh-Hans"
+	ExchangeRequestLocaleCaES   ExchangeRequestLocale = "ca-ES"
 )

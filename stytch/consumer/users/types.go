@@ -51,7 +51,7 @@ type CreateParams struct {
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a user_id is expected. This is a string
-	// consisting of alphanumeric, `.`, `_`, or `-` characters with a maximum length of 128 characters.
+	// consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128 characters.
 	// External IDs must be unique within an organization, but may be reused across different organizations in
 	// the same project.
 	ExternalID string `json:"external_id,omitempty"`
@@ -268,7 +268,7 @@ type UpdateParams struct {
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a user_id is expected. This is a string
-	// consisting of alphanumeric, `.`, `_`, or `-` characters with a maximum length of 128 characters.
+	// consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128 characters.
 	// External IDs must be unique within an organization, but may be reused across different organizations in
 	// the same project.
 	ExternalID string `json:"external_id,omitempty"`
