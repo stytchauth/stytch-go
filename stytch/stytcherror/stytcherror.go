@@ -14,12 +14,14 @@ type Error struct {
 	ErrorType    Type    `json:"error_type,omitempty"`
 	ErrorMessage Message `json:"error_message,omitempty"`
 	ErrorURL     URL     `json:"error_url,omitempty"`
+	ErrorDetails Details `json:"error_details,omitempty"`
 }
 
 type (
 	Type    string
 	Message string
 	URL     string
+	Details map[string]string
 )
 
 func (e Error) Error() string {
@@ -35,6 +37,9 @@ func (e Error) Error() string {
 
 	if e.ErrorURL != "" {
 		fmt.Fprintf(&es, " error_url: %s", e.ErrorURL)
+	}
+	if e.ErrorDetails != nil {
+		fmt.Fprintf(&es, " error_details: %v", e.ErrorDetails)
 	}
 	return es.String()
 }
