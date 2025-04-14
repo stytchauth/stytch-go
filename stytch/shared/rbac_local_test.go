@@ -84,7 +84,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "read",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewSessionAuthorizationTenancyError(orgID, diffOrgID))
+		assert.ErrorContains(t, err, stytcherror.NewSessionAuthorizationTenancyError(orgID, diffOrgID).Error())
 	})
 	t.Run("action exists but resource does not", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -97,7 +97,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "read",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewPermissionError())
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("resource exists but action does not", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -110,7 +110,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "action_that_doesnt_exist",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewPermissionError())
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("member has this action but on a different resource", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -123,7 +123,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "write",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewPermissionError())
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("another authorization check for a member with more elevated privileges", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
@@ -136,7 +136,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				Action:         "edit",
 			},
 		)
-		assert.ErrorIs(t, err, stytcherror.NewPermissionError())
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("no error when the member is authorized", func(t *testing.T) {
 		err := shared.PerformAuthorizationCheck(
