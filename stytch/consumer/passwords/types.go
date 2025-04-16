@@ -204,6 +204,9 @@ type PBKDF2Config struct {
 	IterationAmount int32 `json:"iteration_amount,omitempty"`
 	// KeyLength: The key length, also known as the hash length.
 	KeyLength int32 `json:"key_length,omitempty"`
+	// Algorithm: The algorithm that was used to generate the HMAC hash. Accepted values are "sha512" and
+	// sha256". Defaults to sha256.
+	Algorithm string `json:"algorithm,omitempty"`
 }
 
 // SHA1Config:

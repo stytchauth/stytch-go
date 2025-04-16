@@ -170,6 +170,12 @@ type EmbeddableMagicLinkFactor struct {
 	EmbeddedID string `json:"embedded_id,omitempty"`
 }
 
+type ExchangeAccessTokenParams struct {
+	AccessToken            string         `json:"access_token,omitempty"`
+	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
+}
+
 type FacebookOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
@@ -470,6 +476,16 @@ type AuthenticateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type ExchangeAccessTokenResponse struct {
+	RequestID    string     `json:"request_id,omitempty"`
+	UserID       string     `json:"user_id,omitempty"`
+	SessionToken string     `json:"session_token,omitempty"`
+	SessionJWT   string     `json:"session_jwt,omitempty"`
+	User         users.User `json:"user,omitempty"`
+	StatusCode   int32      `json:"status_code,omitempty"`
+	Session      *Session   `json:"session,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
