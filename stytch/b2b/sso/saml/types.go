@@ -113,6 +113,9 @@ type UpdateConnectionParams struct {
 	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
 	// for more info.
 	AlternativeAcsURL string `json:"alternative_acs_url,omitempty"`
+	// IdpInitiatedAuthDisabled: Determines whether IDP initiated auth is allowed for a given SAML connection.
+	// Defaults to false (IDP Initiated Auth is enabled).
+	IdpInitiatedAuthDisabled bool `json:"idp_initiated_auth_disabled,omitempty"`
 }
 
 // CreateConnectionRequestOptions:

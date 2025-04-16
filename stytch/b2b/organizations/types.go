@@ -323,7 +323,8 @@ type Member struct {
 	// SCIMRegistration: A scim member registration, referencing a [SCIM Connection](scim-connection-object)
 	// object in use for the Member creation.
 	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
-	ExternalID       string            `json:"external_id,omitempty"`
+	// ExternalID: The ID of the member given by the identity provider.
+	ExternalID string `json:"external_id,omitempty"`
 }
 
 // MemberRole:
