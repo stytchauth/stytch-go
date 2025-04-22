@@ -10,6 +10,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
@@ -92,7 +93,7 @@ func WithBaseURI(uri string) Option {
 	return func(api *API) {
 		api.baseURI = config.BaseURI(uri)
 		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
-			defaultClient.Config.BaseURI = config.BaseURI(uri)
+			defaultClient.Config.BaseURI = config.BaseURI(strings.TrimSuffix(uri, "/"))
 		}
 	}
 }
