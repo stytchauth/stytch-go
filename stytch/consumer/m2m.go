@@ -149,10 +149,14 @@ func (c *M2MClient) AuthenticateToken(
 
 	var claims jwt.MapClaims
 
-	aud := c.C.GetConfig().ProjectID
-	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
-	fallbackIssuer := c.C.GetConfig().BaseURI
-	err := shared.ValidateJWTToken(req.AccessToken, &claims, c.JWKS.Keyfunc, aud, iss, string(fallbackIssuer))
+	err := shared.ValidateJWTToken(shared.ValidateJWTTokenParams{
+		Token:          req.AccessToken,
+		StaticClaims:   &claims,
+		KeyFunc:        c.JWKS.Keyfunc,
+		Audience:       c.C.GetConfig().ProjectID,
+		Issuer:         fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID),
+		FallbackIssuer: string(c.C.GetConfig().BaseURI),
+	})
 	if err != nil {
 		return nil, err
 	}

@@ -469,10 +469,6 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, stytcherror.ErrJWKSNotInitialized
 	}
 
-	aud := c.C.GetConfig().ProjectID
-	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
-	fallbackIssuer := c.C.GetConfig().BaseURI
-
 	// It's difficult to extract all sets of claims (standard/registered, Stytch, custom) all at
 	// once. So we parse the token twice.
 	//
@@ -481,7 +477,14 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	//
 	// The second parse is for extracting the custom claims.
 	var staticClaims sessions.Claims
-	err := shared.ValidateJWTToken(token, &staticClaims, c.JWKS.Keyfunc, aud, iss, string(fallbackIssuer))
+	err := shared.ValidateJWTToken(shared.ValidateJWTTokenParams{
+		Token:          token,
+		StaticClaims:   &staticClaims,
+		KeyFunc:        c.JWKS.Keyfunc,
+		Audience:       c.C.GetConfig().ProjectID,
+		Issuer:         fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID),
+		FallbackIssuer: string(c.C.GetConfig().BaseURI),
+	})
 	if err != nil {
 		return nil, err
 	}
