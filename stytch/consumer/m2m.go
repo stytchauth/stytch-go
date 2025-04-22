@@ -151,10 +151,10 @@ func (c *M2MClient) AuthenticateToken(
 
 	aud := c.C.GetConfig().ProjectID
 	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
-
-	_, err := jwt.ParseWithClaims(req.AccessToken, &claims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	fallbackIssuer := c.C.GetConfig().BaseURI
+	err := shared.ValidateJWTToken(req.AccessToken, &claims, c.JWKS.Keyfunc, aud, iss, string(fallbackIssuer))
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+		return nil, err
 	}
 
 	if req.MaxTokenAge != 0 {

@@ -395,9 +395,9 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	//
 	// The second parse is for extracting the custom claims.
 	var staticClaims sessions.Claims
-	_, err := jwt.ParseWithClaims(token, &staticClaims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	err := shared.ValidateJWTToken(token, &staticClaims, c.JWKS.Keyfunc, aud, iss, string(c.C.GetConfig().BaseURI))
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+		return nil, err
 	}
 
 	if staticClaims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
