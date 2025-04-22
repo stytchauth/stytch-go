@@ -2,8 +2,9 @@ package shared
 
 import (
 	"fmt"
-	"github.com/golang-jwt/jwt/v5"
 	"strings"
+
+	"github.com/golang-jwt/jwt/v5"
 )
 
 // ReservedClaim returns true if the key is reserved by the JWT standard or the Stytch platform.
