@@ -26,8 +26,7 @@ type CreateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
-	Name *Name `json:"name,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	Name       *Name                 `json:"name,omitempty"`
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format
 	// (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this endpoint, see

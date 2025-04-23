@@ -21,11 +21,12 @@ type CreateParams struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,
@@ -175,11 +176,12 @@ type ListParams struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -210,11 +212,12 @@ type CreateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX

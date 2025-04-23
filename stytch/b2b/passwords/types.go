@@ -99,7 +99,7 @@ type MigrateParams struct {
 	EmailAddress string `json:"email_address,omitempty"`
 	// Hash: The password hash. For a Scrypt or PBKDF2 hash, the hash needs to be a base64 encoded string.
 	Hash string `json:"hash,omitempty"`
-	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon2_id`, `md_5`,
+	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`,
 	// `sha_1`, and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -201,8 +201,9 @@ type AuthenticateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. Password factors are not transferable between Organizations, so
-	// the intermediate session token is not valid for use with discovery endpoints.
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. Password factors
+	// are not transferable between Organizations, so the intermediate session token is not valid for use with
+	// discovery endpoints.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.

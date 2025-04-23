@@ -235,6 +235,12 @@ func (c *SessionsClient) Migrate(
 	return &retVal, err
 }
 
+// ExchangeAccessToken: Use this endpoint to exchange a Connected Apps Access Token back into a Stytch
+// Session for the underlying User.
+// This session can be used with the Stytch SDKs and APIs.
+//
+// The Access Token must contain the `full_access` scope and must not be more than 5 minutes old. Access
+// Tokens may only be exchanged a single time.
 func (c *SessionsClient) ExchangeAccessToken(
 	ctx context.Context,
 	body *sessions.ExchangeAccessTokenParams,
