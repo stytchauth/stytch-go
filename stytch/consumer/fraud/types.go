@@ -6,6 +6,10 @@ package fraud
 // or your changes may be overwritten later!
 // !!!
 
+import (
+	"time"
+)
+
 // ASNProperties:
 type ASNProperties struct {
 	// Asn: The Autonomous System Number of the user's network.
@@ -77,6 +81,46 @@ type NetworkProperties struct {
 type Properties struct {
 	NetworkProperties NetworkProperties `json:"network_properties,omitempty"`
 	BrowserProperties BrowserProperties `json:"browser_properties,omitempty"`
+}
+
+// Rule:
+type Rule struct {
+	// RuleType: The rule type. The possible values are `VISITOR_ID`, `BROWSER_ID`, `VISITOR_FINGERPRINT`,
+	// `BROWSER_FINGERPRINT`, `HARDWARE_FINGERPRINT`, `NETWORK_FINGERPRINT`, `CIDR_BLOCK`, `ASN`, or
+	// `COUNTRY_CODE`.
+	RuleType RuleType `json:"rule_type,omitempty"`
+	// Action: The action (`ALLOW`, `BLOCK`, or `CHALLENGE`) that will be returned for this rule.
+	Action RuleAction `json:"action,omitempty"`
+	// CreatedAt: The time when the rule was created. Values conform to the RFC 3339 standard and are expressed
+	// in UTC, e.g. `2021-12-29T12:33:09Z`.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// VisitorID: The visitor ID that a rule was set for.
+	VisitorID string `json:"visitor_id,omitempty"`
+	// BrowserID: The browser ID that a rule was set for.
+	BrowserID string `json:"browser_id,omitempty"`
+	// VisitorFingerprint: The visitor fingerprint that a rule was set for.
+	VisitorFingerprint string `json:"visitor_fingerprint,omitempty"`
+	// BrowserFingerprint: The browser fingerprint that a rule was set for.
+	BrowserFingerprint string `json:"browser_fingerprint,omitempty"`
+	// HardwareFingerprint: The hardware fingerprint that a rule was set for.
+	HardwareFingerprint string `json:"hardware_fingerprint,omitempty"`
+	// NetworkFingerprint: The network fingerprint that a rule was set for.
+	NetworkFingerprint string `json:"network_fingerprint,omitempty"`
+	// CidrBlock: The CIDR block that a rule was set for. If an end user's IP address is within this CIDR
+	// block, this rule will be applied.
+	CidrBlock string `json:"cidr_block,omitempty"`
+	// CountryCode: The country code that a rule was set for.
+	CountryCode string `json:"country_code,omitempty"`
+	// Asn: The ASN that a rule was set for.
+	Asn string `json:"asn,omitempty"`
+	// Description: A description for the rule.
+	Description string `json:"description,omitempty"`
+	// ExpiresAt: The timestamp when the rule expires. Values conform to the RFC 3339 standard and are
+	// expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	// LastUpdatedAt: The time when the rule was last updated. Will be null if the rule has never been updated.
+	// Values conform to the RFC 3339 standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	LastUpdatedAt *time.Time `json:"last_updated_at,omitempty"`
 }
 
 // Verdict:

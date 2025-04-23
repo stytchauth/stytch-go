@@ -304,6 +304,9 @@ type UpdateParams struct {
 	// characters. External IDs must be unique within an organization, but may be reused across different
 	// organizations in the same project.
 	ExternalID string `json:"external_id,omitempty"`
+	// UnlinkEmail: If `unlink_email` is `true` and an `email_address` is provided, the Member's previous email
+	// will be deleted instead of retired. Defaults to `false`.
+	UnlinkEmail bool `json:"unlink_email,omitempty"`
 }
 
 // CreateRequestOptions:
