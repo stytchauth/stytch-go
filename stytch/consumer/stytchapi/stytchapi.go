@@ -10,6 +10,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
@@ -79,8 +80,8 @@ func WithHTTPClient(client *http.Client) Option {
 // WithBaseURI overrides the client base URI determined by the environment.
 //
 // The value derived from stytch.EnvLive or stytch.EnvTest is already correct for production use
-// in the Live or Test environment, respectively. This is implemented to make it easier to use
-// this client to access internal development versions of the API.
+// in the Live or Test environment, respectively. This is implemented to enable pointing requests at a CNAMEd URL
+// of your choice or to use this client to access internal development versions of the API.
 //
 // NOTE: You should not use this in conjunction with the WithClient option since WithClient completely overrides the
 // stytch.Client with one that may not be a stytch.DefaultClient.
@@ -88,7 +89,7 @@ func WithBaseURI(uri string) Option {
 	return func(api *API) {
 		api.baseURI = config.BaseURI(uri)
 		if defaultClient, ok := api.client.(*stytch.DefaultClient); ok {
-			defaultClient.Config.BaseURI = config.BaseURI(uri)
+			defaultClient.Config.BaseURI = config.BaseURI(strings.TrimSuffix(uri, "/"))
 		}
 	}
 }

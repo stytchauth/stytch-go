@@ -469,9 +469,6 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, stytcherror.ErrJWKSNotInitialized
 	}
 
-	aud := c.C.GetConfig().ProjectID
-	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
-
 	// It's difficult to extract all sets of claims (standard/registered, Stytch, custom) all at
 	// once. So we parse the token twice.
 	//
@@ -480,9 +477,16 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	//
 	// The second parse is for extracting the custom claims.
 	var staticClaims sessions.Claims
-	_, err := jwt.ParseWithClaims(token, &staticClaims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	err := shared.ValidateJWTToken(shared.ValidateJWTTokenParams{
+		Token:          token,
+		StaticClaims:   &staticClaims,
+		KeyFunc:        c.JWKS.Keyfunc,
+		Audience:       c.C.GetConfig().ProjectID,
+		Issuer:         fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID),
+		FallbackIssuer: string(c.C.GetConfig().BaseURI),
+	})
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+		return nil, err
 	}
 
 	if staticClaims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {
