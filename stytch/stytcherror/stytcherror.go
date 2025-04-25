@@ -21,7 +21,7 @@ type (
 	Type    string
 	Message string
 	URL     string
-	Details map[string]string
+	Details map[string]any
 )
 
 func (e Error) Error() string {
