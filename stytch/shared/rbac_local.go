@@ -36,6 +36,36 @@ func PerformAuthorizationCheck(
 	return stytcherror.NewPermissionError()
 }
 
+func PerformScopeAuthorizationCheck(
+	policy *rbac.Policy,
+	tokenScopes []string,
+	subjectOrgID string,
+	authorizationCheck *sessions.AuthorizationCheck,
+) error {
+	if authorizationCheck == nil {
+		return nil
+	}
+
+	if subjectOrgID != authorizationCheck.OrganizationID {
+		return stytcherror.NewSessionAuthorizationTenancyError(subjectOrgID, authorizationCheck.OrganizationID)
+	}
+
+	for _, scope := range policy.Scopes {
+		if contains(tokenScopes, scope.Scope) {
+			for _, permission := range scope.Permissions {
+				hasMatchingAction := contains(permission.Actions, "*") ||
+					contains(permission.Actions, authorizationCheck.Action)
+				hasMatchingResource := permission.ResourceID == authorizationCheck.ResourceID
+				if hasMatchingAction && hasMatchingResource {
+					return nil
+				}
+			}
+		}
+	}
+
+	return stytcherror.NewPermissionError()
+}
+
 func contains(stringList []string, target string) bool {
 	for _, s := range stringList {
 		if target == s {
