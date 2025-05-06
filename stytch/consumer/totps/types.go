@@ -13,7 +13,8 @@ import (
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.
 type AuthenticateParams struct {
-	// UserID: The `user_id` of an active user the TOTP registration should be tied to.
+	// UserID: The `user_id` of an active user the TOTP registration should be tied to. You may use an
+	// external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// TOTPCode: The TOTP code to authenticate. The TOTP code should consist of 6 digits.
 	TOTPCode string `json:"totp_code,omitempty"`
@@ -46,7 +47,8 @@ type AuthenticateParams struct {
 
 // CreateParams: Request type for `TOTPs.Create`.
 type CreateParams struct {
-	// UserID: The `user_id` of an active user the TOTP registration should be tied to.
+	// UserID: The `user_id` of an active user the TOTP registration should be tied to. You may use an
+	// external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// ExpirationMinutes: The expiration for the TOTP instance. If the newly created TOTP is not authenticated
 	// within this time frame the TOTP will be unusable. Defaults to 1440 (1 day) with a minimum of 5 and a
@@ -56,7 +58,8 @@ type CreateParams struct {
 
 // RecoverParams: Request type for `TOTPs.Recover`.
 type RecoverParams struct {
-	// UserID: The `user_id` of an active user the TOTP registration should be tied to.
+	// UserID: The `user_id` of an active user the TOTP registration should be tied to. You may use an
+	// external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// RecoveryCode: The recovery code to authenticate.
 	RecoveryCode string `json:"recovery_code,omitempty"`
@@ -89,7 +92,8 @@ type RecoverParams struct {
 
 // RecoveryCodesParams: Request type for `TOTPs.RecoveryCodes`.
 type RecoveryCodesParams struct {
-	// UserID: The `user_id` of an active user the TOTP registration should be tied to.
+	// UserID: The `user_id` of an active user the TOTP registration should be tied to. You may use an
+	// external_id here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 }
 

@@ -120,13 +120,13 @@ type PolicyRolePermission struct {
 	//   * `stytch.self`
 	//
 	//   Check out the
-	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for a more
-	// detailed explanation.
+	// [guide on Stytch default Resources](https://stytch.com/docs/docs/b2b/guides/rbac/stytch-default) for a
+	// more detailed explanation.
 	//
 	//
 	ResourceID string `json:"resource_id,omitempty"`
-	// Actions: A list of permitted actions the Role is authorized to take with the provided Resource. You can
-	// use `*` as a wildcard to grant a Role permission to use all possible actions related to the Resource.
+	// Actions: A list of permitted actions the Scope is required to take with the provided Resource. You can
+	// use `*` as a wildcard to require a Scope permission to use all possible actions related to the Resource.
 	Actions []string `json:"actions,omitempty"`
 }
 

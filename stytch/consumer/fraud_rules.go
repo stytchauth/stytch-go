@@ -75,3 +75,35 @@ func (c *FraudRulesClient) Set(
 	)
 	return &retVal, err
 }
+
+// List: Get all rules that have been set for your project.
+func (c *FraudRulesClient) List(
+	ctx context.Context,
+	body *rules.ListParams,
+) (*rules.ListResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal rules.ListResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/rules/list",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+			BaseURLType: "FRAUD",
+		},
+	)
+	return &retVal, err
+}

@@ -188,6 +188,12 @@ type MigrateParams struct {
 	//    the user owns the phone number in question. Access to this field is restricted. To enable it, please
 	// send us a note at support@stytch.com.
 	SetPhoneNumberVerified bool `json:"set_phone_number_verified,omitempty"`
+	// ExternalID: If a new user is created, this will set an identifier that can be used in API calls wherever
+	// a user_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters
+	// with a maximum length of 128 characters. External IDs must be unique within an organization, but may be
+	// reused across different organizations in the same project. Note that if a user already exists, this
+	// field will be ignored.
+	ExternalID string `json:"external_id,omitempty"`
 }
 
 // PBKDF2Config:
@@ -198,6 +204,9 @@ type PBKDF2Config struct {
 	IterationAmount int32 `json:"iteration_amount,omitempty"`
 	// KeyLength: The key length, also known as the hash length.
 	KeyLength int32 `json:"key_length,omitempty"`
+	// Algorithm: The algorithm that was used to generate the HMAC hash. Accepted values are "sha512" and
+	// sha256". Defaults to sha256.
+	Algorithm string `json:"algorithm,omitempty"`
 }
 
 // SHA1Config:

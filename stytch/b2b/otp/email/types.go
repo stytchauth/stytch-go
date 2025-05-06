@@ -15,7 +15,8 @@ import (
 // AuthenticateParams: Request type for `Email.Authenticate`.
 type AuthenticateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -31,11 +32,12 @@ type AuthenticateParams struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,
@@ -63,8 +65,8 @@ type AuthenticateParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
@@ -75,7 +77,8 @@ type AuthenticateParams struct {
 // LoginOrSignupParams: Request type for `Email.LoginOrSignup`.
 type LoginOrSignupParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -90,13 +93,21 @@ type LoginOrSignupParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *LoginOrSignupRequestLocale `json:"locale,omitempty"`
+	// LoginExpirationMinutes: The expiration time, in minutes, for a login OTP email to a Member. If not
+	// authenticated within this time frame, the OTP will need to be resent. Defaults to 10 with a minimum of 2
+	// and a maximum of 15.
+	LoginExpirationMinutes uint32 `json:"login_expiration_minutes,omitempty"`
+	// SignupExpirationMinutes: The expiration time, in minutes, for a signup OTP email to a Member. If not
+	// authenticated within this time frame, the OTP will need to be resent. Defaults to 10 with a minimum of 2
+	// and a maximum of 15.
+	SignupExpirationMinutes uint32 `json:"signup_expiration_minutes,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Email.Authenticate`.
@@ -128,11 +139,12 @@ type AuthenticateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
@@ -173,6 +185,7 @@ const (
 	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
 	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
 	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
 )
 
 type LoginOrSignupRequestLocale string
@@ -181,4 +194,5 @@ const (
 	LoginOrSignupRequestLocaleEn   LoginOrSignupRequestLocale = "en"
 	LoginOrSignupRequestLocaleEs   LoginOrSignupRequestLocale = "es"
 	LoginOrSignupRequestLocalePtbr LoginOrSignupRequestLocale = "pt-br"
+	LoginOrSignupRequestLocaleFr   LoginOrSignupRequestLocale = "fr"
 )

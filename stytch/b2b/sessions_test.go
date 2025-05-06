@@ -29,7 +29,7 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 	client := &stytch.DefaultClient{
 		Config: &config.Config{
 			Env:       config.EnvTest,
-			BaseURI:   "https://example.test/v1/b2b/",
+			BaseURI:   "https://example.test/v1/b2b",
 			ProjectID: "project-test-00000000-0000-0000-0000-000000000000",
 			Secret:    "secret-test-11111111-1111-1111-1111-111111111111",
 		},
@@ -102,7 +102,24 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		assert.ErrorIs(t, err, jwt.ErrTokenInvalidIssuer)
 		assert.Nil(t, s)
 	})
+	t.Run("fallback issuer matches", func(t *testing.T) {
+		// We run into this case when a customer is using a custom base URI (usually a CNAME pointing at the Stytch API).
+		// Instead of returning the `stytch.com/<project_id>` issuer for CNAMEd domains, we return the URL they used to
+		// make the request. This is in line with the OIDC spec, which states that the issuer should match the URLs used to
+		// make requests.
 
+		iat := time.Now().UTC().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxClaims(t, iat, exp)
+		claims.Issuer = "https://example.test/v1/b2b"
+
+		token := signJWT(t, keyID, key, claims)
+
+		ctx := context.Background()
+		_, err := sessionClient.AuthenticateJWTLocal(ctx, token, 1*time.Minute, nil)
+		assert.NoError(t, err)
+	})
 	t.Run("valid JWT", func(t *testing.T) {
 		iat := time.Now().UTC().Truncate(time.Second)
 		exp := iat.Add(time.Hour)

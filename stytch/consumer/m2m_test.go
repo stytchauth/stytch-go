@@ -96,7 +96,7 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 	client := &stytch.DefaultClient{
 		Config: &config.Config{
 			Env:       config.EnvTest,
-			BaseURI:   "https://example.test/v1/",
+			BaseURI:   "https://example.test/v1",
 			ProjectID: "project-test-00000000-0000-0000-0000-000000000000",
 			Secret:    "secret-test-11111111-1111-1111-1111-111111111111",
 		},
@@ -174,6 +174,25 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 		assert.Nil(t, s)
 	})
 
+	t.Run("fallback issuer matches", func(t *testing.T) {
+		// We run into this case when a customer is using a custom base URI (usually a CNAME pointing at the Stytch API).
+		// Instead of returning the `stytch.com/<project_id>` issuer for CNAMEd domains, we return the URL they used to
+		// make the request. This is in line with the OIDC spec, which states that the issuer should match the URLs used to
+		// make requests.
+		iat := time.Now().UTC().Truncate(time.Second)
+		exp := iat.Add(time.Hour)
+
+		claims := sandboxM2MClaims(t, iat, exp, "read:users")
+		claims["iss"] = "https://example.test/v1"
+
+		token := signJWT(t, keyID, key, claims)
+
+		_, err := m2mClient.AuthenticateToken(context.Background(), &m2m.AuthenticateTokenParams{
+			AccessToken: token,
+		})
+		assert.NoError(t, err)
+	})
+
 	t.Run("missing scopes", func(t *testing.T) {
 		iat := time.Now().UTC().Truncate(time.Second)
 		exp := iat.Add(time.Hour)
@@ -186,7 +205,7 @@ func TestM2MClient_AuthenticateToken(t *testing.T) {
 			AccessToken:    token,
 			RequiredScopes: []string{"write:users"},
 		})
-		assert.ErrorIs(t, err, stytcherror.NewM2MPermissionError())
+		assert.ErrorContains(t, err, stytcherror.NewM2MPermissionError().Error())
 		assert.Nil(t, s)
 	})
 

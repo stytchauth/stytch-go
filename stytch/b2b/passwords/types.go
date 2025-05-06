@@ -16,7 +16,8 @@ import (
 // AuthenticateParams: Request type for `Passwords.Authenticate`.
 type AuthenticateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -98,11 +99,12 @@ type MigrateParams struct {
 	EmailAddress string `json:"email_address,omitempty"`
 	// Hash: The password hash. For a Scrypt or PBKDF2 hash, the hash needs to be a base64 encoded string.
 	Hash string `json:"hash,omitempty"`
-	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon2_id`, `md_5`,
+	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`,
 	// `sha_1`, and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
 	Md5Config *passwords.MD5Config `json:"md_5_config,omitempty"`
@@ -147,6 +149,12 @@ type MigrateParams struct {
 	PreserveExistingSessions bool   `json:"preserve_existing_sessions,omitempty"`
 	MFAPhoneNumber           string `json:"mfa_phone_number,omitempty"`
 	SetPhoneNumberVerified   bool   `json:"set_phone_number_verified,omitempty"`
+	// ExternalID: If a new member is created, this will set an identifier that can be used in API calls
+	// wherever a member_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|`
+	// characters with a maximum length of 128 characters. External IDs must be unique within an organization,
+	// but may be reused across different organizations in the same project. Note that if a member already
+	// exists, this field will be ignored.
+	ExternalID string `json:"external_id,omitempty"`
 }
 
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
@@ -193,8 +201,9 @@ type AuthenticateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. Password factors are not transferable between Organizations, so
-	// the intermediate session token is not valid for use with discovery endpoints.
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. Password factors
+	// are not transferable between Organizations, so the intermediate session token is not valid for use with
+	// discovery endpoints.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
@@ -278,6 +287,7 @@ const (
 	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
 	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
 	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
 )
 
 type MigrateRequestHashType string

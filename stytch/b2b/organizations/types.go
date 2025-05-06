@@ -38,6 +38,8 @@ type CreateParams struct {
 	OrganizationName string `json:"organization_name,omitempty"`
 	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
 	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	// Wherever an organization_id is expected in a path or request parameter, you may also use the
+	// organization_slug as a convenience.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
@@ -148,7 +150,8 @@ type CreateParams struct {
 // DeleteParams: Request type for `Organizations.Delete`.
 type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -187,7 +190,8 @@ type EmailImplicitRoleAssignment struct {
 // GetParams: Request type for `Organizations.Get`.
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -237,10 +241,12 @@ type HubspotProviderInfo struct {
 // Member:
 type Member struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -317,6 +323,8 @@ type Member struct {
 	// SCIMRegistration: A scim member registration, referencing a [SCIM Connection](scim-connection-object)
 	// object in use for the Member creation.
 	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
+	// ExternalID: The ID of the member given by the identity provider.
+	ExternalID string `json:"external_id,omitempty"`
 }
 
 // MemberRole:
@@ -468,7 +476,8 @@ type OIDCProviderInfo struct {
 // Organization:
 type Organization struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	OrganizationName string `json:"organization_name,omitempty"`
@@ -476,6 +485,8 @@ type Organization struct {
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
 	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
 	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	// Wherever an organization_id is expected in a path or request parameter, you may also use the
+	// organization_slug as a convenience.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
 	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
@@ -691,7 +702,8 @@ type SlackProviderInfo struct {
 // UpdateParams: Request type for `Organizations.Update`.
 type UpdateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	//
@@ -700,6 +712,8 @@ type UpdateParams struct {
 	OrganizationName string `json:"organization_name,omitempty"`
 	// OrganizationSlug: The unique URL slug of the Organization. The slug only accepts alphanumeric characters
 	// and the following reserved characters: `-` `.` `_` `~`. Must be between 2 and 128 characters in length.
+	// Wherever an organization_id is expected in a path or request parameter, you may also use the
+	// organization_slug as a convenience.
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have
 	// permission to perform the `update.info.slug` action on the `stytch.organization` Resource.

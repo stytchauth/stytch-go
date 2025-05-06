@@ -29,13 +29,17 @@ type SendParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *SendRequestLocale `json:"locale,omitempty"`
+	// DiscoveryExpirationMinutes: The expiration time, in minutes, for a discovery OTP email. If not accepted
+	// within this time frame, the OTP will need to be resent. Defaults to 10 with a minimum of 2 and a maximum
+	// of 15.
+	DiscoveryExpirationMinutes uint32 `json:"discovery_expiration_minutes,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Discovery.Authenticate`.
@@ -50,11 +54,12 @@ type AuthenticateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// EmailAddress: The email address.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -99,4 +104,5 @@ const (
 	SendRequestLocaleEn   SendRequestLocale = "en"
 	SendRequestLocaleEs   SendRequestLocale = "es"
 	SendRequestLocalePtbr SendRequestLocale = "pt-br"
+	SendRequestLocaleFr   SendRequestLocale = "fr"
 )

@@ -18,10 +18,12 @@ type RequireResetParams struct {
 	// EmailAddress: The email address of the Member to start the email reset process for.
 	EmailAddress string `json:"email_address,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 }
 
@@ -94,7 +96,8 @@ type ResetParams struct {
 // ResetStartParams: Request type for `Email.ResetStart`.
 type ResetStartParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member to start the email reset process for.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -122,8 +125,8 @@ type ResetStartParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
@@ -131,9 +134,13 @@ type ResetStartParams struct {
 	Locale *ResetStartRequestLocale `json:"locale,omitempty"`
 	// ResetPasswordTemplateID: Use a custom template for reset password emails. By default, it will use your
 	// default email template. The template must be a template using our built-in customizations or a custom
-	// HTML email for Magic Links - Reset Password.
+	// HTML email for Passwords - Reset Password.
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
-	VerifyEmailTemplateID   string `json:"verify_email_template_id,omitempty"`
+	// VerifyEmailTemplateID: Use a custom template for verification emails sent during password reset flows.
+	// This template will be used the first time a user sets a password via a
+	//   password reset flow. By default, it will use your default email template. The template must be a
+	// template using our built-in customizations or a custom HTML email for Passwords - Email Verification.
+	VerifyEmailTemplateID string `json:"verify_email_template_id,omitempty"`
 }
 
 // RequireResetRequestOptions:
@@ -190,8 +197,9 @@ type ResetResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. Password factors are not transferable between Organizations, so
-	// the intermediate session token is not valid for use with discovery endpoints.
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. Password factors
+	// are not transferable between Organizations, so the intermediate session token is not valid for use with
+	// discovery endpoints.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
@@ -231,6 +239,7 @@ const (
 	ResetRequestLocaleEn   ResetRequestLocale = "en"
 	ResetRequestLocaleEs   ResetRequestLocale = "es"
 	ResetRequestLocalePtbr ResetRequestLocale = "pt-br"
+	ResetRequestLocaleFr   ResetRequestLocale = "fr"
 )
 
 type ResetStartRequestLocale string
@@ -239,4 +248,5 @@ const (
 	ResetStartRequestLocaleEn   ResetStartRequestLocale = "en"
 	ResetStartRequestLocaleEs   ResetStartRequestLocale = "es"
 	ResetStartRequestLocalePtbr ResetStartRequestLocale = "pt-br"
+	ResetStartRequestLocaleFr   ResetStartRequestLocale = "fr"
 )

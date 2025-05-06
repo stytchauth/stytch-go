@@ -14,10 +14,12 @@ import (
 // AuthenticateParams: Request type for `Sms.Authenticate`.
 type AuthenticateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// Code: The code to authenticate.
 	Code string `json:"code,omitempty"`
@@ -27,11 +29,12 @@ type AuthenticateParams struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -77,10 +80,12 @@ type AuthenticateParams struct {
 // SendParams: Request type for `Sms.Send`.
 type SendParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value.
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
 	MemberID string `json:"member_id,omitempty"`
 	// MFAPhoneNumber: The phone number to send the OTP to. If the Member already has a phone number, this
 	// argument is not needed.
@@ -88,8 +93,8 @@ type SendParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
@@ -101,11 +106,12 @@ type SendParams struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -158,9 +164,12 @@ type SendResponse struct {
 type SendRequestLocale string
 
 const (
-	SendRequestLocaleEn   SendRequestLocale = "en"
-	SendRequestLocaleEs   SendRequestLocale = "es"
-	SendRequestLocalePtbr SendRequestLocale = "pt-br"
-	SendRequestLocaleFr   SendRequestLocale = "fr"
-	SendRequestLocaleIt   SendRequestLocale = "it"
+	SendRequestLocaleEn     SendRequestLocale = "en"
+	SendRequestLocaleEs     SendRequestLocale = "es"
+	SendRequestLocalePtbr   SendRequestLocale = "pt-br"
+	SendRequestLocaleFr     SendRequestLocale = "fr"
+	SendRequestLocaleIt     SendRequestLocale = "it"
+	SendRequestLocaleDeDE   SendRequestLocale = "de-DE"
+	SendRequestLocaleZhHans SendRequestLocale = "zh-Hans"
+	SendRequestLocaleCaES   SendRequestLocale = "ca-ES"
 )

@@ -100,7 +100,8 @@ type ConnectionImplicitRoleAssignment struct {
 
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
 type DeleteConnectionParams struct {
-	// OrganizationID: The organization ID that the SSO connection belongs to.
+	// OrganizationID: The organization ID that the SSO connection belongs to. You may also use the
+	// organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SSO connection. SAML, OIDC, and External connection IDs can be provided.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -122,7 +123,8 @@ func (o *DeleteConnectionRequestOptions) AddHeaders(headers map[string][]string)
 // GetConnectionsParams: Request type for `SSO.GetConnections`.
 type GetConnectionsParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -191,6 +193,9 @@ type SAMLConnection struct {
 	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
 	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`
 	IdentityProvider                      string                                 `json:"identity_provider,omitempty"`
+	NameidFormat                          string                                 `json:"nameid_format,omitempty"`
+	AlternativeAcsURL                     string                                 `json:"alternative_acs_url,omitempty"`
+	IdpInitiatedAuthDisabled              bool                                   `json:"idp_initiated_auth_disabled,omitempty"`
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 
@@ -266,8 +271,9 @@ type AuthenticateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. SSO factors are not transferable between Organizations, so the
-	// intermediate session token is not valid for use with discovery endpoints.
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. SSO factors are
+	// not transferable between Organizations, so the intermediate session token is not valid for use with
+	// discovery endpoints.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
@@ -322,9 +328,12 @@ type GetConnectionsResponse struct {
 type AuthenticateRequestLocale string
 
 const (
-	AuthenticateRequestLocaleEn   AuthenticateRequestLocale = "en"
-	AuthenticateRequestLocaleEs   AuthenticateRequestLocale = "es"
-	AuthenticateRequestLocalePtbr AuthenticateRequestLocale = "pt-br"
-	AuthenticateRequestLocaleFr   AuthenticateRequestLocale = "fr"
-	AuthenticateRequestLocaleIt   AuthenticateRequestLocale = "it"
+	AuthenticateRequestLocaleEn     AuthenticateRequestLocale = "en"
+	AuthenticateRequestLocaleEs     AuthenticateRequestLocale = "es"
+	AuthenticateRequestLocalePtbr   AuthenticateRequestLocale = "pt-br"
+	AuthenticateRequestLocaleFr     AuthenticateRequestLocale = "fr"
+	AuthenticateRequestLocaleIt     AuthenticateRequestLocale = "it"
+	AuthenticateRequestLocaleDeDE   AuthenticateRequestLocale = "de-DE"
+	AuthenticateRequestLocaleZhHans AuthenticateRequestLocale = "zh-Hans"
+	AuthenticateRequestLocaleCaES   AuthenticateRequestLocale = "ca-ES"
 )

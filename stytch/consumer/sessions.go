@@ -235,6 +235,42 @@ func (c *SessionsClient) Migrate(
 	return &retVal, err
 }
 
+// ExchangeAccessToken: Use this endpoint to exchange a Connected Apps Access Token back into a Stytch
+// Session for the underlying User.
+// This session can be used with the Stytch SDKs and APIs.
+//
+// The Access Token must contain the `full_access` scope and must not be more than 5 minutes old. Access
+// Tokens may only be exchanged a single time.
+func (c *SessionsClient) ExchangeAccessToken(
+	ctx context.Context,
+	body *sessions.ExchangeAccessTokenParams,
+) (*sessions.ExchangeAccessTokenResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal sessions.ExchangeAccessTokenResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/sessions/exchange_access_token",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
 // GetJWKS: Get the JSON Web Key Set (JWKS) for a project.
 //
 // JWKS are rotated every ~6 months. Upon rotation, new JWTs will be signed using the new key, and both
@@ -354,9 +390,6 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 		return nil, stytcherror.ErrJWKSNotInitialized
 	}
 
-	aud := c.C.GetConfig().ProjectID
-	iss := fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID)
-
 	// It's difficult to extract all sets of claims (standard/registered, Stytch, custom) all at
 	// once. So we parse the token twice.
 	//
@@ -365,9 +398,16 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	//
 	// The second parse is for extracting the custom claims.
 	var staticClaims sessions.Claims
-	_, err := jwt.ParseWithClaims(token, &staticClaims, c.JWKS.Keyfunc, jwt.WithAudience(aud), jwt.WithIssuer(iss))
+	err := shared.ValidateJWTToken(shared.ValidateJWTTokenParams{
+		Token:          token,
+		StaticClaims:   &staticClaims,
+		KeyFunc:        c.JWKS.Keyfunc,
+		Audience:       c.C.GetConfig().ProjectID,
+		Issuer:         fmt.Sprintf("stytch.com/%s", c.C.GetConfig().ProjectID),
+		FallbackIssuer: string(c.C.GetConfig().BaseURI),
+	})
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JWT: %w", err)
+		return nil, err
 	}
 
 	if staticClaims.RegisteredClaims.IssuedAt.Add(maxTokenAge).Before(time.Now()) {

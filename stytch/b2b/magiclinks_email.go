@@ -68,6 +68,12 @@ func (c *MagicLinksEmailClient) LoginOrSignup(
 // `invited`. Sending invites to already `active` Members will return an error.
 //
 // The magic link invite will be valid for 1 week.
+//
+// ## Revoke an invite
+//
+// To revoke an existing invite, use the [Delete Member](https://stytch.com/docs/b2b/api/delete-member)
+// endpoint. This will both delete the invited Member from the target Organization and revoke all existing
+// invite emails.
 func (c *MagicLinksEmailClient) Invite(
 	ctx context.Context,
 	body *email.InviteParams,

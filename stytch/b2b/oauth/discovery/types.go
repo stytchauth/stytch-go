@@ -35,11 +35,12 @@ type AuthenticateResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// EmailAddress: The email address.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -77,6 +78,8 @@ type AuthenticateResponse struct {
 	// always be populated if at least one tenant ID was returned from the OAuth provider and developers should
 	// prefer this field over `provider_tenant_id`.
 	ProviderTenantIds []string `json:"provider_tenant_ids,omitempty"`
+	// FullName: The full name of the authenticated end user, if available.
+	FullName string `json:"full_name,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

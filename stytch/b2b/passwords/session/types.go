@@ -15,7 +15,8 @@ import (
 // ResetParams: Request type for `Sessions.Reset`.
 type ResetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value.
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
 	// e.g. spaces, emojis, non-English characers, etc.
@@ -50,8 +51,8 @@ type ResetParams struct {
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
-	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
-	// (`"pt-br"`); if no value is provided, the copy defaults to English.
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
 	//
 	// Request support for additional languages
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
@@ -81,11 +82,12 @@ type ResetResponse struct {
 	// [OTP SMS Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-otp-sms),
 	// [TOTP Authenticate endpoint](https://stytch.com/docs/b2b/api/authenticate-totp), or
 	// [Recovery Codes Recover endpoint](https://stytch.com/docs/b2b/api/recovery-codes-recover) to complete an
-	// MFA flow and log in to the Organization. It can also be used with the
+	// MFA flow and log in to the Organization. The token has a default expiry of 10 minutes. It can also be
+	// used with the
 	// [Exchange Intermediate Session endpoint](https://stytch.com/docs/b2b/api/exchange-intermediate-session)
 	// to join a specific Organization that allows the factors represented by the intermediate session token;
 	// or the
-	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member.
+	// [Create Organization via Discovery endpoint](https://stytch.com/docs/b2b/api/create-organization-via-discovery) to create a new Organization and Member. Intermediate Session Tokens have a default expiry of 10 minutes.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
@@ -107,4 +109,5 @@ const (
 	ResetRequestLocaleEn   ResetRequestLocale = "en"
 	ResetRequestLocaleEs   ResetRequestLocale = "es"
 	ResetRequestLocalePtbr ResetRequestLocale = "pt-br"
+	ResetRequestLocaleFr   ResetRequestLocale = "fr"
 )
