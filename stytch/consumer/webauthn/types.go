@@ -48,7 +48,7 @@ type AuthenticateStartParams struct {
 	// Domain: The domain for Passkeys or WebAuthn. Defaults to `window.location.hostname`.
 	Domain string `json:"domain,omitempty"`
 	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to. You may
-	// use an external_id here if one is set for the user.
+	// use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// ReturnPasskeyCredentialOptions: If true, the `public_key_credential_creation_options` returned will be
 	// optimized for Passkeys with `userVerification` set to `"preferred"`.
@@ -67,7 +67,7 @@ type ListCredentialsParams struct {
 // RegisterParams: Request type for `WebAuthn.Register`.
 type RegisterParams struct {
 	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to. You may
-	// use an external_id here if one is set for the user.
+	// use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// PublicKeyCredential: The response of the
 	// [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential).
@@ -102,11 +102,11 @@ type RegisterParams struct {
 // RegisterStartParams: Request type for `WebAuthn.RegisterStart`.
 type RegisterStartParams struct {
 	// UserID: The `user_id` of an active user the Passkey or WebAuthn registration should be tied to. You may
-	// use an external_id here if one is set for the user.
+	// use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// Domain: The domain for Passkeys or WebAuthn. Defaults to `window.location.hostname`.
 	Domain string `json:"domain,omitempty"`
-	// UserAgent: The user agent of the User.
+	// UserAgent: The user agent of the client.
 	UserAgent string `json:"user_agent,omitempty"`
 	// AuthenticatorType: The requested authenticator type of the Passkey or WebAuthn device. The two valid
 	// values are platform and cross-platform. If no value passed, we assume both values are allowed.
@@ -167,7 +167,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }
@@ -224,7 +224,7 @@ type RegisterResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }

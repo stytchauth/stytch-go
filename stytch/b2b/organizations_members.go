@@ -19,6 +19,7 @@ import (
 type OrganizationsMembersClient struct {
 	C              stytch.Client
 	OAuthProviders *OrganizationsMembersOAuthProvidersClient
+	ConnectedApps  *OrganizationsMembersConnectedAppsClient
 }
 
 func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient {
@@ -26,6 +27,7 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 		C: c,
 
 		OAuthProviders: NewOrganizationsMembersOAuthProvidersClient(c),
+		ConnectedApps:  NewOrganizationsMembersConnectedAppsClient(c),
 	}
 }
 
@@ -375,6 +377,31 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/unlink_retired_email", body.OrganizationID, body.MemberID),
 			QueryParams: nil,
 			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+func (c *OrganizationsMembersClient) GetConnectedApps(
+	ctx context.Context,
+	body *members.GetConnectedAppsParams,
+	methodOptions ...*members.GetConnectedAppsRequestOptions,
+) (*members.GetConnectedAppsResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal members.GetConnectedAppsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/connected_apps", body.OrganizationID, body.MemberID),
+			QueryParams: nil,
+			Body:        nil,
 			V:           &retVal,
 			Headers:     headers,
 		},

@@ -114,6 +114,11 @@ type DeleteTOTPParams struct {
 	MemberID string `json:"member_id,omitempty"`
 }
 
+type GetConnectedAppsParams struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+	MemberID       string `json:"member_id,omitempty"`
+}
+
 // GetParams: Request type for `Members.Get`.
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -374,6 +379,19 @@ func (o *DeleteTOTPRequestOptions) AddHeaders(headers map[string][]string) map[s
 	return headers
 }
 
+// GetConnectedAppsRequestOptions:
+type GetConnectedAppsRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *GetConnectedAppsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // ReactivateRequestOptions:
 type ReactivateRequestOptions struct {
 	// Authorization: Optional authorization object.
@@ -510,6 +528,12 @@ type DeleteTOTPResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type GetConnectedAppsResponse struct {
+	RequestID     string                             `json:"request_id,omitempty"`
+	ConnectedApps []organizations.MemberConnectedApp `json:"connected_apps,omitempty"`
+	StatusCode    int32                              `json:"status_code,omitempty"`
 }
 
 // GetResponse: Response type for `Members.DangerouslyGet`, `Members.Get`.

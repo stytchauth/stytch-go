@@ -209,3 +209,53 @@ func (c *OrganizationsClient) Metrics(
 	)
 	return &retVal, err
 }
+
+func (c *OrganizationsClient) ConnectedApps(
+	ctx context.Context,
+	body *organizations.ConnectedAppsParams,
+	methodOptions ...*organizations.ConnectedAppsRequestOptions,
+) (*organizations.ConnectedAppsResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal organizations.ConnectedAppsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps", body.OrganizationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+func (c *OrganizationsClient) GetConnectedApp(
+	ctx context.Context,
+	body *organizations.GetConnectedAppParams,
+	methodOptions ...*organizations.GetConnectedAppRequestOptions,
+) (*organizations.GetConnectedAppResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal organizations.GetConnectedAppResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps/%s", body.OrganizationID, body.ConnectedAppID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}

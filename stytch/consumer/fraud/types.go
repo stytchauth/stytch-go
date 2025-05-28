@@ -65,7 +65,7 @@ type Metadata struct {
 
 // NetworkProperties:
 type NetworkProperties struct {
-	// IPAddress: The IP address of the user.
+	// IPAddress: The IP address of the client.
 	IPAddress string `json:"ip_address,omitempty"`
 	// Asn: Information about the network's ASN (Autonomous System Number).
 	Asn ASNProperties `json:"asn,omitempty"`

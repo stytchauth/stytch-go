@@ -190,9 +190,7 @@ type MigrateParams struct {
 	SetPhoneNumberVerified bool `json:"set_phone_number_verified,omitempty"`
 	// ExternalID: If a new user is created, this will set an identifier that can be used in API calls wherever
 	// a user_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters
-	// with a maximum length of 128 characters. External IDs must be unique within an organization, but may be
-	// reused across different organizations in the same project. Note that if a user already exists, this
-	// field will be ignored.
+	// with a maximum length of 128 characters.
 	ExternalID string `json:"external_id,omitempty"`
 }
 
@@ -265,7 +263,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }
@@ -294,7 +292,7 @@ type CreateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }

@@ -396,3 +396,54 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	)
 	return &retVal, err
 }
+
+func (c *UsersClient) ConnectedApps(
+	ctx context.Context,
+	body *users.ConnectedAppsParams,
+) (*users.ConnectedAppsResponse, error) {
+	headers := make(map[string][]string)
+
+	var retVal users.ConnectedAppsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/users/%s/connected_apps", body.UserID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+func (c *UsersClient) Revoke(
+	ctx context.Context,
+	body *users.RevokeParams,
+) (*users.RevokeResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal users.RevokeResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/users/%s/connected_apps/%s/revoke", body.UserID, body.ConnectedAppID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
