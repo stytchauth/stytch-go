@@ -22,7 +22,7 @@ type AuthenticateParams struct {
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
-	// e.g. spaces, emojis, non-English characers, etc.
+	// e.g. spaces, emojis, non-English characters, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -160,7 +160,7 @@ type MigrateParams struct {
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
 type StrengthCheckParams struct {
 	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
-	// e.g. spaces, emojis, non-English characers, etc.
+	// e.g. spaces, emojis, non-English characters, etc.
 	Password string `json:"password,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`

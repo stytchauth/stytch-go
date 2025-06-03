@@ -65,7 +65,7 @@ type Metadata struct {
 
 // NetworkProperties:
 type NetworkProperties struct {
-	// IPAddress: The IP address of the user.
+	// IPAddress: The IP address of the client.
 	IPAddress string `json:"ip_address,omitempty"`
 	// Asn: Information about the network's ASN (Autonomous System Number).
 	Asn ASNProperties `json:"asn,omitempty"`
@@ -137,7 +137,8 @@ type Verdict struct {
 	//
 	Action VerdictAction `json:"action,omitempty"`
 	// Reasons: A set of contextual clues to inform why a `CHALLENGE` or `BLOCK` action was suggested. For a
-	// list of possible Reasons, please [contact support](mailto:support@stytch.com).
+	// list of possible Reasons, see
+	// [Warning Flags (Verdict Reasons)](https://stytch.com/docs/docs/fraud/guides/device-fingerprinting/reference/warning-flags-verdict-reasons).
 	Reasons []string `json:"reasons,omitempty"`
 	// DetectedDeviceType: The operating system and architecture that took the fingerprint.
 	DetectedDeviceType string `json:"detected_device_type,omitempty"`

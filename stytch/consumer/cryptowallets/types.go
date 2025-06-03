@@ -58,7 +58,7 @@ type AuthenticateStartParams struct {
 	CryptoWalletType string `json:"crypto_wallet_type,omitempty"`
 	// CryptoWalletAddress: The crypto wallet address to authenticate.
 	CryptoWalletAddress string `json:"crypto_wallet_address,omitempty"`
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -121,7 +121,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 	// SiweParams: The parameters of the Sign In With Ethereum (SIWE) message that was signed.

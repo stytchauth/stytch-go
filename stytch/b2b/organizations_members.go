@@ -19,6 +19,7 @@ import (
 type OrganizationsMembersClient struct {
 	C              stytch.Client
 	OAuthProviders *OrganizationsMembersOAuthProvidersClient
+	ConnectedApps  *OrganizationsMembersConnectedAppsClient
 }
 
 func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient {
@@ -26,6 +27,7 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 		C: c,
 
 		OAuthProviders: NewOrganizationsMembersOAuthProvidersClient(c),
+		ConnectedApps:  NewOrganizationsMembersConnectedAppsClient(c),
 	}
 }
 
@@ -375,6 +377,39 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/unlink_retired_email", body.OrganizationID, body.MemberID),
 			QueryParams: nil,
 			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+// GetConnectedApps: Member Get Connected Apps retrieves a list of Connected Apps with which the Member has
+// successfully completed an
+// authorization flow.
+// If the Member revokes a Connected App's access (e.g. via the Revoke Connected App endpoint) then the
+// Connected App will
+// no longer be returned in the response. A Connected App's access may also be revoked if the
+// Organization's allowed Connected
+// App policy changes.
+func (c *OrganizationsMembersClient) GetConnectedApps(
+	ctx context.Context,
+	body *members.GetConnectedAppsParams,
+	methodOptions ...*members.GetConnectedAppsRequestOptions,
+) (*members.GetConnectedAppsResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal members.GetConnectedAppsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/connected_apps", body.OrganizationID, body.MemberID),
+			QueryParams: nil,
+			Body:        nil,
 			V:           &retVal,
 			Headers:     headers,
 		},
