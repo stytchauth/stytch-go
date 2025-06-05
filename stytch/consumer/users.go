@@ -396,3 +396,65 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	)
 	return &retVal, err
 }
+
+// ConnectedApps: User Get Connected Apps retrieves a list of Connected Apps with which the User has
+// successfully completed an
+// authorization flow.
+// If the User revokes a Connected App's access (e.g. via the Revoke Connected App endpoint) then the
+// Connected App will
+// no longer be returned in the response.
+func (c *UsersClient) ConnectedApps(
+	ctx context.Context,
+	body *users.ConnectedAppsParams,
+) (*users.ConnectedAppsResponse, error) {
+	headers := make(map[string][]string)
+
+	var retVal users.ConnectedAppsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/users/%s/connected_apps", body.UserID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+// Revoke Connected App revokes a Connected App's access to a User and revokes all active tokens that have
+// been created
+// on the User's behalf. New tokens cannot be created until the User completes a new authorization flow
+// with the
+// Connected App.
+func (c *UsersClient) Revoke(
+	ctx context.Context,
+	body *users.RevokeParams,
+) (*users.RevokeResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal users.RevokeResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/users/%s/connected_apps/%s/revoke", body.UserID, body.ConnectedAppID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}

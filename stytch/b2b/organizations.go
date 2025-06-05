@@ -209,3 +209,65 @@ func (c *OrganizationsClient) Metrics(
 	)
 	return &retVal, err
 }
+
+// ConnectedApps: Retrieves a list of Connected Apps for the Organization that have been installed by
+// Members. Installation comprises
+// successful completion of an authorization flow with a Connected App that has not been revoked.
+//
+// Connected Apps may be uninstalled if an Organization changes its
+// `first_party_connected_apps_allowed_type`
+// or `third_party_connected_apps_allowed_type` policies.
+func (c *OrganizationsClient) ConnectedApps(
+	ctx context.Context,
+	body *organizations.ConnectedAppsParams,
+	methodOptions ...*organizations.ConnectedAppsRequestOptions,
+) (*organizations.ConnectedAppsResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal organizations.ConnectedAppsResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps", body.OrganizationID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+// GetConnectedApp: Get Connected App for Organization retrieves information about the specified Connected
+// App as well as a list of the
+// Organization's Members who have the App installed along with the scopes they requested at completion of
+// their last
+// authorization with the App.
+func (c *OrganizationsClient) GetConnectedApp(
+	ctx context.Context,
+	body *organizations.GetConnectedAppParams,
+	methodOptions ...*organizations.GetConnectedAppRequestOptions,
+) (*organizations.GetConnectedAppResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal organizations.GetConnectedAppResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "GET",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps/%s", body.OrganizationID, body.ConnectedAppID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}

@@ -22,7 +22,8 @@ type AuthenticateParams struct {
 	//       In the redirect URL, the `stytch_token_type` will be `magic_link`. See
 	// [here](https://stytch.com/docs/workspace-management/redirect-urls) for more detail.
 	Token string `json:"token,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Options: Specify optional security settings.
 	Options *Options `json:"options,omitempty"`
@@ -58,12 +59,13 @@ type AuthenticateParams struct {
 
 // CreateParams: Request type for `MagicLinks.Create`.
 type CreateParams struct {
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// ExpirationMinutes: Set the expiration for the Magic Link `token` in minutes. By default, it expires in 1
 	// hour. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 }
 
@@ -105,7 +107,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }

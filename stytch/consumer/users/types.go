@@ -21,6 +21,12 @@ type BiometricRegistration struct {
 	Verified bool `json:"verified,omitempty"`
 }
 
+// ConnectedAppsParams: Request type for `Users.ConnectedApps`.
+type ConnectedAppsParams struct {
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
+	UserID string `json:"user_id,omitempty"`
+}
+
 // CreateParams: Request type for `Users.Create`.
 type CreateParams struct {
 	// Email: The email address of the end user.
@@ -51,8 +57,6 @@ type CreateParams struct {
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a user_id is expected. This is a string
 	// consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128 characters.
-	// External IDs must be unique within an organization, but may be reused across different organizations in
-	// the same project.
 	ExternalID string `json:"external_id,omitempty"`
 }
 
@@ -95,7 +99,7 @@ type DeleteOAuthRegistrationParams struct {
 
 // DeleteParams: Request type for `Users.Delete`.
 type DeleteParams struct {
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 }
 
@@ -136,7 +140,7 @@ type Email struct {
 
 // ExchangePrimaryFactorParams: Request type for `Users.ExchangePrimaryFactor`.
 type ExchangePrimaryFactorParams struct {
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// EmailAddress: The email address to exchange to.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -147,7 +151,7 @@ type ExchangePrimaryFactorParams struct {
 
 // GetParams: Request type for `Users.Get`.
 type GetParams struct {
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 }
 
@@ -208,6 +212,14 @@ type ResultsMetadata struct {
 	NextCursor string `json:"next_cursor,omitempty"`
 }
 
+// RevokeParams: Request type for `Users.Revoke`.
+type RevokeParams struct {
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
+	UserID string `json:"user_id,omitempty"`
+	// ConnectedAppID: The ID of the Connected App.
+	ConnectedAppID string `json:"connected_app_id,omitempty"`
+}
+
 // SearchParams: Request type for `Users.Search`.
 type SearchParams struct {
 	// Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited to
@@ -251,11 +263,12 @@ type TOTP struct {
 
 // UpdateParams: Request type for `Users.Update`.
 type UpdateParams struct {
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name *Name `json:"name,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
 	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
@@ -268,8 +281,6 @@ type UpdateParams struct {
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a user_id is expected. This is a string
 	// consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128 characters.
-	// External IDs must be unique within an organization, but may be reused across different organizations in
-	// the same project.
 	ExternalID string `json:"external_id,omitempty"`
 }
 
@@ -295,6 +306,7 @@ type User struct {
 	// BiometricRegistrations: An array that contains a list of all biometric registrations for a given User in
 	// the Stytch API.
 	BiometricRegistrations []BiometricRegistration `json:"biometric_registrations,omitempty"`
+	IsLocked               bool                    `json:"is_locked,omitempty"`
 	// Name: The name of the User. Each field in the `name` object is optional.
 	Name *Name `json:"name,omitempty"`
 	// CreatedAt: The timestamp of the User's creation. Values conform to the RFC 3339 standard and are
@@ -312,6 +324,25 @@ type User struct {
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	ExternalID        string         `json:"external_id,omitempty"`
+	LockCreatedAt     *time.Time     `json:"lock_created_at,omitempty"`
+	LockExpiresAt     *time.Time     `json:"lock_expires_at,omitempty"`
+}
+
+// UserConnectedApp:
+type UserConnectedApp struct {
+	// ConnectedAppID: The ID of the Connected App.
+	ConnectedAppID string `json:"connected_app_id,omitempty"`
+	// Name: The name of the Connected App.
+	Name string `json:"name,omitempty"`
+	// Description: A description of the Connected App.
+	Description string `json:"description,omitempty"`
+	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
+	// `third_party`, and `third_party_public`.
+	ClientType string `json:"client_type,omitempty"`
+	// ScopesGranted: The scopes granted to the Connected App at the completion of the last authorization flow.
+	ScopesGranted string `json:"scopes_granted,omitempty"`
+	// LogoURL: The logo URL of the Connected App, if any.
+	LogoURL string `json:"logo_url,omitempty"`
 }
 
 // WebAuthnRegistration:
@@ -332,6 +363,18 @@ type WebAuthnRegistration struct {
 	AuthenticatorType string `json:"authenticator_type,omitempty"`
 	// Name: The `name` of the Passkey or WebAuthn registration.
 	Name string `json:"name,omitempty"`
+}
+
+// ConnectedAppsResponse: Response type for `Users.ConnectedApps`.
+type ConnectedAppsResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// ConnectedApps: An array of Connected Apps with which the User has successfully completed an
+	// authorization flow.
+	ConnectedApps []UserConnectedApp `json:"connected_apps,omitempty"`
+	StatusCode    int32              `json:"status_code,omitempty"`
 }
 
 // CreateResponse: Response type for `Users.Create`.
@@ -550,6 +593,7 @@ type GetResponse struct {
 	// BiometricRegistrations: An array that contains a list of all biometric registrations for a given User in
 	// the Stytch API.
 	BiometricRegistrations []BiometricRegistration `json:"biometric_registrations,omitempty"`
+	IsLocked               bool                    `json:"is_locked,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
@@ -571,6 +615,17 @@ type GetResponse struct {
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	ExternalID        string         `json:"external_id,omitempty"`
+	LockCreatedAt     *time.Time     `json:"lock_created_at,omitempty"`
+	LockExpiresAt     *time.Time     `json:"lock_expires_at,omitempty"`
+}
+
+// RevokeResponse: Response type for `Users.Revoke`.
+type RevokeResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID  string `json:"request_id,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
 }
 
 // SearchResponse: Response type for `Users.Search`.

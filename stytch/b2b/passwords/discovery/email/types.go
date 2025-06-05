@@ -15,7 +15,7 @@ type ResetParams struct {
 	// PasswordResetToken: The password reset token to authenticate.
 	PasswordResetToken string `json:"password_reset_token,omitempty"`
 	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
-	// e.g. spaces, emojis, non-English characers, etc.
+	// e.g. spaces, emojis, non-English characters, etc.
 	Password         string `json:"password,omitempty"`
 	PkceCodeVerifier string `json:"pkce_code_verifier,omitempty"`
 }

@@ -32,6 +32,27 @@ type ActiveSSOConnection struct {
 	IdentityProvider string `json:"identity_provider,omitempty"`
 }
 
+// ConnectedAppsParams: Request type for `Organizations.ConnectedApps`.
+type ConnectedAppsParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+}
+
+// ConnectedAppsRequestOptions:
+type ConnectedAppsRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *ConnectedAppsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // CreateParams: Request type for `Organizations.Create`.
 type CreateParams struct {
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
@@ -144,7 +165,11 @@ type CreateParams struct {
 	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack", "hubspot", and "github".
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
-	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
+	ClaimedEmailDomains                []string                                         `json:"claimed_email_domains,omitempty"`
+	FirstPartyConnectedAppsAllowedType *CreateRequestFirstPartyConnectedAppsAllowedType `json:"first_party_connected_apps_allowed_type,omitempty"`
+	AllowedFirstPartyConnectedApps     []string                                         `json:"allowed_first_party_connected_apps,omitempty"`
+	ThirdPartyConnectedAppsAllowedType *CreateRequestThirdPartyConnectedAppsAllowedType `json:"third_party_connected_apps_allowed_type,omitempty"`
+	AllowedThirdPartyConnectedApps     []string                                         `json:"allowed_third_party_connected_apps,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -185,6 +210,29 @@ type EmailImplicitRoleAssignment struct {
 	//
 	//
 	RoleID string `json:"role_id,omitempty"`
+}
+
+// GetConnectedAppParams: Request type for `Organizations.GetConnectedApp`.
+type GetConnectedAppParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectedAppID: The ID of the Connected App.
+	ConnectedAppID string `json:"connected_app_id,omitempty"`
+}
+
+// GetConnectedAppRequestOptions:
+type GetConnectedAppRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *GetConnectedAppRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
 }
 
 // GetParams: Request type for `Organizations.Get`.
@@ -293,6 +341,7 @@ type Member struct {
 	//   using the [Unlink Retired Email endpoint](https://stytch.com/docs/b2b/api/unlink-retired-member-email).
 	//
 	RetiredEmailAddresses []RetiredEmail `json:"retired_email_addresses,omitempty"`
+	IsLocked              bool           `json:"is_locked,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
@@ -324,7 +373,26 @@ type Member struct {
 	// object in use for the Member creation.
 	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
 	// ExternalID: The ID of the member given by the identity provider.
-	ExternalID string `json:"external_id,omitempty"`
+	ExternalID    string     `json:"external_id,omitempty"`
+	LockCreatedAt *time.Time `json:"lock_created_at,omitempty"`
+	LockExpiresAt *time.Time `json:"lock_expires_at,omitempty"`
+}
+
+// MemberConnectedApp:
+type MemberConnectedApp struct {
+	// ConnectedAppID: The ID of the Connected App.
+	ConnectedAppID string `json:"connected_app_id,omitempty"`
+	// Name: The name of the Connected App.
+	Name string `json:"name,omitempty"`
+	// Description: A description of the Connected App.
+	Description string `json:"description,omitempty"`
+	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
+	// `third_party`, and `third_party_public`.
+	ClientType string `json:"client_type,omitempty"`
+	// ScopesGranted: The scopes granted to the Connected App at the completion of the last authorization flow.
+	ScopesGranted string `json:"scopes_granted,omitempty"`
+	// LogoURL: The logo URL of the Connected App, if any.
+	LogoURL string `json:"logo_url,omitempty"`
 }
 
 // MemberRole:
@@ -582,6 +650,36 @@ type Organization struct {
 	//
 	OAuthTenantJITProvisioning string   `json:"oauth_tenant_jit_provisioning,omitempty"`
 	ClaimedEmailDomains        []string `json:"claimed_email_domains,omitempty"`
+	// FirstPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards first party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any first party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only first party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no first party Connected Apps are permitted.
+	//
+	FirstPartyConnectedAppsAllowedType string `json:"first_party_connected_apps_allowed_type,omitempty"`
+	// AllowedFirstPartyConnectedApps: An array of first party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `first_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedFirstPartyConnectedApps []string `json:"allowed_first_party_connected_apps,omitempty"`
+	// ThirdPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards third party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any third party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only third party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no third party Connected Apps are permitted.
+	//
+	ThirdPartyConnectedAppsAllowedType string `json:"third_party_connected_apps_allowed_type,omitempty"`
+	// AllowedThirdPartyConnectedApps: An array of third party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `third_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedThirdPartyConnectedApps []string `json:"allowed_third_party_connected_apps,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -599,6 +697,22 @@ type Organization struct {
 	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
 	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack", "hubspot", and "github".
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
+}
+
+type OrganizationConnectedApp struct {
+	ConnectedAppID string `json:"connected_app_id,omitempty"`
+	Name           string `json:"name,omitempty"`
+	Description    string `json:"description,omitempty"`
+	ClientType     string `json:"client_type,omitempty"`
+	LogoURL        string `json:"logo_url,omitempty"`
+}
+
+// OrganizationConnectedAppActiveMember:
+type OrganizationConnectedAppActiveMember struct {
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// GrantedScopes: Scopes that were granted at the completion of the last authorization flow.
+	GrantedScopes []string `json:"granted_scopes,omitempty"`
 }
 
 // ResultsMetadata:
@@ -886,7 +1000,11 @@ type UpdateParams struct {
 	// Resource.
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
-	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
+	ClaimedEmailDomains                []string                                         `json:"claimed_email_domains,omitempty"`
+	FirstPartyConnectedAppsAllowedType *UpdateRequestFirstPartyConnectedAppsAllowedType `json:"first_party_connected_apps_allowed_type,omitempty"`
+	AllowedFirstPartyConnectedApps     []string                                         `json:"allowed_first_party_connected_apps,omitempty"`
+	ThirdPartyConnectedAppsAllowedType *UpdateRequestThirdPartyConnectedAppsAllowedType `json:"third_party_connected_apps_allowed_type,omitempty"`
+	AllowedThirdPartyConnectedApps     []string                                         `json:"allowed_third_party_connected_apps,omitempty"`
 }
 
 // UpdateRequestOptions:
@@ -900,6 +1018,16 @@ type UpdateRequestOptions struct {
 func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
+}
+
+// ConnectedAppsResponse: Response type for `Organizations.ConnectedApps`.
+type ConnectedAppsResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID     string                     `json:"request_id,omitempty"`
+	ConnectedApps []OrganizationConnectedApp `json:"connected_apps,omitempty"`
+	StatusCode    int32                      `json:"status_code,omitempty"`
 }
 
 // CreateResponse: Response type for `Organizations.Create`.
@@ -929,6 +1057,23 @@ type DeleteResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+// GetConnectedAppResponse: Response type for `Organizations.GetConnectedApp`.
+type GetConnectedAppResponse struct {
+	// ConnectedAppID: The ID of the Connected App.
+	ConnectedAppID string `json:"connected_app_id,omitempty"`
+	// Name: The name of the Connected App.
+	Name string `json:"name,omitempty"`
+	// Description: A description of the Connected App.
+	Description string `json:"description,omitempty"`
+	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
+	// `third_party`, and `third_party_public`.
+	ClientType string `json:"client_type,omitempty"`
+	// ActiveMembers: Details about Members who has installed a Connected App.
+	ActiveMembers []OrganizationConnectedAppActiveMember `json:"active_members,omitempty"`
+	StatusCode    int32                                  `json:"status_code,omitempty"`
+	LogoURL       string                                 `json:"logo_url,omitempty"`
 }
 
 // GetResponse: Response type for `Organizations.Get`.
@@ -982,9 +1127,41 @@ type UpdateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
+type CreateRequestFirstPartyConnectedAppsAllowedType string
+
+const (
+	CreateRequestFirstPartyConnectedAppsAllowedTypeALLALLOWED CreateRequestFirstPartyConnectedAppsAllowedType = "ALL_ALLOWED"
+	CreateRequestFirstPartyConnectedAppsAllowedTypeRESTRICTED CreateRequestFirstPartyConnectedAppsAllowedType = "RESTRICTED"
+	CreateRequestFirstPartyConnectedAppsAllowedTypeNOTALLOWED CreateRequestFirstPartyConnectedAppsAllowedType = "NOT_ALLOWED"
+)
+
+type CreateRequestThirdPartyConnectedAppsAllowedType string
+
+const (
+	CreateRequestThirdPartyConnectedAppsAllowedTypeALLALLOWED CreateRequestThirdPartyConnectedAppsAllowedType = "ALL_ALLOWED"
+	CreateRequestThirdPartyConnectedAppsAllowedTypeRESTRICTED CreateRequestThirdPartyConnectedAppsAllowedType = "RESTRICTED"
+	CreateRequestThirdPartyConnectedAppsAllowedTypeNOTALLOWED CreateRequestThirdPartyConnectedAppsAllowedType = "NOT_ALLOWED"
+)
+
 type SearchQueryOperator string
 
 const (
 	SearchQueryOperatorOR  SearchQueryOperator = "OR"
 	SearchQueryOperatorAND SearchQueryOperator = "AND"
+)
+
+type UpdateRequestFirstPartyConnectedAppsAllowedType string
+
+const (
+	UpdateRequestFirstPartyConnectedAppsAllowedTypeALLALLOWED UpdateRequestFirstPartyConnectedAppsAllowedType = "ALL_ALLOWED"
+	UpdateRequestFirstPartyConnectedAppsAllowedTypeRESTRICTED UpdateRequestFirstPartyConnectedAppsAllowedType = "RESTRICTED"
+	UpdateRequestFirstPartyConnectedAppsAllowedTypeNOTALLOWED UpdateRequestFirstPartyConnectedAppsAllowedType = "NOT_ALLOWED"
+)
+
+type UpdateRequestThirdPartyConnectedAppsAllowedType string
+
+const (
+	UpdateRequestThirdPartyConnectedAppsAllowedTypeALLALLOWED UpdateRequestThirdPartyConnectedAppsAllowedType = "ALL_ALLOWED"
+	UpdateRequestThirdPartyConnectedAppsAllowedTypeRESTRICTED UpdateRequestThirdPartyConnectedAppsAllowedType = "RESTRICTED"
+	UpdateRequestThirdPartyConnectedAppsAllowedTypeNOTALLOWED UpdateRequestThirdPartyConnectedAppsAllowedType = "NOT_ALLOWED"
 )
