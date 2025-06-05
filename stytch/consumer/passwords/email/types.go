@@ -23,7 +23,7 @@ type ResetParams struct {
 	// [here](https://stytch.com/docs/workspace-management/redirect-urls).
 	Token string `json:"token,omitempty"`
 	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
-	// characers, etc.
+	// characters, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -53,7 +53,8 @@ type ResetParams struct {
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Options: Specify optional security settings.
 	Options *magiclinks.Options `json:"options,omitempty"`
@@ -79,7 +80,8 @@ type ResetStartParams struct {
 	// CodeChallenge: A base64url encoded SHA256 hash of a one time secret used to validate that the request
 	// starts and ends on the same device.
 	CodeChallenge string `json:"code_challenge,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// LoginRedirectURL: The URL Stytch redirects to after the OAuth flow is completed for a user that already
 	// exists. This URL should be a route in your application which will run `oauth.authenticate` (see below)
@@ -128,7 +130,7 @@ type ResetResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }

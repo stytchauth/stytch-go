@@ -154,9 +154,11 @@ type SCIMConnectionWithToken struct {
 
 // SCIMGroup:
 type SCIMGroup struct {
-	// GroupID: Globally unique UUID that identifies a specific SCIM Group.
+	// GroupID: Stytch-issued, globally unique UUID that identifies a specific SCIM Group. The entity `id` in
+	// the SCIM specification is issued by the Service Provider (SP) and returned to the Identity Provider
+	// (IdP) to store and use for uniquely identify and updating the Group moving forward.
 	GroupID string `json:"group_id,omitempty"`
-	// GroupName: The name of the SCIM group.
+	// GroupName: The displayName of the SCIM group, sent from the Identity Provider (IdP).
 	GroupName string `json:"group_name,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The organization_id is
 	// critical to perform operations on an Organization, so be sure to preserve this value.

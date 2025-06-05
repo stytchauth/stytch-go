@@ -14,7 +14,7 @@ import (
 // ResetParams: Request type for `Sessions.Reset`.
 type ResetParams struct {
 	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
-	// characers, etc.
+	// characters, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -65,7 +65,7 @@ type ResetResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }

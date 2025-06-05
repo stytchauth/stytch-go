@@ -19,7 +19,8 @@ type LoginOrCreateParams struct {
 	// ExpirationMinutes: Set the expiration for the one-time passcode, in minutes. The minimum expiration is 1
 	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// CreateUserAsPending: Flag for whether or not to save a user as pending vs active in Stytch. Defaults to
 	// false.
@@ -50,7 +51,8 @@ type SendParams struct {
 	// ExpirationMinutes: Set the expiration for the one-time passcode, in minutes. The minimum expiration is 1
 	// minute and the maximum is 10 minutes. The default expiration is 2 minutes.
 	ExpirationMinutes int32 `json:"expiration_minutes,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
@@ -62,7 +64,7 @@ type SendParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *SendRequestLocale `json:"locale,omitempty"`
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`

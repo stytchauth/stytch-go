@@ -382,7 +382,8 @@ type ExchangeResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired     *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
 	PrimaryRequired *PrimaryRequired `json:"primary_required,omitempty"`
 }
 

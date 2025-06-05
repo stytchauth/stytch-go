@@ -19,7 +19,8 @@ type InviteParams struct {
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
 	// Magic links - Invite.
 	InviteTemplateID string `json:"invite_template_id,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name *users.Name `json:"name,omitempty"`
@@ -41,6 +42,15 @@ type InviteParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *InviteRequestLocale `json:"locale,omitempty"`
+	// TrustedMetadata: The `trusted_metadata` field contains an arbitrary JSON object of application-specific
+	// data. See the [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior
+	// details.
+	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
+	// UntrustedMetadata: The `untrusted_metadata` field contains an arbitrary JSON object of
+	// application-specific data. Untrusted metadata can be edited by end users directly via the SDK, and
+	// **cannot be used to store critical information.** See the
+	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
+	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 }
 
 // LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
@@ -71,7 +81,8 @@ type LoginOrCreateParams struct {
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
 	// Magic links - Sign-up.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// CreateUserAsPending: Flag for whether or not to save a user as pending vs active in Stytch. Defaults to
 	// false.
@@ -110,7 +121,8 @@ type SendParams struct {
 	// template. The template must be a template using our built-in customizations or a custom HTML email for
 	// Magic links - Login.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// LoginMagicLinkURL: The URL the end user clicks from the login Email Magic Link. This should be a URL
 	// that your app receives and parses and subsequently send an API request to authenticate the Magic Link
@@ -131,7 +143,7 @@ type SendParams struct {
 	// CodeChallenge: A base64url encoded SHA256 hash of a one time secret used to validate that the request
 	// starts and ends on the same device.
 	CodeChallenge string `json:"code_challenge,omitempty"`
-	// UserID: The unique ID of a specific User. You may use an external_id here if one is set for the user.
+	// UserID: The unique ID of a specific User. You may use an `external_id` here if one is set for the user.
 	UserID string `json:"user_id,omitempty"`
 	// SessionToken: The `session_token` of the user to associate the email with.
 	SessionToken string `json:"session_token,omitempty"`

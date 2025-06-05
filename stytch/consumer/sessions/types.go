@@ -122,6 +122,7 @@ type AuthenticationFactor struct {
 	// ImpersonatedFactor: Information about the impersonated factor, if one is present.
 	ImpersonatedFactor             *ImpersonatedFactor             `json:"impersonated_factor,omitempty"`
 	OAuthAccessTokenExchangeFactor *OAuthAccessTokenExchangeFactor `json:"oauth_access_token_exchange_factor,omitempty"`
+	TrustedAuthTokenFactor         *TrustedAuthTokenFactor         `json:"trusted_auth_token_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -217,8 +218,8 @@ type GetJWKSParams struct {
 
 // GetParams: Request type for `Sessions.Get`.
 type GetParams struct {
-	// UserID: The `user_id` to get active Sessions for. You may use an external_id here if one is set for the
-	// user.
+	// UserID: The `user_id` to get active Sessions for. You may use an `external_id` here if one is set for
+	// the user.
 	UserID string `json:"user_id,omitempty"`
 }
 
@@ -265,8 +266,8 @@ type HubspotOAuthFactor struct {
 
 // ImpersonatedFactor:
 type ImpersonatedFactor struct {
-	// ImpersonatorID: The unique UUID of the impersonator. For impersonation sessions initiated via the Stytch
-	// dashboard, the `impersonator_id` will be the impersonator's Stytch workspace id.
+	// ImpersonatorID: For impersonated sessions initiated via the Stytch Dashboard, the `impersonator_id` will
+	// be the impersonator's Stytch Dashboard `member_id`.
 	ImpersonatorID string `json:"impersonator_id,omitempty"`
 	// ImpersonatorEmailAddress: The email address of the impersonator.
 	ImpersonatorEmailAddress string `json:"impersonator_email_address,omitempty"`
@@ -450,6 +451,10 @@ type TikTokOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+type TrustedAuthTokenFactor struct {
+	TokenID string `json:"token_id,omitempty"`
+}
+
 type TwitchOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
@@ -483,7 +488,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session Session `json:"session,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
@@ -521,7 +526,7 @@ type ExchangeAccessTokenResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *Session `json:"session,omitempty"`
 }
@@ -546,7 +551,7 @@ type GetResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// Sessions: An array of Session objects.
+	// Sessions: An array of [Session objects](https://stytch.com/docs/api/session-object).
 	Sessions []Session `json:"sessions,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
@@ -573,7 +578,7 @@ type MigrateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *Session `json:"session,omitempty"`
 }
@@ -636,6 +641,7 @@ const (
 	AuthenticationFactorDeliveryMethodOAuthExchangeGoogle      AuthenticationFactorDeliveryMethod = "oauth_exchange_google"
 	AuthenticationFactorDeliveryMethodImpersonation            AuthenticationFactorDeliveryMethod = "impersonation"
 	AuthenticationFactorDeliveryMethodOAuthAccessTokenExchange AuthenticationFactorDeliveryMethod = "oauth_access_token_exchange"
+	AuthenticationFactorDeliveryMethodTrustedTokenExchange     AuthenticationFactorDeliveryMethod = "trusted_token_exchange"
 )
 
 type AuthenticationFactorType string
@@ -654,6 +660,7 @@ const (
 	AuthenticationFactorTypeRecoveryCodes      AuthenticationFactorType = "recovery_codes"
 	AuthenticationFactorTypeEmailOTP           AuthenticationFactorType = "email_otp"
 	AuthenticationFactorTypeImpersonated       AuthenticationFactorType = "impersonated"
+	AuthenticationFactorTypeTrustedAuthToken   AuthenticationFactorType = "trusted_auth_token"
 )
 
 // MANUAL(Types)(TYPES)

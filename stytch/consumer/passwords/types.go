@@ -30,7 +30,7 @@ type AuthenticateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
 	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
-	// characers, etc.
+	// characters, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: The `session_token` associated with a User's existing Session.
 	SessionToken string `json:"session_token,omitempty"`
@@ -64,7 +64,7 @@ type CreateParams struct {
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
 	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
-	// characers, etc.
+	// characters, etc.
 	Password string `json:"password,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,
@@ -190,9 +190,7 @@ type MigrateParams struct {
 	SetPhoneNumberVerified bool `json:"set_phone_number_verified,omitempty"`
 	// ExternalID: If a new user is created, this will set an identifier that can be used in API calls wherever
 	// a user_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters
-	// with a maximum length of 128 characters. External IDs must be unique within an organization, but may be
-	// reused across different organizations in the same project. Note that if a user already exists, this
-	// field will be ignored.
+	// with a maximum length of 128 characters.
 	ExternalID string `json:"external_id,omitempty"`
 }
 
@@ -237,7 +235,7 @@ type ScryptConfig struct {
 // StrengthCheckParams: Request type for `Passwords.StrengthCheck`.
 type StrengthCheckParams struct {
 	// Password: The password for the user. Any UTF8 character is allowed, e.g. spaces, emojis, non-English
-	// characers, etc.
+	// characters, etc.
 	Password string `json:"password,omitempty"`
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
@@ -265,7 +263,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }
@@ -294,7 +292,7 @@ type CreateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }

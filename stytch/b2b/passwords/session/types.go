@@ -19,7 +19,7 @@ type ResetParams struct {
 	// the organization_slug here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Password: The password to authenticate, reset, or set for the first time. Any UTF8 character is allowed,
-	// e.g. spaces, emojis, non-English characers, etc.
+	// e.g. spaces, emojis, non-English characters, etc.
 	Password string `json:"password,omitempty"`
 	// SessionToken: A secret token for a given Stytch Session.
 	SessionToken string `json:"session_token,omitempty"`

@@ -19,7 +19,8 @@ type AuthenticateParams struct {
 	MethodID string `json:"method_id,omitempty"`
 	// Code: The code to authenticate.
 	Code string `json:"code,omitempty"`
-	// Attributes: Provided attributes help with fraud detection.
+	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
+	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Options: Specify optional security settings.
 	Options *magiclinks.Options `json:"options,omitempty"`
@@ -78,7 +79,7 @@ type AuthenticateResponse struct {
 	// Session: If you initiate a Session, by including `session_duration_minutes` in your authenticate call,
 	// you'll receive a full Session object in the response.
 	//
-	//   See [GET sessions](https://stytch.com/docs/api/session-get) for complete response fields.
+	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
 }
