@@ -122,7 +122,8 @@ type AuthenticateResponse struct {
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired     *mfa.MfaRequired          `json:"mfa_required,omitempty"`
+	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
 }
 
 type AuthenticateRequestLocale string
