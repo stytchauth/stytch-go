@@ -129,8 +129,6 @@ type AuthenticateResponse struct {
 	SessionToken string `json:"session_token,omitempty"`
 	// SessionJWT: The JSON Web Token (JWT) for a given Stytch Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
-	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
-	MemberSession sessions.MemberSession `json:"member_session,omitempty"`
 	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
 	Organization organizations.Organization `json:"organization,omitempty"`
 	// IntermediateSessionToken: The Intermediate Session Token. This token does not necessarily belong to a
@@ -153,9 +151,12 @@ type AuthenticateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
+	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired     *mfa.MfaRequired          `json:"mfa_required,omitempty"`
+	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
 }
 
 // LoginOrSignupResponse: Response type for `Email.LoginOrSignup`.
