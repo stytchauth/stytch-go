@@ -145,12 +145,39 @@ type Verdict struct {
 	// IsAuthenticDevice: The assessment of whether this is an authentic device. It will be false if hardware
 	// or browser deception is detected.
 	IsAuthenticDevice bool `json:"is_authentic_device,omitempty"`
+	// VerdictReasonOverrides: A list of verdict reason overrides that were applied, if any.
+	VerdictReasonOverrides []VerdictReasonOverride `json:"verdict_reason_overrides,omitempty"`
 	// RuleMatchType: The type of rule match that was applied (e.g. `VISITOR_ID`), if any. This field will only
 	// be present if there is a `RULE_MATCH` reason in the list of verdict reasons.
 	RuleMatchType *RuleType `json:"rule_match_type,omitempty"`
 	// RuleMatchIdentifier: The rule that was applied (e.g. a specific visitor ID value), if any. This field
 	// will only be present if there is a `RULE_MATCH` reason in the list of verdict reasons.
 	RuleMatchIdentifier string `json:"rule_match_identifier,omitempty"`
+}
+
+// VerdictReasonAction:
+type VerdictReasonAction struct {
+	// VerdictReason: The verdict reason.
+	VerdictReason string `json:"verdict_reason,omitempty"`
+	// DefaultAction: The default action returned for the specified verdict reason in a fingerprint lookup when
+	// no overrides are specified.
+	DefaultAction VerdictReasonActionAction `json:"default_action,omitempty"`
+	// OverrideAction: If not null, this action will be returned for the specified verdict reason in a
+	// fingerprint lookup, in place of the default action.
+	OverrideAction *VerdictReasonActionAction `json:"override_action,omitempty"`
+	// OverrideCreatedAt: The time when the override was created, if one exists. Values conform to the RFC 3339
+	// standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	OverrideCreatedAt *time.Time `json:"override_created_at,omitempty"`
+	// OverrideDescription: A description of the override, if one exists.
+	OverrideDescription string `json:"override_description,omitempty"`
+}
+
+// VerdictReasonOverride:
+type VerdictReasonOverride struct {
+	// VerdictReason: The verdict reason that was overridden.
+	VerdictReason string `json:"verdict_reason,omitempty"`
+	// OverrideAction: The action that was applied for the given verdict reason.
+	OverrideAction *VerdictReasonOverrideAction `json:"override_action,omitempty"`
 }
 
 type RuleAction string
@@ -182,4 +209,20 @@ const (
 	VerdictActionALLOW     VerdictAction = "ALLOW"
 	VerdictActionCHALLENGE VerdictAction = "CHALLENGE"
 	VerdictActionBLOCK     VerdictAction = "BLOCK"
+)
+
+type VerdictReasonActionAction string
+
+const (
+	VerdictReasonActionActionALLOW     VerdictReasonActionAction = "ALLOW"
+	VerdictReasonActionActionCHALLENGE VerdictReasonActionAction = "CHALLENGE"
+	VerdictReasonActionActionBLOCK     VerdictReasonActionAction = "BLOCK"
+)
+
+type VerdictReasonOverrideAction string
+
+const (
+	VerdictReasonOverrideActionALLOW     VerdictReasonOverrideAction = "ALLOW"
+	VerdictReasonOverrideActionCHALLENGE VerdictReasonOverrideAction = "CHALLENGE"
+	VerdictReasonOverrideActionBLOCK     VerdictReasonOverrideAction = "BLOCK"
 )

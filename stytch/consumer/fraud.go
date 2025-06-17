@@ -11,16 +11,18 @@ import (
 )
 
 type FraudClient struct {
-	C           stytch.Client
-	Fingerprint *FraudFingerprintClient
-	Rules       *FraudRulesClient
+	C              stytch.Client
+	Fingerprint    *FraudFingerprintClient
+	Rules          *FraudRulesClient
+	VerdictReasons *FraudVerdictReasonsClient
 }
 
 func NewFraudClient(c stytch.Client) *FraudClient {
 	return &FraudClient{
 		C: c,
 
-		Fingerprint: NewFraudFingerprintClient(c),
-		Rules:       NewFraudRulesClient(c),
+		Fingerprint:    NewFraudFingerprintClient(c),
+		Rules:          NewFraudRulesClient(c),
+		VerdictReasons: NewFraudVerdictReasonsClient(c),
 	}
 }
