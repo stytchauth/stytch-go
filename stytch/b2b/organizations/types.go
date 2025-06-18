@@ -165,11 +165,37 @@ type CreateParams struct {
 	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack", "hubspot", and "github".
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
-	ClaimedEmailDomains                []string                                         `json:"claimed_email_domains,omitempty"`
+	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
+	// FirstPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards first party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any first party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only first party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no first party Connected Apps are permitted.
+	//
 	FirstPartyConnectedAppsAllowedType *CreateRequestFirstPartyConnectedAppsAllowedType `json:"first_party_connected_apps_allowed_type,omitempty"`
-	AllowedFirstPartyConnectedApps     []string                                         `json:"allowed_first_party_connected_apps,omitempty"`
+	// AllowedFirstPartyConnectedApps: An array of first party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `first_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedFirstPartyConnectedApps []string `json:"allowed_first_party_connected_apps,omitempty"`
+	// ThirdPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards third party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any third party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only third party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no third party Connected Apps are permitted.
+	//
 	ThirdPartyConnectedAppsAllowedType *CreateRequestThirdPartyConnectedAppsAllowedType `json:"third_party_connected_apps_allowed_type,omitempty"`
-	AllowedThirdPartyConnectedApps     []string                                         `json:"allowed_third_party_connected_apps,omitempty"`
+	// AllowedThirdPartyConnectedApps: An array of third party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `third_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedThirdPartyConnectedApps []string `json:"allowed_third_party_connected_apps,omitempty"`
 }
 
 // DeleteParams: Request type for `Organizations.Delete`.
@@ -1000,11 +1026,37 @@ type UpdateParams struct {
 	// Resource.
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
 	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
-	ClaimedEmailDomains                []string                                         `json:"claimed_email_domains,omitempty"`
+	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
+	// FirstPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards first party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any first party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only first party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no first party Connected Apps are permitted.
+	//
 	FirstPartyConnectedAppsAllowedType *UpdateRequestFirstPartyConnectedAppsAllowedType `json:"first_party_connected_apps_allowed_type,omitempty"`
-	AllowedFirstPartyConnectedApps     []string                                         `json:"allowed_first_party_connected_apps,omitempty"`
+	// AllowedFirstPartyConnectedApps: An array of first party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `first_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedFirstPartyConnectedApps []string `json:"allowed_first_party_connected_apps,omitempty"`
+	// ThirdPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards third party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any third party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only third party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no third party Connected Apps are permitted.
+	//
 	ThirdPartyConnectedAppsAllowedType *UpdateRequestThirdPartyConnectedAppsAllowedType `json:"third_party_connected_apps_allowed_type,omitempty"`
-	AllowedThirdPartyConnectedApps     []string                                         `json:"allowed_third_party_connected_apps,omitempty"`
+	// AllowedThirdPartyConnectedApps: An array of third party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `third_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedThirdPartyConnectedApps []string `json:"allowed_third_party_connected_apps,omitempty"`
 }
 
 // UpdateRequestOptions:

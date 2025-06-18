@@ -108,7 +108,8 @@ type ResetStartParams struct {
 	//   If you have not set a default `reset_password_redirect_url`, an error is returned.
 	ResetPasswordRedirectURL string `json:"reset_password_redirect_url,omitempty"`
 	// ResetPasswordExpirationMinutes: Sets a time limit after which the email link to reset the member's
-	// password will no longer be valid.
+	// password will no longer be valid. The minimum allowed expiration is 5 minutes and the maximum is 10080
+	// minutes (7 days). By default, the expiration is 30 minutes.
 	ResetPasswordExpirationMinutes int32 `json:"reset_password_expiration_minutes,omitempty"`
 	// CodeChallenge: A base64url encoded SHA256 hash of a one time secret used to validate that the request
 	// starts and ends on the same device.

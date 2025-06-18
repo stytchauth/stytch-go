@@ -42,7 +42,8 @@ type ResetStartParams struct {
 	// HTML email for Passwords - Reset Password.
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
 	// ResetPasswordExpirationMinutes: Sets a time limit after which the email link to reset the member's
-	// password will no longer be valid.
+	// password will no longer be valid. The minimum allowed expiration is 5 minutes and the maximum is 10080
+	// minutes (7 days). By default, the expiration is 30 minutes.
 	ResetPasswordExpirationMinutes int32  `json:"reset_password_expiration_minutes,omitempty"`
 	PkceCodeChallenge              string `json:"pkce_code_challenge,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
