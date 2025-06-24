@@ -146,9 +146,14 @@ type MigrateParams struct {
 	//   by SSO connection or SSO group. Defaults to `false` - that is, existing Member Sessions that contain
 	// SSO
 	//   authentication factors with the affected SSO connection IDs will be revoked.
-	PreserveExistingSessions bool   `json:"preserve_existing_sessions,omitempty"`
-	MFAPhoneNumber           string `json:"mfa_phone_number,omitempty"`
-	SetPhoneNumberVerified   bool   `json:"set_phone_number_verified,omitempty"`
+	PreserveExistingSessions bool `json:"preserve_existing_sessions,omitempty"`
+	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number. The phone number
+	// should be in E.164 format (i.e. +1XXXXXXXXXX).
+	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
+	// SetPhoneNumberVerified: Whether to set the user's phone number as verified. This is a dangerous field.
+	// This flag should only be set if you can attest that
+	//    the user owns the phone number in question.
+	SetPhoneNumberVerified bool `json:"set_phone_number_verified,omitempty"`
 	// ExternalID: If a new member is created, this will set an identifier that can be used in API calls
 	// wherever a member_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|`
 	// characters with a maximum length of 128 characters. External IDs must be unique within an organization,

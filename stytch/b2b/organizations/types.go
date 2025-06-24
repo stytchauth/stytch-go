@@ -372,7 +372,8 @@ type Member struct {
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
-	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number.
+	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number. The phone number
+	// should be in E.164 format (i.e. +1XXXXXXXXXX).
 	MFAPhoneNumber   string `json:"mfa_phone_number,omitempty"`
 	DefaultMFAMethod string `json:"default_mfa_method,omitempty"`
 	// Roles: Explicit or implicit Roles assigned to this Member, along with details about the role assignment
