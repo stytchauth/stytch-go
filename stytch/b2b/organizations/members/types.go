@@ -42,7 +42,8 @@ type CreateParams struct {
 	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
 	// more details.
 	IsBreakglass bool `json:"is_breakglass,omitempty"`
-	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number.
+	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number. The phone number
+	// should be in E.164 format (i.e. +1XXXXXXXXXX).
 	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA

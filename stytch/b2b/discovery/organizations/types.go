@@ -166,6 +166,36 @@ type CreateParams struct {
 	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
 	// will not allow JIT provisioning by OAuth Tenant. Allowed keys are "slack", "hubspot", and "github".
 	AllowedOAuthTenants map[string]any `json:"allowed_oauth_tenants,omitempty"`
+	// FirstPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards first party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any first party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only first party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no first party Connected Apps are permitted.
+	//
+	FirstPartyConnectedAppsAllowedType *CreateRequestFirstPartyConnectedAppsAllowedType `json:"first_party_connected_apps_allowed_type,omitempty"`
+	// AllowedFirstPartyConnectedApps: An array of first party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `first_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedFirstPartyConnectedApps []string `json:"allowed_first_party_connected_apps,omitempty"`
+	// ThirdPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
+	// towards third party Connected Apps. The accepted values are:
+	//
+	//   `ALL_ALLOWED` – any third party Connected App in the Project is permitted for use by Members.
+	//
+	//   `RESTRICTED` – only third party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
+	// used by Members.
+	//
+	//   `NOT_ALLOWED` – no third party Connected Apps are permitted.
+	//
+	ThirdPartyConnectedAppsAllowedType *CreateRequestThirdPartyConnectedAppsAllowedType `json:"third_party_connected_apps_allowed_type,omitempty"`
+	// AllowedThirdPartyConnectedApps: An array of third party Connected App IDs that are allowed for the
+	// Organization. Only used when the Organization's `third_party_connected_apps_allowed_type` is
+	// `RESTRICTED`.
+	AllowedThirdPartyConnectedApps []string `json:"allowed_third_party_connected_apps,omitempty"`
 }
 
 // ListParams: Request type for `Organizations.List`.
@@ -269,3 +299,19 @@ type ListResponse struct {
 	// session JWT is provided, the Organization ID hint will be null.
 	OrganizationIDHint string `json:"organization_id_hint,omitempty"`
 }
+
+type CreateRequestFirstPartyConnectedAppsAllowedType string
+
+const (
+	CreateRequestFirstPartyConnectedAppsAllowedTypeALLALLOWED CreateRequestFirstPartyConnectedAppsAllowedType = "ALL_ALLOWED"
+	CreateRequestFirstPartyConnectedAppsAllowedTypeRESTRICTED CreateRequestFirstPartyConnectedAppsAllowedType = "RESTRICTED"
+	CreateRequestFirstPartyConnectedAppsAllowedTypeNOTALLOWED CreateRequestFirstPartyConnectedAppsAllowedType = "NOT_ALLOWED"
+)
+
+type CreateRequestThirdPartyConnectedAppsAllowedType string
+
+const (
+	CreateRequestThirdPartyConnectedAppsAllowedTypeALLALLOWED CreateRequestThirdPartyConnectedAppsAllowedType = "ALL_ALLOWED"
+	CreateRequestThirdPartyConnectedAppsAllowedTypeRESTRICTED CreateRequestThirdPartyConnectedAppsAllowedType = "RESTRICTED"
+	CreateRequestThirdPartyConnectedAppsAllowedTypeNOTALLOWED CreateRequestThirdPartyConnectedAppsAllowedType = "NOT_ALLOWED"
+)
