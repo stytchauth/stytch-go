@@ -323,10 +323,46 @@ func (c *SessionsClient) ExchangeAccessToken(
 	return &retVal, err
 }
 
-// Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
-// endpoint defined in your Stytch Project settings in the [Dashboard](https://stytch.com/docs/dashboard),
-// and then perform a lookup using the `session_token`. If the response contains a valid email address,
-// Stytch will attempt to match that email address with an existing in your and create a Stytch Session.
+// Attest: Exchange an auth token issued by a trusted identity provider for a Stytch session. You must
+// first register a Trusted Auth Token profile in the Stytch dashboard
+// [here](https://stytch.com/docs/dashboard/trusted-auth-tokens).  If a session token or session JWT is
+// provided, it will add the trusted auth token as an authentication factor to the existing session.
+func (c *SessionsClient) Attest(
+	ctx context.Context,
+	body *sessions.AttestParams,
+) (*sessions.AttestResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal sessions.AttestResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/b2b/sessions/attest",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+// Migrate a session from an external OIDC compliant endpoint.
+// Stytch will call the external UserInfo endpoint defined in your Stytch Project settings in the
+// [Dashboard](https://stytch.com/docs/dashboard), and then perform a lookup using the `session_token`.
+// <!-- FIXME more specific dashboard link-->
+// If the response contains a valid email address, Stytch will attempt to match that email address with an
+// existing in your and create a Stytch Session.
 // You will need to create the member before using this endpoint.
 func (c *SessionsClient) Migrate(
 	ctx context.Context,
