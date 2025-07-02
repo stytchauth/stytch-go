@@ -29,6 +29,7 @@ type ConnectedAppsParams struct {
 
 // CreateParams: Request type for `Users.Create`.
 type CreateParams struct {
+	Roles []string `json:"roles,omitempty"`
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
@@ -281,7 +282,8 @@ type UpdateParams struct {
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// ExternalID: An identifier that can be used in API calls wherever a user_id is expected. This is a string
 	// consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128 characters.
-	ExternalID string `json:"external_id,omitempty"`
+	ExternalID string    `json:"external_id,omitempty"`
+	Roles      *[]string `json:"roles,omitempty"`
 }
 
 // User:
@@ -307,6 +309,7 @@ type User struct {
 	// the Stytch API.
 	BiometricRegistrations []BiometricRegistration `json:"biometric_registrations,omitempty"`
 	IsLocked               bool                    `json:"is_locked,omitempty"`
+	Roles                  []string                `json:"roles,omitempty"`
 	// Name: The name of the User. Each field in the `name` object is optional.
 	Name *Name `json:"name,omitempty"`
 	// CreatedAt: The timestamp of the User's creation. Values conform to the RFC 3339 standard and are
@@ -594,6 +597,7 @@ type GetResponse struct {
 	// the Stytch API.
 	BiometricRegistrations []BiometricRegistration `json:"biometric_registrations,omitempty"`
 	IsLocked               bool                    `json:"is_locked,omitempty"`
+	Roles                  []string                `json:"roles,omitempty"`
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.

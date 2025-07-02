@@ -119,6 +119,7 @@ type RegisterStartParams struct {
 	OverrideID                     string `json:"override_id,omitempty"`
 	OverrideName                   string `json:"override_name,omitempty"`
 	OverrideDisplayName            string `json:"override_display_name,omitempty"`
+	UseBase64URLEncoding           bool   `json:"use_base64_url_encoding,omitempty"`
 }
 
 // UpdateParams: Request type for `WebAuthn.Update`.

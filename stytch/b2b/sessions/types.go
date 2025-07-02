@@ -17,6 +17,16 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
+type AttestParams struct {
+	OrganizationID         string         `json:"organization_id,omitempty"`
+	ProfileID              string         `json:"profile_id,omitempty"`
+	Token                  string         `json:"token,omitempty"`
+	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
+	SessionToken           string         `json:"session_token,omitempty"`
+	SessionJWT             string         `json:"session_jwt,omitempty"`
+}
+
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
 type AuthenticateParams struct {
 	// SessionToken: A secret token for a given Stytch Session.
@@ -289,6 +299,17 @@ type RevokeRequestOptions struct {
 func (o *RevokeRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
+}
+
+type AttestResponse struct {
+	RequestID     string                     `json:"request_id,omitempty"`
+	MemberID      string                     `json:"member_id,omitempty"`
+	MemberSession MemberSession              `json:"member_session,omitempty"`
+	SessionToken  string                     `json:"session_token,omitempty"`
+	SessionJWT    string                     `json:"session_jwt,omitempty"`
+	Member        organizations.Member       `json:"member,omitempty"`
+	Organization  organizations.Organization `json:"organization,omitempty"`
+	StatusCode    int32                      `json:"status_code,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.

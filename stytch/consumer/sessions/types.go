@@ -27,6 +27,15 @@ type AppleOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+type AttestParams struct {
+	ProfileID              string         `json:"profile_id,omitempty"`
+	Token                  string         `json:"token,omitempty"`
+	SessionDurationMinutes int32          `json:"session_duration_minutes,omitempty"`
+	SessionCustomClaims    map[string]any `json:"session_custom_claims,omitempty"`
+	SessionToken           string         `json:"session_token,omitempty"`
+	SessionJWT             string         `json:"session_jwt,omitempty"`
+}
+
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
 type AuthenticateParams struct {
 	// SessionToken: The session token to authenticate.
@@ -477,6 +486,16 @@ type YahooOAuthFactor struct {
 	ID              string `json:"id,omitempty"`
 	ProviderSubject string `json:"provider_subject,omitempty"`
 	EmailID         string `json:"email_id,omitempty"`
+}
+
+type AttestResponse struct {
+	RequestID    string     `json:"request_id,omitempty"`
+	UserID       string     `json:"user_id,omitempty"`
+	SessionToken string     `json:"session_token,omitempty"`
+	SessionJWT   string     `json:"session_jwt,omitempty"`
+	User         users.User `json:"user,omitempty"`
+	StatusCode   int32      `json:"status_code,omitempty"`
+	Session      *Session   `json:"session,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.

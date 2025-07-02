@@ -171,22 +171,20 @@ type MigrateParams struct {
 	// **cannot be used to store critical information.** See the
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
-	// SetEmailVerified: Whether to set the user's email as verified. This is a dangerous field. Incorrect use
+	// SetEmailVerified: Whether to set the user's email as verified. This is a dangerous field, incorrect use
 	// may lead to users getting erroneously
-	//                 deduplicated into one user object. This flag should only be set if you can attest that
+	//                 deduplicated into one User object. This flag should only be set if you can attest that
 	// the user owns the email address in question.
-	//                 Access to this field is restricted. To enable it, please send us a note at
-	// support@stytch.com.
+	//
 	SetEmailVerified bool `json:"set_email_verified,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
 	Name *users.Name `json:"name,omitempty"`
 	// PhoneNumber: The phone number of the user. The phone number should be in E.164 format (i.e.
 	// +1XXXXXXXXXX).
 	PhoneNumber string `json:"phone_number,omitempty"`
-	// SetPhoneNumberVerified: Whether to set the user's phone number as verified. This is a dangerous field.
-	// This flag should only be set if you can attest that
-	//    the user owns the phone number in question. Access to this field is restricted. To enable it, please
-	// send us a note at support@stytch.com.
+	// SetPhoneNumberVerified: Whether to set the user's phone number as verified. This is a dangerous field,
+	// this flag should only be set if you can attest that
+	//    the user owns the phone number in question.
 	SetPhoneNumberVerified bool `json:"set_phone_number_verified,omitempty"`
 	// ExternalID: If a new user is created, this will set an identifier that can be used in API calls wherever
 	// a user_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters
