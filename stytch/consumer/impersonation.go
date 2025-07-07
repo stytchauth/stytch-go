@@ -32,7 +32,7 @@ func NewImpersonationClient(c stytch.Client) *ImpersonationClient {
 // A Stytch session will be created for the impersonated user with a 60 minute duration. Impersonated
 // sessions cannot be extended.
 //
-// Prior to this step, you can generate an impersonation token by visiting the Stytch dashboard, viewing a
+// Prior to this step, you can generate an impersonation token by visiting the Stytch Dashboard, viewing a
 // user, and clicking the `Impersonate User` button.
 func (c *ImpersonationClient) Authenticate(
 	ctx context.Context,

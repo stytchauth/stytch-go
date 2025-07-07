@@ -313,6 +313,40 @@ func (c *SessionsClient) GetJWKS(
 	return &retVal, err
 }
 
+// Attest: Exchange an auth token issued by a trusted identity provider for a Stytch session. You must
+// first register a Trusted Auth Token profile in the Stytch dashboard
+// [here](https://stytch.com/docs/dashboard/trusted-auth-tokens). If a session token or session JWT is
+// provided, it will add the trusted auth token as an authentication factor to the existing session.
+func (c *SessionsClient) Attest(
+	ctx context.Context,
+	body *sessions.AttestParams,
+) (*sessions.AttestResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+
+	var retVal sessions.AttestResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        "/v1/sessions/attest",
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
 // MANUAL(AuthenticateJWT)(SERVICE_METHOD)
 // ADDIMPORT: "encoding/json"
 // ADDIMPORT: "time"
