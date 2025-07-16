@@ -190,6 +190,41 @@ type SearchParams struct {
 	Query *organizations.SearchQuery `json:"query,omitempty"`
 }
 
+// StartEmailUpdateParams: Request type for `Members.StartEmailUpdate`.
+type StartEmailUpdateParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
+	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
+	// for the member.
+	MemberID string `json:"member_id,omitempty"`
+	// EmailAddress: The email address of the Member.
+	EmailAddress string `json:"email_address,omitempty"`
+	// LoginRedirectURL: The URL that the Member clicks from the login Email Magic Link. This URL should be an
+	// endpoint in the backend server that
+	//   verifies the request by querying Stytch's authenticate endpoint and finishes the login. If this value
+	// is not passed, the default login
+	//   redirect URL that you set in your Dashboard is used. If you have not set a default login redirect URL,
+	// an error is returned.
+	LoginRedirectURL string `json:"login_redirect_url,omitempty"`
+	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
+	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	//
+	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
+	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
+	//
+	// Request support for additional languages
+	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
+	//
+	Locale *StartEmailUpdateRequestLocale `json:"locale,omitempty"`
+	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
+	// template. The template must be from Stytch's
+	// built-in customizations or a custom HTML email for Magic Links - Login.
+	LoginTemplateID string `json:"login_template_id,omitempty"`
+}
+
 // UnlinkRetiredEmailParams: Request type for `Members.UnlinkRetiredEmail`.
 type UnlinkRetiredEmailParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -426,6 +461,19 @@ func (o *SearchRequestOptions) AddHeaders(headers map[string][]string) map[strin
 	return headers
 }
 
+// StartEmailUpdateRequestOptions:
+type StartEmailUpdateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *StartEmailUpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // UnlinkRetiredEmailRequestOptions:
 type UnlinkRetiredEmailRequestOptions struct {
 	// Authorization: Optional authorization object.
@@ -621,6 +669,24 @@ type SearchResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
+// StartEmailUpdateResponse: Response type for `Members.StartEmailUpdate`.
+type StartEmailUpdateResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// MemberID: Globally unique UUID that identifies a specific Member.
+	MemberID string `json:"member_id,omitempty"`
+	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
+	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
+	Organization organizations.Organization `json:"organization,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
+}
+
 // UnlinkRetiredEmailResponse: Response type for `Members.UnlinkRetiredEmail`.
 type UnlinkRetiredEmailResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
@@ -659,3 +725,12 @@ type UpdateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type StartEmailUpdateRequestLocale string
+
+const (
+	StartEmailUpdateRequestLocaleEn   StartEmailUpdateRequestLocale = "en"
+	StartEmailUpdateRequestLocaleEs   StartEmailUpdateRequestLocale = "es"
+	StartEmailUpdateRequestLocalePtbr StartEmailUpdateRequestLocale = "pt-br"
+	StartEmailUpdateRequestLocaleFr   StartEmailUpdateRequestLocale = "fr"
+)

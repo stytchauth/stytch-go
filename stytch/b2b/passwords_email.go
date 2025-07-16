@@ -116,6 +116,9 @@ func (c *PasswordsEmailClient) Reset(
 
 // RequireReset: Require a password be reset by the associated email address. This endpoint is only
 // functional for cross-org password use cases.
+//
+// If there are is only one active Member using the associated email address in the Project, the password
+// will be deleted.
 func (c *PasswordsEmailClient) RequireReset(
 	ctx context.Context,
 	body *email.RequireResetParams,

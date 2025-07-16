@@ -235,6 +235,10 @@ func (c *OrganizationsMembersClient) Search(
 }
 
 // DeletePassword: Delete a's password.
+//
+// This endpoint only works for Organization-scoped passwords. For cross-org password Projects, use
+// [Require Password Reset By Email](https://stytch.com/docs/b2b/api/passwords-require-reset-by-email)
+// instead.
 func (c *OrganizationsMembersClient) DeletePassword(
 	ctx context.Context,
 	body *members.DeletePasswordParams,
@@ -375,6 +379,56 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 		stytch.RequestParams{
 			Method:      "POST",
 			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/unlink_retired_email", body.OrganizationID, body.MemberID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+// StartEmailUpdate: Starts a self-serve email update for a specified by their `organization_id` and
+// `member_id`.
+// To perform a self-serve update, members must be active and have an active, verified email address.
+//
+// The new email address must meet the following requirements:
+//
+// - Must not be in use by another member (retired emails count as used until they are
+// [unlinked](https://stytch.com/docs/b2b/api/unlink-retired-email))
+// - Must not be updating for another member (i.e. two members cannot attempt to update to the same email
+// at once)
+//
+// The member will receive an Email Magic Link that expires in 5 minutes. If they do not verify their new
+// email address in that timeframe, the email
+// will be freed up for other members to use.
+//
+//	%}
+func (c *OrganizationsMembersClient) StartEmailUpdate(
+	ctx context.Context,
+	body *members.StartEmailUpdateParams,
+	methodOptions ...*members.StartEmailUpdateRequestOptions,
+) (*members.StartEmailUpdateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal members.StartEmailUpdateResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/start_email_update", body.OrganizationID, body.MemberID),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
