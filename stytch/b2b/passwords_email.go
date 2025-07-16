@@ -66,8 +66,8 @@ func (c *PasswordsEmailClient) ResetStart(
 	return &retVal, err
 }
 
-// Reset the's password and authenticate them. This endpoint checks that the password reset token is valid,
-// hasn’t expired, or already been used.
+// Reset the Member's password and authenticate them. This endpoint checks that the password reset token is
+// valid, hasn’t expired, or already been used.
 //
 // The provided password needs to meet our password strength requirements, which can be checked in advance
 // with the password strength endpoint. If the token and password are accepted, the password is securely
@@ -116,6 +116,9 @@ func (c *PasswordsEmailClient) Reset(
 
 // RequireReset: Require a password be reset by the associated email address. This endpoint is only
 // functional for cross-org password use cases.
+//
+// If there are is only one active Member using the associated email address in the Project, the password
+// will be deleted.
 func (c *PasswordsEmailClient) RequireReset(
 	ctx context.Context,
 	body *email.RequireResetParams,
