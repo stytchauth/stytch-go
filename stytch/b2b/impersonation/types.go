@@ -14,7 +14,7 @@ import (
 
 // AuthenticateParams: Request type for `Impersonation.Authenticate`.
 type AuthenticateParams struct {
-	// ImpersonationToken: The User Impersonation token to authenticate.
+	// ImpersonationToken: The Member Impersonation token to authenticate. Expires in 5 minutes by default.
 	ImpersonationToken string `json:"impersonation_token,omitempty"`
 }
 

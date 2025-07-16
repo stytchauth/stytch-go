@@ -31,7 +31,7 @@ func NewOrganizationsMembersClient(c stytch.Client) *OrganizationsMembersClient 
 	}
 }
 
-// Update: Updates a specified by `organization_id` and `member_id`.
+// Update: Updates a Member specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Update(
 	ctx context.Context,
 	body *members.UpdateParams,
@@ -66,7 +66,7 @@ func (c *OrganizationsMembersClient) Update(
 	return &retVal, err
 }
 
-// Delete: Deletes a specified by `organization_id` and `member_id`.
+// Delete: Deletes a Member specified by `organization_id` and `member_id`.
 func (c *OrganizationsMembersClient) Delete(
 	ctx context.Context,
 	body *members.DeleteParams,
@@ -92,9 +92,9 @@ func (c *OrganizationsMembersClient) Delete(
 	return &retVal, err
 }
 
-// Reactivate: Reactivates a deleted's status and its associated email status (if applicable) to active,
-// specified by `organization_id` and `member_id`. This endpoint will only work for Members with at least
-// one verified email where their `email_address_verified` is `true`.
+// Reactivate: Reactivates a deleted Member's status and its associated email status (if applicable) to
+// active, specified by `organization_id` and `member_id`. This endpoint will only work for Members with at
+// least one verified email where their `email_address_verified` is `true`.
 func (c *OrganizationsMembersClient) Reactivate(
 	ctx context.Context,
 	body *members.ReactivateParams,
@@ -129,7 +129,7 @@ func (c *OrganizationsMembersClient) Reactivate(
 	return &retVal, err
 }
 
-// DeleteMFAPhoneNumber: Delete a's MFA phone number.
+// DeleteMFAPhoneNumber: Delete a Member's MFA phone number.
 //
 // To change a Member's phone number, you must first call this endpoint to delete the existing phone number.
 //
@@ -234,7 +234,11 @@ func (c *OrganizationsMembersClient) Search(
 	return &retVal, err
 }
 
-// DeletePassword: Delete a's password.
+// DeletePassword: Delete a Member's password.
+//
+// This endpoint only works for Organization-scoped passwords. For cross-org password Projects, use
+// [Require Password Reset By Email](https://stytch.com/docs/b2b/api/passwords-require-reset-by-email)
+// instead.
 func (c *OrganizationsMembersClient) DeletePassword(
 	ctx context.Context,
 	body *members.DeletePasswordParams,
@@ -329,8 +333,8 @@ func (c *OrganizationsMembersClient) OIDCProviders(
 	return &retVal, err
 }
 
-// UnlinkRetiredEmail: Unlinks a retired email address from a specified by their `organization_id` and
-// `member_id`. The email address
+// UnlinkRetiredEmail: Unlinks a retired email address from a Member specified by their `organization_id`
+// and `member_id`. The email address
 // to be retired can be identified in the request body by either its `email_id`, its `email_address`, or
 // both. If using
 // both identifiers they must refer to the same email.
@@ -348,8 +352,6 @@ func (c *OrganizationsMembersClient) OIDCProviders(
 // addresses allows them to be subsequently re-used by other Organization Members. Retired email addresses
 // can be viewed
 // on the [Member object](https://stytch.com/docs/b2b/api/member-object).
-//
-//	%}
 func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 	ctx context.Context,
 	body *members.UnlinkRetiredEmailParams,
@@ -375,6 +377,54 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 		stytch.RequestParams{
 			Method:      "POST",
 			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/unlink_retired_email", body.OrganizationID, body.MemberID),
+			QueryParams: nil,
+			Body:        jsonBody,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+// StartEmailUpdate: Starts a self-serve email update for a Member specified by their `organization_id` and
+// `member_id`.
+// To perform a self-serve update, members must be active and have an active, verified email address.
+//
+// The new email address must meet the following requirements:
+//
+// - Must not be in use by another member (retired emails count as used until they are
+// [unlinked](https://stytch.com/docs/b2b/api/unlink-retired-member-email))
+// - Must not be updating for another member (i.e. two members cannot attempt to update to the same email
+// at once)
+//
+// The member will receive an Email Magic Link that expires in 5 minutes. If they do not verify their new
+// email address in that timeframe, the email
+// will be freed up for other members to use.
+func (c *OrganizationsMembersClient) StartEmailUpdate(
+	ctx context.Context,
+	body *members.StartEmailUpdateParams,
+	methodOptions ...*members.StartEmailUpdateRequestOptions,
+) (*members.StartEmailUpdateResponse, error) {
+	var jsonBody []byte
+	var err error
+	if body != nil {
+		jsonBody, err = json.Marshal(body)
+		if err != nil {
+			return nil, stytcherror.NewClientLibraryError("error marshaling request body")
+		}
+	}
+
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal members.StartEmailUpdateResponse
+	err = c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "POST",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/start_email_update", body.OrganizationID, body.MemberID),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -417,7 +467,7 @@ func (c *OrganizationsMembersClient) GetConnectedApps(
 	return &retVal, err
 }
 
-// Create: Creates a. An `organization_id` and `email_address` are required.
+// Create: Creates a Member. An `organization_id` and `email_address` are required.
 func (c *OrganizationsMembersClient) Create(
 	ctx context.Context,
 	body *members.CreateParams,

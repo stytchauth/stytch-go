@@ -27,8 +27,8 @@ func NewImpersonationClient(c stytch.Client) *ImpersonationClient {
 	}
 }
 
-// Authenticate an impersonation token to impersonate a. This endpoint requires an impersonation token that
-// is not expired or previously used.
+// Authenticate an impersonation token to impersonate a Member. This endpoint requires an impersonation
+// token that is not expired or previously used.
 // A Stytch session will be created for the impersonated member with a 60 minute duration. Impersonated
 // sessions cannot be extended.
 //
