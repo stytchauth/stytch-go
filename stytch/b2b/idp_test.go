@@ -2,6 +2,13 @@ package b2b_test
 
 import (
 	"context"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"testing"
+	"time"
+
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
@@ -11,12 +18,6 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
 	"github.com/stytchauth/stytch-go/v16/stytch/config"
 	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
-	"io"
-	"net/http"
-	"net/http/httptest"
-	"net/url"
-	"testing"
-	"time"
 )
 
 func TestIDP_IntrospectTokenNetwork(t *testing.T) {

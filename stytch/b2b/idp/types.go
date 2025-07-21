@@ -1,8 +1,9 @@
 package idp
 
 import (
-	"github.com/golang-jwt/jwt/v5"
 	"time"
+
+	"github.com/golang-jwt/jwt/v5"
 
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 )
