@@ -72,14 +72,14 @@ func (c *IDPClient) IntrospectTokenNetwork(
 
 	bytes, err := io.ReadAll(res.Body)
 	if err != nil {
-		return nil, fmt.Errorf("error reading http request: %w", err)
+		return nil, fmt.Errorf("error reading http response: %w", err)
 	}
 
 	if res.StatusCode != 200 {
 		// Attempt to unmarshal into Stytch error format
 		var stytchErr stytcherror.OAuth2Error
 		if err = json.Unmarshal(bytes, &stytchErr); err != nil {
-			return nil, fmt.Errorf("error decoding http request: %w", err)
+			return nil, fmt.Errorf("error decoding http response: %w", err)
 		}
 		stytchErr.StatusCode = res.StatusCode
 		return nil, stytchErr
@@ -87,7 +87,7 @@ func (c *IDPClient) IntrospectTokenNetwork(
 
 	var tokenRes idp.IntrospectTokenResponse
 	if err = json.Unmarshal(bytes, &tokenRes); err != nil {
-		return nil, fmt.Errorf("error decoding http request: %w", err)
+		return nil, fmt.Errorf("error decoding http response: %w", err)
 	}
 	if !tokenRes.Active {
 		return nil, stytcherror.NewInvalidOAuth2TokenError()
