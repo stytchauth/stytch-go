@@ -112,4 +112,14 @@ func NewM2MPermissionError() error {
 	}
 }
 
+func NewInvalidOAuth2TokenError() error {
+	msg := "The token introspected was not valid. It may be expired."
+	return Error{
+		StatusCode:   400,
+		ErrorType:    "oauth2_invalid_token_error",
+		ErrorMessage: Message(msg + ", v" + config.APIVersion),
+		ErrorURL:     "https://stytch.com/docs/api/errors/400",
+	}
+}
+
 var ErrJWKSNotInitialized = errors.New("JWKS not initialized")
