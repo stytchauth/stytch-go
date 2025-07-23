@@ -168,7 +168,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.Passwords = consumer.NewPasswordsClient(a.client)
 	a.Project = consumer.NewProjectClient(a.client)
 	a.RBAC = consumer.NewRBACClient(a.client)
-	a.Sessions = consumer.NewSessionsClient(a.client, jwks)
+	a.Sessions = consumer.NewSessionsClient(a.client, jwks, policyCache)
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.Users = consumer.NewUsersClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)

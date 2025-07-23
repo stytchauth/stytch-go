@@ -1,9 +1,10 @@
 package shared_test
 
 import (
+	"testing"
+
 	consumerrbac "github.com/stytchauth/stytch-go/v16/stytch/consumer/rbac"
 	consumersessions "github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"testing"
 
 	"github.com/stretchr/testify/assert"
 	b2brbac "github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"

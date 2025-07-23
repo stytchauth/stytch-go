@@ -44,7 +44,8 @@ func TestAuthenticateJWTLocal(t *testing.T) {
 		keyID: keyfunc.NewGivenRSA(&key.PublicKey, keyfunc.GivenKeyOptions{Algorithm: "RS256"}),
 	})
 
-	sessionClient := consumer.NewSessionsClient(client, jwks)
+	policyCache := consumer.NewPolicyCache(consumer.NewRBACClient(client))
+	sessionClient := consumer.NewSessionsClient(client, jwks, policyCache)
 
 	t.Run("expired JWT", func(t *testing.T) {
 		iat := time.Now().UTC().Add(-time.Hour).Truncate(time.Second)
@@ -273,7 +274,8 @@ func TestAuthenticateJWTWithClaims(t *testing.T) {
 		keyID: keyfunc.NewGivenRSA(&key.PublicKey, keyfunc.GivenKeyOptions{Algorithm: "RS256"}),
 	})
 
-	sessionClient := consumer.NewSessionsClient(client, jwks)
+	policyCache := consumer.NewPolicyCache(consumer.NewRBACClient(client))
+	sessionClient := consumer.NewSessionsClient(client, jwks, policyCache)
 
 	expectedClaims := map[string]any{
 		"https://my-app.example.net/custom-claim": map[string]any{
