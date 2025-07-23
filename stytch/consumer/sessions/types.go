@@ -81,7 +81,8 @@ type AuthenticateParams struct {
 	//
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	SessionCustomClaims map[string]any      `json:"session_custom_claims,omitempty"`
+	AuthorizationCheck  *AuthorizationCheck `json:"authorization_check,omitempty"`
 }
 
 // AuthenticationFactor:
@@ -164,6 +165,16 @@ type AuthenticationFactor struct {
 type AuthenticatorAppFactor struct {
 	// TOTPID: Globally unique UUID that identifies a TOTP instance.
 	TOTPID string `json:"totp_id,omitempty"`
+}
+
+type AuthorizationCheck struct {
+	ResourceID string `json:"resource_id,omitempty"`
+	Action     string `json:"action,omitempty"`
+}
+
+type AuthorizationVerdict struct {
+	Authorized    bool     `json:"authorized,omitempty"`
+	GrantingRoles []string `json:"granting_roles,omitempty"`
 }
 
 type BiometricFactor struct {
@@ -563,7 +574,8 @@ type AuthenticateResponse struct {
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
-	StatusCode int32 `json:"status_code,omitempty"`
+	StatusCode int32                 `json:"status_code,omitempty"`
+	Verdict    *AuthorizationVerdict `json:"verdict,omitempty"`
 }
 
 // ExchangeAccessTokenResponse: Response type for `Sessions.ExchangeAccessToken`.

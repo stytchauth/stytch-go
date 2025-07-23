@@ -4,21 +4,20 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	b2brbac "github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
+	b2bsessions "github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/shared"
 	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
 
-const orgID = "organization-1234"
-
-func TestPerformAuthorizationCheck(t *testing.T) {
-	policy := &rbac.Policy{
-		Roles: []rbac.PolicyRole{
+func Test_PerformB2BAuthorizationCheck(t *testing.T) {
+	const orgID = "organization-1234"
+	policy := &b2brbac.Policy{
+		Roles: []b2brbac.PolicyRole{
 			{
 				RoleID:      "stytch_member",
 				Description: "member",
-				Permissions: []rbac.PolicyRolePermission{
+				Permissions: []b2brbac.PolicyRolePermission{
 					{
 						ResourceID: "document",
 						Actions:    []string{"read", "write"},
@@ -32,7 +31,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 			{
 				RoleID:      "stytch_editor",
 				Description: "member",
-				Permissions: []rbac.PolicyRolePermission{
+				Permissions: []b2brbac.PolicyRolePermission{
 					{
 						ResourceID: "document",
 						Actions:    []string{"read", "write"},
@@ -46,7 +45,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 			{
 				RoleID:      "stytch_admin",
 				Description: "admin",
-				Permissions: []rbac.PolicyRolePermission{
+				Permissions: []b2brbac.PolicyRolePermission{
 					{
 						ResourceID: "document",
 						Actions:    []string{"read", "write", "delete"},
@@ -58,7 +57,7 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 				},
 			},
 		},
-		Resources: []rbac.PolicyResource{
+		Resources: []b2brbac.PolicyResource{
 			{
 				ResourceID:  "document",
 				Description: "All documents",
@@ -74,11 +73,11 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 
 	t.Run("tenancy mismatch", func(t *testing.T) {
 		diffOrgID := "different-organization-id"
-		err := shared.PerformAuthorizationCheck(
+		err := shared.PerformB2BAuthorizationCheck(
 			policy,
 			[]string{"stytch_member"},
 			orgID,
-			&sessions.AuthorizationCheck{
+			&b2bsessions.AuthorizationCheck{
 				OrganizationID: diffOrgID,
 				ResourceID:     "document",
 				Action:         "read",
@@ -87,11 +86,11 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 		assert.ErrorContains(t, err, stytcherror.NewSessionAuthorizationTenancyError(orgID, diffOrgID).Error())
 	})
 	t.Run("action exists but resource does not", func(t *testing.T) {
-		err := shared.PerformAuthorizationCheck(
+		err := shared.PerformB2BAuthorizationCheck(
 			policy,
 			[]string{"stytch_member"},
 			orgID,
-			&sessions.AuthorizationCheck{
+			&b2bsessions.AuthorizationCheck{
 				OrganizationID: orgID,
 				ResourceID:     "resource_that_doesnt_exist",
 				Action:         "read",
@@ -100,11 +99,11 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("resource exists but action does not", func(t *testing.T) {
-		err := shared.PerformAuthorizationCheck(
+		err := shared.PerformB2BAuthorizationCheck(
 			policy,
 			[]string{"stytch_member"},
 			orgID,
-			&sessions.AuthorizationCheck{
+			&b2bsessions.AuthorizationCheck{
 				OrganizationID: orgID,
 				ResourceID:     "document",
 				Action:         "action_that_doesnt_exist",
@@ -113,11 +112,11 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("member has this action but on a different resource", func(t *testing.T) {
-		err := shared.PerformAuthorizationCheck(
+		err := shared.PerformB2BAuthorizationCheck(
 			policy,
 			[]string{"stytch_member"},
 			orgID,
-			&sessions.AuthorizationCheck{
+			&b2bsessions.AuthorizationCheck{
 				OrganizationID: orgID,
 				ResourceID:     "program",
 				Action:         "write",
@@ -126,11 +125,11 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("another authorization check for a member with more elevated privileges", func(t *testing.T) {
-		err := shared.PerformAuthorizationCheck(
+		err := shared.PerformB2BAuthorizationCheck(
 			policy,
 			[]string{"stytch_editor"},
 			orgID,
-			&sessions.AuthorizationCheck{
+			&b2bsessions.AuthorizationCheck{
 				OrganizationID: orgID,
 				ResourceID:     "program",
 				Action:         "edit",
@@ -139,11 +138,11 @@ func TestPerformAuthorizationCheck(t *testing.T) {
 		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
 	})
 	t.Run("no error when the member is authorized", func(t *testing.T) {
-		err := shared.PerformAuthorizationCheck(
+		err := shared.PerformB2BAuthorizationCheck(
 			policy,
 			[]string{"stytch_admin"},
 			orgID,
-			&sessions.AuthorizationCheck{
+			&b2bsessions.AuthorizationCheck{
 				OrganizationID: orgID,
 				ResourceID:     "document",
 				Action:         "delete",

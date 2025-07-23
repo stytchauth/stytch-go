@@ -201,10 +201,10 @@ func (c *SessionsClient) Revoke(
 }
 
 // Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
-// endpoint defined in your Stytch Project settings in the [Dashboard](https://stytch.com/docs/dashboard),
-// and then perform a lookup using the `session_token`. If the response contains a valid email address,
-// Stytch will attempt to match that email address with an existing User and create a Stytch Session. You
-// will need to create the user before using this endpoint.
+// endpoint defined in your Stytch Project settings in the [Dashboard](/dashboard), and then perform a
+// lookup using the `session_token`. If the response contains a valid email address, Stytch will attempt to
+// match that email address with an existing User and create a Stytch Session. You will need to create the
+// user before using this endpoint.
 func (c *SessionsClient) Migrate(
 	ctx context.Context,
 	body *sessions.MigrateParams,
@@ -315,8 +315,8 @@ func (c *SessionsClient) GetJWKS(
 
 // Attest: Exchange an auth token issued by a trusted identity provider for a Stytch session. You must
 // first register a Trusted Auth Token profile in the Stytch dashboard
-// [here](https://stytch.com/docs/dashboard/trusted-auth-tokens). If a session token or session JWT is
-// provided, it will add the trusted auth token as an authentication factor to the existing session.
+// [here](/dashboard/trusted-auth-tokens). If a session token or session JWT is provided, it will add the
+// trusted auth token as an authentication factor to the existing session.
 func (c *SessionsClient) Attest(
 	ctx context.Context,
 	body *sessions.AttestParams,

@@ -1,0 +1,161 @@
+package shared
+
+import (
+	b2brbac "github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
+	b2bsessions "github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	consumerrbac "github.com/stytchauth/stytch-go/v16/stytch/consumer/rbac"
+	consumersessions "github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
+)
+
+type policy struct {
+	Roles     []policyRole
+	Resources []policyResource
+	Scopes    []policyScope
+}
+
+type policyRole struct {
+	RoleID      string
+	Description string
+	Permissions []policyRolePermission
+}
+
+type policyRolePermission struct {
+	ResourceID string
+	Actions    []string
+}
+
+type policyScope struct {
+	Scope       string
+	Description string
+	Permissions []policyScopePermission
+}
+
+type policyScopePermission struct {
+	ResourceID string
+	Actions    []string
+}
+
+type policyResource struct {
+	ResourceID  string
+	Description string
+	Actions     []string
+}
+
+func policyFromB2B(p *b2brbac.Policy) *policy {
+	var roles []policyRole
+	for _, role := range p.Roles {
+		var permissions []policyRolePermission
+		for _, permission := range role.Permissions {
+			permissions = append(permissions, policyRolePermission{
+				ResourceID: permission.ResourceID,
+				Actions:    permission.Actions,
+			})
+		}
+
+		roles = append(roles, policyRole{
+			RoleID:      role.RoleID,
+			Description: role.Description,
+			Permissions: permissions,
+		})
+	}
+
+	var resources []policyResource
+	for _, resource := range p.Resources {
+		resources = append(resources, policyResource{
+			ResourceID:  resource.ResourceID,
+			Description: resource.Description,
+			Actions:     resource.Actions,
+		})
+	}
+
+	var scopes []policyScope
+	for _, scope := range p.Scopes {
+		var permissions []policyScopePermission
+		for _, permission := range scope.Permissions {
+			permissions = append(permissions, policyScopePermission{
+				ResourceID: permission.ResourceID,
+				Actions:    permission.Actions,
+			})
+		}
+		scopes = append(scopes, policyScope{
+			Scope:       scope.Scope,
+			Description: scope.Description,
+			Permissions: permissions,
+		})
+	}
+
+	return &policy{
+		Roles:     roles,
+		Resources: resources,
+		Scopes:    scopes,
+	}
+}
+
+func policyFromConsumer(p *consumerrbac.Policy) *policy {
+	var roles []policyRole
+	for _, role := range p.Roles {
+		var permissions []policyRolePermission
+		for _, permission := range role.Permissions {
+			permissions = append(permissions, policyRolePermission{
+				ResourceID: permission.ResourceID,
+				Actions:    permission.Actions,
+			})
+		}
+
+		roles = append(roles, policyRole{
+			RoleID:      role.RoleID,
+			Description: role.Description,
+			Permissions: permissions,
+		})
+	}
+
+	var resources []policyResource
+	for _, resource := range p.Resources {
+		resources = append(resources, policyResource{
+			ResourceID:  resource.ResourceID,
+			Description: resource.Description,
+			Actions:     resource.Actions,
+		})
+	}
+
+	var scopes []policyScope
+	for _, scope := range p.Scopes {
+		var permissions []policyScopePermission
+		for _, permission := range scope.Permissions {
+			permissions = append(permissions, policyScopePermission{
+				ResourceID: permission.ResourceID,
+				Actions:    permission.Actions,
+			})
+		}
+		scopes = append(scopes, policyScope{
+			Scope:       scope.Scope,
+			Description: scope.Description,
+			Permissions: permissions,
+		})
+	}
+
+	return &policy{
+		Roles:     roles,
+		Resources: resources,
+		Scopes:    scopes,
+	}
+}
+
+type authorizationCheck struct {
+	ResourceID string
+	Action     string
+}
+
+func authorizationCheckFromConsumer(c *consumersessions.AuthorizationCheck) *authorizationCheck {
+	return &authorizationCheck{
+		ResourceID: c.ResourceID,
+		Action:     c.Action,
+	}
+}
+
+func authorizationCheckFromB2B(c *b2bsessions.AuthorizationCheck) *authorizationCheck {
+	return &authorizationCheck{
+		ResourceID: c.ResourceID,
+		Action:     c.Action,
+	}
+}

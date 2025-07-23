@@ -570,7 +570,7 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 			return nil, fmt.Errorf("failed to get cached policy: %w", err)
 		}
 
-		err = shared.PerformAuthorizationCheck(policy, staticClaims.Session.Roles, memberSession.OrganizationID, authorizationCheck)
+		err = shared.PerformB2BAuthorizationCheck(policy, staticClaims.Session.Roles, memberSession.OrganizationID, authorizationCheck)
 		if err != nil {
 			return nil, err
 		}

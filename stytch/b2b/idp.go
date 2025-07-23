@@ -100,7 +100,7 @@ func (c *IDPClient) IntrospectTokenNetwork(
 
 		tokenScopes := strings.Split(strings.TrimSpace(tokenRes.Scope), " ")
 
-		err = shared.PerformScopeAuthorizationCheck(policy, tokenScopes, tokenRes.Organization.OrganizationID, body.AuthorizationCheck)
+		err = shared.PerformB2BScopeAuthorizationCheck(policy, tokenScopes, tokenRes.Organization.OrganizationID, body.AuthorizationCheck)
 		if err != nil {
 			return nil, err
 		}
@@ -175,7 +175,7 @@ func (c *IDPClient) IntrospectTokenLocal(
 
 		tokenScopes := strings.Split(strings.TrimSpace(staticClaims.Scope), " ")
 
-		err = shared.PerformScopeAuthorizationCheck(policy, tokenScopes, staticClaims.Organization.OrganizationID, req.AuthorizationCheck)
+		err = shared.PerformB2BScopeAuthorizationCheck(policy, tokenScopes, staticClaims.Organization.OrganizationID, req.AuthorizationCheck)
 		if err != nil {
 			return nil, err
 		}
