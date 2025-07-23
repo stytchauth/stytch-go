@@ -7,6 +7,10 @@ import (
 	consumersessions "github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 )
 
+// This file contains boilerplate stubs to convert B2B and Consumer RBAC policies
+// and authorization check API shapes to the same internal data shape
+// for use in local authorization methods
+
 type policy struct {
 	Roles     []policyRole
 	Resources []policyResource
