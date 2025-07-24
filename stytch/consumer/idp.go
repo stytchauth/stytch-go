@@ -90,19 +90,19 @@ func (c *IDPClient) IntrospectTokenNetwork(
 	if !tokenRes.Active {
 		return nil, stytcherror.NewInvalidOAuth2TokenError()
 	}
-	//if body.AuthorizationCheck != nil {
-	//	policy, err := c.PolicyCache.Get(ctx)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("failed to get cached policy: %w", err)
-	//	}
-	//
-	//	tokenScopes := strings.Split(strings.TrimSpace(tokenRes.Scope), " ")
-	//
-	//	err = shared.PerformScopeAuthorizationCheck(policy, tokenScopes, tokenRes.Organization.OrganizationID, body.AuthorizationCheck)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//}
+	if body.AuthorizationCheck != nil {
+		policy, err := c.PolicyCache.Get(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get cached policy: %w", err)
+		}
+
+		tokenScopes := strings.Split(strings.TrimSpace(tokenRes.Scope), " ")
+
+		err = shared.PerformConsumerScopeAuthorizationCheck(policy, tokenScopes, body.AuthorizationCheck)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	return &tokenRes, nil
 }
@@ -164,20 +164,19 @@ func (c *IDPClient) IntrospectTokenLocal(
 		}
 	}
 
-	//var policy *rbac.Policy
-	//if req.AuthorizationCheck != nil {
-	//	policy, err = c.PolicyCache.Get(ctx)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("failed to get cached policy: %w", err)
-	//	}
-	//
-	//	tokenScopes := strings.Split(strings.TrimSpace(staticClaims.Scope), " ")
-	//
-	//	err = shared.PerformScopeAuthorizationCheck(policy, tokenScopes, staticClaims.Organization.OrganizationID, req.AuthorizationCheck)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//}
+	if req.AuthorizationCheck != nil {
+		policy, err := c.PolicyCache.Get(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get cached policy: %w", err)
+		}
+
+		tokenScopes := strings.Split(strings.TrimSpace(staticClaims.Scope), " ")
+
+		err = shared.PerformConsumerScopeAuthorizationCheck(policy, tokenScopes, req.AuthorizationCheck)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	return marshalAccessTokenJWTIntoResponse(staticClaims, customClaims)
 }

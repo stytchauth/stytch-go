@@ -1,6 +1,7 @@
 package idp
 
 import (
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -27,15 +28,15 @@ type IntrospectTokenClaims struct {
 }
 
 type IntrospectTokenLocalParams struct {
-	Token       string
-	MaxTokenAge time.Duration
-	// AuthorizationCheck *sessions.AuthorizationCheck
+	Token              string
+	MaxTokenAge        time.Duration
+	AuthorizationCheck *sessions.AuthorizationCheck
 }
 
 type IntrospectTokenNetworkParams struct {
-	Token         string
-	ClientID      string
-	ClientSecret  *string
-	TokenTypeHint *string
-	// AuthorizationCheck *sessions.AuthorizationCheck
+	Token              string
+	ClientID           string
+	ClientSecret       *string
+	TokenTypeHint      *string
+	AuthorizationCheck *sessions.AuthorizationCheck
 }
