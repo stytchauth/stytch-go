@@ -271,3 +271,325 @@ func Test_PerformConsumerAuthorizationCheck(t *testing.T) {
 		assert.NoError(t, err)
 	})
 }
+
+func Test_PerformB2BScopeAuthorizationCheck(t *testing.T) {
+	const orgID = "organization-123"
+	policy := &b2brbac.Policy{
+		Roles: []b2brbac.PolicyRole{
+			{
+				RoleID:      "stytch_member",
+				Description: "member",
+				Permissions: []b2brbac.PolicyRolePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"read", "write"},
+					},
+					{
+						ResourceID: "images",
+						Actions:    []string{"create", "read", "write", "delete"},
+					},
+				},
+			},
+		},
+		Resources: []b2brbac.PolicyResource{
+			{
+				ResourceID:  "documents",
+				Description: "All documents",
+				Actions:     []string{"read", "write", "delete"},
+			},
+			{
+				ResourceID:  "images",
+				Description: "All images",
+				Actions:     []string{"create", "read", "write", "delete"},
+			},
+		},
+		Scopes: []b2brbac.PolicyScope{
+			{
+				Scope:       "read:data",
+				Description: "Read data scope",
+				Permissions: []b2brbac.PolicyScopePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"read"},
+					},
+				},
+			},
+			{
+				Scope:       "wildcard:data",
+				Description: "Wildcard data scope",
+				Permissions: []b2brbac.PolicyScopePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"read"},
+					},
+				},
+			},
+			{
+				Scope:       "write:data",
+				Description: "Write data scope",
+				Permissions: []b2brbac.PolicyScopePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"write"},
+					},
+				},
+			},
+			{
+				Scope:       "crud:data",
+				Description: "CRUD data scope",
+				Permissions: []b2brbac.PolicyScopePermission{
+					{
+						ResourceID: "images",
+						Actions:    []string{"create", "read", "write", "delete"},
+					},
+				},
+			},
+		},
+	}
+
+	t.Run("success case - exact match", func(t *testing.T) {
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"read:data"},
+			orgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "documents",
+				Action:         "read",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("success case - wildcard match", func(t *testing.T) {
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"wildcard:data"},
+			orgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "documents",
+				Action:         "read",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("success case - multiple matches", func(t *testing.T) {
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"read:data", "write:data"},
+			orgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "documents",
+				Action:         "read",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("success case - multiple matches II", func(t *testing.T) {
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"read:data", "write:data", "crud:data"},
+			orgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "images",
+				Action:         "create",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("failure case - invalid action", func(t *testing.T) {
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"write:data"},
+			orgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "documents",
+				Action:         "delete",
+			},
+		)
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
+	})
+
+	t.Run("failure case - invalid resource", func(t *testing.T) {
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"crud:data"},
+			orgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "spreadsheets",
+				Action:         "write",
+			},
+		)
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
+	})
+
+	t.Run("failure case - invalid tenancy check", func(t *testing.T) {
+		diffOrgID := "organization-456"
+		err := shared.PerformB2BScopeAuthorizationCheck(
+			policy,
+			[]string{"crud:data"},
+			diffOrgID,
+			&b2bsessions.AuthorizationCheck{
+				OrganizationID: orgID,
+				ResourceID:     "images",
+				Action:         "write",
+			},
+		)
+		assert.ErrorContains(t, err, stytcherror.NewSessionAuthorizationTenancyError(diffOrgID, orgID).Error())
+	})
+}
+
+func Test_PerformConsumerScopeAuthorizationCheck(t *testing.T) {
+	policy := &consumerrbac.Policy{
+		Roles: []consumerrbac.PolicyRole{
+			{
+				RoleID:      "stytch_member",
+				Description: "member",
+				Permissions: []consumerrbac.PolicyRolePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"read", "write"},
+					},
+					{
+						ResourceID: "images",
+						Actions:    []string{"create", "read", "write", "delete"},
+					},
+				},
+			},
+		},
+		Resources: []consumerrbac.PolicyResource{
+			{
+				ResourceID:  "documents",
+				Description: "All documents",
+				Actions:     []string{"read", "write", "delete"},
+			},
+			{
+				ResourceID:  "images",
+				Description: "All images",
+				Actions:     []string{"create", "read", "write", "delete"},
+			},
+		},
+		Scopes: []consumerrbac.PolicyScope{
+			{
+				Scope:       "read:data",
+				Description: "Read data scope",
+				Permissions: []consumerrbac.PolicyScopePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"read"},
+					},
+				},
+			},
+			{
+				Scope:       "wildcard:data",
+				Description: "Wildcard data scope",
+				Permissions: []consumerrbac.PolicyScopePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"read"},
+					},
+				},
+			},
+			{
+				Scope:       "write:data",
+				Description: "Write data scope",
+				Permissions: []consumerrbac.PolicyScopePermission{
+					{
+						ResourceID: "documents",
+						Actions:    []string{"write"},
+					},
+				},
+			},
+			{
+				Scope:       "crud:data",
+				Description: "CRUD data scope",
+				Permissions: []consumerrbac.PolicyScopePermission{
+					{
+						ResourceID: "images",
+						Actions:    []string{"create", "read", "write", "delete"},
+					},
+				},
+			},
+		},
+	}
+
+	t.Run("success case - exact match", func(t *testing.T) {
+		err := shared.PerformConsumerScopeAuthorizationCheck(
+			policy,
+			[]string{"read:data"},
+			&consumersessions.AuthorizationCheck{
+				ResourceID: "documents",
+				Action:     "read",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("success case - wildcard match", func(t *testing.T) {
+		err := shared.PerformConsumerScopeAuthorizationCheck(
+			policy,
+			[]string{"wildcard:data"},
+			&consumersessions.AuthorizationCheck{
+				ResourceID: "documents",
+				Action:     "read",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("success case - multiple matches", func(t *testing.T) {
+		err := shared.PerformConsumerScopeAuthorizationCheck(
+			policy,
+			[]string{"read:data", "write:data"},
+			&consumersessions.AuthorizationCheck{
+				ResourceID: "documents",
+				Action:     "read",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("success case - multiple matches II", func(t *testing.T) {
+		err := shared.PerformConsumerScopeAuthorizationCheck(
+			policy,
+			[]string{"read:data", "write:data", "crud:data"},
+			&consumersessions.AuthorizationCheck{
+				ResourceID: "images",
+				Action:     "create",
+			},
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("failure case - invalid action", func(t *testing.T) {
+		err := shared.PerformConsumerScopeAuthorizationCheck(
+			policy,
+			[]string{"write:data"},
+			&consumersessions.AuthorizationCheck{
+				ResourceID: "documents",
+				Action:     "delete",
+			},
+		)
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
+	})
+
+	t.Run("failure case - invalid resource", func(t *testing.T) {
+		err := shared.PerformConsumerScopeAuthorizationCheck(
+			policy,
+			[]string{"crud:data"},
+			&consumersessions.AuthorizationCheck{
+				ResourceID: "spreadsheets",
+				Action:     "write",
+			},
+		)
+		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
+	})
+}
