@@ -1,8 +1,9 @@
 package idp
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"time"
+
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 
 	"github.com/golang-jwt/jwt/v5"
 )
