@@ -612,6 +612,7 @@ func marshalJWTIntoSession(claims sessions.Claims, customClaims map[string]any) 
 		ExpiresAt:             &expires,
 		AuthenticationFactors: claims.Session.AuthenticationFactors,
 		OrganizationID:        claims.Organization.ID,
+		OrganizationSlug:      claims.Organization.Slug,
 		CustomClaims:          customClaims,
 		Roles:                 claims.Session.Roles,
 	}, nil
