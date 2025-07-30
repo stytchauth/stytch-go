@@ -22,14 +22,16 @@ import (
 )
 
 type SessionsClient struct {
-	C    stytch.Client
-	JWKS *keyfunc.JWKS
+	C           stytch.Client
+	JWKS        *keyfunc.JWKS
+	PolicyCache *PolicyCache
 }
 
-func NewSessionsClient(c stytch.Client, jwks *keyfunc.JWKS) *SessionsClient {
+func NewSessionsClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache) *SessionsClient {
 	return &SessionsClient{
-		C:    c,
-		JWKS: jwks,
+		C:           c,
+		JWKS:        jwks,
+		PolicyCache: policyCache,
 	}
 }
 
@@ -201,10 +203,10 @@ func (c *SessionsClient) Revoke(
 }
 
 // Migrate a session from an external OIDC compliant endpoint. Stytch will call the external UserInfo
-// endpoint defined in your Stytch Project settings in the [Dashboard](https://stytch.com/docs/dashboard),
-// and then perform a lookup using the `session_token`. If the response contains a valid email address,
-// Stytch will attempt to match that email address with an existing User and create a Stytch Session. You
-// will need to create the user before using this endpoint.
+// endpoint defined in your Stytch Project settings in the [Dashboard](/dashboard), and then perform a
+// lookup using the `session_token`. If the response contains a valid email address, Stytch will attempt to
+// match that email address with an existing User and create a Stytch Session. You will need to create the
+// user before using this endpoint.
 func (c *SessionsClient) Migrate(
 	ctx context.Context,
 	body *sessions.MigrateParams,
@@ -315,8 +317,8 @@ func (c *SessionsClient) GetJWKS(
 
 // Attest: Exchange an auth token issued by a trusted identity provider for a Stytch session. You must
 // first register a Trusted Auth Token profile in the Stytch dashboard
-// [here](https://stytch.com/docs/dashboard/trusted-auth-tokens). If a session token or session JWT is
-// provided, it will add the trusted auth token as an authentication factor to the existing session.
+// [here](/dashboard/trusted-auth-tokens). If a session token or session JWT is provided, it will add the
+// trusted auth token as an authentication factor to the existing session.
 func (c *SessionsClient) Attest(
 	ctx context.Context,
 	body *sessions.AttestParams,
@@ -364,7 +366,8 @@ func (c *SessionsClient) AuthenticateJWT(
 		return c.Authenticate(ctx, body)
 	}
 
-	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge)
+	session, err := c.AuthenticateJWTLocal(body.SessionJWT, maxTokenAge,
+		WithContext(ctx), WithAuthorizationCheck(body.AuthorizationCheck))
 	if err != nil {
 		// JWT couldn't be verified locally. Check with the Stytch API.
 		return c.Authenticate(ctx, body)
@@ -419,9 +422,29 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	return resp, nil
 }
 
+// TODO (vNext): Replace this with a (ctx, Params) shape instead of these backwards compatible options
+type authenticateJWTLocalState struct {
+	ctx       context.Context
+	authCheck *sessions.AuthorizationCheck
+}
+type authenticateJWTLocalOpt func(*authenticateJWTLocalState)
+
+func WithContext(ctx context.Context) authenticateJWTLocalOpt {
+	return func(s *authenticateJWTLocalState) {
+		s.ctx = ctx
+	}
+}
+
+func WithAuthorizationCheck(authCheck *sessions.AuthorizationCheck) authenticateJWTLocalOpt {
+	return func(s *authenticateJWTLocalState) {
+		s.authCheck = authCheck
+	}
+}
+
 func (c *SessionsClient) AuthenticateJWTLocal(
 	token string,
 	maxTokenAge time.Duration,
+	opts ...authenticateJWTLocalOpt,
 ) (*sessions.Session, error) {
 	if c.JWKS == nil {
 		return nil, stytcherror.ErrJWKSNotInitialized
@@ -467,6 +490,26 @@ func (c *SessionsClient) AuthenticateJWTLocal(
 	for key := range customClaims {
 		if shared.ReservedClaim(key) {
 			delete(customClaims, key)
+		}
+	}
+
+	// For backwards API compatibility, we accept ctx and authorizationCheck as options
+	authorizeOpts := &authenticateJWTLocalState{
+		ctx: context.Background(),
+	}
+	for _, opt := range opts {
+		opt(authorizeOpts)
+	}
+
+	if authorizeOpts.authCheck != nil {
+		policy, err := c.PolicyCache.Get(authorizeOpts.ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get cached policy: %w", err)
+		}
+
+		err = shared.PerformConsumerAuthorizationCheck(policy, staticClaims.StytchSession.Roles, authorizeOpts.authCheck)
+		if err != nil {
+			return nil, err
 		}
 	}
 

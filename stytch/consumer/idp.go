@@ -1,4 +1,4 @@
-package b2b
+package consumer
 
 import (
 	"context"
@@ -10,14 +10,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/config"
-
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/config"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/idp"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/shared"
 	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
 )
@@ -100,7 +98,7 @@ func (c *IDPClient) IntrospectTokenNetwork(
 
 		tokenScopes := strings.Split(strings.TrimSpace(tokenRes.Scope), " ")
 
-		err = shared.PerformB2BScopeAuthorizationCheck(policy, tokenScopes, tokenRes.Organization.OrganizationID, body.AuthorizationCheck)
+		err = shared.PerformConsumerScopeAuthorizationCheck(policy, tokenScopes, body.AuthorizationCheck)
 		if err != nil {
 			return nil, err
 		}
@@ -166,25 +164,24 @@ func (c *IDPClient) IntrospectTokenLocal(
 		}
 	}
 
-	var policy *rbac.Policy
 	if req.AuthorizationCheck != nil {
-		policy, err = c.PolicyCache.Get(ctx)
+		policy, err := c.PolicyCache.Get(ctx)
 		if err != nil {
 			return nil, fmt.Errorf("failed to get cached policy: %w", err)
 		}
 
 		tokenScopes := strings.Split(strings.TrimSpace(staticClaims.Scope), " ")
 
-		err = shared.PerformB2BScopeAuthorizationCheck(policy, tokenScopes, staticClaims.Organization.OrganizationID, req.AuthorizationCheck)
+		err = shared.PerformConsumerScopeAuthorizationCheck(policy, tokenScopes, req.AuthorizationCheck)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	return marshalJWTIntoResponse(staticClaims, customClaims)
+	return marshalAccessTokenJWTIntoResponse(staticClaims, customClaims)
 }
 
-func marshalJWTIntoResponse(staticClaims idp.IntrospectTokenClaims, customClaims jwt.MapClaims) (*idp.IntrospectTokenResponse, error) {
+func marshalAccessTokenJWTIntoResponse(staticClaims idp.IntrospectTokenClaims, customClaims jwt.MapClaims) (*idp.IntrospectTokenResponse, error) {
 	return &idp.IntrospectTokenResponse{
 		Active:       true,
 		TokenType:    "access_token",
@@ -195,7 +192,6 @@ func marshalJWTIntoResponse(staticClaims idp.IntrospectTokenClaims, customClaims
 		ClientID:     staticClaims.ClientID,
 		Expiry:       staticClaims.ExpiresAt,
 		IssuedAt:     staticClaims.IssuedAt,
-		Organization: staticClaims.Organization,
 		CustomClaims: customClaims,
 	}, nil
 }

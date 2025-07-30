@@ -25,7 +25,7 @@ func NewOAuthDiscoveryClient(c stytch.Client) *OAuthDiscoveryClient {
 	}
 }
 
-// Authenticate: Authenticates the Discovery token and exchanges it for an Intermediate
+// Authenticate: Authenticates the Discovery OAuth token and exchanges it for an Intermediate
 // Session Token. Intermediate Session Tokens can be used for various Discovery login flows and are valid
 // for 10 minutes.
 func (c *OAuthDiscoveryClient) Authenticate(

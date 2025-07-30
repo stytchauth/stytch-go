@@ -45,10 +45,12 @@ type API struct {
 	OTPs          *consumer.OTPsClient
 	Passwords     *consumer.PasswordsClient
 	Project       *consumer.ProjectClient
+	RBAC          *consumer.RBACClient
 	Sessions      *consumer.SessionsClient
 	TOTPs         *consumer.TOTPsClient
 	Users         *consumer.UsersClient
 	WebAuthn      *consumer.WebAuthnClient
+	IDP           *consumer.IDPClient
 }
 
 type Option func(*API)
@@ -148,6 +150,8 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 		o(a)
 	}
 
+	policyCache := consumer.NewPolicyCache(consumer.NewRBACClient(a.client))
+
 	// Set up JWKS for local session authentication
 	jwks, err := a.instantiateJWKSClient(a.client.GetHTTPClient())
 	if err != nil {
@@ -165,10 +169,12 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.OTPs = consumer.NewOTPsClient(a.client)
 	a.Passwords = consumer.NewPasswordsClient(a.client)
 	a.Project = consumer.NewProjectClient(a.client)
-	a.Sessions = consumer.NewSessionsClient(a.client, jwks)
+	a.RBAC = consumer.NewRBACClient(a.client)
+	a.Sessions = consumer.NewSessionsClient(a.client, jwks, policyCache)
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.Users = consumer.NewUsersClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
+	a.IDP = consumer.NewIDPClient(a.client, jwks, policyCache)
 
 	return a, nil
 }
