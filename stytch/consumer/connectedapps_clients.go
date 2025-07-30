@@ -29,7 +29,6 @@ func NewConnectedAppClientsClient(c stytch.Client) *ConnectedAppClientsClient {
 	}
 }
 
-// Get: Retrieve details of a specific Connected App by `client_id`.
 func (c *ConnectedAppClientsClient) Get(
 	ctx context.Context,
 	body *clients.GetParams,
@@ -51,7 +50,6 @@ func (c *ConnectedAppClientsClient) Get(
 	return &retVal, err
 }
 
-// Update: Updates mutable fields of a Connected App. Cannot update Client Type, Client ID, or Secrets.
 func (c *ConnectedAppClientsClient) Update(
 	ctx context.Context,
 	body *clients.UpdateParams,
@@ -82,7 +80,6 @@ func (c *ConnectedAppClientsClient) Update(
 	return &retVal, err
 }
 
-// Delete: Deletes a Connected App.
 func (c *ConnectedAppClientsClient) Delete(
 	ctx context.Context,
 	body *clients.DeleteParams,
@@ -104,7 +101,6 @@ func (c *ConnectedAppClientsClient) Delete(
 	return &retVal, err
 }
 
-// Search for Connected Apps. Supports cursor-based pagination. Specific filters coming soon.
 func (c *ConnectedAppClientsClient) Search(
 	ctx context.Context,
 	body *clients.SearchParams,
@@ -135,13 +131,6 @@ func (c *ConnectedAppClientsClient) Search(
 	return &retVal, err
 }
 
-// Create: Creates a new Connected App. If the Connected App `client_type` is `first_party` or
-// `third_party` a `client_secret` is returned.
-//
-// **Important:** This is the only time you will be able to view the generated `client_secret` in the API
-// response. Stytch stores a hash of the `client_secret` and cannot recover the value if lost. Be sure to
-// persist the `client_secret` in a secure location. If the `client_secret` is lost, you will need to
-// trigger a secret rotation flow to receive another one.
 func (c *ConnectedAppClientsClient) Create(
 	ctx context.Context,
 	body *clients.CreateParams,

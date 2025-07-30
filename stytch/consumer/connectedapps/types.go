@@ -6,117 +6,63 @@ package connectedapps
 // or your changes may be overwritten later!
 // !!!
 
-// ConnectedApp:
 type ConnectedApp struct {
-	// ClientID: The ID of the Connected App client.
-	ClientID string `json:"client_id,omitempty"`
-	// ClientName: A human-readable name for the client.
-	ClientName string `json:"client_name,omitempty"`
-	// ClientDescription: A human-readable description for the client.
-	ClientDescription string `json:"client_description,omitempty"`
-	Status            string `json:"status,omitempty"`
-	// FullAccessAllowed: Valid for first party clients only. If `true`, an authorization token granted to this
-	// Client can be exchanged for a full Stytch session.
-	FullAccessAllowed bool `json:"full_access_allowed,omitempty"`
-	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
-	// `third_party`, and `third_party_public`.
-	ClientType string `json:"client_type,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS               []string `json:"redirect_url_s,omitempty"`
-	AccessTokenExpiryMinutes   int32    `json:"access_token_expiry_minutes,omitempty"`
-	AccessTokenTemplateContent string   `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
-	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
-	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
-	// ClientSecretLastFour: The last four characters of the client secret.
-	ClientSecretLastFour string `json:"client_secret_last_four,omitempty"`
-	// NextClientSecretLastFour: The last four characters of the `next_client_secret`. Null if no
-	// `next_client_secret` exists.
-	NextClientSecretLastFour  string `json:"next_client_secret_last_four,omitempty"`
-	AccessTokenCustomAudience string `json:"access_token_custom_audience,omitempty"`
-	// LogoURL: The logo URL of the Connected App, if any.
-	LogoURL string `json:"logo_url,omitempty"`
+	ClientID                      string   `json:"client_id,omitempty"`
+	ClientName                    string   `json:"client_name,omitempty"`
+	ClientDescription             string   `json:"client_description,omitempty"`
+	Status                        string   `json:"status,omitempty"`
+	FullAccessAllowed             bool     `json:"full_access_allowed,omitempty"`
+	ClientType                    string   `json:"client_type,omitempty"`
+	RedirectURLS                  []string `json:"redirect_url_s,omitempty"`
+	AccessTokenExpiryMinutes      int32    `json:"access_token_expiry_minutes,omitempty"`
+	AccessTokenTemplateContent    string   `json:"access_token_template_content,omitempty"`
+	PostLogoutRedirectURLS        []string `json:"post_logout_redirect_url_s,omitempty"`
+	BypassConsentForOfflineAccess bool     `json:"bypass_consent_for_offline_access,omitempty"`
+	ClientSecretLastFour          string   `json:"client_secret_last_four,omitempty"`
+	NextClientSecretLastFour      string   `json:"next_client_secret_last_four,omitempty"`
+	AccessTokenCustomAudience     string   `json:"access_token_custom_audience,omitempty"`
+	LogoURL                       string   `json:"logo_url,omitempty"`
 }
 
-// ConnectedAppWithClientSecret:
 type ConnectedAppWithClientSecret struct {
-	// ClientID: The ID of the Connected App client.
-	ClientID string `json:"client_id,omitempty"`
-	// ClientName: A human-readable name for the client.
-	ClientName string `json:"client_name,omitempty"`
-	// ClientDescription: A human-readable description for the client.
-	ClientDescription string `json:"client_description,omitempty"`
-	Status            string `json:"status,omitempty"`
-	// FullAccessAllowed: Valid for first party clients only. If `true`, an authorization token granted to this
-	// Client can be exchanged for a full Stytch session.
-	FullAccessAllowed bool `json:"full_access_allowed,omitempty"`
-	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
-	// `third_party`, and `third_party_public`.
-	ClientType string `json:"client_type,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS               []string `json:"redirect_url_s,omitempty"`
-	AccessTokenExpiryMinutes   int32    `json:"access_token_expiry_minutes,omitempty"`
-	AccessTokenTemplateContent string   `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
-	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
-	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
-	// ClientSecretLastFour: The last four characters of the client secret.
-	ClientSecretLastFour string `json:"client_secret_last_four,omitempty"`
-	// NextClientSecretLastFour: The last four characters of the `next_client_secret`. Null if no
-	// `next_client_secret` exists.
-	NextClientSecretLastFour string `json:"next_client_secret_last_four,omitempty"`
-	// ClientSecret: The secret of the Connected App client. **Required for confidential clients**
-	ClientSecret              string `json:"client_secret,omitempty"`
-	AccessTokenCustomAudience string `json:"access_token_custom_audience,omitempty"`
-	// LogoURL: The logo URL of the Connected App, if any.
-	LogoURL string `json:"logo_url,omitempty"`
+	ClientID                      string   `json:"client_id,omitempty"`
+	ClientName                    string   `json:"client_name,omitempty"`
+	ClientDescription             string   `json:"client_description,omitempty"`
+	Status                        string   `json:"status,omitempty"`
+	FullAccessAllowed             bool     `json:"full_access_allowed,omitempty"`
+	ClientType                    string   `json:"client_type,omitempty"`
+	RedirectURLS                  []string `json:"redirect_url_s,omitempty"`
+	AccessTokenExpiryMinutes      int32    `json:"access_token_expiry_minutes,omitempty"`
+	AccessTokenTemplateContent    string   `json:"access_token_template_content,omitempty"`
+	PostLogoutRedirectURLS        []string `json:"post_logout_redirect_url_s,omitempty"`
+	BypassConsentForOfflineAccess bool     `json:"bypass_consent_for_offline_access,omitempty"`
+	ClientSecretLastFour          string   `json:"client_secret_last_four,omitempty"`
+	NextClientSecretLastFour      string   `json:"next_client_secret_last_four,omitempty"`
+	ClientSecret                  string   `json:"client_secret,omitempty"`
+	AccessTokenCustomAudience     string   `json:"access_token_custom_audience,omitempty"`
+	LogoURL                       string   `json:"logo_url,omitempty"`
 }
 
-// ConnectedAppWithNextClientSecret:
 type ConnectedAppWithNextClientSecret struct {
-	// ClientID: The ID of the Connected App client.
-	ClientID string `json:"client_id,omitempty"`
-	// ClientName: A human-readable name for the client.
-	ClientName string `json:"client_name,omitempty"`
-	// ClientDescription: A human-readable description for the client.
-	ClientDescription string `json:"client_description,omitempty"`
-	Status            string `json:"status,omitempty"`
-	// ClientSecretLastFour: The last four characters of the client secret.
-	ClientSecretLastFour string `json:"client_secret_last_four,omitempty"`
-	// FullAccessAllowed: Valid for first party clients only. If `true`, an authorization token granted to this
-	// Client can be exchanged for a full Stytch session.
-	FullAccessAllowed bool `json:"full_access_allowed,omitempty"`
-	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
-	// `third_party`, and `third_party_public`.
-	ClientType string `json:"client_type,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS               []string `json:"redirect_url_s,omitempty"`
-	NextClientSecret           string   `json:"next_client_secret,omitempty"`
-	AccessTokenExpiryMinutes   int32    `json:"access_token_expiry_minutes,omitempty"`
-	AccessTokenTemplateContent string   `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
-	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
-	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
-	// NextClientSecretLastFour: The last four characters of the `next_client_secret`. Null if no
-	// `next_client_secret` exists.
-	NextClientSecretLastFour  string `json:"next_client_secret_last_four,omitempty"`
-	AccessTokenCustomAudience string `json:"access_token_custom_audience,omitempty"`
-	// LogoURL: The logo URL of the Connected App, if any.
-	LogoURL string `json:"logo_url,omitempty"`
+	ClientID                      string   `json:"client_id,omitempty"`
+	ClientName                    string   `json:"client_name,omitempty"`
+	ClientDescription             string   `json:"client_description,omitempty"`
+	Status                        string   `json:"status,omitempty"`
+	ClientSecretLastFour          string   `json:"client_secret_last_four,omitempty"`
+	FullAccessAllowed             bool     `json:"full_access_allowed,omitempty"`
+	ClientType                    string   `json:"client_type,omitempty"`
+	RedirectURLS                  []string `json:"redirect_url_s,omitempty"`
+	NextClientSecret              string   `json:"next_client_secret,omitempty"`
+	AccessTokenExpiryMinutes      int32    `json:"access_token_expiry_minutes,omitempty"`
+	AccessTokenTemplateContent    string   `json:"access_token_template_content,omitempty"`
+	PostLogoutRedirectURLS        []string `json:"post_logout_redirect_url_s,omitempty"`
+	BypassConsentForOfflineAccess bool     `json:"bypass_consent_for_offline_access,omitempty"`
+	NextClientSecretLastFour      string   `json:"next_client_secret_last_four,omitempty"`
+	AccessTokenCustomAudience     string   `json:"access_token_custom_audience,omitempty"`
+	LogoURL                       string   `json:"logo_url,omitempty"`
 }
 
-// ResultsMetadata:
 type ResultsMetadata struct {
-	// Total: The total number of results returned by your search query. If totals have been disabled for your
-	// Stytch Workspace to improve search performance, the value will always be -1.
-	Total int32 `json:"total,omitempty"`
-	// NextCursor: The `next_cursor` string is returned when your search result contains more than one page of
-	// results. This value is passed into your next search call in the `cursor` field.
+	Total      int32  `json:"total,omitempty"`
 	NextCursor string `json:"next_cursor,omitempty"`
 }

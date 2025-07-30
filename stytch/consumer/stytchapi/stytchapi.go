@@ -35,6 +35,7 @@ type API struct {
 	shouldSkipJWKSInitialization bool
 
 	ConnectedApp  *consumer.ConnectedAppClient
+	ConsumerRBAC  *consumer.ConsumerRBACClient
 	CryptoWallets *consumer.CryptoWalletsClient
 	Fraud         *consumer.FraudClient
 	Impersonation *consumer.ImpersonationClient
@@ -154,6 +155,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	}
 
 	a.ConnectedApp = consumer.NewConnectedAppClient(a.client)
+	a.ConsumerRBAC = consumer.NewConsumerRBACClient(a.client)
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
 	a.Fraud = consumer.NewFraudClient(a.client)
 	a.Impersonation = consumer.NewImpersonationClient(a.client)
