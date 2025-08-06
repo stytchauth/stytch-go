@@ -200,7 +200,7 @@ type StartEmailUpdateParams struct {
 	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
 	// for the member.
 	MemberID string `json:"member_id,omitempty"`
-	// EmailAddress: The email address of the Member.
+	// EmailAddress: The new email address for the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 	// LoginRedirectURL: The URL that the Member clicks from the login Email Magic Link. This URL should be an
 	// endpoint in the backend server that

@@ -81,27 +81,62 @@ type AuthenticateParams struct {
 	//
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
-	SessionCustomClaims map[string]any      `json:"session_custom_claims,omitempty"`
-	AuthorizationCheck  *AuthorizationCheck `json:"authorization_check,omitempty"`
+	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// AuthorizationCheck: If an `authorization_check` object is passed in, this endpoint will also check if
+	// the User is
+	//   authorized to perform the given action on the given Resource. A User is authorized if they are
+	// assigned a Role with adequate permissions.
+	//
+	//   If the User is not authorized to perform the specified action on the specified Resource, a 403 error
+	// will be thrown.
+	//   Otherwise, the response will contain a list of Roles that satisfied the authorization check.
+	AuthorizationCheck *AuthorizationCheck `json:"authorization_check,omitempty"`
 }
 
 // AuthenticationFactor:
 type AuthenticationFactor struct {
-	// Type: The type of authentication factor. The possible values are: `magic_link`, `otp`,
-	//        `oauth`, `password`, `email_otp`, or `sso` .
+	// Type: The type of authentication factor. The possible values are: `email_otp`, `impersonated`,
+	// `imported`,
+	//        `magic_link`, `oauth`, `otp`, `password`, `recovery_codes`, `sso`, `trusted_auth_token`, or
+	// `totp`.
 	Type AuthenticationFactorType `json:"type,omitempty"`
 	// DeliveryMethod: The method that was used to deliver the authentication factor. The possible values
 	// depend on the `type`:
 	//
+	//       `email_otp` – Only `email`.
+	//
+	//       `impersonated` – Only `impersonation`.
+	//
+	//       `imported` – Only `imported_auth0`.
+	//
 	//       `magic_link` – Only `email`.
 	//
-	//       `otp` –  Either `sms` or `email` .
+	//       `oauth` – The delivery method is determined by the specific OAuth provider used. The possible
+	// values are `oauth_google`, `oauth_microsoft`, `oauth_hubspot`, `oauth_slack`, or `oauth_github`.
 	//
-	//       `oauth` – Either `oauth_google` or `oauth_microsoft`.
+	//         In addition, you may see an 'exchange' delivery method when a non-email-verifying OAuth factor
+	// originally authenticated in one organization is exchanged for a factor in another organization.
+	//         This can happen during authentication flows such as
+	// [session exchange](https://stytch.com/docs/b2b/api/exchange-session).
+	//         The non-email-verifying OAuth providers are Hubspot, Slack, and Github.
+	//         Google is also considered non-email-verifying when the HD claim is empty.
+	//         The possible exchange values are `oauth_exchange_google`, `oauth_exchange_hubspot`,
+	// `oauth_exchange_slack`, or `oauth_exchange_github`.
+	//
+	//         The final possible value is `oauth_access_token_exchange`, if this factor came from an
+	// [access token exchange flow](https://stytch.com/docs/b2b/api/connected-app-access-token-exchange).
+	//
+	//       `otp` –  Only `sms`.
 	//
 	//       `password` – Only `knowledge`.
 	//
+	//       `recovery_codes` – Only `recovery_code`.
+	//
 	//       `sso` – Either `sso_saml` or `sso_oidc`.
+	//
+	//       `trusted_auth_token` – Only `trusted_token_exchange`.
+	//
+	//       `totp` – Only `authenticator_app`.
 	//
 	DeliveryMethod AuthenticationFactorDeliveryMethod `json:"delivery_method,omitempty"`
 	// LastAuthenticatedAt: The timestamp when the factor was last authenticated.
@@ -121,20 +156,22 @@ type AuthenticationFactor struct {
 	AppleOAuthFactor     *AppleOAuthFactor     `json:"apple_oauth_factor,omitempty"`
 	WebAuthnFactor       *WebAuthnFactor       `json:"webauthn_factor,omitempty"`
 	// AuthenticatorAppFactor: Information about the TOTP-backed Authenticator App factor, if one is present.
-	AuthenticatorAppFactor    *AuthenticatorAppFactor    `json:"authenticator_app_factor,omitempty"`
-	GithubOAuthFactor         *GithubOAuthFactor         `json:"github_oauth_factor,omitempty"`
-	RecoveryCodeFactor        *RecoveryCodeFactor        `json:"recovery_code_factor,omitempty"`
-	FacebookOAuthFactor       *FacebookOAuthFactor       `json:"facebook_oauth_factor,omitempty"`
-	CryptoWalletFactor        *CryptoWalletFactor        `json:"crypto_wallet_factor,omitempty"`
-	AmazonOAuthFactor         *AmazonOAuthFactor         `json:"amazon_oauth_factor,omitempty"`
-	BitbucketOAuthFactor      *BitbucketOAuthFactor      `json:"bitbucket_oauth_factor,omitempty"`
-	CoinbaseOAuthFactor       *CoinbaseOAuthFactor       `json:"coinbase_oauth_factor,omitempty"`
-	DiscordOAuthFactor        *DiscordOAuthFactor        `json:"discord_oauth_factor,omitempty"`
-	FigmaOAuthFactor          *FigmaOAuthFactor          `json:"figma_oauth_factor,omitempty"`
-	GitLabOAuthFactor         *GitLabOAuthFactor         `json:"git_lab_oauth_factor,omitempty"`
-	InstagramOAuthFactor      *InstagramOAuthFactor      `json:"instagram_oauth_factor,omitempty"`
-	LinkedInOAuthFactor       *LinkedInOAuthFactor       `json:"linked_in_oauth_factor,omitempty"`
-	ShopifyOAuthFactor        *ShopifyOAuthFactor        `json:"shopify_oauth_factor,omitempty"`
+	AuthenticatorAppFactor *AuthenticatorAppFactor `json:"authenticator_app_factor,omitempty"`
+	// GithubOAuthFactor: Information about the Github OAuth factor, if one is present.
+	GithubOAuthFactor    *GithubOAuthFactor    `json:"github_oauth_factor,omitempty"`
+	RecoveryCodeFactor   *RecoveryCodeFactor   `json:"recovery_code_factor,omitempty"`
+	FacebookOAuthFactor  *FacebookOAuthFactor  `json:"facebook_oauth_factor,omitempty"`
+	CryptoWalletFactor   *CryptoWalletFactor   `json:"crypto_wallet_factor,omitempty"`
+	AmazonOAuthFactor    *AmazonOAuthFactor    `json:"amazon_oauth_factor,omitempty"`
+	BitbucketOAuthFactor *BitbucketOAuthFactor `json:"bitbucket_oauth_factor,omitempty"`
+	CoinbaseOAuthFactor  *CoinbaseOAuthFactor  `json:"coinbase_oauth_factor,omitempty"`
+	DiscordOAuthFactor   *DiscordOAuthFactor   `json:"discord_oauth_factor,omitempty"`
+	FigmaOAuthFactor     *FigmaOAuthFactor     `json:"figma_oauth_factor,omitempty"`
+	GitLabOAuthFactor    *GitLabOAuthFactor    `json:"git_lab_oauth_factor,omitempty"`
+	InstagramOAuthFactor *InstagramOAuthFactor `json:"instagram_oauth_factor,omitempty"`
+	LinkedInOAuthFactor  *LinkedInOAuthFactor  `json:"linked_in_oauth_factor,omitempty"`
+	ShopifyOAuthFactor   *ShopifyOAuthFactor   `json:"shopify_oauth_factor,omitempty"`
+	// SlackOAuthFactor: Information about the Slack OAuth factor, if one is present.
 	SlackOAuthFactor          *SlackOAuthFactor          `json:"slack_oauth_factor,omitempty"`
 	SnapchatOAuthFactor       *SnapchatOAuthFactor       `json:"snapchat_oauth_factor,omitempty"`
 	SpotifyOAuthFactor        *SpotifyOAuthFactor        `json:"spotify_oauth_factor,omitempty"`
@@ -147,18 +184,25 @@ type AuthenticationFactor struct {
 	// SAMLSSOFactor: Information about the SAML SSO factor, if one is present.
 	SAMLSSOFactor *SAMLSSOFactor `json:"saml_sso_factor,omitempty"`
 	// OIDCSSOFactor: Information about the OIDC SSO factor, if one is present.
-	OIDCSSOFactor              *OIDCSSOFactor              `json:"oidc_sso_factor,omitempty"`
-	SalesforceOAuthFactor      *SalesforceOAuthFactor      `json:"salesforce_oauth_factor,omitempty"`
-	YahooOAuthFactor           *YahooOAuthFactor           `json:"yahoo_oauth_factor,omitempty"`
-	HubspotOAuthFactor         *HubspotOAuthFactor         `json:"hubspot_oauth_factor,omitempty"`
-	SlackOAuthExchangeFactor   *SlackOAuthExchangeFactor   `json:"slack_oauth_exchange_factor,omitempty"`
+	OIDCSSOFactor         *OIDCSSOFactor         `json:"oidc_sso_factor,omitempty"`
+	SalesforceOAuthFactor *SalesforceOAuthFactor `json:"salesforce_oauth_factor,omitempty"`
+	YahooOAuthFactor      *YahooOAuthFactor      `json:"yahoo_oauth_factor,omitempty"`
+	// HubspotOAuthFactor: Information about the Hubspot OAuth factor, if one is present.
+	HubspotOAuthFactor *HubspotOAuthFactor `json:"hubspot_oauth_factor,omitempty"`
+	// SlackOAuthExchangeFactor: Information about the Slack OAuth Exchange factor, if one is present.
+	SlackOAuthExchangeFactor *SlackOAuthExchangeFactor `json:"slack_oauth_exchange_factor,omitempty"`
+	// HubspotOAuthExchangeFactor: Information about the Hubspot OAuth Exchange factor, if one is present.
 	HubspotOAuthExchangeFactor *HubspotOAuthExchangeFactor `json:"hubspot_oauth_exchange_factor,omitempty"`
-	GithubOAuthExchangeFactor  *GithubOAuthExchangeFactor  `json:"github_oauth_exchange_factor,omitempty"`
-	GoogleOAuthExchangeFactor  *GoogleOAuthExchangeFactor  `json:"google_oauth_exchange_factor,omitempty"`
+	// GithubOAuthExchangeFactor: Information about the Github OAuth Exchange factor, if one is present.
+	GithubOAuthExchangeFactor *GithubOAuthExchangeFactor `json:"github_oauth_exchange_factor,omitempty"`
+	// GoogleOAuthExchangeFactor: Information about the Google OAuth Exchange factor, if one is present.
+	GoogleOAuthExchangeFactor *GoogleOAuthExchangeFactor `json:"google_oauth_exchange_factor,omitempty"`
 	// ImpersonatedFactor: Information about the impersonated factor, if one is present.
-	ImpersonatedFactor             *ImpersonatedFactor             `json:"impersonated_factor,omitempty"`
+	ImpersonatedFactor *ImpersonatedFactor `json:"impersonated_factor,omitempty"`
+	// OAuthAccessTokenExchangeFactor: Information about the access token exchange factor, if one is present.
 	OAuthAccessTokenExchangeFactor *OAuthAccessTokenExchangeFactor `json:"oauth_access_token_exchange_factor,omitempty"`
-	TrustedAuthTokenFactor         *TrustedAuthTokenFactor         `json:"trusted_auth_token_factor,omitempty"`
+	// TrustedAuthTokenFactor: Information about the trusted auth token factor, if one is present.
+	TrustedAuthTokenFactor *TrustedAuthTokenFactor `json:"trusted_auth_token_factor,omitempty"`
 }
 
 // AuthenticatorAppFactor:
@@ -167,13 +211,26 @@ type AuthenticatorAppFactor struct {
 	TOTPID string `json:"totp_id,omitempty"`
 }
 
+// AuthorizationCheck:
 type AuthorizationCheck struct {
+	// ResourceID: A unique identifier of the RBAC Resource, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
+	// default Resources with reserved `resource_id`s.
+	//
 	ResourceID string `json:"resource_id,omitempty"`
-	Action     string `json:"action,omitempty"`
+	// Action: An action to take on a Resource.
+	Action string `json:"action,omitempty"`
 }
 
+// AuthorizationVerdict:
 type AuthorizationVerdict struct {
-	Authorized    bool     `json:"authorized,omitempty"`
+	// Authorized: Whether the User was authorized to perform the specified action on the specified Resource.
+	// Always true if the request succeeds.
+	Authorized bool `json:"authorized,omitempty"`
+	// GrantingRoles: The complete list of Roles that gave the User permission to perform the specified action
+	// on the specified Resource.
 	GrantingRoles []string `json:"granting_roles,omitempty"`
 }
 
@@ -275,17 +332,26 @@ type GitLabOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+// GithubOAuthExchangeFactor:
 type GithubOAuthExchangeFactor struct {
+	// EmailID: The globally unique UUID of the Member's email.
 	EmailID string `json:"email_id,omitempty"`
 }
 
+// GithubOAuthFactor:
 type GithubOAuthFactor struct {
-	ID              string `json:"id,omitempty"`
+	// ID: The unique ID of an OAuth registration.
+	ID string `json:"id,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
-	EmailID         string `json:"email_id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
 }
 
+// GoogleOAuthExchangeFactor:
 type GoogleOAuthExchangeFactor struct {
+	// EmailID: The globally unique UUID of the Member's email.
 	EmailID string `json:"email_id,omitempty"`
 }
 
@@ -300,14 +366,21 @@ type GoogleOAuthFactor struct {
 	EmailID string `json:"email_id,omitempty"`
 }
 
+// HubspotOAuthExchangeFactor:
 type HubspotOAuthExchangeFactor struct {
+	// EmailID: The globally unique UUID of the Member's email.
 	EmailID string `json:"email_id,omitempty"`
 }
 
+// HubspotOAuthFactor:
 type HubspotOAuthFactor struct {
-	ID              string `json:"id,omitempty"`
+	// ID: The unique ID of an OAuth registration.
+	ID string `json:"id,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
-	EmailID         string `json:"email_id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
 }
 
 // ImpersonatedFactor:
@@ -381,7 +454,9 @@ type MigrateParams struct {
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
 }
 
+// OAuthAccessTokenExchangeFactor:
 type OAuthAccessTokenExchangeFactor struct {
+	// ClientID: The ID of the Connected App client.
 	ClientID string `json:"client_id,omitempty"`
 }
 
@@ -463,14 +538,21 @@ type ShopifyOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+// SlackOAuthExchangeFactor:
 type SlackOAuthExchangeFactor struct {
+	// EmailID: The globally unique UUID of the Member's email.
 	EmailID string `json:"email_id,omitempty"`
 }
 
+// SlackOAuthFactor:
 type SlackOAuthFactor struct {
-	ID              string `json:"id,omitempty"`
+	// ID: The unique ID of an OAuth registration.
+	ID string `json:"id,omitempty"`
+	// ProviderSubject: The unique identifier for the User within a given OAuth provider. Also commonly called
+	// the `sub` or "Subject field" in OAuth protocols.
 	ProviderSubject string `json:"provider_subject,omitempty"`
-	EmailID         string `json:"email_id,omitempty"`
+	// EmailID: The globally unique UUID of the Member's email.
+	EmailID string `json:"email_id,omitempty"`
 }
 
 type SnapchatOAuthFactor struct {
@@ -497,7 +579,9 @@ type TikTokOAuthFactor struct {
 	EmailID         string `json:"email_id,omitempty"`
 }
 
+// TrustedAuthTokenFactor:
 type TrustedAuthTokenFactor struct {
+	// TokenID: The ID of the trusted auth token.
 	TokenID string `json:"token_id,omitempty"`
 }
 
@@ -574,8 +658,11 @@ type AuthenticateResponse struct {
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
-	StatusCode int32                 `json:"status_code,omitempty"`
-	Verdict    *AuthorizationVerdict `json:"verdict,omitempty"`
+	StatusCode int32 `json:"status_code,omitempty"`
+	// Verdict: If an `authorization_check` is provided in the request and the check succeeds, this field will
+	// return
+	//   information about why the User was granted permission.
+	Verdict *AuthorizationVerdict `json:"verdict,omitempty"`
 }
 
 // ExchangeAccessTokenResponse: Response type for `Sessions.ExchangeAccessToken`.

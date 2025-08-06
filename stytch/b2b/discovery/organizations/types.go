@@ -72,8 +72,8 @@ type CreateParams struct {
 	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
 	//
-	//   `ALL_ALLOWED` – new Members will be automatically provisioned upon successful authentication via any
-	// of the Organization's `sso_active_connections`.
+	//   `ALL_ALLOWED` – the default setting, new Members will be automatically provisioned upon successful
+	// authentication via any of the Organization's `sso_active_connections`.
 	//
 	//   `RESTRICTED` – only new Members with SSO logins that comply with
 	// `sso_jit_provisioning_allowed_connections` can be provisioned upon authentication.
@@ -94,7 +94,7 @@ type CreateParams struct {
 	//   `RESTRICTED` – only new Members with verified emails that comply with `email_allowed_domains` can be
 	// provisioned upon authentication via Email Magic Link or OAuth.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning via Email Magic Link and OAuth.
+	//   `NOT_ALLOWED` – the default setting, disables JIT provisioning via Email Magic Link and OAuth.
 	//
 	EmailJITProvisioning string `json:"email_jit_provisioning,omitempty"`
 	// EmailInvites: The authentication setting that controls how a new Member can be invited to an
@@ -160,7 +160,7 @@ type CreateParams struct {
 	//
 	//   `RESTRICTED` – only new Members with tenants in `allowed_oauth_tenants` can JIT provision via tenant.
 	//
-	//   `NOT_ALLOWED` – disable JIT provisioning by OAuth Tenant.
+	//   `NOT_ALLOWED` – the default setting, disables JIT provisioning by OAuth Tenant.
 	//
 	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
 	// AllowedOAuthTenants: A map of allowed OAuth tenants. If this field is not passed in, the Organization
@@ -169,7 +169,8 @@ type CreateParams struct {
 	// FirstPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
 	// towards first party Connected Apps. The accepted values are:
 	//
-	//   `ALL_ALLOWED` – any first party Connected App in the Project is permitted for use by Members.
+	//   `ALL_ALLOWED` – the default setting, any first party Connected App in the Project is permitted for use
+	// by Members.
 	//
 	//   `RESTRICTED` – only first party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
 	// used by Members.
@@ -184,7 +185,8 @@ type CreateParams struct {
 	// ThirdPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
 	// towards third party Connected Apps. The accepted values are:
 	//
-	//   `ALL_ALLOWED` – any third party Connected App in the Project is permitted for use by Members.
+	//   `ALL_ALLOWED` – the default setting, any third party Connected App in the Project is permitted for use
+	// by Members.
 	//
 	//   `RESTRICTED` – only third party Connected Apps with IDs in `allowed_first_party_connected_apps` can be
 	// used by Members.

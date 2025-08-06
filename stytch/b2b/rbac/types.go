@@ -24,7 +24,7 @@ type PolicyResource struct {
 	// human-readable.
 	//
 	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
-	// default Resources with reserved  `resource_id`s. These include:
+	// default Resources with reserved `resource_id`s. These include:
 	//
 	//   * `stytch.organization`
 	//   * `stytch.member`
@@ -112,7 +112,7 @@ type PolicyRolePermission struct {
 	// human-readable.
 	//
 	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
-	// default Resources with reserved  `resource_id`s. These include:
+	// default Resources with reserved `resource_id`s. These include:
 	//
 	//   * `stytch.organization`
 	//   * `stytch.member`
@@ -120,8 +120,8 @@ type PolicyRolePermission struct {
 	//   * `stytch.self`
 	//
 	//   Check out the
-	// [guide on Stytch default Resources](https://stytch.com/docs/docs/b2b/guides/rbac/stytch-default) for a
-	// more detailed explanation.
+	// [guide on Stytch default Resources](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for a more
+	// detailed explanation.
 	//
 	//
 	ResourceID string `json:"resource_id,omitempty"`
@@ -152,7 +152,7 @@ type PolicyResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 	// Policy: The RBAC Policy document that contains all defined Roles and Resources – which are managed in
-	// the [Dashboard](https://stytch.com/docs/dashboard/rbac). Read more about these entities and how they
-	// work in our [RBAC overview](https://stytch.com/docs/b2b/guides/rbac/overview).
+	// the [Dashboard](https://stytch.com/dashboard/rbac). Read more about these entities and how they work in
+	// our [RBAC overview](https://stytch.com/docs/b2b/guides/rbac/overview).
 	Policy *Policy `json:"policy,omitempty"`
 }
