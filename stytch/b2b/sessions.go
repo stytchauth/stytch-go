@@ -614,6 +614,7 @@ func marshalJWTIntoSession(claims sessions.Claims, customClaims map[string]any) 
 		OrganizationID:        claims.Organization.ID,
 		CustomClaims:          customClaims,
 		Roles:                 claims.Session.Roles,
+		OrganizationSlug:      claims.Organization.Slug,
 	}, nil
 }
 
