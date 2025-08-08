@@ -101,7 +101,7 @@ type ConnectionImplicitRoleAssignment struct {
 // DeleteConnectionParams: Request type for `SSO.DeleteConnection`.
 type DeleteConnectionParams struct {
 	// OrganizationID: The organization ID that the SSO connection belongs to. You may also use the
-	// organization_slug here as a convenience.
+	// organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SSO connection. SAML, OIDC, and External connection IDs can be provided.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -124,7 +124,7 @@ func (o *DeleteConnectionRequestOptions) AddHeaders(headers map[string][]string)
 type GetConnectionsParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 

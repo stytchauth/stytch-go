@@ -25,7 +25,7 @@ func NewPasswordsExistingPasswordClient(c stytch.Client) *PasswordsExistingPassw
 	}
 }
 
-// Reset the member’s password using their existing password.
+// Reset the member's password using their existing password.
 //
 // This endpoint adapts to your Project's password strength configuration.
 // If you're using [zxcvbn](https://stytch.com/docs/guides/passwords/strength-policy), the default, your

@@ -29,7 +29,7 @@ type ExchangeParams struct {
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,

@@ -19,7 +19,7 @@ type RequireResetParams struct {
 	EmailAddress string `json:"email_address,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
@@ -97,7 +97,7 @@ type ResetParams struct {
 type ResetStartParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member to start the email reset process for.
 	EmailAddress string `json:"email_address,omitempty"`
