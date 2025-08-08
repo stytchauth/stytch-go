@@ -15,7 +15,7 @@ import (
 type CreateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName      string                         `json:"display_name,omitempty"`
@@ -26,7 +26,7 @@ type CreateParams struct {
 type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -36,7 +36,7 @@ type DeleteParams struct {
 type GetGroupsParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -57,7 +57,7 @@ type GetGroupsParams struct {
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -65,7 +65,7 @@ type GetParams struct {
 type RotateCancelParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -75,7 +75,7 @@ type RotateCancelParams struct {
 type RotateCompleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -85,7 +85,7 @@ type RotateCompleteParams struct {
 type RotateStartParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`
@@ -95,7 +95,7 @@ type RotateStartParams struct {
 type UpdateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: The ID of the SCIM connection.
 	ConnectionID string `json:"connection_id,omitempty"`

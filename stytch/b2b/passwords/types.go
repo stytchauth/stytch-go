@@ -17,7 +17,7 @@ import (
 type AuthenticateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
@@ -104,7 +104,7 @@ type MigrateParams struct {
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
 	Md5Config *passwords.MD5Config `json:"md_5_config,omitempty"`

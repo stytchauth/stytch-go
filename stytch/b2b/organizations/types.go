@@ -36,7 +36,7 @@ type ActiveSSOConnection struct {
 type ConnectedAppsParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -67,6 +67,11 @@ type CreateParams struct {
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
+	// OrganizationExternalID: An identifier that can be used in API calls wherever a organization_id is
+	// expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum
+	// length of 128 characters. External IDs must be unique within a project, but may be reused across
+	// different projects in the same workspace.
+	OrganizationExternalID string `json:"organization_external_id,omitempty"`
 	// SSOJITProvisioning: The authentication setting that controls the JIT provisioning of Members when
 	// authenticating via SSO. The accepted values are:
 	//
@@ -204,7 +209,7 @@ type CreateParams struct {
 type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -244,7 +249,7 @@ type EmailImplicitRoleAssignment struct {
 type GetConnectedAppParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectedAppID: The ID of the Connected App.
 	ConnectedAppID string `json:"connected_app_id,omitempty"`
@@ -267,7 +272,7 @@ func (o *GetConnectedAppRequestOptions) AddHeaders(headers map[string][]string) 
 type GetParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 }
 
@@ -318,7 +323,7 @@ type HubspotProviderInfo struct {
 type Member struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
 	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
@@ -574,7 +579,7 @@ type OIDCProviderInfo struct {
 type Organization struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	OrganizationName string `json:"organization_name,omitempty"`
@@ -720,6 +725,8 @@ type Organization struct {
 	// UpdatedAt: The timestamp of when the Organization was last updated. Values conform to the RFC 3339
 	// standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// OrganizationExternalID: A unique identifier for the organization.
+	OrganizationExternalID string `json:"organization_external_id,omitempty"`
 	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
 	SSODefaultConnectionID string `json:"sso_default_connection_id,omitempty"`
 	// SCIMActiveConnection: An active
@@ -848,7 +855,7 @@ type SlackProviderInfo struct {
 type UpdateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug here as a convenience.
+	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// OrganizationName: The name of the Organization. Must be between 1 and 128 characters in length.
 	//
@@ -874,6 +881,11 @@ type UpdateParams struct {
 	// request. You cannot
 	//           update trusted metadata when acting as a Member.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
+	// OrganizationExternalID: An identifier that can be used in API calls wherever a organization_id is
+	// expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum
+	// length of 128 characters. External IDs must be unique within a project, but may be reused across
+	// different projects in the same workspace.
+	OrganizationExternalID string `json:"organization_external_id,omitempty"`
 	// SSODefaultConnectionID: The default connection used for SSO when there are multiple active connections.
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have

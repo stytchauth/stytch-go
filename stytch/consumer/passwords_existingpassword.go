@@ -25,7 +25,7 @@ func NewPasswordsExistingPasswordClient(c stytch.Client) *PasswordsExistingPassw
 	}
 }
 
-// Reset the User’s password using their existing password.
+// Reset the User's password using their existing password.
 //
 // Note that a successful password reset via an existing password will revoke all active sessions for the
 // `user_id`.
