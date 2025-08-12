@@ -12,6 +12,7 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 )
 
 // AuthenticateParams: Request type for `OAuth.Authenticate`.
@@ -67,6 +68,11 @@ type AuthenticateParams struct {
 	// requirements, the intermediate session token will be consumed and converted to a member session. If not,
 	// the same intermediate session token will be returned.
 	IntermediateSessionToken string `json:"intermediate_session_token,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the Member. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // ProviderValues:
@@ -148,6 +154,10 @@ type AuthenticateResponse struct {
 	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
 	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 type AuthenticateRequestLocale string

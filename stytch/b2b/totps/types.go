@@ -9,6 +9,7 @@ package totps
 import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 )
 
 // AuthenticateParams: Request type for `TOTPs.Authenticate`.
@@ -78,6 +79,11 @@ type AuthenticateParams struct {
 	// authentication flow for the first time for a Member will implicitly set the method to the default MFA
 	// method. This option can be used to update the default MFA method if multiple are being used.
 	SetDefaultMFA bool `json:"set_default_mfa,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the Member. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // CreateParams: Request type for `TOTPs.Create`.
@@ -153,6 +159,10 @@ type AuthenticateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 // CreateResponse: Response type for `TOTPs.Create`.

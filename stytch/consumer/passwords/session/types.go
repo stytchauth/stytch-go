@@ -7,6 +7,7 @@ package session
 // !!!
 
 import (
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
@@ -41,6 +42,11 @@ type ResetParams struct {
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the User. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // ResetResponse: Response type for `Sessions.Reset`.
@@ -68,4 +74,8 @@ type ResetResponse struct {
 	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
+	// UserDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `user_device` response field will contain information about the user's device attributes.
+	UserDevice *devicehistory.DeviceInfo `json:"user_device,omitempty"`
 }

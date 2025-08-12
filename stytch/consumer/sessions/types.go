@@ -12,6 +12,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
 
@@ -60,6 +61,11 @@ type AttestParams struct {
 	// SessionJWT: The `session_jwt` for the session that you wish to add the trusted auth token authentication
 	// factor to.
 	SessionJWT string `json:"session_jwt,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the User. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
@@ -299,6 +305,11 @@ type ExchangeAccessTokenParams struct {
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the User. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 type FacebookOAuthFactor struct {
@@ -452,6 +463,11 @@ type MigrateParams struct {
 	//   Custom claims made with reserved claims ("iss", "sub", "aud", "exp", "nbf", "iat", "jti") will be
 	// ignored. Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the User. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // OAuthAccessTokenExchangeFactor:
@@ -634,6 +650,10 @@ type AttestResponse struct {
 	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *Session `json:"session,omitempty"`
+	// UserDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `user_device` response field will contain information about the user's device attributes.
+	UserDevice *devicehistory.DeviceInfo `json:"user_device,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.
@@ -690,6 +710,10 @@ type ExchangeAccessTokenResponse struct {
 	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *Session `json:"session,omitempty"`
+	// UserDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `user_device` response field will contain information about the user's device attributes.
+	UserDevice *devicehistory.DeviceInfo `json:"user_device,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
@@ -742,6 +766,10 @@ type MigrateResponse struct {
 	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *Session `json:"session,omitempty"`
+	// UserDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `user_device` response field will contain information about the user's device attributes.
+	UserDevice *devicehistory.DeviceInfo `json:"user_device,omitempty"`
 }
 
 // RevokeResponse: Response type for `Sessions.Revoke`.
