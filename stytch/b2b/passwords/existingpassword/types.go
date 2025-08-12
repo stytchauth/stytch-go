@@ -10,6 +10,7 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 )
 
 // ResetParams: Request type for `ExistingPassword.Reset`.
@@ -107,6 +108,10 @@ type ResetResponse struct {
 	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
 	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 type ResetRequestLocale string

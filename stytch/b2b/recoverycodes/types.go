@@ -9,6 +9,7 @@ package recoverycodes
 import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 )
 
 // GetParams: Request type for `RecoveryCodes.Get`.
@@ -134,6 +135,10 @@ type RecoverResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 // RotateResponse: Response type for `RecoveryCodes.Rotate`.

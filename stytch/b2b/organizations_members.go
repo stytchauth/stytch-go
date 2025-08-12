@@ -196,10 +196,15 @@ func (c *OrganizationsMembersClient) DeleteTOTP(
 	return &retVal, err
 }
 
+// Search:
+// **Warning**: This endpoint is not recommended for use in login flows. Scaling issues may occur, as
+// search performance may vary from ~150 milliseconds to 9 seconds depending on query complexity and rate
+// limits are set to 100 requests/second.
+//
 // Search for Members within specified Organizations. An array with at least one `organization_id` is
 // required. Submitting an empty `query` returns all non-deleted Members within the specified Organizations.
 //
-// *All fuzzy search filters require a minimum of three characters.
+// All fuzzy search filters require a minimum of three characters.
 func (c *OrganizationsMembersClient) Search(
 	ctx context.Context,
 	body *members.SearchParams,

@@ -9,6 +9,7 @@ package cryptowallets
 import (
 	"time"
 
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
@@ -126,6 +127,10 @@ type AuthenticateResponse struct {
 	Session *sessions.Session `json:"session,omitempty"`
 	// SiweParams: The parameters of the Sign In With Ethereum (SIWE) message that was signed.
 	SiweParams *SIWEParamsResponse `json:"siwe_params,omitempty"`
+	// UserDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `user_device` response field will contain information about the user's device attributes.
+	UserDevice *devicehistory.DeviceInfo `json:"user_device,omitempty"`
 }
 
 // AuthenticateStartResponse: Response type for `CryptoWallets.AuthenticateStart`.
