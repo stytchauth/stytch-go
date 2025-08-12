@@ -8,6 +8,7 @@ package magiclinks
 
 import (
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
 )
@@ -55,6 +56,11 @@ type AuthenticateParams struct {
 	// CodeVerifier: A base64url encoded one time secret used to validate that the request starts and ends on
 	// the same device.
 	CodeVerifier string `json:"code_verifier,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the User. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // CreateParams: Request type for `MagicLinks.Create`.
@@ -110,6 +116,10 @@ type AuthenticateResponse struct {
 	//   See [Session object](https://stytch.com/docs/api/session-object) for complete response fields.
 	//
 	Session *sessions.Session `json:"session,omitempty"`
+	// UserDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `user_device` response field will contain information about the user's device attributes.
+	UserDevice *devicehistory.DeviceInfo `json:"user_device,omitempty"`
 }
 
 // CreateResponse: Response type for `MagicLinks.Create`.

@@ -9,6 +9,7 @@ package sms
 import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 )
 
 // AuthenticateParams: Request type for `Sms.Authenticate`.
@@ -75,6 +76,11 @@ type AuthenticateParams struct {
 	//
 	SetMFAEnrollment string `json:"set_mfa_enrollment,omitempty"`
 	SetDefaultMFA    bool   `json:"set_default_mfa,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the Member. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // SendParams: Request type for `Sms.Send`.
@@ -141,6 +147,10 @@ type AuthenticateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 // SendResponse: Response type for `Sms.Send`.

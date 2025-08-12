@@ -13,6 +13,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
@@ -54,6 +55,11 @@ type AttestParams struct {
 	// SessionJWT: The `session_jwt` for the session that you wish to add the trusted auth token authentication
 	// factor to.
 	SessionJWT string `json:"session_jwt,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the Member. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // AuthenticateParams: Request type for `Sessions.Authenticate`.
@@ -170,6 +176,11 @@ type ExchangeAccessTokenParams struct {
 	// `exp`, `nbf`, `iat`, `jti`) will be ignored.
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the Member. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // ExchangeParams: Request type for `Sessions.Exchange`.
@@ -219,6 +230,11 @@ type ExchangeParams struct {
 	// [here](https://docs.google.com/forms/d/e/1FAIpQLScZSpAu_m2AmLXRT3F3kap-s_mcV6UTBitYn6CdyWP0-o7YjQ/viewform?usp=sf_link")!
 	//
 	Locale *ExchangeRequestLocale `json:"locale,omitempty"`
+	// TelemetryID: If the `telemetry_id` is passed, as part of this request, Stytch will call the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) and store the associated
+	// fingerprints and IPGEO information for the Member. Your workspace must be enabled for Device
+	// Fingerprinting to use this feature.
+	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
 // GetJWKSParams: Request type for `Sessions.GetJWKS`.
@@ -361,6 +377,10 @@ type AttestResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `Sessions.Authenticate`.
@@ -411,6 +431,10 @@ type ExchangeAccessTokenResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession *MemberSession `json:"member_session,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 // ExchangeResponse: Response type for `Sessions.Exchange`.
@@ -456,6 +480,10 @@ type ExchangeResponse struct {
 	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
 	// PrimaryRequired: Information about the primary authentication requirements of the Organization.
 	PrimaryRequired *PrimaryRequired `json:"primary_required,omitempty"`
+	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
+	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
+	// `member_device` response field will contain information about the member's device attributes.
+	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
