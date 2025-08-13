@@ -15,17 +15,15 @@ type CreateParams struct {
 	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
 	// `third_party`, and `third_party_public`.
 	ClientType CreateRequestClientType `json:"client_type,omitempty"`
+	// ClientName: A human-readable name for the client.
+	ClientName string `json:"client_name,omitempty"`
+	// ClientDescription: A human-readable description for the client.
+	ClientDescription string `json:"client_description,omitempty"`
 	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
 	RedirectURLS []string `json:"redirect_url_s,omitempty"`
 	// FullAccessAllowed: Valid for first party clients only. If `true`, an authorization token granted to this
 	// Client can be exchanged for a full Stytch session.
 	FullAccessAllowed bool `json:"full_access_allowed,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
-	// ClientName: A human-readable name for the client.
-	ClientName string `json:"client_name,omitempty"`
-	// ClientDescription: A human-readable description for the client.
-	ClientDescription string `json:"client_description,omitempty"`
 	// AccessTokenExpiryMinutes: The number of minutes before the access token expires. The default is 60
 	// minutes.
 	AccessTokenExpiryMinutes int32 `json:"access_token_expiry_minutes,omitempty"`
@@ -34,6 +32,8 @@ type CreateParams struct {
 	// AccessTokenTemplateContent: The content of the access token custom claims template. The template must be
 	// a valid JSON object.
 	AccessTokenTemplateContent string `json:"access_token_template_content,omitempty"`
+	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
+	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
 	// LogoURL: The logo URL of the Connected App, if any.
 	LogoURL string `json:"logo_url,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to

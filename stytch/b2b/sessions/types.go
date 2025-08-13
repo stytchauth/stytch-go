@@ -20,12 +20,12 @@ import (
 
 // AttestParams: Request type for `Sessions.Attest`.
 type AttestParams struct {
-	// OrganizationID: The organization ID that the session should be authenticated in.
-	OrganizationID string `json:"organization_id,omitempty"`
 	// ProfileID: The ID of the trusted auth token profile to use for attestation.
 	ProfileID string `json:"profile_id,omitempty"`
 	// Token: The trusted auth token to authenticate.
 	Token string `json:"token,omitempty"`
+	// OrganizationID: The organization ID that the session should be authenticated in.
+	OrganizationID string `json:"organization_id,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,
 	//   returning both an opaque `session_token` and `session_jwt` for this session. Remember that the

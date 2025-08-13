@@ -49,7 +49,6 @@ type API struct {
 	TOTPs         *consumer.TOTPsClient
 	Users         *consumer.UsersClient
 	WebAuthn      *consumer.WebAuthnClient
-	IDP           *consumer.IDPClient
 }
 
 type Option func(*API)
@@ -172,7 +171,6 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.Users = consumer.NewUsersClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
-	a.IDP = consumer.NewIDPClient(a.client, jwks, policyCache)
 
 	return a, nil
 }

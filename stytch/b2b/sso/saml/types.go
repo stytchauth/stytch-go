@@ -58,8 +58,8 @@ type UpdateConnectionParams struct {
 	OrganizationID string `json:"organization_id,omitempty"`
 	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
 	ConnectionID string `json:"connection_id,omitempty"`
-	// IdpEntityID: A globally unique name for the IdP. This will be provided by the IdP.
-	IdpEntityID string `json:"idp_entity_id,omitempty"`
+	// IDPEntityID: A globally unique name for the IdP. This will be provided by the IdP.
+	IDPEntityID string `json:"idp_entity_id,omitempty"`
 	// DisplayName: A human-readable display name for the connection.
 	DisplayName string `json:"display_name,omitempty"`
 	// AttributeMapping: An object that represents the attributes used to identify a Member. This object will
@@ -70,9 +70,9 @@ type UpdateConnectionParams struct {
 	// [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format. See our
 	// [X509 guide](https://stytch.com/docs/b2b/api/saml-certificates) for more info.
 	X509Certificate string `json:"x509_certificate,omitempty"`
-	// IdpSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
+	// IDPSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
 	// IdP.
-	IdpSSOURL string `json:"idp_sso_url,omitempty"`
+	IDPSSOURL string `json:"idp_sso_url,omitempty"`
 	// SAMLConnectionImplicitRoleAssignments: All Members who log in with this SAML connection will implicitly
 	// receive the specified Roles. See the
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
@@ -113,9 +113,9 @@ type UpdateConnectionParams struct {
 	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
 	// for more info.
 	AlternativeAcsURL string `json:"alternative_acs_url,omitempty"`
-	// IdpInitiatedAuthDisabled: Determines whether IDP initiated auth is allowed for a given SAML connection.
+	// IDPInitiatedAuthDisabled: Determines whether IDP initiated auth is allowed for a given SAML connection.
 	// Defaults to false (IDP Initiated Auth is enabled).
-	IdpInitiatedAuthDisabled bool `json:"idp_initiated_auth_disabled,omitempty"`
+	IDPInitiatedAuthDisabled bool `json:"idp_initiated_auth_disabled,omitempty"`
 }
 
 // CreateConnectionRequestOptions:
