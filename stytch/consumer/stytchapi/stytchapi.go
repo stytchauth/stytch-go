@@ -37,6 +37,7 @@ type API struct {
 	ConnectedApp  *consumer.ConnectedAppClient
 	CryptoWallets *consumer.CryptoWalletsClient
 	Fraud         *consumer.FraudClient
+	IDP           *consumer.IDPClient
 	Impersonation *consumer.ImpersonationClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *consumer.MagicLinksClient
@@ -49,7 +50,6 @@ type API struct {
 	TOTPs         *consumer.TOTPsClient
 	Users         *consumer.UsersClient
 	WebAuthn      *consumer.WebAuthnClient
-	IDP           *consumer.IDPClient
 }
 
 type Option func(*API)
@@ -160,6 +160,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.ConnectedApp = consumer.NewConnectedAppClient(a.client)
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
 	a.Fraud = consumer.NewFraudClient(a.client)
+	a.IDP = consumer.NewIDPClient(a.client, jwks, policyCache)
 	a.Impersonation = consumer.NewImpersonationClient(a.client)
 	a.M2M = consumer.NewM2MClient(a.client, jwks)
 	a.MagicLinks = consumer.NewMagicLinksClient(a.client)
@@ -172,7 +173,6 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.TOTPs = consumer.NewTOTPsClient(a.client)
 	a.Users = consumer.NewUsersClient(a.client)
 	a.WebAuthn = consumer.NewWebAuthnClient(a.client)
-	a.IDP = consumer.NewIDPClient(a.client, jwks, policyCache)
 
 	return a, nil
 }

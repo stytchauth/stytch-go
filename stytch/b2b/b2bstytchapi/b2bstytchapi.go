@@ -38,6 +38,7 @@ type API struct {
 	ConnectedApp  *consumer.ConnectedAppClient
 	Discovery     *b2b.DiscoveryClient
 	Fraud         *consumer.FraudClient
+	IDP           *b2b.IDPClient
 	Impersonation *b2b.ImpersonationClient
 	M2M           *consumer.M2MClient
 	MagicLinks    *b2b.MagicLinksClient
@@ -52,7 +53,6 @@ type API struct {
 	SSO           *b2b.SSOClient
 	Sessions      *b2b.SessionsClient
 	TOTPs         *b2b.TOTPsClient
-	IDP           *b2b.IDPClient
 }
 
 type Option func(*API)
@@ -163,6 +163,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.ConnectedApp = consumer.NewConnectedAppClient(a.client)
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
 	a.Fraud = consumer.NewFraudClient(a.client)
+	a.IDP = b2b.NewIDPClient(a.client, jwks, policyCache)
 	a.Impersonation = b2b.NewImpersonationClient(a.client)
 	a.M2M = consumer.NewM2MClient(a.client, jwks)
 	a.MagicLinks = b2b.NewMagicLinksClient(a.client)
@@ -177,7 +178,6 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	a.SSO = b2b.NewSSOClient(a.client)
 	a.Sessions = b2b.NewSessionsClient(a.client, jwks, policyCache)
 	a.TOTPs = b2b.NewTOTPsClient(a.client)
-	a.IDP = b2b.NewIDPClient(a.client, jwks, policyCache)
 
 	return a, nil
 }

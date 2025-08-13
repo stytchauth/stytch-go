@@ -8,16 +8,7 @@ package consumer
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
-	"net/url"
-	"strings"
-	"time"
 
-	"github.com/MicahParks/keyfunc/v2"
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/config"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/idp"
@@ -28,6 +19,7 @@ import (
 
 type IDPClient struct {
 	C           stytch.Client
+	OAuth       *IDPOAuthClient
 	JWKS        *keyfunc.JWKS
 	PolicyCache *PolicyCache
 }
@@ -37,6 +29,8 @@ func NewIDPClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache)
 		C:           c,
 		JWKS:        jwks,
 		PolicyCache: policyCache,
+
+		OAuth: NewIDPOAuthClient(c),
 	}
 }
 
