@@ -8,9 +8,20 @@ package b2b
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strings"
+	"time"
 
+	"github.com/MicahParks/keyfunc/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 	"github.com/stytchauth/stytch-go/v16/stytch/config"
 	"github.com/stytchauth/stytch-go/v16/stytch/shared"
 	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
@@ -34,7 +45,16 @@ func NewIDPClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache)
 }
 
 // MANUAL(IntrospectTokenNetwork)(SERVICE_METHOD)
+// ADDIMPORT: "io"
+// ADDIMPORT: "fmt"
+// ADDIMPORT: "net/http"
+// ADDIMPORT: "net/url"
+// ADDIMPORT: "strings"
 // ADDIMPORT: "context"
+// ADDIMPORT: "encoding/json"
+// ADDIMPORT: "time"
+// ADDIMPORT: "github.com/golang-jwt/jwt/v5"
+// ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/shared"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/config"
