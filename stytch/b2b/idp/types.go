@@ -13,6 +13,17 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 )
 
+// ScopeResult:
+type ScopeResult struct {
+	// Scope: The name of the scope.
+	Scope string `json:"scope,omitempty"`
+	// Description: A human-readable description of the scope, taken from the RBAC Policy.
+	Description string `json:"description,omitempty"`
+	// IsGrantable: Indicates whether the scope can be granted. Users can only grant scopes if they have the
+	// required permissions.
+	IsGrantable bool `json:"is_grantable,omitempty"`
+}
+
 // MANUAL(Types)(TYPES)
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"

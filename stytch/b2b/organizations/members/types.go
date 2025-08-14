@@ -338,7 +338,8 @@ type UpdateParams struct {
 	// request, the authorization check will also allow a Member Session that has permission to perform the
 	// `update.settings.default-mfa-method` action on the `stytch.self` Resource.
 	DefaultMFAMethod string `json:"default_mfa_method,omitempty"`
-	// EmailAddress: Updates the Member's `email_address`, if provided.
+	// EmailAddress: Updates the Member's `email_address`, if provided. This will clear any existing passwords
+	// and require re-verification of the new email address.
 	//         If a Member's email address is changed, other Members in the same Organization cannot use the
 	// old email address, although the Member may update back to their old email address.
 	//         A Member's email address can only be useable again by other Members if the Member is deleted.

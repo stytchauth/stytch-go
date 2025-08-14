@@ -188,9 +188,9 @@ type SAMLConnection struct {
 	OrganizationID                        string                                 `json:"organization_id,omitempty"`
 	ConnectionID                          string                                 `json:"connection_id,omitempty"`
 	Status                                string                                 `json:"status,omitempty"`
-	IdpEntityID                           string                                 `json:"idp_entity_id,omitempty"`
+	IDPEntityID                           string                                 `json:"idp_entity_id,omitempty"`
 	DisplayName                           string                                 `json:"display_name,omitempty"`
-	IdpSSOURL                             string                                 `json:"idp_sso_url,omitempty"`
+	IDPSSOURL                             string                                 `json:"idp_sso_url,omitempty"`
 	AcsURL                                string                                 `json:"acs_url,omitempty"`
 	AudienceURI                           string                                 `json:"audience_uri,omitempty"`
 	SigningCertificates                   []X509Certificate                      `json:"signing_certificates,omitempty"`
@@ -201,7 +201,7 @@ type SAMLConnection struct {
 	IdentityProvider                      string                                 `json:"identity_provider,omitempty"`
 	NameidFormat                          string                                 `json:"nameid_format,omitempty"`
 	AlternativeAcsURL                     string                                 `json:"alternative_acs_url,omitempty"`
-	IdpInitiatedAuthDisabled              bool                                   `json:"idp_initiated_auth_disabled,omitempty"`
+	IDPInitiatedAuthDisabled              bool                                   `json:"idp_initiated_auth_disabled,omitempty"`
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 

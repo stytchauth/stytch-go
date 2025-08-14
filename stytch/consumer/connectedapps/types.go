@@ -40,6 +40,14 @@ type ConnectedApp struct {
 	LogoURL string `json:"logo_url,omitempty"`
 }
 
+type ConnectedAppPublic struct {
+	ClientID          string `json:"client_id,omitempty"`
+	ClientName        string `json:"client_name,omitempty"`
+	ClientDescription string `json:"client_description,omitempty"`
+	ClientType        string `json:"client_type,omitempty"`
+	LogoURL           string `json:"logo_url,omitempty"`
+}
+
 // ConnectedAppWithClientSecret:
 type ConnectedAppWithClientSecret struct {
 	// ClientID: The ID of the Connected App client.

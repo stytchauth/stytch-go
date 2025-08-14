@@ -200,8 +200,11 @@ type MigrateParams struct {
 	// ExternalID: If a new user is created, this will set an identifier that can be used in API calls wherever
 	// a user_id is expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters
 	// with a maximum length of 128 characters.
-	ExternalID string   `json:"external_id,omitempty"`
-	Roles      []string `json:"roles,omitempty"`
+	ExternalID string `json:"external_id,omitempty"`
+	// Roles to explicitly assign to this User.
+	//    See the [RBAC guide](https://stytch.com/docs/guides/rbac/role-assignment) for more information about
+	// role assignment.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // PBKDF2Config:

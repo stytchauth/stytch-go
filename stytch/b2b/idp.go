@@ -29,6 +29,7 @@ import (
 
 type IDPClient struct {
 	C           stytch.Client
+	OAuth       *IDPOAuthClient
 	JWKS        *keyfunc.JWKS
 	PolicyCache *PolicyCache
 }
@@ -38,11 +39,22 @@ func NewIDPClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache)
 		C:           c,
 		JWKS:        jwks,
 		PolicyCache: policyCache,
+
+		OAuth: NewIDPOAuthClient(c),
 	}
 }
 
 // MANUAL(IntrospectTokenNetwork)(SERVICE_METHOD)
+// ADDIMPORT: "io"
+// ADDIMPORT: "fmt"
+// ADDIMPORT: "net/http"
+// ADDIMPORT: "net/url"
+// ADDIMPORT: "strings"
 // ADDIMPORT: "context"
+// ADDIMPORT: "encoding/json"
+// ADDIMPORT: "time"
+// ADDIMPORT: "github.com/golang-jwt/jwt/v5"
+// ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/shared"
 // ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/config"
