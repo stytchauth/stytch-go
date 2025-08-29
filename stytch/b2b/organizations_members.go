@@ -95,6 +95,8 @@ func (c *OrganizationsMembersClient) Delete(
 // Reactivate: Reactivates a deleted Member's status and its associated email status (if applicable) to
 // active, specified by `organization_id` and `member_id`. This endpoint will only work for Members with at
 // least one verified email where their `email_address_verified` is `true`.
+//
+// Note that this endpoint does not accept an `external_id`. The Stytch `member_id` must be provided.
 func (c *OrganizationsMembersClient) Reactivate(
 	ctx context.Context,
 	body *members.ReactivateParams,

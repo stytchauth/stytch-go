@@ -241,11 +241,13 @@ type SearchParams struct {
 
 // SearchUsersQuery:
 type SearchUsersQuery struct {
-	// Operator: The action to perform on the operands. The accepted value are:
+	// Operator: The action to perform on the operands. The accepted values are:
 	//
 	//   `AND` – all the operand values provided must match.
 	//
-	//   `OR` – the operator will return any matches to at least one of the operand values you supply.
+	//   `OR` – **[DEPRECATED]** the operator will return any matches to at least one of the operand values you
+	// supply. This parameter is retained for legacy use cases only and is no longer supported. We strongly
+	// recommend breaking down complex queries into multiple search queries instead.
 	Operator SearchUsersQueryOperator `json:"operator,omitempty"`
 	// Operands: An array of operand objects that contains all of the filters and values to apply to your
 	// search search query.

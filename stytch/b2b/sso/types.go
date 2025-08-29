@@ -126,6 +126,12 @@ func (o *DeleteConnectionRequestOptions) AddHeaders(headers map[string][]string)
 	return headers
 }
 
+type EncryptionPrivateKey struct {
+	PrivateKeyID string     `json:"private_key_id,omitempty"`
+	PrivateKey   string     `json:"private_key,omitempty"`
+	CreatedAt    *time.Time `json:"created_at,omitempty"`
+}
+
 // GetConnectionsParams: Request type for `SSO.GetConnections`.
 type GetConnectionsParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -195,6 +201,7 @@ type SAMLConnection struct {
 	AudienceURI                           string                                 `json:"audience_uri,omitempty"`
 	SigningCertificates                   []X509Certificate                      `json:"signing_certificates,omitempty"`
 	VerificationCertificates              []X509Certificate                      `json:"verification_certificates,omitempty"`
+	EncryptionPrivateKeys                 []EncryptionPrivateKey                 `json:"encryption_private_keys,omitempty"`
 	SAMLConnectionImplicitRoleAssignments []SAMLConnectionImplicitRoleAssignment `json:"saml_connection_implicit_role_assignments,omitempty"`
 	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
 	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`

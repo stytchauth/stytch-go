@@ -171,3 +171,29 @@ func (c *SSOSAMLClient) DeleteVerificationCertificate(
 	)
 	return &retVal, err
 }
+
+// DeleteEncryptionPrivateKey: Delete a SAML encryption private key.
+func (c *SSOSAMLClient) DeleteEncryptionPrivateKey(
+	ctx context.Context,
+	body *saml.DeleteEncryptionPrivateKeyParams,
+	methodOptions ...*saml.DeleteEncryptionPrivateKeyRequestOptions,
+) (*saml.DeleteEncryptionPrivateKeyResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal saml.DeleteEncryptionPrivateKeyResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/encryption_private_keys/%s", body.OrganizationID, body.ConnectionID, body.PrivateKeyID),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}

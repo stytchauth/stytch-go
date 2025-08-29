@@ -39,8 +39,8 @@ type PolicyRole struct {
 	// human-readable.
 	//
 	//   The `stytch_user` `role_id` is predefined by Stytch.
-	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/guides/rbac/stytch-default) for
-	// a more detailed explanation.
+	//   Check out the [RBAC guide](https://stytch.com/docs/guides/rbac/overview) for a more detailed
+	// explanation.
 	//
 	RoleID string `json:"role_id,omitempty"`
 	// Description: The description of the RBAC Role.

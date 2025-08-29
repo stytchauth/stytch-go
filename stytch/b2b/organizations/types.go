@@ -335,14 +335,16 @@ type Member struct {
 	Status string `json:"status,omitempty"`
 	// Name: The name of the Member.
 	Name string `json:"name,omitempty"`
-	// SSORegistrations: An array of registered [SAML Connection](saml-connection-object) or
-	// [OIDC Connection](oidc-connection-object) objects the Member has authenticated with.
+	// SSORegistrations: An array of registered
+	// [SAML Connection](https://stytch.com/docs/b2b/api/saml-connection-object) or
+	// [OIDC Connection](https://stytch.com/docs/b2b/api/oidc-connection-object) objects the Member has
+	// authenticated with.
 	SSORegistrations []SSORegistration `json:"sso_registrations,omitempty"`
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
 	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
-	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
-	// more details.
+	// [Organization object](https://stytch.com/docs/b2b/api/organization-object) and its `auth_methods` and
+	// `allowed_auth_methods` fields for more details.
 	IsBreakglass bool `json:"is_breakglass,omitempty"`
 	// MemberPasswordID: Globally unique UUID that identifies a Member's password.
 	MemberPasswordID string `json:"member_password_id,omitempty"`
@@ -403,8 +405,9 @@ type Member struct {
 	// UpdatedAt: The timestamp of when the Member was last updated. Values conform to the RFC 3339 standard
 	// and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// SCIMRegistration: A scim member registration, referencing a [SCIM Connection](scim-connection-object)
-	// object in use for the Member creation.
+	// SCIMRegistration: A scim member registration, referencing a
+	// [SCIM Connection](https://stytch.com/docs/b2b/api/scim-connection-object) object in use for the Member
+	// creation.
 	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
 	// ExternalID: The ID of the member given by the identity provider.
 	ExternalID    string     `json:"external_id,omitempty"`
@@ -816,11 +819,13 @@ type SearchParams struct {
 
 // SearchQuery:
 type SearchQuery struct {
-	// Operator: The action to perform on the operands. The accepted value are:
+	// Operator: The action to perform on the operands. The accepted values are:
 	//
 	//   `AND` – all the operand values provided must match.
 	//
-	//   `OR` – the operator will return any matches to at least one of the operand values you supply.
+	//   `OR` – **[DEPRECATED]** the operator will return any matches to at least one of the operand values you
+	// supply. This parameter is retained for legacy use cases only and is no longer supported. We strongly
+	// recommend breaking down complex queries into multiple search queries instead.
 	Operator SearchQueryOperator `json:"operator,omitempty"`
 	// Operands: An array of operand objects that contains all of the filters and values to apply to your
 	// search query.

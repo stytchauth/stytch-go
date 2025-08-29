@@ -39,8 +39,8 @@ type CreateParams struct {
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
 	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
-	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
-	// more details.
+	// [Organization object](https://stytch.com/docs/b2b/api/organization-object) and its `auth_methods` and
+	// `allowed_auth_methods` fields for more details.
 	IsBreakglass bool `json:"is_breakglass,omitempty"`
 	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number. The phone number
 	// should be in E.164 format (i.e. +1XXXXXXXXXX).
@@ -53,7 +53,7 @@ type CreateParams struct {
 	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment)
 	//    for more information about role assignment.
 	Roles []string `json:"roles,omitempty"`
-	// ExternalID: An identifier that can be used in API calls wherever a member_id is expected. This is a
+	// ExternalID: An identifier that can be used in most API calls where a `member_id` is expected. This is a
 	// string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128
 	// characters. External IDs must be unique within an organization, but may be reused across different
 	// organizations in the same project.
@@ -164,8 +164,7 @@ type ReactivateParams struct {
 	// the organization_slug or organization_external_id here as a convenience.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// MemberID: Globally unique UUID that identifies a specific Member. The `member_id` is critical to perform
-	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
-	// for the member.
+	// operations on a Member, so be sure to preserve this value.
 	MemberID string `json:"member_id,omitempty"`
 }
 
@@ -280,8 +279,8 @@ type UpdateParams struct {
 	// IsBreakglass: Identifies the Member as a break glass user - someone who has permissions to authenticate
 	// into an Organization by bypassing the Organization's settings. A break glass account is typically used
 	// for emergency purposes to gain access outside of normal authentication procedures. Refer to the
-	// [Organization object](organization-object) and its `auth_methods` and `allowed_auth_methods` fields for
-	// more details.
+	// [Organization object](https://stytch.com/docs/b2b/api/organization-object) and its `auth_methods` and
+	// `allowed_auth_methods` fields for more details.
 	//
 	// If this field is provided and a session header is passed into the request, the Member Session must have
 	// permission to perform the `update.settings.is-breakglass` action on the `stytch.member` Resource.
@@ -348,7 +347,7 @@ type UpdateParams struct {
 	// permission to perform the `update.info.email` action on the `stytch.member` Resource. Members cannot
 	// update their own email address.
 	EmailAddress string `json:"email_address,omitempty"`
-	// ExternalID: An identifier that can be used in API calls wherever a member_id is expected. This is a
+	// ExternalID: An identifier that can be used in most API calls where a `member_id` is expected. This is a
 	// string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128
 	// characters. External IDs must be unique within an organization, but may be reused across different
 	// organizations in the same project.
@@ -655,7 +654,7 @@ type SearchResponse struct {
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
 	// debug an issue.
 	RequestID string `json:"request_id,omitempty"`
-	// Members: An array of [Member objects](member-object).
+	// Members: An array of [Member objects](https://stytch.com/docs/b2b/api/member-object).
 	Members []organizations.Member `json:"members,omitempty"`
 	// ResultsMetadata: The search `results_metadata` object contains metadata relevant to your specific query
 	// like `total` and `next_cursor`.
