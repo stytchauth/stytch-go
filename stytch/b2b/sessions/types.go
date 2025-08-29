@@ -22,9 +22,11 @@ import (
 type AttestParams struct {
 	// ProfileID: The ID of the trusted auth token profile to use for attestation.
 	ProfileID string `json:"profile_id,omitempty"`
-	// Token: The trusted auth token to authenticate.
+	// Token: The trusted auth token to authenticate. The token must have an organization ID claim if JIT
+	// provisioning is enabled.
 	Token string `json:"token,omitempty"`
-	// OrganizationID: The organization ID that the session should be authenticated in.
+	// OrganizationID: The organization ID that the session should be authenticated in. Must be provided if the
+	// trusted auth token does not have an organization ID claim.
 	OrganizationID string `json:"organization_id,omitempty"`
 	// SessionDurationMinutes: Set the session lifetime to be this many minutes from now. This will start a new
 	// session if one doesn't already exist,

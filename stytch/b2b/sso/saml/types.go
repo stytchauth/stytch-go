@@ -27,6 +27,18 @@ type CreateConnectionParams struct {
 	IdentityProvider *CreateConnectionRequestIdentityProvider `json:"identity_provider,omitempty"`
 }
 
+// DeleteEncryptionPrivateKeyParams: Request type for `SAML.DeleteEncryptionPrivateKey`.
+type DeleteEncryptionPrivateKeyParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific SSO `connection_id` for a Member.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// PrivateKeyID: The ID of the encryption private key to be deleted.
+	PrivateKeyID string `json:"private_key_id,omitempty"`
+}
+
 // DeleteVerificationCertificateParams: Request type for `SAML.DeleteVerificationCertificate`.
 type DeleteVerificationCertificateParams struct {
 	// OrganizationID: The organization ID that the SAML connection belongs to. You may also use the
@@ -116,6 +128,9 @@ type UpdateConnectionParams struct {
 	// IDPInitiatedAuthDisabled: Determines whether IDP initiated auth is allowed for a given SAML connection.
 	// Defaults to false (IDP Initiated Auth is enabled).
 	IDPInitiatedAuthDisabled bool `json:"idp_initiated_auth_disabled,omitempty"`
+	// SAMLEncryptionPrivateKey: A PKCS1 format RSA private key used to decrypt encrypted SAML assertions. Only
+	// PKCS1 format (starting with "-----BEGIN RSA PRIVATE KEY-----") is supported.
+	SAMLEncryptionPrivateKey string `json:"saml_encryption_private_key,omitempty"`
 }
 
 // CreateConnectionRequestOptions:
@@ -127,6 +142,19 @@ type CreateConnectionRequestOptions struct {
 }
 
 func (o *CreateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteEncryptionPrivateKeyRequestOptions:
+type DeleteEncryptionPrivateKeyRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteEncryptionPrivateKeyRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
 }
@@ -184,6 +212,20 @@ type CreateConnectionResponse struct {
 	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
 	// field details.
 	Connection *sso.SAMLConnection `json:"connection,omitempty"`
+}
+
+// DeleteEncryptionPrivateKeyResponse: Response type for `SAML.DeleteEncryptionPrivateKey`.
+type DeleteEncryptionPrivateKeyResponse struct {
+	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
+	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
+	// debug an issue.
+	RequestID string `json:"request_id,omitempty"`
+	// PrivateKeyID: The ID of the encryption private key.
+	PrivateKeyID string `json:"private_key_id,omitempty"`
+	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
+	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
+	// are server errors.
+	StatusCode int32 `json:"status_code,omitempty"`
 }
 
 // DeleteVerificationCertificateResponse: Response type for `SAML.DeleteVerificationCertificate`.
