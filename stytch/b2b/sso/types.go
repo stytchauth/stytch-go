@@ -209,6 +209,7 @@ type SAMLConnection struct {
 	NameidFormat                          string                                 `json:"nameid_format,omitempty"`
 	AlternativeAcsURL                     string                                 `json:"alternative_acs_url,omitempty"`
 	IDPInitiatedAuthDisabled              bool                                   `json:"idp_initiated_auth_disabled,omitempty"`
+	AllowGatewayCallback                  bool                                   `json:"allow_gateway_callback,omitempty"`
 	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
 }
 
