@@ -131,6 +131,7 @@ type UpdateConnectionParams struct {
 	// SAMLEncryptionPrivateKey: A PKCS1 format RSA private key used to decrypt encrypted SAML assertions. Only
 	// PKCS1 format (starting with "-----BEGIN RSA PRIVATE KEY-----") is supported.
 	SAMLEncryptionPrivateKey string `json:"saml_encryption_private_key,omitempty"`
+	AllowGatewayCallback     bool   `json:"allow_gateway_callback,omitempty"`
 }
 
 // CreateConnectionRequestOptions:
