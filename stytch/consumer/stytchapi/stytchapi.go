@@ -36,6 +36,7 @@ type API struct {
 
 	ConnectedApp  *consumer.ConnectedAppClient
 	CryptoWallets *consumer.CryptoWalletsClient
+	Debug         *consumer.DebugClient
 	Fraud         *consumer.FraudClient
 	IDP           *consumer.IDPClient
 	Impersonation *consumer.ImpersonationClient
@@ -159,6 +160,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 
 	a.ConnectedApp = consumer.NewConnectedAppClient(a.client)
 	a.CryptoWallets = consumer.NewCryptoWalletsClient(a.client)
+	a.Debug = consumer.NewDebugClient(a.client)
 	a.Fraud = consumer.NewFraudClient(a.client)
 	a.IDP = consumer.NewIDPClient(a.client, jwks, policyCache)
 	a.Impersonation = consumer.NewImpersonationClient(a.client)
