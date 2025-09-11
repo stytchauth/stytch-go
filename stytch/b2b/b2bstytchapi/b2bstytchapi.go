@@ -36,6 +36,7 @@ type API struct {
 	shouldSkipJWKSInitialization bool
 
 	ConnectedApp  *consumer.ConnectedAppClient
+	Debug         *consumer.DebugClient
 	Discovery     *b2b.DiscoveryClient
 	Fraud         *consumer.FraudClient
 	IDP           *b2b.IDPClient
@@ -161,6 +162,7 @@ func NewClient(projectID string, secret string, opts ...Option) (*API, error) {
 	}
 
 	a.ConnectedApp = consumer.NewConnectedAppClient(a.client)
+	a.Debug = consumer.NewDebugClient(a.client)
 	a.Discovery = b2b.NewDiscoveryClient(a.client)
 	a.Fraud = consumer.NewFraudClient(a.client)
 	a.IDP = b2b.NewIDPClient(a.client, jwks, policyCache)
