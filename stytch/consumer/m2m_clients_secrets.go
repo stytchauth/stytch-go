@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/m2m/clients/secrets"
@@ -55,7 +56,7 @@ func (c *M2MClientsSecretsClient) RotateStart(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/start", body.ClientID),
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/start", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -90,7 +91,7 @@ func (c *M2MClientsSecretsClient) RotateCancel(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/cancel", body.ClientID),
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate/cancel", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -125,7 +126,7 @@ func (c *M2MClientsSecretsClient) Rotate(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate", body.ClientID),
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s/secrets/rotate", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,

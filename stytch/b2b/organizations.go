@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
@@ -80,7 +81,7 @@ func (c *OrganizationsClient) Get(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -120,7 +121,7 @@ func (c *OrganizationsClient) Update(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -147,7 +148,7 @@ func (c *OrganizationsClient) Delete(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -204,7 +205,7 @@ func (c *OrganizationsClient) Metrics(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/metrics", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/metrics", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -236,7 +237,7 @@ func (c *OrganizationsClient) ConnectedApps(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -266,7 +267,7 @@ func (c *OrganizationsClient) GetConnectedApp(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps/%s", body.OrganizationID, body.ConnectedAppID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectedAppID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

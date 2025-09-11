@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sso/oidc"
@@ -51,7 +52,7 @@ func (c *SSOOIDCClient) CreateConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/sso/oidc/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/oidc/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -111,7 +112,7 @@ func (c *SSOOIDCClient) UpdateConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/sso/oidc/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/oidc/%s/connections/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,

@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sso/saml"
@@ -51,7 +52,7 @@ func (c *SSOSAMLClient) CreateConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -92,7 +93,7 @@ func (c *SSOSAMLClient) UpdateConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -133,7 +134,7 @@ func (c *SSOSAMLClient) UpdateByURL(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/url", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/url", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -162,7 +163,7 @@ func (c *SSOSAMLClient) DeleteVerificationCertificate(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/verification_certificates/%s", body.OrganizationID, body.ConnectionID, body.CertificateID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/verification_certificates/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID), url.PathEscape(body.CertificateID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -188,7 +189,7 @@ func (c *SSOSAMLClient) DeleteEncryptionPrivateKey(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/encryption_private_keys/%s", body.OrganizationID, body.ConnectionID, body.PrivateKeyID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/saml/%s/connections/%s/encryption_private_keys/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID), url.PathEscape(body.PrivateKeyID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

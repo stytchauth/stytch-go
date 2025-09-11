@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations/members"
@@ -56,7 +57,7 @@ func (c *OrganizationsMembersClient) Update(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -82,7 +83,7 @@ func (c *OrganizationsMembersClient) Delete(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -121,7 +122,7 @@ func (c *OrganizationsMembersClient) Reactivate(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/reactivate", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/reactivate", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -156,7 +157,7 @@ func (c *OrganizationsMembersClient) DeleteMFAPhoneNumber(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/mfa_phone_numbers/%s", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/mfa_phone_numbers/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -188,7 +189,7 @@ func (c *OrganizationsMembersClient) DeleteTOTP(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/totp", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/totp", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -261,7 +262,7 @@ func (c *OrganizationsMembersClient) DeletePassword(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/passwords/%s", body.OrganizationID, body.MemberPasswordID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/passwords/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberPasswordID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -295,7 +296,7 @@ func (c *OrganizationsMembersClient) DangerouslyGet(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/members/dangerously_get/%s", body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/members/dangerously_get/%s", url.PathEscape(body.MemberID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,
@@ -330,7 +331,7 @@ func (c *OrganizationsMembersClient) OIDCProviders(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oidc_providers", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oidc_providers", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,
@@ -383,7 +384,7 @@ func (c *OrganizationsMembersClient) UnlinkRetiredEmail(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/unlink_retired_email", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/unlink_retired_email", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -436,7 +437,7 @@ func (c *OrganizationsMembersClient) StartEmailUpdate(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/start_email_update", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/start_email_update", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -469,7 +470,7 @@ func (c *OrganizationsMembersClient) GetConnectedApps(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/connected_apps", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/connected_apps", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -504,7 +505,7 @@ func (c *OrganizationsMembersClient) Create(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -532,7 +533,7 @@ func (c *OrganizationsMembersClient) Get(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/member", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/member", url.PathEscape(body.OrganizationID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,

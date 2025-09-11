@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations/members/connectedapps"
@@ -55,7 +56,7 @@ func (c *OrganizationsMembersConnectedAppsClient) Revoke(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/connected_apps/%s/revoke", body.OrganizationID, body.MemberID, body.ConnectedAppID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/connected_apps/%s/revoke", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID), url.PathEscape(body.ConnectedAppID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,

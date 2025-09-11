@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v16/stytch"
@@ -50,7 +51,7 @@ func (c *SSOClient) GetConnections(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/sso/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -76,7 +77,7 @@ func (c *SSOClient) DeleteConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/sso/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/%s/connections/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

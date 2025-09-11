@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/recoverycodes"
@@ -70,7 +71,7 @@ func (c *RecoveryCodesClient) Get(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/recovery_codes/%s/%s", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/recovery_codes/%s/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
