@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"strconv"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
@@ -52,7 +53,7 @@ func (c *SCIMConnectionClient) Update(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -78,7 +79,7 @@ func (c *SCIMConnectionClient) Delete(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -113,7 +114,7 @@ func (c *SCIMConnectionClient) RotateStart(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/start", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/start", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -150,7 +151,7 @@ func (c *SCIMConnectionClient) RotateComplete(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/complete", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/complete", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -186,7 +187,7 @@ func (c *SCIMConnectionClient) RotateCancel(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/cancel", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s/rotate/cancel", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -218,7 +219,7 @@ func (c *SCIMConnectionClient) GetGroups(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,
@@ -253,7 +254,7 @@ func (c *SCIMConnectionClient) Create(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -279,7 +280,7 @@ func (c *SCIMConnectionClient) Get(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/scim/%s/connection", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

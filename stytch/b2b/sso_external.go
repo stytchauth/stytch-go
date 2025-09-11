@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sso/external"
@@ -51,7 +52,7 @@ func (c *SSOExternalClient) CreateConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/b2b/sso/external/%s", body.OrganizationID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/external/%s", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -86,7 +87,7 @@ func (c *SSOExternalClient) UpdateConnection(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/b2b/sso/external/%s/connections/%s", body.OrganizationID, body.ConnectionID),
+			Path:        fmt.Sprintf("/v1/b2b/sso/external/%s/connections/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectionID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,

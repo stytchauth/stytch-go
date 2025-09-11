@@ -9,6 +9,7 @@ package b2b
 import (
 	"context"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations/members/oauthproviders"
@@ -56,7 +57,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Google(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/google", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/google", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,
@@ -91,7 +92,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Microsoft(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/microsoft", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/microsoft", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,
@@ -115,7 +116,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Slack(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/slack", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/slack", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -150,7 +151,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Hubspot(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/hubspot", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/hubspot", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,
@@ -185,7 +186,7 @@ func (c *OrganizationsMembersOAuthProvidersClient) Github(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/github", body.OrganizationID, body.MemberID),
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/oauth_providers/github", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
 			QueryParams: queryParams,
 			Body:        nil,
 			V:           &retVal,

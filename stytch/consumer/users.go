@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
@@ -70,7 +71,7 @@ func (c *UsersClient) Get(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/users/%s", body.UserID),
+			Path:        fmt.Sprintf("/v1/users/%s", url.PathEscape(body.UserID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -156,7 +157,7 @@ func (c *UsersClient) Update(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/users/%s", body.UserID),
+			Path:        fmt.Sprintf("/v1/users/%s", url.PathEscape(body.UserID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -194,7 +195,7 @@ func (c *UsersClient) ExchangePrimaryFactor(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/users/%s/exchange_primary_factor", body.UserID),
+			Path:        fmt.Sprintf("/v1/users/%s/exchange_primary_factor", url.PathEscape(body.UserID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -216,7 +217,7 @@ func (c *UsersClient) Delete(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/%s", body.UserID),
+			Path:        fmt.Sprintf("/v1/users/%s", url.PathEscape(body.UserID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -238,7 +239,7 @@ func (c *UsersClient) DeleteEmail(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/emails/%s", body.EmailID),
+			Path:        fmt.Sprintf("/v1/users/emails/%s", url.PathEscape(body.EmailID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -260,7 +261,7 @@ func (c *UsersClient) DeletePhoneNumber(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/phone_numbers/%s", body.PhoneID),
+			Path:        fmt.Sprintf("/v1/users/phone_numbers/%s", url.PathEscape(body.PhoneID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -282,7 +283,7 @@ func (c *UsersClient) DeleteWebAuthnRegistration(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/webauthn_registrations/%s", body.WebAuthnRegistrationID),
+			Path:        fmt.Sprintf("/v1/users/webauthn_registrations/%s", url.PathEscape(body.WebAuthnRegistrationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -304,7 +305,7 @@ func (c *UsersClient) DeleteBiometricRegistration(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/biometric_registrations/%s", body.BiometricRegistrationID),
+			Path:        fmt.Sprintf("/v1/users/biometric_registrations/%s", url.PathEscape(body.BiometricRegistrationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -326,7 +327,7 @@ func (c *UsersClient) DeleteTOTP(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/totps/%s", body.TOTPID),
+			Path:        fmt.Sprintf("/v1/users/totps/%s", url.PathEscape(body.TOTPID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -348,7 +349,7 @@ func (c *UsersClient) DeleteCryptoWallet(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/crypto_wallets/%s", body.CryptoWalletID),
+			Path:        fmt.Sprintf("/v1/users/crypto_wallets/%s", url.PathEscape(body.CryptoWalletID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -370,7 +371,7 @@ func (c *UsersClient) DeletePassword(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/passwords/%s", body.PasswordID),
+			Path:        fmt.Sprintf("/v1/users/passwords/%s", url.PathEscape(body.PasswordID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -392,7 +393,7 @@ func (c *UsersClient) DeleteOAuthRegistration(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/users/oauth/%s", body.OAuthUserRegistrationID),
+			Path:        fmt.Sprintf("/v1/users/oauth/%s", url.PathEscape(body.OAuthUserRegistrationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -419,7 +420,7 @@ func (c *UsersClient) ConnectedApps(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/users/%s/connected_apps", body.UserID),
+			Path:        fmt.Sprintf("/v1/users/%s/connected_apps", url.PathEscape(body.UserID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -454,7 +455,7 @@ func (c *UsersClient) Revoke(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/users/%s/connected_apps/%s/revoke", body.UserID, body.ConnectedAppID),
+			Path:        fmt.Sprintf("/v1/users/%s/connected_apps/%s/revoke", url.PathEscape(body.UserID), url.PathEscape(body.ConnectedAppID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,

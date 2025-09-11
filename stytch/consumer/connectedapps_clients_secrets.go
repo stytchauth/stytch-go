@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/connectedapps/clients/secrets"
@@ -56,7 +57,7 @@ func (c *ConnectedAppClientsSecretsClient) RotateStart(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/connected_apps/clients/%s/secrets/rotate/start", body.ClientID),
+			Path:        fmt.Sprintf("/v1/connected_apps/clients/%s/secrets/rotate/start", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -89,7 +90,7 @@ func (c *ConnectedAppClientsSecretsClient) RotateCancel(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/connected_apps/clients/%s/secrets/rotate/cancel", body.ClientID),
+			Path:        fmt.Sprintf("/v1/connected_apps/clients/%s/secrets/rotate/cancel", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -123,7 +124,7 @@ func (c *ConnectedAppClientsSecretsClient) Rotate(
 		ctx,
 		stytch.RequestParams{
 			Method:      "POST",
-			Path:        fmt.Sprintf("/v1/connected_apps/clients/%s/secrets/rotate", body.ClientID),
+			Path:        fmt.Sprintf("/v1/connected_apps/clients/%s/secrets/rotate", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,

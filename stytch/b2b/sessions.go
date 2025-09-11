@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/MicahParks/keyfunc/v2"
@@ -424,7 +425,7 @@ func (c *SessionsClient) GetJWKS(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/b2b/sessions/jwks/%s", body.ProjectID),
+			Path:        fmt.Sprintf("/v1/b2b/sessions/jwks/%s", url.PathEscape(body.ProjectID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

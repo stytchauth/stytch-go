@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/mitchellh/mapstructure"
 	"github.com/stytchauth/stytch-go/v16/stytch"
@@ -282,7 +283,7 @@ func (c *WebAuthnClient) Update(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/webauthn/%s", body.WebAuthnRegistrationID),
+			Path:        fmt.Sprintf("/v1/webauthn/%s", url.PathEscape(body.WebAuthnRegistrationID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -305,7 +306,7 @@ func (c *WebAuthnClient) ListCredentials(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/webauthn/credentials/%s/%s", body.UserID, body.Domain),
+			Path:        fmt.Sprintf("/v1/webauthn/credentials/%s/%s", url.PathEscape(body.UserID), url.PathEscape(body.Domain)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 
 	"github.com/stytchauth/stytch-go/v16/stytch"
 	"github.com/stytchauth/stytch-go/v16/stytch/consumer/m2m/clients"
@@ -41,7 +42,7 @@ func (c *M2MClientsClient) Get(
 		ctx,
 		stytch.RequestParams{
 			Method:      "GET",
-			Path:        fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
@@ -116,7 +117,7 @@ func (c *M2MClientsClient) Update(
 		ctx,
 		stytch.RequestParams{
 			Method:      "PUT",
-			Path:        fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        jsonBody,
 			V:           &retVal,
@@ -143,7 +144,7 @@ func (c *M2MClientsClient) Delete(
 		ctx,
 		stytch.RequestParams{
 			Method:      "DELETE",
-			Path:        fmt.Sprintf("/v1/m2m/clients/%s", body.ClientID),
+			Path:        fmt.Sprintf("/v1/m2m/clients/%s", url.PathEscape(body.ClientID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,
