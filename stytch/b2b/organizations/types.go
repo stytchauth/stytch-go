@@ -329,6 +329,8 @@ type Member struct {
 	// operations on a Member, so be sure to preserve this value. You may use an external_id here if one is set
 	// for the member.
 	MemberID string `json:"member_id,omitempty"`
+	// ExternalID: The ID of the member given by the identity provider.
+	ExternalID string `json:"external_id,omitempty"`
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 	// Status: The status of the Member. The possible values are: `pending`, `invited`, `active`, or `deleted`.
