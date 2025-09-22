@@ -29,10 +29,6 @@ type ConnectedAppsParams struct {
 
 // CreateParams: Request type for `Users.Create`.
 type CreateParams struct {
-	// Roles to explicitly assign to this User.
-	//    See the [RBAC guide](https://stytch.com/docs/guides/rbac/role-assignment) for more information about
-	// role assignment.
-	Roles []string `json:"roles,omitempty"`
 	// Email: The email address of the end user.
 	Email string `json:"email,omitempty"`
 	// Name: The name of the user. Each field in the name object is optional.
@@ -62,6 +58,10 @@ type CreateParams struct {
 	// ExternalID: An identifier that can be used in API calls wherever a user_id is expected. This is a string
 	// consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128 characters.
 	ExternalID string `json:"external_id,omitempty"`
+	// Roles to explicitly assign to this User.
+	//    See the [RBAC guide](https://stytch.com/docs/guides/rbac/role-assignment) for more information about
+	// role assignment.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // CryptoWallet:
