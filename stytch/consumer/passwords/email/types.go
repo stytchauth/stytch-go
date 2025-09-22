@@ -89,13 +89,14 @@ type ResetStartParams struct {
 	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
 	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
-	// LoginRedirectURL: The URL Stytch redirects to after the OAuth flow is completed for a user that already
-	// exists. This URL should be a route in your application which will run `oauth.authenticate` (see below)
-	// and finish the login.
+	// LoginRedirectURL: The URL that Users are redirected to upon clicking the "Log in without password"
+	// button in password reset emails.
 	//
-	//   The URL must be configured as a Login URL in the
-	// [Redirect URL page](https://stytch.com/dashboard/redirect-urls). If the field is not specified, the
-	// default Login URL will be used.
+	//       After Users are redirected to the login redirect URL, your application should retrieve the `token`
+	// value from the URL parameters and call the
+	// [Magic Link Authenticate endpoint](https://stytch.com/docs/api/authenticate-magic-link) to log the User
+	// in without requiring a password reset. If this value is not provided, your project's default login
+	// redirect URL will be used. If you have not set a default login redirect URL, an error will be returned.
 	LoginRedirectURL string `json:"login_redirect_url,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
 	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
