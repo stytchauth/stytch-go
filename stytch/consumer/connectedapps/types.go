@@ -37,7 +37,8 @@ type ConnectedApp struct {
 	NextClientSecretLastFour  string `json:"next_client_secret_last_four,omitempty"`
 	AccessTokenCustomAudience string `json:"access_token_custom_audience,omitempty"`
 	// LogoURL: The logo URL of the Connected App, if any.
-	LogoURL string `json:"logo_url,omitempty"`
+	LogoURL             string `json:"logo_url,omitempty"`
+	ClientIDMetadataURL string `json:"client_id_metadata_url,omitempty"`
 }
 
 type ConnectedAppPublic struct {
@@ -81,7 +82,8 @@ type ConnectedAppWithClientSecret struct {
 	ClientSecret              string `json:"client_secret,omitempty"`
 	AccessTokenCustomAudience string `json:"access_token_custom_audience,omitempty"`
 	// LogoURL: The logo URL of the Connected App, if any.
-	LogoURL string `json:"logo_url,omitempty"`
+	LogoURL             string `json:"logo_url,omitempty"`
+	ClientIDMetadataURL string `json:"client_id_metadata_url,omitempty"`
 }
 
 // ConnectedAppWithNextClientSecret:
@@ -116,7 +118,8 @@ type ConnectedAppWithNextClientSecret struct {
 	NextClientSecretLastFour  string `json:"next_client_secret_last_four,omitempty"`
 	AccessTokenCustomAudience string `json:"access_token_custom_audience,omitempty"`
 	// LogoURL: The logo URL of the Connected App, if any.
-	LogoURL string `json:"logo_url,omitempty"`
+	LogoURL             string `json:"logo_url,omitempty"`
+	ClientIDMetadataURL string `json:"client_id_metadata_url,omitempty"`
 }
 
 // ResultsMetadata:

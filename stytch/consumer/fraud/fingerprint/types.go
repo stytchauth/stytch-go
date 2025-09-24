@@ -52,4 +52,9 @@ type LookupResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// Properties: Additional information about the user's browser and network.
 	Properties *fraud.Properties `json:"properties,omitempty"`
+	// RawSignals: The raw device attributes, such as screen size, that were collected by the Device
+	// Fingerprinting product to generate the fingerprints and verdict. You must be specifically enabled for
+	// the raw signals feature to see this field. You can find documentation for the specific fields in the
+	// [guides](https://stytch.com/docs/fraud/guides/device-fingerprinting/reference/raw-signals).
+	RawSignals map[string]any `json:"raw_signals,omitempty"`
 }
