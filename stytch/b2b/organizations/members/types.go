@@ -222,6 +222,10 @@ type StartEmailUpdateParams struct {
 	// template. The template must be from Stytch's
 	// built-in customizations or a custom HTML email for Magic Links - Login.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
+	// DeliveryMethod: The method that should be used to verify a member's new email address. The options are
+	// `EMAIL_MAGIC_LINK` or `EMAIL_OTP`. This field is optional, if no value is provided, `EMAIL_MAGIC_LINK`
+	// will be used.
+	DeliveryMethod *StartEmailUpdateRequestDeliveryMethod `json:"delivery_method,omitempty"`
 }
 
 // UnlinkRetiredEmailParams: Request type for `Members.UnlinkRetiredEmail`.
@@ -725,6 +729,13 @@ type UpdateResponse struct {
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
 }
+
+type StartEmailUpdateRequestDeliveryMethod string
+
+const (
+	StartEmailUpdateRequestDeliveryMethodEMAILMAGICLINK StartEmailUpdateRequestDeliveryMethod = "EMAIL_MAGIC_LINK"
+	StartEmailUpdateRequestDeliveryMethodEMAILOTP       StartEmailUpdateRequestDeliveryMethod = "EMAIL_OTP"
+)
 
 type StartEmailUpdateRequestLocale string
 
