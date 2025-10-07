@@ -65,6 +65,11 @@ type CreateParams struct {
 	// the organization slug will be generated based on the name portion of the email. Otherwise, the
 	// organization slug will be generated based on the email domain.
 	OrganizationSlug string `json:"organization_slug,omitempty"`
+	// OrganizationExternalID: An identifier that can be used in API calls wherever a organization_id is
+	// expected. This is a string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum
+	// length of 128 characters. External IDs must be unique within a project, but may be reused across
+	// different projects in the same workspace.
+	OrganizationExternalID string `json:"organization_external_id,omitempty"`
 	// OrganizationLogoURL: The image URL of the Organization logo.
 	OrganizationLogoURL string `json:"organization_logo_url,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
