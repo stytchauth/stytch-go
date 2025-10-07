@@ -551,6 +551,7 @@ func marshalJWTIntoSession(claims sessions.Claims, customClaims map[string]any) 
 		Attributes:            &claims.StytchSession.Attributes,
 		AuthenticationFactors: claims.StytchSession.AuthenticationFactors,
 		CustomClaims:          customClaims,
+		Roles:                 claims.StytchSession.Roles,
 	}, nil
 }
 
