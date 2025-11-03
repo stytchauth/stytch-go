@@ -46,7 +46,8 @@ type AuthorizeParams struct {
 	// Nonce: A string used to associate a client session with an ID token to mitigate replay attacks.
 	Nonce string `json:"nonce,omitempty"`
 	// CodeChallenge: A base64url encoded challenge derived from the code verifier for PKCE flows.
-	CodeChallenge string `json:"code_challenge,omitempty"`
+	CodeChallenge string   `json:"code_challenge,omitempty"`
+	Resources     []string `json:"resources,omitempty"`
 }
 
 // AuthorizeStartParams: Request type for `OAuth.AuthorizeStart`.

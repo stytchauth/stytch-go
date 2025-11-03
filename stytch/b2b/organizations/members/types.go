@@ -11,6 +11,149 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
+// CreateRequestOptions:
+type CreateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *CreateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteMFAPhoneNumberRequestOptions:
+type DeleteMFAPhoneNumberRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteMFAPhoneNumberRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeletePasswordRequestOptions:
+type DeletePasswordRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeletePasswordRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteRequestOptions:
+type DeleteRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// DeleteTOTPRequestOptions:
+type DeleteTOTPRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteTOTPRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// GetConnectedAppsRequestOptions:
+type GetConnectedAppsRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *GetConnectedAppsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// ReactivateRequestOptions:
+type ReactivateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *ReactivateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// SearchRequestOptions:
+type SearchRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *SearchRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// StartEmailUpdateRequestOptions:
+type StartEmailUpdateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *StartEmailUpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// UnlinkRetiredEmailRequestOptions:
+type UnlinkRetiredEmailRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UnlinkRetiredEmailRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// UpdateRequestOptions:
+type UpdateRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // CreateParams: Request type for `Members.Create`.
 type CreateParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -359,149 +502,6 @@ type UpdateParams struct {
 	// UnlinkEmail: If `unlink_email` is `true` and an `email_address` is provided, the Member's previous email
 	// will be deleted instead of retired. Defaults to `false`.
 	UnlinkEmail bool `json:"unlink_email,omitempty"`
-}
-
-// CreateRequestOptions:
-type CreateRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *CreateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// DeleteMFAPhoneNumberRequestOptions:
-type DeleteMFAPhoneNumberRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *DeleteMFAPhoneNumberRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// DeletePasswordRequestOptions:
-type DeletePasswordRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *DeletePasswordRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// DeleteRequestOptions:
-type DeleteRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *DeleteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// DeleteTOTPRequestOptions:
-type DeleteTOTPRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *DeleteTOTPRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// GetConnectedAppsRequestOptions:
-type GetConnectedAppsRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *GetConnectedAppsRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// ReactivateRequestOptions:
-type ReactivateRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *ReactivateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// SearchRequestOptions:
-type SearchRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *SearchRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// StartEmailUpdateRequestOptions:
-type StartEmailUpdateRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *StartEmailUpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// UnlinkRetiredEmailRequestOptions:
-type UnlinkRetiredEmailRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *UnlinkRetiredEmailRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// UpdateRequestOptions:
-type UpdateRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
 }
 
 // CreateResponse: Response type for `Members.Create`.

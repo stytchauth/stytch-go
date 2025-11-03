@@ -11,6 +11,32 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
+// CreateConnectionRequestOptions:
+type CreateConnectionRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *CreateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
+// UpdateConnectionRequestOptions:
+type UpdateConnectionRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *UpdateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // CreateConnectionParams: Request type for `OIDC.CreateConnection`.
 type CreateConnectionParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -71,32 +97,6 @@ type UpdateConnectionParams struct {
 	// map the IdP-defined User attributes to Stytch-specific values, which will appear on the member's Trusted
 	// Metadata.
 	AttributeMapping map[string]any `json:"attribute_mapping,omitempty"`
-}
-
-// CreateConnectionRequestOptions:
-type CreateConnectionRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *CreateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
-}
-
-// UpdateConnectionRequestOptions:
-type UpdateConnectionRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *UpdateConnectionRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
 }
 
 // CreateConnectionResponse: Response type for `OIDC.CreateConnection`.

@@ -106,7 +106,7 @@ type MigrateParams struct {
 	// Hash: The password hash. For a Scrypt or PBKDF2 hash, the hash needs to be a base64 encoded string.
 	Hash string `json:"hash,omitempty"`
 	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`,
-	// `sha_1`, and `pbkdf_2` are supported.
+	// `sha_1`, `sha_512`, and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
 	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
@@ -118,6 +118,8 @@ type MigrateParams struct {
 	Argon2Config *passwords.Argon2Config `json:"argon_2_config,omitempty"`
 	// Sha1Config: Optional parameters for SHA-1 hash types.
 	Sha1Config *passwords.SHA1Config `json:"sha_1_config,omitempty"`
+	// Sha512Config: Optional parameters for SHA-512 hash types.
+	Sha512Config *passwords.SHA512Config `json:"sha_512_config,omitempty"`
 	// ScryptConfig: Required parameters if the scrypt is not provided in a **PHC encoded form**.
 	ScryptConfig *passwords.ScryptConfig `json:"scrypt_config,omitempty"`
 	// Pbkdf2Config: Required additional parameters for PBKDF2 hash keys. Note that we use the SHA-256 by
@@ -315,6 +317,7 @@ const (
 	MigrateRequestHashTypeArgon2i  MigrateRequestHashType = "argon_2i"
 	MigrateRequestHashTypeArgon2id MigrateRequestHashType = "argon_2id"
 	MigrateRequestHashTypeSha1     MigrateRequestHashType = "sha_1"
+	MigrateRequestHashTypeSha512   MigrateRequestHashType = "sha_512"
 	MigrateRequestHashTypeScrypt   MigrateRequestHashType = "scrypt"
 	MigrateRequestHashTypePhpass   MigrateRequestHashType = "phpass"
 	MigrateRequestHashTypePbkdf2   MigrateRequestHashType = "pbkdf_2"

@@ -14,6 +14,19 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
+// RequireResetRequestOptions:
+type RequireResetRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *RequireResetRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // RequireResetParams: Request type for `Email.RequireReset`.
 type RequireResetParams struct {
 	// EmailAddress: The email address of the Member to start the email reset process for.
@@ -150,19 +163,6 @@ type ResetStartParams struct {
 	//   password reset flow. By default, it will use your default email template. The template must be a
 	// template using our built-in customizations or a custom HTML email for Passwords - Email Verification.
 	VerifyEmailTemplateID string `json:"verify_email_template_id,omitempty"`
-}
-
-// RequireResetRequestOptions:
-type RequireResetRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *RequireResetRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
 }
 
 // RequireResetResponse: Response type for `Email.RequireReset`.

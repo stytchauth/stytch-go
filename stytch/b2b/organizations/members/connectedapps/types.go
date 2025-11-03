@@ -10,6 +10,19 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
+// RevokeRequestOptions:
+type RevokeRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *RevokeRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // RevokeParams: Request type for `ConnectedApps.Revoke`.
 type RevokeParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -22,19 +35,6 @@ type RevokeParams struct {
 	MemberID string `json:"member_id,omitempty"`
 	// ConnectedAppID: The ID of the Connected App.
 	ConnectedAppID string `json:"connected_app_id,omitempty"`
-}
-
-// RevokeRequestOptions:
-type RevokeRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *RevokeRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
 }
 
 // RevokeResponse: Response type for `ConnectedApps.Revoke`.
