@@ -11,102 +11,6 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
-// CreateParams: Request type for `Connection.Create`.
-type CreateParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                         `json:"display_name,omitempty"`
-	IdentityProvider *CreateRequestIdentityProvider `json:"identity_provider,omitempty"`
-}
-
-// DeleteParams: Request type for `Connection.Delete`.
-type DeleteParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SCIM connection.
-	ConnectionID string `json:"connection_id,omitempty"`
-}
-
-// GetGroupsParams: Request type for `Connection.GetGroups`.
-type GetGroupsParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SCIM connection.
-	ConnectionID string `json:"connection_id,omitempty"`
-	// Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited to
-	// 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
-	// using the `cursor`. If you receive a response that includes a non-null `next_cursor` in the
-	// `results_metadata` object, repeat the search call with the `next_cursor` value set to the `cursor` field
-	// to retrieve the next page of results. Continue to make search calls until the `next_cursor` in the
-	// response is null.
-	Cursor string `json:"cursor,omitempty"`
-	// Limit: The number of search results to return per page. The default limit is 100. A maximum of 1000
-	// results can be returned by a single search request. If the total size of your result set is greater than
-	// one page size, you must paginate the response. See the `cursor` field.
-	Limit uint32 `json:"limit,omitempty"`
-}
-
-// GetParams: Request type for `Connection.Get`.
-type GetParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-}
-
-// RotateCancelParams: Request type for `Connection.RotateCancel`.
-type RotateCancelParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SCIM connection.
-	ConnectionID string `json:"connection_id,omitempty"`
-}
-
-// RotateCompleteParams: Request type for `Connection.RotateComplete`.
-type RotateCompleteParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SCIM connection.
-	ConnectionID string `json:"connection_id,omitempty"`
-}
-
-// RotateStartParams: Request type for `Connection.RotateStart`.
-type RotateStartParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SCIM connection.
-	ConnectionID string `json:"connection_id,omitempty"`
-}
-
-// UpdateParams: Request type for `Connection.Update`.
-type UpdateParams struct {
-	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
-	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
-	// the organization_slug or organization_external_id here as a convenience.
-	OrganizationID string `json:"organization_id,omitempty"`
-	// ConnectionID: The ID of the SCIM connection.
-	ConnectionID string `json:"connection_id,omitempty"`
-	// DisplayName: A human-readable display name for the connection.
-	DisplayName      string                         `json:"display_name,omitempty"`
-	IdentityProvider *UpdateRequestIdentityProvider `json:"identity_provider,omitempty"`
-	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
-	// array must contain a `group_id` and a `role_id`.
-	SCIMGroupImplicitRoleAssignments []*scim.SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
-}
-
 // CreateRequestOptions:
 type CreateRequestOptions struct {
 	// Authorization: Optional authorization object.
@@ -209,6 +113,102 @@ type UpdateRequestOptions struct {
 func (o *UpdateRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
 	headers = o.Authorization.AddHeaders(headers)
 	return headers
+}
+
+// CreateParams: Request type for `Connection.Create`.
+type CreateParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName      string                         `json:"display_name,omitempty"`
+	IdentityProvider *CreateRequestIdentityProvider `json:"identity_provider,omitempty"`
+}
+
+// DeleteParams: Request type for `Connection.Delete`.
+type DeleteParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+}
+
+// GetGroupsParams: Request type for `Connection.GetGroups`.
+type GetGroupsParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Cursor: The `cursor` field allows you to paginate through your results. Each result array is limited to
+	// 1000 results. If your query returns more than 1000 results, you will need to paginate the responses
+	// using the `cursor`. If you receive a response that includes a non-null `next_cursor` in the
+	// `results_metadata` object, repeat the search call with the `next_cursor` value set to the `cursor` field
+	// to retrieve the next page of results. Continue to make search calls until the `next_cursor` in the
+	// response is null.
+	Cursor string `json:"cursor,omitempty"`
+	// Limit: The number of search results to return per page. The default limit is 100. A maximum of 1000
+	// results can be returned by a single search request. If the total size of your result set is greater than
+	// one page size, you must paginate the response. See the `cursor` field.
+	Limit uint32 `json:"limit,omitempty"`
+}
+
+// GetParams: Request type for `Connection.Get`.
+type GetParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+}
+
+// RotateCancelParams: Request type for `Connection.RotateCancel`.
+type RotateCancelParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+}
+
+// RotateCompleteParams: Request type for `Connection.RotateComplete`.
+type RotateCompleteParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+}
+
+// RotateStartParams: Request type for `Connection.RotateStart`.
+type RotateStartParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+}
+
+// UpdateParams: Request type for `Connection.Update`.
+type UpdateParams struct {
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName      string                         `json:"display_name,omitempty"`
+	IdentityProvider *UpdateRequestIdentityProvider `json:"identity_provider,omitempty"`
+	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
+	// array must contain a `group_id` and a `role_id`.
+	SCIMGroupImplicitRoleAssignments []*scim.SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
 }
 
 // CreateResponse: Response type for `Connection.Create`.

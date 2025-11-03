@@ -160,7 +160,7 @@ type MigrateParams struct {
 	// Hash: The password hash. For a Scrypt or PBKDF2 hash, the hash needs to be a base64 encoded string.
 	Hash string `json:"hash,omitempty"`
 	// HashType: The password hash used. Currently `bcrypt`, `scrypt`, `argon_2i`, `argon_2id`, `md_5`,
-	// `sha_1`, and `pbkdf_2` are supported.
+	// `sha_1`, `sha_512`, and `pbkdf_2` are supported.
 	HashType MigrateRequestHashType `json:"hash_type,omitempty"`
 	// Md5Config: Optional parameters for MD-5 hash types.
 	Md5Config *MD5Config `json:"md_5_config,omitempty"`
@@ -168,6 +168,8 @@ type MigrateParams struct {
 	Argon2Config *Argon2Config `json:"argon_2_config,omitempty"`
 	// Sha1Config: Optional parameters for SHA-1 hash types.
 	Sha1Config *SHA1Config `json:"sha_1_config,omitempty"`
+	// Sha512Config: Optional parameters for SHA-512 hash types.
+	Sha512Config *SHA512Config `json:"sha_512_config,omitempty"`
 	// ScryptConfig: Required parameters if the scrypt is not provided in a
 	// [PHC encoded form](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md#phc-string-format).
 	ScryptConfig *ScryptConfig `json:"scrypt_config,omitempty"`
@@ -222,6 +224,14 @@ type PBKDF2Config struct {
 
 // SHA1Config:
 type SHA1Config struct {
+	// PrependSalt: The salt that should be prepended to the migrated password.
+	PrependSalt string `json:"prepend_salt,omitempty"`
+	// AppendSalt: The salt that should be appended to the migrated password.
+	AppendSalt string `json:"append_salt,omitempty"`
+}
+
+// SHA512Config:
+type SHA512Config struct {
 	// PrependSalt: The salt that should be prepended to the migrated password.
 	PrependSalt string `json:"prepend_salt,omitempty"`
 	// AppendSalt: The salt that should be appended to the migrated password.
@@ -381,6 +391,7 @@ const (
 	MigrateRequestHashTypeArgon2i  MigrateRequestHashType = "argon_2i"
 	MigrateRequestHashTypeArgon2id MigrateRequestHashType = "argon_2id"
 	MigrateRequestHashTypeSha1     MigrateRequestHashType = "sha_1"
+	MigrateRequestHashTypeSha512   MigrateRequestHashType = "sha_512"
 	MigrateRequestHashTypeScrypt   MigrateRequestHashType = "scrypt"
 	MigrateRequestHashTypePhpass   MigrateRequestHashType = "phpass"
 	MigrateRequestHashTypePbkdf2   MigrateRequestHashType = "pbkdf_2"

@@ -11,6 +11,19 @@ import (
 	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
 )
 
+// InviteRequestOptions:
+type InviteRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *InviteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // InviteParams: Request type for `Email.Invite`.
 type InviteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -114,19 +127,6 @@ type LoginOrSignupParams struct {
 	// authenticated within this time frame, the email will need to be resent. Defaults to 60 (1 hour) with a
 	// minimum of 5 and a maximum of 10080 (1 week).
 	SignupExpirationMinutes uint32 `json:"signup_expiration_minutes,omitempty"`
-}
-
-// InviteRequestOptions:
-type InviteRequestOptions struct {
-	// Authorization: Optional authorization object.
-	// Pass in an active Stytch Member session token or session JWT and the request
-	// will be run using that member's permissions.
-	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
-}
-
-func (o *InviteRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
-	headers = o.Authorization.AddHeaders(headers)
-	return headers
 }
 
 // InviteResponse: Response type for `Email.Invite`.
