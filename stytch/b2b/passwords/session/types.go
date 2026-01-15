@@ -106,7 +106,7 @@ type ResetResponse struct {
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MFARequired `json:"mfa_required,omitempty"`
 	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
 	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
 	// `member_device` response field will contain information about the member's device attributes.

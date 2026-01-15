@@ -19,8 +19,8 @@ type CreateParams struct {
 	ClientName string `json:"client_name,omitempty"`
 	// ClientDescription: A human-readable description for the client.
 	ClientDescription string `json:"client_description,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS []string `json:"redirect_url_s,omitempty"`
+	// RedirectURLs: Array of redirect URI values for use in OAuth Authorization flows.
+	RedirectURLs []string `json:"redirect_urls,omitempty"`
 	// FullAccessAllowed: Valid for first party clients only. If `true`, an authorization token granted to this
 	// Client can be exchanged for a full Stytch session.
 	FullAccessAllowed bool `json:"full_access_allowed,omitempty"`
@@ -32,8 +32,8 @@ type CreateParams struct {
 	// AccessTokenTemplateContent: The content of the access token custom claims template. The template must be
 	// a valid JSON object.
 	AccessTokenTemplateContent string `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
+	// PostLogoutRedirectURLs: Array of redirect URI values for use in OIDC Logout flows.
+	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// LogoURL: The logo URL of the Connected App, if any.
 	LogoURL string `json:"logo_url,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
@@ -76,8 +76,8 @@ type UpdateParams struct {
 	ClientName string `json:"client_name,omitempty"`
 	// ClientDescription: A human-readable description for the client.
 	ClientDescription string `json:"client_description,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS []string `json:"redirect_url_s,omitempty"`
+	// RedirectURLs: Array of redirect URI values for use in OAuth Authorization flows.
+	RedirectURLs []string `json:"redirect_urls,omitempty"`
 	// FullAccessAllowed: Valid for first party clients only. If `true`, an authorization token granted to this
 	// Client can be exchanged for a full Stytch session.
 	FullAccessAllowed bool `json:"full_access_allowed,omitempty"`
@@ -89,8 +89,8 @@ type UpdateParams struct {
 	// AccessTokenTemplateContent: The content of the access token custom claims template. The template must be
 	// a valid JSON object.
 	AccessTokenTemplateContent string `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
+	// PostLogoutRedirectURLs: Array of redirect URI values for use in OIDC Logout flows.
+	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// LogoURL: The logo URL of the Connected App, if any.
 	LogoURL string `json:"logo_url,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to

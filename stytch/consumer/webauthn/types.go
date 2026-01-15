@@ -60,6 +60,7 @@ type AuthenticateStartParams struct {
 	// optimized for Passkeys with `userVerification` set to `"preferred"`.
 	//
 	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
+	UseBase64URLEncoding           bool `json:"use_base64_url_encoding,omitempty"`
 }
 
 // ListCredentialsParams: Request type for `WebAuthn.ListCredentials`.

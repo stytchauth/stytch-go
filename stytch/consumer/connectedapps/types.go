@@ -21,12 +21,12 @@ type ConnectedApp struct {
 	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
 	// `third_party`, and `third_party_public`.
 	ClientType string `json:"client_type,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS               []string `json:"redirect_url_s,omitempty"`
+	// RedirectURLs: Array of redirect URI values for use in OAuth Authorization flows.
+	RedirectURLs               []string `json:"redirect_urls,omitempty"`
 	AccessTokenExpiryMinutes   int32    `json:"access_token_expiry_minutes,omitempty"`
 	AccessTokenTemplateContent string   `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
+	// PostLogoutRedirectURLs: Array of redirect URI values for use in OIDC Logout flows.
+	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
 	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
@@ -39,6 +39,7 @@ type ConnectedApp struct {
 	// LogoURL: The logo URL of the Connected App, if any.
 	LogoURL             string `json:"logo_url,omitempty"`
 	ClientIDMetadataURL string `json:"client_id_metadata_url,omitempty"`
+	CreationMethod      string `json:"creation_method,omitempty"`
 }
 
 type ConnectedAppPublic struct {
@@ -64,12 +65,12 @@ type ConnectedAppWithClientSecret struct {
 	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
 	// `third_party`, and `third_party_public`.
 	ClientType string `json:"client_type,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS               []string `json:"redirect_url_s,omitempty"`
+	// RedirectURLs: Array of redirect URI values for use in OAuth Authorization flows.
+	RedirectURLs               []string `json:"redirect_urls,omitempty"`
 	AccessTokenExpiryMinutes   int32    `json:"access_token_expiry_minutes,omitempty"`
 	AccessTokenTemplateContent string   `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
+	// PostLogoutRedirectURLs: Array of redirect URI values for use in OIDC Logout flows.
+	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
 	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
@@ -103,13 +104,13 @@ type ConnectedAppWithNextClientSecret struct {
 	// ClientType: The type of Connected App. Supported values are `first_party`, `first_party_public`,
 	// `third_party`, and `third_party_public`.
 	ClientType string `json:"client_type,omitempty"`
-	// RedirectURLS: Array of redirect URI values for use in OAuth Authorization flows.
-	RedirectURLS               []string `json:"redirect_url_s,omitempty"`
+	// RedirectURLs: Array of redirect URI values for use in OAuth Authorization flows.
+	RedirectURLs               []string `json:"redirect_urls,omitempty"`
 	NextClientSecret           string   `json:"next_client_secret,omitempty"`
 	AccessTokenExpiryMinutes   int32    `json:"access_token_expiry_minutes,omitempty"`
 	AccessTokenTemplateContent string   `json:"access_token_template_content,omitempty"`
-	// PostLogoutRedirectURLS: Array of redirect URI values for use in OIDC Logout flows.
-	PostLogoutRedirectURLS []string `json:"post_logout_redirect_url_s,omitempty"`
+	// PostLogoutRedirectURLs: Array of redirect URI values for use in OIDC Logout flows.
+	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
 	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`

@@ -790,7 +790,7 @@ type AuthenticationFactorDeliveryMethod string
 const (
 	AuthenticationFactorDeliveryMethodEmail                    AuthenticationFactorDeliveryMethod = "email"
 	AuthenticationFactorDeliveryMethodSms                      AuthenticationFactorDeliveryMethod = "sms"
-	AuthenticationFactorDeliveryMethodWhatsapp                 AuthenticationFactorDeliveryMethod = "whatsapp"
+	AuthenticationFactorDeliveryMethodWhatsApp                 AuthenticationFactorDeliveryMethod = "whatsapp"
 	AuthenticationFactorDeliveryMethodEmbedded                 AuthenticationFactorDeliveryMethod = "embedded"
 	AuthenticationFactorDeliveryMethodOAuthGoogle              AuthenticationFactorDeliveryMethod = "oauth_google"
 	AuthenticationFactorDeliveryMethodOAuthMicrosoft           AuthenticationFactorDeliveryMethod = "oauth_microsoft"

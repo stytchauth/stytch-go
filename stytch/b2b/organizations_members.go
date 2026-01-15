@@ -485,6 +485,31 @@ func (c *OrganizationsMembersClient) GetConnectedApps(
 	return &retVal, err
 }
 
+func (c *OrganizationsMembersClient) DeleteExternalID(
+	ctx context.Context,
+	body *members.DeleteExternalIDParams,
+	methodOptions ...*members.DeleteExternalIDRequestOptions,
+) (*members.DeleteExternalIDResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal members.DeleteExternalIDResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/members/%s/external_id", url.PathEscape(body.OrganizationID), url.PathEscape(body.MemberID)),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
 // Create: Creates a Member. An `organization_id` and `email_address` are required.
 func (c *OrganizationsMembersClient) Create(
 	ctx context.Context,
