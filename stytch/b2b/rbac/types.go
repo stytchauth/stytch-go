@@ -6,6 +6,12 @@ package rbac
 // or your changes may be overwritten later!
 // !!!
 
+// OrgPolicy:
+type OrgPolicy struct {
+	// Roles: An array of [Role objects](https://stytch.com/docs/b2b/api/rbac-role-object).
+	Roles []PolicyRole `json:"roles,omitempty"`
+}
+
 // Policy:
 type Policy struct {
 	// Roles: An array of [Role objects](https://stytch.com/docs/b2b/api/rbac-role-object).

@@ -15,12 +15,15 @@ import (
 )
 
 type RBACClient struct {
-	C stytch.Client
+	C             stytch.Client
+	Organizations *RBACOrganizationsClient
 }
 
 func NewRBACClient(c stytch.Client) *RBACClient {
 	return &RBACClient{
 		C: c,
+
+		Organizations: NewRBACOrganizationsClient(c),
 	}
 }
 

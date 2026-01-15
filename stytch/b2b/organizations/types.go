@@ -205,6 +205,34 @@ type CreateParams struct {
 	AllowedThirdPartyConnectedApps []string `json:"allowed_third_party_connected_apps,omitempty"`
 }
 
+type CustomRole struct {
+	RoleID      string                 `json:"role_id,omitempty"`
+	Description string                 `json:"description,omitempty"`
+	Permissions []CustomRolePermission `json:"permissions,omitempty"`
+}
+
+type CustomRolePermission struct {
+	ResourceID string   `json:"resource_id,omitempty"`
+	Actions    []string `json:"actions,omitempty"`
+}
+
+type DeleteExternalIDParams struct {
+	OrganizationID string `json:"organization_id,omitempty"`
+}
+
+// DeleteExternalIDRequestOptions:
+type DeleteExternalIDRequestOptions struct {
+	// Authorization: Optional authorization object.
+	// Pass in an active Stytch Member session token or session JWT and the request
+	// will be run using that member's permissions.
+	Authorization methodoptions.Authorization `json:"authorization,omitempty"`
+}
+
+func (o *DeleteExternalIDRequestOptions) AddHeaders(headers map[string][]string) map[string][]string {
+	headers = o.Authorization.AddHeaders(headers)
+	return headers
+}
+
 // DeleteParams: Request type for `Organizations.Delete`.
 type DeleteParams struct {
 	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
@@ -718,7 +746,8 @@ type Organization struct {
 	// AllowedThirdPartyConnectedApps: An array of third party Connected App IDs that are allowed for the
 	// Organization. Only used when the Organization's `third_party_connected_apps_allowed_type` is
 	// `RESTRICTED`.
-	AllowedThirdPartyConnectedApps []string `json:"allowed_third_party_connected_apps,omitempty"`
+	AllowedThirdPartyConnectedApps []string     `json:"allowed_third_party_connected_apps,omitempty"`
+	CustomRoles                    []CustomRole `json:"custom_roles,omitempty"`
 	// TrustedMetadata: An arbitrary JSON object for storing application-specific data or
 	// identity-provider-specific data.
 	TrustedMetadata map[string]any `json:"trusted_metadata,omitempty"`
@@ -1118,6 +1147,12 @@ type CreateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type DeleteExternalIDResponse struct {
+	RequestID    string       `json:"request_id,omitempty"`
+	Organization Organization `json:"organization,omitempty"`
+	StatusCode   int32        `json:"status_code,omitempty"`
 }
 
 // DeleteResponse: Response type for `Organizations.Delete`.

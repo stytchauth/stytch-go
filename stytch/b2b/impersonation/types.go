@@ -51,5 +51,5 @@ type AuthenticateResponse struct {
 	// Member.
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: MFA will not be required when authenticating impersonation tokens.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MFARequired `json:"mfa_required,omitempty"`
 }

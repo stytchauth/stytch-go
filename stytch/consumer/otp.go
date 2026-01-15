@@ -20,7 +20,7 @@ import (
 type OTPsClient struct {
 	C        stytch.Client
 	Sms      *OTPsSmsClient
-	Whatsapp *OTPsWhatsappClient
+	WhatsApp *OTPsWhatsAppClient
 	Email    *OTPsEmailClient
 }
 
@@ -29,7 +29,7 @@ func NewOTPsClient(c stytch.Client) *OTPsClient {
 		C: c,
 
 		Sms:      NewOTPsSmsClient(c),
-		Whatsapp: NewOTPsWhatsappClient(c),
+		WhatsApp: NewOTPsWhatsAppClient(c),
 		Email:    NewOTPsEmailClient(c),
 	}
 }

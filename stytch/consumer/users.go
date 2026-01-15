@@ -403,6 +403,27 @@ func (c *UsersClient) DeleteOAuthRegistration(
 	return &retVal, err
 }
 
+func (c *UsersClient) DeleteExternalID(
+	ctx context.Context,
+	body *users.DeleteExternalIDParams,
+) (*users.DeleteExternalIDResponse, error) {
+	headers := make(map[string][]string)
+
+	var retVal users.DeleteExternalIDResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/users/%s/external_id", url.PathEscape(body.UserID)),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
 // ConnectedApps: User Get Connected Apps retrieves a list of Connected Apps with which the User has
 // successfully completed an
 // authorization flow.

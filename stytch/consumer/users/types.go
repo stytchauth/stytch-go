@@ -95,6 +95,10 @@ type DeleteEmailParams struct {
 	EmailID string `json:"email_id,omitempty"`
 }
 
+type DeleteExternalIDParams struct {
+	UserID string `json:"user_id,omitempty"`
+}
+
 // DeleteOAuthRegistrationParams: Request type for `Users.DeleteOAuthRegistration`.
 type DeleteOAuthRegistrationParams struct {
 	// OAuthUserRegistrationID: The `oauth_user_registration_id` to be deleted.
@@ -463,6 +467,13 @@ type DeleteEmailResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
+}
+
+type DeleteExternalIDResponse struct {
+	RequestID  string `json:"request_id,omitempty"`
+	UserID     string `json:"user_id,omitempty"`
+	User       User   `json:"user,omitempty"`
+	StatusCode int32  `json:"status_code,omitempty"`
 }
 
 // DeleteOAuthRegistrationResponse: Response type for `Users.DeleteOAuthRegistration`.
