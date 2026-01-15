@@ -7,11 +7,11 @@ package passwords
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/passwords"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/passwords"
 )
 
 // AuthenticateParams: Request type for `Passwords.Authenticate`.

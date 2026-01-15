@@ -3,14 +3,14 @@ package shared_test
 import (
 	"testing"
 
-	consumerrbac "github.com/stytchauth/stytch-go/v16/stytch/consumer/rbac"
-	consumersessions "github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
+	consumerrbac "github.com/stytchauth/stytch-go/v17/stytch/consumer/rbac"
+	consumersessions "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
 
 	"github.com/stretchr/testify/assert"
-	b2brbac "github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
-	b2bsessions "github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/shared"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	b2brbac "github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
+	b2bsessions "github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/shared"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 func Test_PerformB2BAuthorizationCheck(t *testing.T) {

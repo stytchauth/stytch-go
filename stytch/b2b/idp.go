@@ -18,13 +18,13 @@ import (
 
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/config"
-	"github.com/stytchauth/stytch-go/v16/stytch/shared"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/idp"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/config"
+	"github.com/stytchauth/stytch-go/v17/stytch/shared"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 type IDPClient struct {
@@ -55,10 +55,10 @@ func NewIDPClient(c stytch.Client, jwks *keyfunc.JWKS, policyCache *PolicyCache)
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/shared"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/config"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/b2b/idp"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/config"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 
 func (c *IDPClient) IntrospectTokenNetwork(
 	ctx context.Context,

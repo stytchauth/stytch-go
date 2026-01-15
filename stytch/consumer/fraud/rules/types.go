@@ -9,7 +9,7 @@ package rules
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/fraud"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/fraud"
 )
 
 // ListParams: Request type for `Rules.List`.

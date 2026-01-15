@@ -11,11 +11,11 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
 )
 
 // AttestParams: Request type for `Sessions.Attest`.
@@ -566,7 +566,7 @@ const (
 // ADDIMPORT: "errors"
 // ADDIMPORT: "strings"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
 
 var ErrJWTTooOld = errors.New("JWT too old")
 

@@ -1,11 +1,11 @@
 package shared
 
 import (
-	b2brbac "github.com/stytchauth/stytch-go/v16/stytch/b2b/rbac"
-	b2bsessions "github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
-	consumerrbac "github.com/stytchauth/stytch-go/v16/stytch/consumer/rbac"
-	consumersessions "github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	b2brbac "github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
+	b2bsessions "github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	consumerrbac "github.com/stytchauth/stytch-go/v17/stytch/consumer/rbac"
+	consumersessions "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 func PerformB2BAuthorizationCheck(

@@ -9,8 +9,8 @@ package organizations
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/scim"
-	"github.com/stytchauth/stytch-go/v16/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/scim"
+	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
 )
 
 // ActiveSCIMConnection:
