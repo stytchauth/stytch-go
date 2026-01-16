@@ -10,17 +10,17 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/otp/whatsapp"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/otp/whatsapp"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
-type OTPsWhatsappClient struct {
+type OTPsWhatsAppClient struct {
 	C stytch.Client
 }
 
-func NewOTPsWhatsappClient(c stytch.Client) *OTPsWhatsappClient {
-	return &OTPsWhatsappClient{
+func NewOTPsWhatsAppClient(c stytch.Client) *OTPsWhatsAppClient {
+	return &OTPsWhatsAppClient{
 		C: c,
 	}
 }
@@ -50,7 +50,7 @@ func NewOTPsWhatsappClient(c stytch.Client) *OTPsWhatsappClient {
 // Collect the OTP which was delivered to the user. Call
 // [Authenticate OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the
 // `phone_id` found in the response as the `method_id`.
-func (c *OTPsWhatsappClient) Send(
+func (c *OTPsWhatsAppClient) Send(
 	ctx context.Context,
 	body *whatsapp.SendParams,
 ) (*whatsapp.SendResponse, error) {
@@ -93,7 +93,7 @@ func (c *OTPsWhatsappClient) Send(
 // Collect the OTP which was delivered to the User. Call
 // [Authenticate OTP](https://stytch.com/docs/api/authenticate-otp) using the OTP `code` along with the
 // `phone_id` found in the response as the `method_id`.
-func (c *OTPsWhatsappClient) LoginOrCreate(
+func (c *OTPsWhatsAppClient) LoginOrCreate(
 	ctx context.Context,
 	body *whatsapp.LoginOrCreateParams,
 ) (*whatsapp.LoginOrCreateResponse, error) {

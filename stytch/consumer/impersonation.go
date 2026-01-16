@@ -12,9 +12,9 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/impersonation"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/impersonation"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 type ImpersonationClient struct {

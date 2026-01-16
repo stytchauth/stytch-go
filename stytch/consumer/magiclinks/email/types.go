@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // InviteParams: Request type for `Email.Invite`.

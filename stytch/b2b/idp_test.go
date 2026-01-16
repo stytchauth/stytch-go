@@ -13,11 +13,11 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/idp"
-	"github.com/stytchauth/stytch-go/v16/stytch/config"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/idp"
+	"github.com/stytchauth/stytch-go/v17/stytch/config"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 func TestIDP_IntrospectTokenNetwork(t *testing.T) {

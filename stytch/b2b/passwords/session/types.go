@@ -7,10 +7,10 @@ package session
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
 )
 
 // ResetParams: Request type for `Sessions.Reset`.
@@ -106,7 +106,7 @@ type ResetResponse struct {
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MFARequired `json:"mfa_required,omitempty"`
 	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
 	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
 	// `member_device` response field will contain information about the member's device attributes.

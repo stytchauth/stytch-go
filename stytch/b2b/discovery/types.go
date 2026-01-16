@@ -7,9 +7,9 @@ package discovery
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 )
 
 // DiscoveredOrganization:
@@ -26,7 +26,7 @@ type DiscoveredOrganization struct {
 	PrimaryRequired *sessions.PrimaryRequired `json:"primary_required,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
-	MFARequired *mfa.MfaRequired `json:"mfa_required,omitempty"`
+	MFARequired *mfa.MFARequired `json:"mfa_required,omitempty"`
 }
 
 // Membership:

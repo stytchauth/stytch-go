@@ -12,15 +12,15 @@ import (
 	"fmt"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/otp"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/otp"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 type OTPsClient struct {
 	C        stytch.Client
 	Sms      *OTPsSmsClient
-	Whatsapp *OTPsWhatsappClient
+	WhatsApp *OTPsWhatsAppClient
 	Email    *OTPsEmailClient
 }
 
@@ -29,7 +29,7 @@ func NewOTPsClient(c stytch.Client) *OTPsClient {
 		C: c,
 
 		Sms:      NewOTPsSmsClient(c),
-		Whatsapp: NewOTPsWhatsappClient(c),
+		WhatsApp: NewOTPsWhatsAppClient(c),
 		Email:    NewOTPsEmailClient(c),
 	}
 }
