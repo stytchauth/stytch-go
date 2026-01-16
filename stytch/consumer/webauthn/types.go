@@ -7,9 +7,9 @@ package webauthn
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `WebAuthn.Authenticate`.
@@ -60,6 +60,7 @@ type AuthenticateStartParams struct {
 	// optimized for Passkeys with `userVerification` set to `"preferred"`.
 	//
 	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
+	UseBase64URLEncoding           bool `json:"use_base64_url_encoding,omitempty"`
 }
 
 // ListCredentialsParams: Request type for `WebAuthn.ListCredentials`.

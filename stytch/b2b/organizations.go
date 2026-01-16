@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/stytchauth/stytch-go/v16/stytch"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v16/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v17/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 type OrganizationsClient struct {
@@ -268,6 +268,31 @@ func (c *OrganizationsClient) GetConnectedApp(
 		stytch.RequestParams{
 			Method:      "GET",
 			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/connected_apps/%s", url.PathEscape(body.OrganizationID), url.PathEscape(body.ConnectedAppID)),
+			QueryParams: nil,
+			Body:        nil,
+			V:           &retVal,
+			Headers:     headers,
+		},
+	)
+	return &retVal, err
+}
+
+func (c *OrganizationsClient) DeleteExternalID(
+	ctx context.Context,
+	body *organizations.DeleteExternalIDParams,
+	methodOptions ...*organizations.DeleteExternalIDRequestOptions,
+) (*organizations.DeleteExternalIDResponse, error) {
+	headers := make(map[string][]string)
+	for _, methodOption := range methodOptions {
+		headers = methodOption.AddHeaders(headers)
+	}
+
+	var retVal organizations.DeleteExternalIDResponse
+	err := c.C.NewRequest(
+		ctx,
+		stytch.RequestParams{
+			Method:      "DELETE",
+			Path:        fmt.Sprintf("/v1/b2b/organizations/%s/external_id", url.PathEscape(body.OrganizationID)),
 			QueryParams: nil,
 			Body:        nil,
 			V:           &retVal,

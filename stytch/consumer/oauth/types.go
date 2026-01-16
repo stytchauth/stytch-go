@@ -9,9 +9,9 @@ package oauth
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
 )
 
 // AttachParams: Request type for `OAuth.Attach`.

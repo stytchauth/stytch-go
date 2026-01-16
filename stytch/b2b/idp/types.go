@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 )
 
 // ScopeResult:
@@ -25,7 +25,7 @@ type ScopeResult struct {
 }
 
 // MANUAL(Types)(TYPES)
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v16/stytch/b2b/sessions"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 type OrganizationClaim struct {
 	OrganizationID string `json:"organization_id"`

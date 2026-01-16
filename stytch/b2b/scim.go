@@ -7,7 +7,7 @@ package b2b
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch"
+	"github.com/stytchauth/stytch-go/v17/stytch"
 )
 
 type SCIMClient struct {

@@ -3,8 +3,8 @@ package shared_test
 import (
 	"testing"
 
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/m2m"
-	"github.com/stytchauth/stytch-go/v16/stytch/shared"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/m2m"
+	"github.com/stytchauth/stytch-go/v17/stytch/shared"
 )
 
 func TestPerformM2MAuthorizationCheck(t *testing.T) {

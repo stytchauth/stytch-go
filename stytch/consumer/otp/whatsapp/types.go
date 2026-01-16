@@ -7,10 +7,10 @@ package whatsapp
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v16/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
 )
 
-// LoginOrCreateParams: Request type for `Whatsapp.LoginOrCreate`.
+// LoginOrCreateParams: Request type for `WhatsApp.LoginOrCreate`.
 type LoginOrCreateParams struct {
 	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format
 	// (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this endpoint, see
@@ -42,7 +42,7 @@ type LoginOrCreateParams struct {
 	Locale *LoginOrCreateRequestLocale `json:"locale,omitempty"`
 }
 
-// SendParams: Request type for `Whatsapp.Send`.
+// SendParams: Request type for `WhatsApp.Send`.
 type SendParams struct {
 	// PhoneNumber: The phone number to use for one-time passcodes. The phone number should be in E.164 format
 	// (i.e. +1XXXXXXXXXX). You may use +10000000000 to test this endpoint, see
@@ -72,7 +72,7 @@ type SendParams struct {
 	SessionJWT string `json:"session_jwt,omitempty"`
 }
 
-// LoginOrCreateResponse: Response type for `Whatsapp.LoginOrCreate`.
+// LoginOrCreateResponse: Response type for `WhatsApp.LoginOrCreate`.
 type LoginOrCreateResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
@@ -90,7 +90,7 @@ type LoginOrCreateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 }
 
-// SendResponse: Response type for `Whatsapp.Send`.
+// SendResponse: Response type for `WhatsApp.Send`.
 type SendResponse struct {
 	// RequestID: Globally unique UUID that is returned with every API call. This value is important to log for
 	// debugging purposes; we may ask for this value to help identify a specific API call when helping you
