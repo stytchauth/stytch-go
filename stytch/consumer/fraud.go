@@ -15,6 +15,7 @@ type FraudClient struct {
 	Fingerprint    *FraudFingerprintClient
 	Rules          *FraudRulesClient
 	VerdictReasons *FraudVerdictReasonsClient
+	Email          *FraudEmailClient
 }
 
 func NewFraudClient(c stytch.Client) *FraudClient {
@@ -24,5 +25,6 @@ func NewFraudClient(c stytch.Client) *FraudClient {
 		Fingerprint:    NewFraudFingerprintClient(c),
 		Rules:          NewFraudRulesClient(c),
 		VerdictReasons: NewFraudVerdictReasonsClient(c),
+		Email:          NewFraudEmailClient(c),
 	}
 }
