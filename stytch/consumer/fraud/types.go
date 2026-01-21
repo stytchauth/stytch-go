@@ -20,10 +20,35 @@ type ASNProperties struct {
 	Network string `json:"network,omitempty"`
 }
 
+// AddressInformation:
+type AddressInformation struct {
+	// HasKnownBounces: Whether email sent to this address is known to have bounced previously.
+	HasKnownBounces bool `json:"has_known_bounces,omitempty"`
+	// HasValidSyntax: Whether this email address is valid.
+	HasValidSyntax bool `json:"has_valid_syntax,omitempty"`
+	// IsSuspectedRoleAddress: Whether the local part of the email appears to be a role or group, rather than
+	// an individual end user.
+	IsSuspectedRoleAddress bool `json:"is_suspected_role_address,omitempty"`
+	// NormalizedEmail: The normalized email address after removing '.' characters and any characters after a
+	// '+'.
+	NormalizedEmail string `json:"normalized_email,omitempty"`
+	// TumblingCharacterCount: The number of '.' and '+' characters in the email address. A higher tumbling
+	// count indicates a higher potential for fraud.
+	TumblingCharacterCount int32 `json:"tumbling_character_count,omitempty"`
+}
+
 // BrowserProperties:
 type BrowserProperties struct {
 	// UserAgent: The user agent of the user's browser.
 	UserAgent string `json:"user_agent,omitempty"`
+}
+
+// DomainInformation:
+type DomainInformation struct {
+	// HasMXOrARecord: Whether the email has appropriate DNS records to deliver a message.
+	HasMXOrARecord bool `json:"has_mx_or_a_record,omitempty"`
+	// IsDisposableDomain: Whether the email domain is known to be disposable.
+	IsDisposableDomain bool `json:"is_disposable_domain,omitempty"`
 }
 
 // Fingerprints:
