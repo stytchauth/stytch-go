@@ -12,6 +12,7 @@ import (
 
 	"github.com/stytchauth/stytch-go/v17/stytch"
 	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac/organizations"
 )
 
 type RBACClient struct {
@@ -63,17 +64,28 @@ func (c *RBACClient) Policy(
 }
 
 // MANUAL(PolicyCache)(TYPES)
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac/organizations"
 
 type PolicyCache struct {
 	rbacClient    *RBACClient
 	policy        *rbac.Policy
 	lastUpdatedAt time.Time
+	// Maps an Organization's ID to its policy cache.
+	orgPolicies map[string]CachedOrgPolicy
+}
+
+type CachedOrgPolicy struct {
+	orgPolicy *rbac.OrgPolicy
+	updatedAt time.Time
 }
 
 const refreshCadence = 5 * time.Minute
 
 func NewPolicyCache(rbacClient *RBACClient) *PolicyCache {
-	return &PolicyCache{rbacClient: rbacClient}
+	return &PolicyCache{
+		rbacClient:  rbacClient,
+		orgPolicies: make(map[string]CachedOrgPolicy),
+	}
 }
 
 func (pc *PolicyCache) Get(ctx context.Context) (*rbac.Policy, error) {
@@ -87,6 +99,26 @@ func (pc *PolicyCache) Get(ctx context.Context) (*rbac.Policy, error) {
 		pc.lastUpdatedAt = time.Now()
 	}
 	return pc.policy, nil
+}
+
+func (pc *PolicyCache) GetOrgPolicy(ctx context.Context, organizationID string) (*rbac.OrgPolicy, error) {
+	cache, ok := pc.orgPolicies[organizationID]
+	if !ok || time.Since(cache.updatedAt) > refreshCadence {
+		orgPolicyResp, err := pc.rbacClient.Organizations.GetOrgPolicy(ctx, &organizations.GetOrgPolicyParams{
+			OrganizationID: organizationID,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		cache = CachedOrgPolicy{
+			orgPolicy: &orgPolicyResp.OrgPolicy,
+			updatedAt: time.Now(),
+		}
+		pc.orgPolicies[organizationID] = cache
+	}
+
+	return cache.orgPolicy, nil
 }
 
 // ENDMANUAL(PolicyCache)
