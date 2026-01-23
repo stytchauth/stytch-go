@@ -3,19 +3,20 @@ package shared_test
 import (
 	"testing"
 
-	consumerrbac "github.com/stytchauth/stytch-go/v17/stytch/consumer/rbac"
-	consumersessions "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
 	b2brbac "github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
 	b2bsessions "github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
+	consumerrbac "github.com/stytchauth/stytch-go/v17/stytch/consumer/rbac"
+	consumersessions "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
 	"github.com/stytchauth/stytch-go/v17/stytch/shared"
 	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
 func Test_PerformB2BAuthorizationCheck(t *testing.T) {
 	const orgID = "organization-1234"
-	policy := &b2brbac.Policy{
+	sampleProjectPolicy := &b2brbac.Policy{
 		Roles: []b2brbac.PolicyRole{
 			{
 				RoleID:      "stytch_member",
@@ -73,86 +74,174 @@ func Test_PerformB2BAuthorizationCheck(t *testing.T) {
 			},
 		},
 	}
+	sampleOrgPolicy := &b2brbac.OrgPolicy{
+		Roles: []b2brbac.PolicyRole{
+			{
+				RoleID: "editor",
+				Permissions: []b2brbac.PolicyRolePermission{
+					{
+						ResourceID: "document",
+						Actions:    []string{"*"},
+					},
+				},
+			},
+			{
+				RoleID: "guest",
+				Permissions: []b2brbac.PolicyRolePermission{
+					{
+						ResourceID: "program",
+						Actions:    []string{"read"},
+					},
+				},
+			},
+			{
+				RoleID: "sysadmin",
+				Permissions: []b2brbac.PolicyRolePermission{
+					{
+						ResourceID: "program",
+						Actions:    []string{"read", "execute"},
+					},
+				},
+			},
+		},
+	}
 
-	t.Run("tenancy mismatch", func(t *testing.T) {
-		diffOrgID := "different-organization-id"
-		err := shared.PerformB2BAuthorizationCheck(
-			policy,
-			[]string{"stytch_member"},
-			orgID,
-			&b2bsessions.AuthorizationCheck{
-				OrganizationID: diffOrgID,
-				ResourceID:     "document",
-				Action:         "read",
+	for _, testCase := range []struct {
+		description string
+		in          shared.PerformB2BAuthorizationCheckIn
+		err         error
+	}{
+		{
+			description: "error: tenancy mismatch",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"stytch_member"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: "different-organization-id",
+					ResourceID:     "document",
+					Action:         "read",
+				},
 			},
-		)
-		assert.ErrorContains(t, err, stytcherror.NewSessionAuthorizationTenancyError(orgID, diffOrgID).Error())
-	})
-	t.Run("action exists but resource does not", func(t *testing.T) {
-		err := shared.PerformB2BAuthorizationCheck(
-			policy,
-			[]string{"stytch_member"},
-			orgID,
-			&b2bsessions.AuthorizationCheck{
-				OrganizationID: orgID,
-				ResourceID:     "resource_that_doesnt_exist",
-				Action:         "read",
+			err: stytcherror.NewSessionAuthorizationTenancyError(orgID, "different-organization-id"),
+		},
+		{
+			description: "error: action exists in project policy but resource does not",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"stytch_member"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "resource_that_doesnt_exist",
+					Action:         "read",
+				},
 			},
-		)
-		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
-	})
-	t.Run("resource exists but action does not", func(t *testing.T) {
-		err := shared.PerformB2BAuthorizationCheck(
-			policy,
-			[]string{"stytch_member"},
-			orgID,
-			&b2bsessions.AuthorizationCheck{
-				OrganizationID: orgID,
-				ResourceID:     "document",
-				Action:         "action_that_doesnt_exist",
+			err: stytcherror.NewPermissionError(),
+		},
+		{
+			description: "error: resource exists in project policy but action does not",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"stytch_member"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "document",
+					Action:         "action_that_doesnt_exist",
+				},
 			},
-		)
-		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
-	})
-	t.Run("member has this action but on a different resource", func(t *testing.T) {
-		err := shared.PerformB2BAuthorizationCheck(
-			policy,
-			[]string{"stytch_member"},
-			orgID,
-			&b2bsessions.AuthorizationCheck{
-				OrganizationID: orgID,
-				ResourceID:     "program",
-				Action:         "write",
+			err: stytcherror.NewPermissionError(),
+		},
+		{
+			description: "error: member has this action but on a different resource",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"stytch_member"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "program",
+					Action:         "write",
+				},
 			},
-		)
-		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
-	})
-	t.Run("another authorization check for a member with more elevated privileges", func(t *testing.T) {
-		err := shared.PerformB2BAuthorizationCheck(
-			policy,
-			[]string{"stytch_editor"},
-			orgID,
-			&b2bsessions.AuthorizationCheck{
-				OrganizationID: orgID,
-				ResourceID:     "program",
-				Action:         "edit",
+			err: stytcherror.NewPermissionError(),
+		},
+		{
+			description: "error: another authorization check for a member with more elevated privileges",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     nil,
+				SubjectRoles:  []string{"stytch_editor"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "program",
+					Action:         "edit",
+				},
 			},
-		)
-		assert.ErrorContains(t, err, stytcherror.NewPermissionError().Error())
-	})
-	t.Run("no error when the member is authorized", func(t *testing.T) {
-		err := shared.PerformB2BAuthorizationCheck(
-			policy,
-			[]string{"stytch_admin"},
-			orgID,
-			&b2bsessions.AuthorizationCheck{
-				OrganizationID: orgID,
-				ResourceID:     "document",
-				Action:         "delete",
+			err: stytcherror.NewPermissionError(),
+		},
+		{
+			description: "success when the member is authorized",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"stytch_admin"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "document",
+					Action:         "delete",
+				},
 			},
-		)
-		assert.NoError(t, err)
-	})
+			err: nil,
+		},
+		{
+			description: "success when the member is authorized for role in org policy",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"sysadmin"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "program",
+					Action:         "execute",
+				},
+			},
+			err: nil,
+		},
+		{
+			description: "success when the member is authorized for role in org policy (multiple roles)",
+			in: shared.PerformB2BAuthorizationCheckIn{
+				ProjectPolicy: sampleProjectPolicy,
+				OrgPolicy:     sampleOrgPolicy,
+				SubjectRoles:  []string{"stytch_member", "sysadmin"},
+				SubjectOrgID:  orgID,
+				AuthorizationCheck: &b2bsessions.AuthorizationCheck{
+					OrganizationID: orgID,
+					ResourceID:     "program",
+					Action:         "execute",
+				},
+			},
+			err: nil,
+		},
+	} {
+		t.Run(testCase.description, func(t *testing.T) {
+			err := shared.PerformB2BAuthorizationCheck(testCase.in)
+			if testCase.err != nil {
+				require.Error(t, err)
+				assert.ErrorContains(t, err, testCase.err.Error())
+			} else {
+				assert.NoError(t, err)
+			}
+		})
+	}
 }
 
 func Test_PerformConsumerAuthorizationCheck(t *testing.T) {

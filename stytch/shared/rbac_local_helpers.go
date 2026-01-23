@@ -45,9 +45,9 @@ type policyResource struct {
 	Actions     []string
 }
 
-func policyFromB2B(p *b2brbac.Policy) *policy {
+func policyFromB2B(projectPolicy *b2brbac.Policy, orgPolicy *b2brbac.OrgPolicy) *policy {
 	var roles []policyRole
-	for _, role := range p.Roles {
+	for _, role := range projectPolicy.Roles {
 		var permissions []policyRolePermission
 		for _, permission := range role.Permissions {
 			permissions = append(permissions, policyRolePermission{
@@ -55,16 +55,31 @@ func policyFromB2B(p *b2brbac.Policy) *policy {
 				Actions:    permission.Actions,
 			})
 		}
-
 		roles = append(roles, policyRole{
 			RoleID:      role.RoleID,
 			Description: role.Description,
 			Permissions: permissions,
 		})
 	}
+	if orgPolicy != nil {
+		for _, role := range orgPolicy.Roles {
+			var permissions []policyRolePermission
+			for _, permission := range role.Permissions {
+				permissions = append(permissions, policyRolePermission{
+					ResourceID: permission.ResourceID,
+					Actions:    permission.Actions,
+				})
+			}
+			roles = append(roles, policyRole{
+				RoleID:      role.RoleID,
+				Description: role.Description,
+				Permissions: permissions,
+			})
+		}
+	}
 
 	var resources []policyResource
-	for _, resource := range p.Resources {
+	for _, resource := range projectPolicy.Resources {
 		resources = append(resources, policyResource{
 			ResourceID:  resource.ResourceID,
 			Description: resource.Description,
@@ -73,7 +88,7 @@ func policyFromB2B(p *b2brbac.Policy) *policy {
 	}
 
 	var scopes []policyScope
-	for _, scope := range p.Scopes {
+	for _, scope := range projectPolicy.Scopes {
 		var permissions []policyScopePermission
 		for _, permission := range scope.Permissions {
 			permissions = append(permissions, policyScopePermission{

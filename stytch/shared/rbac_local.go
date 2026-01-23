@@ -8,25 +8,32 @@ import (
 	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
 )
 
-func PerformB2BAuthorizationCheck(
-	policy *b2brbac.Policy,
-	subjectRoles []string,
-	subjectOrgID string,
-	authorizationCheck *b2bsessions.AuthorizationCheck,
-) error {
-	if authorizationCheck == nil {
+type PerformB2BAuthorizationCheckIn struct {
+	ProjectPolicy      *b2brbac.Policy
+	OrgPolicy          *b2brbac.OrgPolicy
+	SubjectRoles       []string
+	SubjectOrgID       string
+	AuthorizationCheck *b2bsessions.AuthorizationCheck
+}
+
+func PerformB2BAuthorizationCheck(in PerformB2BAuthorizationCheckIn) error {
+	if in.AuthorizationCheck == nil {
 		return nil
 	}
 
-	if subjectOrgID != authorizationCheck.OrganizationID {
-		return stytcherror.NewSessionAuthorizationTenancyError(subjectOrgID, authorizationCheck.OrganizationID)
+	if in.SubjectOrgID != in.AuthorizationCheck.OrganizationID {
+		return stytcherror.NewSessionAuthorizationTenancyError(in.SubjectOrgID, in.AuthorizationCheck.OrganizationID)
 	}
 
-	return performRoleAuthorizationCheck(policyFromB2B(policy), authorizationCheckFromB2B(authorizationCheck), subjectRoles)
+	return performRoleAuthorizationCheck(
+		policyFromB2B(in.ProjectPolicy, in.OrgPolicy),
+		authorizationCheckFromB2B(in.AuthorizationCheck),
+		in.SubjectRoles,
+	)
 }
 
 func PerformB2BScopeAuthorizationCheck(
-	policy *b2brbac.Policy,
+	policy *b2brbac.Policy, // NOTE: org policy check not needed here.
 	tokenScopes []string,
 	subjectOrgID string,
 	authorizationCheck *b2bsessions.AuthorizationCheck,
@@ -38,8 +45,8 @@ func PerformB2BScopeAuthorizationCheck(
 	if subjectOrgID != authorizationCheck.OrganizationID {
 		return stytcherror.NewSessionAuthorizationTenancyError(subjectOrgID, authorizationCheck.OrganizationID)
 	}
-
-	return performScopeAuthorizationCheck(policyFromB2B(policy), authorizationCheckFromB2B(authorizationCheck), tokenScopes)
+	// Custom Org Roles don't interact with scopes.
+	return performScopeAuthorizationCheck(policyFromB2B(policy, nil), authorizationCheckFromB2B(authorizationCheck), tokenScopes)
 }
 
 func PerformConsumerAuthorizationCheck(
