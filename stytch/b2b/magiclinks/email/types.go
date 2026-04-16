@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // InviteRequestOptions:
@@ -53,11 +53,11 @@ type InviteParams struct {
 	//   for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
 	// InviteTemplateID: Use a custom template for invite emails. By default, it will use your default email
-	// template. The template must be a template
-	//   using our built-in customizations or a custom HTML email for Magic Links - Invite.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic Links - Invite”.
 	InviteTemplateID string `json:"invite_template_id,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -102,15 +102,15 @@ type LoginOrSignupParams struct {
 	// request starts and ends on the same device.
 	PkceCodeChallenge string `json:"pkce_code_challenge,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be from Stytch's
-	// built-in customizations or a custom HTML email for Magic Links - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic Links - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// SignupTemplateID: Use a custom template for signup emails. By default, it will use your default email
 	// template. The template must be from Stytch's
-	// built-in customizations or a custom HTML email for Magic Links - Signup.
+	// built-in customizations or a custom HTML email for “Magic Links - Signup”.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.

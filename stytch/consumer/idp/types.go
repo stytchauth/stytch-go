@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/sessions"
 )
 
 // ScopeResult:
@@ -25,7 +25,7 @@ type ScopeResult struct {
 }
 
 // MANUAL(Types)(TYPES)
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v18/stytch/consumer/sessions"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 type IntrospectTokenResponse struct {
 	Active       bool             `json:"active"`

@@ -7,7 +7,7 @@ package clients
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/connectedapps"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/connectedapps"
 )
 
 // CreateParams: Request type for `Clients.Create`.

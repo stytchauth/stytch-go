@@ -6,12 +6,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	b2brbac "github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
-	b2bsessions "github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
-	consumerrbac "github.com/stytchauth/stytch-go/v17/stytch/consumer/rbac"
-	consumersessions "github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/shared"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	b2brbac "github.com/stytchauth/stytch-go/v18/stytch/b2b/rbac"
+	b2bsessions "github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
+	consumerrbac "github.com/stytchauth/stytch-go/v18/stytch/consumer/rbac"
+	consumersessions "github.com/stytchauth/stytch-go/v18/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/shared"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 func Test_PerformB2BAuthorizationCheck(t *testing.T) {

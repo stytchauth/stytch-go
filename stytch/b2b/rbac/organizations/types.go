@@ -7,7 +7,7 @@ package organizations
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/rbac"
 )
 
 // GetOrgPolicyParams: Request type for `Organizations.GetOrgPolicy`.

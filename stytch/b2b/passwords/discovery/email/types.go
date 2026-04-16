@@ -7,7 +7,7 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/discovery"
 )
 
 // ResetParams: Request type for `Email.Reset`.
@@ -24,11 +24,13 @@ type ResetParams struct {
 type ResetStartParams struct {
 	// EmailAddress: The email address of the Member to start the email reset process for.
 	EmailAddress string `json:"email_address,omitempty"`
-	// ResetPasswordRedirectURL: The URL that the Member clicks from the reset password link. This URL should
-	// be an endpoint in the backend server that verifies the request by querying
-	//   Stytch's authenticate endpoint and finishes the reset password flow. If this value is not passed, the
-	// default `reset_password_redirect_url` that you set in your Dashboard is used.
-	//   If you have not set a default `reset_password_redirect_url`, an error is returned.
+	// ResetPasswordRedirectURL: The URL that the Member is redirected to from the reset password magic link.
+	// This URL should display your application's reset password page.
+	//   Before rendering the reset page, extract the `token` from the query parameters. On the reset page,
+	// collect the new password and complete the flow by calling the corresponding Password Reset by Email
+	// endpoint.
+	//   If this parameter is not specified, the default Reset Password redirect URL configured in the
+	// Dashboard will be used. If you have not set a default Reset Password redirect URL, an error is returned.
 	ResetPasswordRedirectURL string `json:"reset_password_redirect_url,omitempty"`
 	// DiscoveryRedirectURL: The URL that the end user clicks from the discovery Magic Link. This URL should be
 	// an endpoint in the backend server that
@@ -38,8 +40,9 @@ type ResetStartParams struct {
 	// redirect URL, an error is returned.
 	DiscoveryRedirectURL string `json:"discovery_redirect_url,omitempty"`
 	// ResetPasswordTemplateID: Use a custom template for reset password emails. By default, it will use your
-	// default email template. The template must be a template using our built-in customizations or a custom
-	// HTML email for Passwords - Reset Password.
+	// default email template. Templates can be added in the
+	// [Stytch dashboard](https://stytch.com/dashboard/templates) using our built-in customization options or
+	// custom HTML templates with type “Passwords - Reset Password”.
 	ResetPasswordTemplateID string `json:"reset_password_template_id,omitempty"`
 	// ResetPasswordExpirationMinutes: Sets a time limit after which the email link to reset the member's
 	// password will no longer be valid. The minimum allowed expiration is 5 minutes and the maximum is 10080
@@ -47,7 +50,7 @@ type ResetStartParams struct {
 	ResetPasswordExpirationMinutes int32  `json:"reset_password_expiration_minutes,omitempty"`
 	PkceCodeChallenge              string `json:"pkce_code_challenge,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -59,8 +62,9 @@ type ResetStartParams struct {
 	// VerifyEmailTemplateID: Use a custom template for verification emails sent during password reset flows.
 	// When cross-organization passwords are enabled for your Project, this template will be used the first
 	// time a user sets a password via a
-	//   password reset flow. By default, it will use your default email template. The template must be a
-	// template using our built-in customizations or a custom HTML email for Passwords - Email Verification.
+	//   password reset flow. By default, it will use your default email template. Templates can be added in
+	// the [Stytch dashboard](https://stytch.com/dashboard/templates) using our built-in customization options
+	// or custom HTML templates with type “Passwords - Email Verification”.
 	VerifyEmailTemplateID string `json:"verify_email_template_id,omitempty"`
 }
 

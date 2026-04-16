@@ -7,7 +7,7 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/attribute"
 )
 
 // LoginOrCreateParams: Request type for `Email.LoginOrCreate`.
@@ -30,7 +30,7 @@ type LoginOrCreateParams struct {
 	//         an account for them.
 	CreateUserAsPending bool `json:"create_user_as_pending,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -40,12 +40,12 @@ type LoginOrCreateParams struct {
 	//
 	Locale *LoginOrCreateRequestLocale `json:"locale,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Sign-up.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Sign-up”.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 }
 
@@ -61,7 +61,7 @@ type SendParams struct {
 	// Stytch endpoints by your application.
 	Attributes *attribute.Attributes `json:"attributes,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -77,12 +77,12 @@ type SendParams struct {
 	// SessionJWT: The `session_jwt` associated with a User's existing Session.
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// OTP - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “OTP - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// OTP - Sign-up.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “OTP - Sign-up”.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 }
 

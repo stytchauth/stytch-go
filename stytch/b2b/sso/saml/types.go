@@ -7,8 +7,8 @@ package saml
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // CreateConnectionRequestOptions:
@@ -209,9 +209,7 @@ type CreateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SAML Connection` object affected by this API call. See the
-	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
-	// field details.
+	// Connection: The [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object)
 	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }
 
@@ -253,9 +251,7 @@ type UpdateByURLResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SAML Connection` object affected by this API call. See the
-	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
-	// field details.
+	// Connection: The [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object)
 	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }
 
@@ -269,9 +265,7 @@ type UpdateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SAML Connection` object affected by this API call. See the
-	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
-	// field details.
+	// Connection: The [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object)
 	Connection *sso.SAMLConnection `json:"connection,omitempty"`
 }
 

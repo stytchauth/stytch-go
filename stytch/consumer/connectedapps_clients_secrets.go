@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/connectedapps/clients/secrets"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/connectedapps/clients/secrets"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type ConnectedAppClientsSecretsClient struct {

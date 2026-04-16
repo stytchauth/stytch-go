@@ -112,44 +112,117 @@ type SCIMAttributes struct {
 	EnterpriseExtension *EnterpriseExtension `json:"enterprise_extension,omitempty"`
 }
 
+// SCIMConnection:
 type SCIMConnection struct {
-	OrganizationID                   string                             `json:"organization_id,omitempty"`
-	ConnectionID                     string                             `json:"connection_id,omitempty"`
-	Status                           string                             `json:"status,omitempty"`
-	DisplayName                      string                             `json:"display_name,omitempty"`
-	IdentityProvider                 string                             `json:"identity_provider,omitempty"`
-	BaseURL                          string                             `json:"base_url,omitempty"`
-	BearerTokenLastFour              string                             `json:"bearer_token_last_four,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Status: The status of the connection. The possible values are deleted or active.
+	Status string `json:"status,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// IdentityProvider: Name of the IdP. Enum with possible values: `okta`, `microsoft-entra`, `cyberark`,
+	// `jumpcloud`, `onelogin`, `pingfederate`, `rippling` or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic, such as automatically
+	// appending `?aadOptscim062020` to the returned BaseURL for `microsoft-entra` SCIM Connections to
+	// [enable the SCIM 2.0 compliant flag](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/application-provisioning-config-problem-scim-compatibility#scim-20-compliance-issues-and-status).
+	IdentityProvider string `json:"identity_provider,omitempty"`
+	// BaseURL: The URL supplied to the Identity Provider (IdP) alongside the bearer token enabling access to
+	// Stytch's SCIM API endpoints
+	BaseURL string `json:"base_url,omitempty"`
+	// BearerTokenLastFour: The last four digits of the bearer token. If you've lost access to your
+	// `bearer_token` and need to generate a new one, use the
+	// [SCIM rotate token start endpoint](https://stytch.com/docs/b2b/api/scim-rotate-token-start).
+	BearerTokenLastFour string `json:"bearer_token_last_four,omitempty"`
+	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
+	// array must contain a `group_id` and a `role_id`.
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
 	NextBearerTokenLastFour          string                             `json:"next_bearer_token_last_four,omitempty"`
-	BearerTokenExpiresAt             *time.Time                         `json:"bearer_token_expires_at,omitempty"`
-	NextBearerTokenExpiresAt         *time.Time                         `json:"next_bearer_token_expires_at,omitempty"`
+	// BearerTokenExpiresAt: The bearer token expiry time.
+	BearerTokenExpiresAt *time.Time `json:"bearer_token_expires_at,omitempty"`
+	// NextBearerTokenExpiresAt: This field is supplied only during
+	// [token rotation](https://stytch.com/docs/b2b/api/scim-rotate-token-start). The next bearer token expiry
+	// time.
+	NextBearerTokenExpiresAt *time.Time `json:"next_bearer_token_expires_at,omitempty"`
 }
 
+// SCIMConnectionWithNextToken:
 type SCIMConnectionWithNextToken struct {
-	OrganizationID                   string                             `json:"organization_id,omitempty"`
-	ConnectionID                     string                             `json:"connection_id,omitempty"`
-	Status                           string                             `json:"status,omitempty"`
-	DisplayName                      string                             `json:"display_name,omitempty"`
-	BaseURL                          string                             `json:"base_url,omitempty"`
-	IdentityProvider                 string                             `json:"identity_provider,omitempty"`
-	BearerTokenLastFour              string                             `json:"bearer_token_last_four,omitempty"`
-	NextBearerToken                  string                             `json:"next_bearer_token,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Status: The status of the connection. The possible values are deleted or active.
+	Status string `json:"status,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// BaseURL: The URL supplied to the Identity Provider (IdP) alongside the bearer token enabling access to
+	// Stytch's SCIM API endpoints
+	BaseURL string `json:"base_url,omitempty"`
+	// IdentityProvider: Name of the IdP. Enum with possible values: `okta`, `microsoft-entra`, `cyberark`,
+	// `jumpcloud`, `onelogin`, `pingfederate`, `rippling` or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic, such as automatically
+	// appending `?aadOptscim062020` to the returned BaseURL for `microsoft-entra` SCIM Connections to
+	// [enable the SCIM 2.0 compliant flag](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/application-provisioning-config-problem-scim-compatibility#scim-20-compliance-issues-and-status).
+	IdentityProvider string `json:"identity_provider,omitempty"`
+	// BearerTokenLastFour: The last four digits of the bearer token. If you've lost access to your
+	// `bearer_token` and need to generate a new one, use the
+	// [SCIM rotate token start endpoint](https://stytch.com/docs/b2b/api/scim-rotate-token-start).
+	BearerTokenLastFour string `json:"bearer_token_last_four,omitempty"`
+	// NextBearerToken: This field is supplied only during
+	// [token rotation](https://stytch.com/docs/b2b/api/scim-rotate-token-start). This token should be used as
+	// the new bearer token for the SCIM connection after token rotation has been completed using the
+	// [SCIM rotate token complete endpoint](https://stytch.com/docs/b2b/api/scim-rotate-token-complete).
+	NextBearerToken string `json:"next_bearer_token,omitempty"`
+	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
+	// array must contain a `group_id` and a `role_id`.
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
-	BearerTokenExpiresAt             *time.Time                         `json:"bearer_token_expires_at,omitempty"`
-	NextBearerTokenExpiresAt         *time.Time                         `json:"next_bearer_token_expires_at,omitempty"`
+	// BearerTokenExpiresAt: The bearer token expiry time.
+	BearerTokenExpiresAt *time.Time `json:"bearer_token_expires_at,omitempty"`
+	// NextBearerTokenExpiresAt: This field is supplied only during
+	// [token rotation](https://stytch.com/docs/b2b/api/scim-rotate-token-start). The next bearer token expiry
+	// time.
+	NextBearerTokenExpiresAt *time.Time `json:"next_bearer_token_expires_at,omitempty"`
 }
 
+// SCIMConnectionWithToken:
 type SCIMConnectionWithToken struct {
-	OrganizationID                   string                             `json:"organization_id,omitempty"`
-	ConnectionID                     string                             `json:"connection_id,omitempty"`
-	Status                           string                             `json:"status,omitempty"`
-	DisplayName                      string                             `json:"display_name,omitempty"`
-	IdentityProvider                 string                             `json:"identity_provider,omitempty"`
-	BaseURL                          string                             `json:"base_url,omitempty"`
-	BearerToken                      string                             `json:"bearer_token,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: The ID of the SCIM connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Status: The status of the connection. The possible values are deleted or active.
+	Status string `json:"status,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// IdentityProvider: Name of the IdP. Enum with possible values: `okta`, `microsoft-entra`, `cyberark`,
+	// `jumpcloud`, `onelogin`, `pingfederate`, `rippling` or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic, such as automatically
+	// appending `?aadOptscim062020` to the returned BaseURL for `microsoft-entra` SCIM Connections to
+	// [enable the SCIM 2.0 compliant flag](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/application-provisioning-config-problem-scim-compatibility#scim-20-compliance-issues-and-status).
+	IdentityProvider string `json:"identity_provider,omitempty"`
+	// BaseURL: The URL supplied to the Identity Provider (IdP) alongside the bearer token enabling access to
+	// Stytch's SCIM API endpoints
+	BaseURL string `json:"base_url,omitempty"`
+	// BearerToken: The token supplied to the Identity Provider (IdP) alongside the base URL that grants access
+	// to Stytch's SCIM API endpoints. It should be included in HTTP authorization headers. This field is
+	// supplied only on creation of the SCIM connection.
+	BearerToken string `json:"bearer_token,omitempty"`
+	// SCIMGroupImplicitRoleAssignments: An array of SCIM group implicit role assignments. Each object in the
+	// array must contain a `group_id` and a `role_id`.
 	SCIMGroupImplicitRoleAssignments []SCIMGroupImplicitRoleAssignments `json:"scim_group_implicit_role_assignments,omitempty"`
-	BearerTokenExpiresAt             *time.Time                         `json:"bearer_token_expires_at,omitempty"`
+	// BearerTokenExpiresAt: The bearer token expiry time.
+	BearerTokenExpiresAt *time.Time `json:"bearer_token_expires_at,omitempty"`
 }
 
 // SCIMGroup:
@@ -167,8 +240,11 @@ type SCIMGroup struct {
 	ConnectionID string `json:"connection_id,omitempty"`
 }
 
+// SCIMGroupImplicitRoleAssignments:
 type SCIMGroupImplicitRoleAssignments struct {
-	RoleID    string `json:"role_id,omitempty"`
+	// RoleID: The ID of the role.
+	RoleID string `json:"role_id,omitempty"`
+	// GroupID: The ID of the group.
 	GroupID   string `json:"group_id,omitempty"`
 	GroupName string `json:"group_name,omitempty"`
 }

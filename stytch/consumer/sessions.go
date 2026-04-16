@@ -16,10 +16,10 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/shared"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/shared"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -242,9 +242,6 @@ func (c *SessionsClient) Migrate(
 // Session for the underlying User.
 // This session can be used with the Stytch SDKs and APIs.
 //
-// The Session returned will be the same Session that was active in your application (the authorizing
-// party) during the initial authorization flow.
-//
 // The Access Token must contain the `full_access` scope (only available to First Party clients) and must
 // not be more than 5 minutes old. Access Tokens may only be exchanged a single time.
 func (c *SessionsClient) ExchangeAccessToken(
@@ -355,8 +352,8 @@ func (c *SessionsClient) Attest(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v18/stytch/shared"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,

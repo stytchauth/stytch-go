@@ -7,9 +7,9 @@ package oauth
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/idp"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/connectedapps"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/idp"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/connectedapps"
 )
 
 // AuthorizeParams: Request type for `OAuth.Authorize`.

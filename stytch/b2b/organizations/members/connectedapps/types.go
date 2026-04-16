@@ -7,7 +7,7 @@ package connectedapps
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // RevokeRequestOptions:

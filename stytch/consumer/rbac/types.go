@@ -12,7 +12,8 @@ type Policy struct {
 	Roles []PolicyRole `json:"roles,omitempty"`
 	// Resources: An array of [Resource objects](https://stytch.com/docs/api/rbac-resource-object).
 	Resources []PolicyResource `json:"resources,omitempty"`
-	Scopes    []PolicyScope    `json:"scopes,omitempty"`
+	// Scopes: An array of [Scope objects](https://stytch.com/docs/api/rbac-scope-object).
+	Scopes []PolicyScope `json:"scopes,omitempty"`
 }
 
 // PolicyParams: Request type for `RBAC.Policy`.
@@ -64,15 +65,30 @@ type PolicyRolePermission struct {
 	Actions []string `json:"actions,omitempty"`
 }
 
+// PolicyScope:
 type PolicyScope struct {
-	Scope       string                  `json:"scope,omitempty"`
-	Description string                  `json:"description,omitempty"`
+	// Scope: The unique identifier of the RBAC Scope, provided by the developer and intended to be
+	// human-readable.
+	Scope string `json:"scope,omitempty"`
+	// Description: The description of the RBAC Scope.
+	Description string `json:"description,omitempty"`
+	// Permissions: A list of permissions that link a
+	// [Resource](https://stytch.com/docs/api/rbac-resource-object) to a list of actions.
 	Permissions []PolicyScopePermission `json:"permissions,omitempty"`
 }
 
+// PolicyScopePermission:
 type PolicyScopePermission struct {
-	ResourceID string   `json:"resource_id,omitempty"`
-	Actions    []string `json:"actions,omitempty"`
+	// ResourceID: A unique identifier of the RBAC Resource, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   A `resource_id` is not allowed to start with `stytch`, which is a special prefix used for Stytch
+	// default Resources with reserved `resource_id`s.
+	//
+	ResourceID string `json:"resource_id,omitempty"`
+	// Actions: A list of permitted actions the Scope is required to take with the provided Resource. You can
+	// use `*` as a wildcard to require a Scope permission to use all possible actions related to the Resource.
+	Actions []string `json:"actions,omitempty"`
 }
 
 // PolicyResponse: Response type for `RBAC.Policy`.

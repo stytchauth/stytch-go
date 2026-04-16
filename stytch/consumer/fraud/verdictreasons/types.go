@@ -7,7 +7,7 @@ package verdictreasons
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/fraud"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/fraud"
 )
 
 // ListParams: Request type for `VerdictReasons.List`.
