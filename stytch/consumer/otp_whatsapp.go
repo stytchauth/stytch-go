@@ -10,9 +10,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/otp/whatsapp"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/otp/whatsapp"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type OTPsWhatsAppClient struct {

@@ -9,11 +9,11 @@ package sso
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // AuthenticateParams: Request type for `SSO.Authenticate`.
@@ -54,7 +54,7 @@ type AuthenticateParams struct {
 	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
 	// be used to determine which language to use when sending the passcode.
 	//
-	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
+	// Parameter is an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese
@@ -76,18 +76,53 @@ type AuthenticateParams struct {
 	TelemetryID string `json:"telemetry_id,omitempty"`
 }
 
+// Connection:
 type Connection struct {
-	OrganizationID                            string                             `json:"organization_id,omitempty"`
-	ConnectionID                              string                             `json:"connection_id,omitempty"`
-	ExternalOrganizationID                    string                             `json:"external_organization_id,omitempty"`
-	ExternalConnectionID                      string                             `json:"external_connection_id,omitempty"`
-	DisplayName                               string                             `json:"display_name,omitempty"`
-	Status                                    string                             `json:"status,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific External SSO Connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// ExternalOrganizationID: Globally unique UUID that identifies a different Organization within your
+	// Project.
+	ExternalOrganizationID string `json:"external_organization_id,omitempty"`
+	// ExternalConnectionID: Globally unique UUID that identifies a specific SSO connection configured for a
+	// different Organization in your Project.
+	ExternalConnectionID string `json:"external_connection_id,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// Status: The status of the connection. External connections are always active.
+	Status string `json:"status,omitempty"`
+	// ExternalConnectionImplicitRoleAssignments: All Members who log in with this External connection will
+	// implicitly receive the specified Roles. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment. Implicit role assignments are not supported for External connections if the underlying SSO
+	// connection is an OIDC connection.
 	ExternalConnectionImplicitRoleAssignments []ConnectionImplicitRoleAssignment `json:"external_connection_implicit_role_assignments,omitempty"`
-	ExternalGroupImplicitRoleAssignments      []GroupImplicitRoleAssignment      `json:"external_group_implicit_role_assignments,omitempty"`
+	// ExternalGroupImplicitRoleAssignments: Defines the names of the groups
+	//  that grant specific role assignments. For each group-Role pair, if a Member logs in with this external
+	// connection and
+	//  belongs to the specified group, they will be granted the associated Role. See the
+	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment.
+	ExternalGroupImplicitRoleAssignments []GroupImplicitRoleAssignment `json:"external_group_implicit_role_assignments,omitempty"`
 }
 
+// ConnectionImplicitRoleAssignment:
 type ConnectionImplicitRoleAssignment struct {
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
+	// for a more detailed explanation.
+	//
+	//
 	RoleID string `json:"role_id,omitempty"`
 }
 
@@ -145,48 +180,152 @@ type GroupImplicitRoleAssignment struct {
 	Group  string `json:"group,omitempty"`
 }
 
+// OIDCConnection:
 type OIDCConnection struct {
-	OrganizationID   string         `json:"organization_id,omitempty"`
-	ConnectionID     string         `json:"connection_id,omitempty"`
-	Status           string         `json:"status,omitempty"`
-	DisplayName      string         `json:"display_name,omitempty"`
-	RedirectURL      string         `json:"redirect_url,omitempty"`
-	ClientID         string         `json:"client_id,omitempty"`
-	ClientSecret     string         `json:"client_secret,omitempty"`
-	Issuer           string         `json:"issuer,omitempty"`
-	AuthorizationURL string         `json:"authorization_url,omitempty"`
-	TokenURL         string         `json:"token_url,omitempty"`
-	UserinfoURL      string         `json:"userinfo_url,omitempty"`
-	JWKSURL          string         `json:"jwks_url,omitempty"`
-	IdentityProvider string         `json:"identity_provider,omitempty"`
-	CustomScopes     string         `json:"custom_scopes,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific OIDC Connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Status: The status of the connection. The possible values are pending or active. See the
+	// [Update OIDC Connection endpoint](https://stytch.com/docs/b2b/api/update-oidc-connection) for more
+	// details.
+	Status string `json:"status,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// RedirectURL: The callback URL for this OIDC connection. This value will be passed to the IdP to redirect
+	// the Member back to Stytch after a sign-in attempt.
+	RedirectURL string `json:"redirect_url,omitempty"`
+	// ClientID: The OAuth2.0 client ID used to authenticate login attempts. This will be provided by the IdP.
+	ClientID string `json:"client_id,omitempty"`
+	// ClientSecret: The secret belonging to the OAuth2.0 client used to authenticate login attempts. This will
+	// be provided by the IdP.
+	ClientSecret string `json:"client_secret,omitempty"`
+	// Issuer: A case-sensitive `https://` URL that uniquely identifies the IdP. This will be provided by the
+	// IdP.
+	Issuer string `json:"issuer,omitempty"`
+	// AuthorizationURL: The location of the URL that starts an OAuth login at the IdP. This will be provided
+	// by the IdP.
+	AuthorizationURL string `json:"authorization_url,omitempty"`
+	// TokenURL: The location of the URL that issues OAuth2.0 access tokens and OIDC ID tokens. This will be
+	// provided by the IdP.
+	TokenURL string `json:"token_url,omitempty"`
+	// UserinfoURL: The location of the IDP's
+	// [UserInfo Endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo). This will be
+	// provided by the IdP.
+	UserinfoURL string `json:"userinfo_url,omitempty"`
+	// JWKSURL: The location of the IdP's JSON Web Key Set, used to verify credentials issued by the IdP. This
+	// will be provided by the IdP.
+	JWKSURL string `json:"jwks_url,omitempty"`
+	// IdentityProvider: Name of the IdP. Enum with possible values: `classlink`, `cyberark`, `duo`,
+	// `google-workspace`, `jumpcloud`, `keycloak`, `miniorange`, `microsoft-entra`, `okta`, `onelogin`,
+	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic.
+	IdentityProvider string `json:"identity_provider,omitempty"`
+	// CustomScopes: A space-separated list of custom scopes that will be requested on every SSOStart call. If
+	// set, this value will replace the default set of OIDC scopes requested: `openid email profile`.
+	// Additional scopes can be requested using the `custom_scopes` query parameter on individual SSOStart
+	// calls.
+	CustomScopes string `json:"custom_scopes,omitempty"`
+	// AttributeMapping: An object that represents the attributes used to identify a Member. This object will
+	// map the IdP-defined User attributes to Stytch-specific values, which will appear on the member's Trusted
+	// Metadata.
 	AttributeMapping map[string]any `json:"attribute_mapping,omitempty"`
 }
 
+// SAMLConnection:
 type SAMLConnection struct {
-	OrganizationID                        string                                 `json:"organization_id,omitempty"`
-	ConnectionID                          string                                 `json:"connection_id,omitempty"`
-	Status                                string                                 `json:"status,omitempty"`
-	IDPEntityID                           string                                 `json:"idp_entity_id,omitempty"`
-	DisplayName                           string                                 `json:"display_name,omitempty"`
-	IDPSSOURL                             string                                 `json:"idp_sso_url,omitempty"`
-	AcsURL                                string                                 `json:"acs_url,omitempty"`
-	AudienceURI                           string                                 `json:"audience_uri,omitempty"`
-	SigningCertificates                   []X509Certificate                      `json:"signing_certificates,omitempty"`
-	VerificationCertificates              []X509Certificate                      `json:"verification_certificates,omitempty"`
-	EncryptionPrivateKeys                 []EncryptionPrivateKey                 `json:"encryption_private_keys,omitempty"`
+	// OrganizationID: Globally unique UUID that identifies a specific Organization. The `organization_id` is
+	// critical to perform operations on an Organization, so be sure to preserve this value. You may also use
+	// the organization_slug or organization_external_id here as a convenience.
+	OrganizationID string `json:"organization_id,omitempty"`
+	// ConnectionID: Globally unique UUID that identifies a specific SAML Connection.
+	ConnectionID string `json:"connection_id,omitempty"`
+	// Status: The status of the connection. The possible values are pending or active. See the
+	// [Update SAML Connection endpoint](https://stytch.com/docs/b2b/api/update-saml-connection) for more
+	// details.
+	Status string `json:"status,omitempty"`
+	// IDPEntityID: A globally unique name for the IdP. This will be provided by the IdP.
+	IDPEntityID string `json:"idp_entity_id,omitempty"`
+	// DisplayName: A human-readable display name for the connection.
+	DisplayName string `json:"display_name,omitempty"`
+	// IDPSSOURL: The URL for which assertions for login requests will be sent. This will be provided by the
+	// IdP.
+	IDPSSOURL string `json:"idp_sso_url,omitempty"`
+	// AcsURL: The URL of the Assertion Consumer Service. This value will be passed to the IdP to redirect the
+	// Member back to Stytch after a sign-in attempt. Read our
+	// [SAML Overview](https://stytch.com/docs/b2b/api/saml-overview) for more info.
+	AcsURL string `json:"acs_url,omitempty"`
+	// AudienceURI: The URL of the Audience Restriction. This value will indicate that Stytch is the intended
+	// audience of an assertion. Read our [SAML Overview](https://stytch.com/docs/b2b/api/saml-overview) for
+	// more info.
+	AudienceURI string `json:"audience_uri,omitempty"`
+	// SigningCertificates: A list of X.509 certificates Stytch will use to sign its assertion requests.
+	// Certificates should be uploaded to the IdP.
+	SigningCertificates []X509Certificate `json:"signing_certificates,omitempty"`
+	// VerificationCertificates: A list of X.509 certificates Stytch will use to validate an assertion
+	// callback. Certificates should be populated from the IdP.
+	VerificationCertificates []X509Certificate      `json:"verification_certificates,omitempty"`
+	EncryptionPrivateKeys    []EncryptionPrivateKey `json:"encryption_private_keys,omitempty"`
+	// SAMLConnectionImplicitRoleAssignments: All Members who log in with this SAML connection will implicitly
+	// receive the specified Roles. See the
+	// [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment.
 	SAMLConnectionImplicitRoleAssignments []SAMLConnectionImplicitRoleAssignment `json:"saml_connection_implicit_role_assignments,omitempty"`
-	SAMLGroupImplicitRoleAssignments      []SAMLGroupImplicitRoleAssignment      `json:"saml_group_implicit_role_assignments,omitempty"`
-	AlternativeAudienceURI                string                                 `json:"alternative_audience_uri,omitempty"`
-	IdentityProvider                      string                                 `json:"identity_provider,omitempty"`
-	NameidFormat                          string                                 `json:"nameid_format,omitempty"`
-	AlternativeAcsURL                     string                                 `json:"alternative_acs_url,omitempty"`
-	IDPInitiatedAuthDisabled              bool                                   `json:"idp_initiated_auth_disabled,omitempty"`
-	AllowGatewayCallback                  bool                                   `json:"allow_gateway_callback,omitempty"`
-	AttributeMapping                      map[string]any                         `json:"attribute_mapping,omitempty"`
+	// SAMLGroupImplicitRoleAssignments: Defines the names of the SAML groups
+	//  that grant specific role assignments. For each group-Role pair, if a Member logs in with this SAML
+	// connection and
+	//  belongs to the specified SAML group, they will be granted the associated Role. See the
+	//  [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/role-assignment) for more information about role
+	// assignment.
+	SAMLGroupImplicitRoleAssignments []SAMLGroupImplicitRoleAssignment `json:"saml_group_implicit_role_assignments,omitempty"`
+	// AlternativeAudienceURI: An alternative URL to use for the Audience Restriction. This value can be used
+	// when you wish to migrate an existing SAML integration to Stytch with zero downtime. Read our
+	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
+	// for more info.
+	AlternativeAudienceURI string `json:"alternative_audience_uri,omitempty"`
+	// IdentityProvider: Name of the IdP. Enum with possible values: `classlink`, `cyberark`, `duo`,
+	// `google-workspace`, `jumpcloud`, `keycloak`, `miniorange`, `microsoft-entra`, `okta`, `onelogin`,
+	// `pingfederate`, `rippling`, `salesforce`, `shibboleth`, or `generic`.
+	//
+	// Specifying a known provider allows Stytch to handle any provider-specific logic.
+	IdentityProvider string `json:"identity_provider,omitempty"`
+	// NameidFormat: The NameID format the SAML Connection expects to use. Defaults to
+	// `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`.
+	NameidFormat string `json:"nameid_format,omitempty"`
+	// AlternativeAcsURL: An alternative URL to use for the `AssertionConsumerServiceURL` in SP initiated SAML
+	// AuthNRequests. This value can be used when you wish to migrate an existing SAML integration to Stytch
+	// with zero downtime. Note that you will be responsible for proxying requests sent to the Alternative ACS
+	// URL to Stytch. Read our
+	// [SSO migration guide](https://stytch.com/docs/b2b/guides/migrations/additional-migration-considerations)
+	// for more info.
+	AlternativeAcsURL string `json:"alternative_acs_url,omitempty"`
+	// IDPInitiatedAuthDisabled: Determines whether IDP initiated auth is allowed for a given SAML connection.
+	// Defaults to false (IDP Initiated Auth is enabled).
+	IDPInitiatedAuthDisabled bool `json:"idp_initiated_auth_disabled,omitempty"`
+	AllowGatewayCallback     bool `json:"allow_gateway_callback,omitempty"`
+	// AttributeMapping: An object that represents the attributes used to identify a Member. This object will
+	// map the IdP-defined User attributes to Stytch-specific values. Required attributes: `email` and one of
+	// `full_name` or `first_name` and `last_name`.
+	AttributeMapping map[string]any `json:"attribute_mapping,omitempty"`
 }
 
+// SAMLConnectionImplicitRoleAssignment:
 type SAMLConnectionImplicitRoleAssignment struct {
+	// RoleID: The unique identifier of the RBAC Role, provided by the developer and intended to be
+	// human-readable.
+	//
+	//   Reserved `role_id`s that are predefined by Stytch include:
+	//
+	//   * `stytch_member`
+	//   * `stytch_admin`
+	//
+	//   Check out the [guide on Stytch default Roles](https://stytch.com/docs/b2b/guides/rbac/stytch-default)
+	// for a more detailed explanation.
+	//
+	//
 	RoleID string `json:"role_id,omitempty"`
 }
 
@@ -195,13 +334,20 @@ type SAMLGroupImplicitRoleAssignment struct {
 	Group  string `json:"group,omitempty"`
 }
 
+// X509Certificate:
 type X509Certificate struct {
-	CertificateID string     `json:"certificate_id,omitempty"`
-	Certificate   string     `json:"certificate,omitempty"`
-	Issuer        string     `json:"issuer,omitempty"`
-	CreatedAt     *time.Time `json:"created_at,omitempty"`
-	ExpiresAt     *time.Time `json:"expires_at,omitempty"`
-	UpdatedAt     *time.Time `json:"updated_at,omitempty"`
+	// CertificateID: The ID of the certificate.
+	CertificateID string `json:"certificate_id,omitempty"`
+	// Certificate: The certificate, in [PEM](https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail) format.
+	Certificate string `json:"certificate,omitempty"`
+	// Issuer: The issuer of the certificate. For signing certificates, this value will be "Stytch".
+	Issuer string `json:"issuer,omitempty"`
+	// CreatedAt: A timestamp that indicates when the certificate was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// ExpiresAt: A timestamp that indicates when the certificate will expire.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	// UpdatedAt: A timestamp that indicates when the certificate was updated.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // AuthenticateResponse: Response type for `SSO.Authenticate`.

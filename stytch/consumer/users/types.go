@@ -9,7 +9,7 @@ package users
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/attribute"
 )
 
 // BiometricRegistration:
@@ -320,7 +320,9 @@ type User struct {
 	// BiometricRegistrations: An array that contains a list of all biometric registrations for a given User in
 	// the Stytch API.
 	BiometricRegistrations []BiometricRegistration `json:"biometric_registrations,omitempty"`
-	IsLocked               bool                    `json:"is_locked,omitempty"`
+	// IsLocked: Whether the User is temporarily locked due to too many failed authentication attempts. See the
+	// [User Locking Guide](https://stytch.com/docs/resources/platform/user-locks) for more information.
+	IsLocked bool `json:"is_locked,omitempty"`
 	// Roles assigned to this User.
 	//    See the [RBAC guide](https://stytch.com/docs/guides/rbac/role-assignment) for more information about
 	// role assignment.
@@ -341,9 +343,16 @@ type User struct {
 	// **cannot be used to store critical information.** See the
 	// [Metadata](https://stytch.com/docs/api/metadata) reference for complete field behavior details.
 	UntrustedMetadata map[string]any `json:"untrusted_metadata,omitempty"`
-	ExternalID        string         `json:"external_id,omitempty"`
-	LockCreatedAt     *time.Time     `json:"lock_created_at,omitempty"`
-	LockExpiresAt     *time.Time     `json:"lock_expires_at,omitempty"`
+	// ExternalID: An identifier that can be used in most API calls where a `member_id` is expected. This is a
+	// string consisting of alphanumeric, `.`, `_`, `-`, or `|` characters with a maximum length of 128
+	// characters. External IDs must be unique within the project.
+	ExternalID string `json:"external_id,omitempty"`
+	// LockCreatedAt: When the user lock was created, if there is one. Values conform to the RFC 3339 standard
+	// and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	LockCreatedAt *time.Time `json:"lock_created_at,omitempty"`
+	// LockExpiresAt: When the user lock expires, if there is one. Values conform to the RFC 3339 standard and
+	// are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
+	LockExpiresAt *time.Time `json:"lock_expires_at,omitempty"`
 }
 
 // UserConnectedApp:

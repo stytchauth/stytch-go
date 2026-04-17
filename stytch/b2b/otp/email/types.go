@@ -7,10 +7,10 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/devicehistory"
 )
 
 // AuthenticateParams: Request type for `Email.Authenticate`.
@@ -64,7 +64,7 @@ type AuthenticateParams struct {
 	//   Total custom claims size cannot exceed four kilobytes.
 	SessionCustomClaims map[string]any `json:"session_custom_claims,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -89,15 +89,15 @@ type LoginOrSignupParams struct {
 	// EmailAddress: The email address of the Member.
 	EmailAddress string `json:"email_address,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// OTP - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “OTP - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// SignupTemplateID: Use a custom template for signup emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// OTP - Signup.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “OTP - Signup”.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.

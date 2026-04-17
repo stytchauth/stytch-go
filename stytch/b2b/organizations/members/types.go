@@ -7,8 +7,8 @@ package members
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // CreateRequestOptions:
@@ -370,7 +370,7 @@ type StartEmailUpdateParams struct {
 	// an error is returned.
 	LoginRedirectURL string `json:"login_redirect_url,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -380,8 +380,8 @@ type StartEmailUpdateParams struct {
 	//
 	Locale *StartEmailUpdateRequestLocale `json:"locale,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be from Stytch's
-	// built-in customizations or a custom HTML email for Magic Links - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic Links - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// DeliveryMethod: The method that should be used to verify a member's new email address. The options are
 	// `EMAIL_MAGIC_LINK` or `EMAIL_OTP`. This field is optional, if no value is provided, `EMAIL_MAGIC_LINK`

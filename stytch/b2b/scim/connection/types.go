@@ -7,8 +7,8 @@ package connection
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/scim"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/scim"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // CreateRequestOptions:
@@ -221,9 +221,7 @@ type CreateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SCIM Connection` object affected by this API call. See the
-	// [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object) for complete response
-	// field details.
+	// Connection: The [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object).
 	Connection *scim.SCIMConnectionWithToken `json:"connection,omitempty"`
 }
 
@@ -261,8 +259,7 @@ type GetResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: A [SCIM Connection](https://stytch.com/docs/b2b/api/scim-connection-object) connection
-	// belonging to the organization (currently limited to one).
+	// Connection: The [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object).
 	Connection *scim.SCIMConnection `json:"connection,omitempty"`
 }
 
@@ -276,9 +273,7 @@ type RotateCancelResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SCIM Connection` object affected by this API call. See the
-	// [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object) for complete response
-	// field details.
+	// Connection: The [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object).
 	Connection *scim.SCIMConnection `json:"connection,omitempty"`
 }
 
@@ -292,9 +287,7 @@ type RotateCompleteResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SCIM Connection` object affected by this API call. See the
-	// [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object) for complete response
-	// field details.
+	// Connection: The [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object).
 	Connection *scim.SCIMConnection `json:"connection,omitempty"`
 }
 
@@ -308,9 +301,7 @@ type RotateStartResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SCIM Connection` object affected by this API call. See the
-	// [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object) for complete response
-	// field details.
+	// Connection: The [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object).
 	Connection *scim.SCIMConnectionWithNextToken `json:"connection,omitempty"`
 }
 
@@ -324,9 +315,7 @@ type UpdateResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `SAML Connection` object affected by this API call. See the
-	// [SAML Connection Object](https://stytch.com/docs/b2b/api/saml-connection-object) for complete response
-	// field details.
+	// Connection: The [SCIM Connection Object](https://stytch.com/docs/b2b/api/scim-connection-object).
 	Connection *scim.SCIMConnection `json:"connection,omitempty"`
 }
 

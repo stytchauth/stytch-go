@@ -7,9 +7,9 @@ package webauthn
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/users"
 )
 
 // AuthenticateParams: Request type for `WebAuthn.Authenticate`.
@@ -60,7 +60,10 @@ type AuthenticateStartParams struct {
 	// optimized for Passkeys with `userVerification` set to `"preferred"`.
 	//
 	ReturnPasskeyCredentialOptions bool `json:"return_passkey_credential_options,omitempty"`
-	UseBase64URLEncoding           bool `json:"use_base64_url_encoding,omitempty"`
+	// UseBase64URLEncoding: If true, values in the `public_key_credential_creation_options` will be base64 URL
+	// encoded. Set this option to true when using built-in browser methods like `navigator.credentials.create`
+	// and `navigator.credentials.get`.
+	UseBase64URLEncoding bool `json:"use_base64_url_encoding,omitempty"`
 }
 
 // ListCredentialsParams: Request type for `WebAuthn.ListCredentials`.
@@ -131,7 +134,10 @@ type RegisterStartParams struct {
 	OverrideID                     string `json:"override_id,omitempty"`
 	OverrideName                   string `json:"override_name,omitempty"`
 	OverrideDisplayName            string `json:"override_display_name,omitempty"`
-	UseBase64URLEncoding           bool   `json:"use_base64_url_encoding,omitempty"`
+	// UseBase64URLEncoding: If true, values in the `public_key_credential_creation_options` will be base64 URL
+	// encoded. Set this option to true when using built-in browser methods like `navigator.credentials.create`
+	// and `navigator.credentials.get`.
+	UseBase64URLEncoding bool `json:"use_base64_url_encoding,omitempty"`
 }
 
 // UpdateParams: Request type for `WebAuthn.Update`.

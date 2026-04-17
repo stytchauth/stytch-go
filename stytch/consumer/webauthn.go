@@ -13,9 +13,9 @@ import (
 	"net/url"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/webauthn"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/webauthn"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type WebAuthnClient struct {
@@ -37,13 +37,13 @@ func NewWebAuthnClient(c stytch.Client) *WebAuthnClient {
 // from
 // [public_key_credential_creation_options](https://w3c.github.io/webauthn/#dictionary-makecredentialoptions)
 // passed to the [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential)
-// request via the public key argument. We recommend using the `create()` wrapper provided by the
-// webauthn-json library.
+// request via the public key argument.
 //
-// If you are not using the [webauthn-json](https://github.com/github/webauthn-json) library, the
-// `public_key_credential_creation_options` will need to be converted to a suitable public key by
-// unmarshalling the JSON, base64 decoding the user ID field, and converting user ID and the challenge
-// fields into an array buffer.
+// When using built-in browser methods like `navigator.credentials.create()`, set the
+// `use_base64_url_encoding` option to `true`.
+//
+// See our [WebAuthn setup guide](https://stytch.com/docs/guides/webauthn/api) for additional usage
+// instructions and example code.
 func (c *WebAuthnClient) RegisterStart(
 	ctx context.Context,
 	body *webauthn.RegisterStartParams,
@@ -78,12 +78,8 @@ func (c *WebAuthnClient) RegisterStart(
 // [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential) request to
 // this endpoint as the `public_key_credential` parameter.
 //
-// If the [webauthn-json](https://github.com/github/webauthn-json) library's `create()` method was used,
-// the response can be passed directly to the
-// [register endpoint](https://stytch.com/docs/api/webauthn-register). If not, some fields (the client data
-// and the attestation object) from the
-// [navigator.credentials.create()](https://www.w3.org/TR/webauthn-2/#sctn-createCredential) response will
-// need to be converted from array buffers to strings and marshalled into JSON.
+// See our [WebAuthn setup guide](https://stytch.com/docs/guides/webauthn/api) for additional usage
+// instructions and example code.
 func (c *WebAuthnClient) Register(
 	ctx context.Context,
 	body *webauthn.RegisterParams,
@@ -122,11 +118,13 @@ func (c *WebAuthnClient) Register(
 // [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) with the data from
 // `public_key_credential_request_options` passed to the
 // [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) request via the
-// public key argument. We recommend using the `get()` wrapper provided by the webauthn-json library.
+// public key argument.
 //
-// If you are not using the [webauthn-json](https://github.com/github/webauthn-json) library, `the
-// public_key_credential_request_options` will need to be converted to a suitable public key by
-// unmarshalling the JSON and converting some the fields to array buffers.
+// When using built-in browser methods like `navigator.credentials.get()`, set the
+// `use_base64_url_encoding` option to `true`.
+//
+// See our [WebAuthn setup guide](https://stytch.com/docs/guides/webauthn/api) for additional usage
+// instructions and example code.
 func (c *WebAuthnClient) AuthenticateStart(
 	ctx context.Context,
 	body *webauthn.AuthenticateStartParams,
@@ -161,11 +159,8 @@ func (c *WebAuthnClient) AuthenticateStart(
 // from the [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) request to
 // the authenticate endpoint.
 //
-// If the [webauthn-json](https://github.com/github/webauthn-json) library's `get()` method was used, the
-// response can be passed directly to the
-// [authenticate endpoint](https://stytch.com/docs/api/webauthn-authenticate). If not some fields from the
-// [navigator.credentials.get()](https://www.w3.org/TR/webauthn-2/#sctn-getAssertion) response will need to
-// be converted from array buffers to strings and marshalled into JSON.
+// See our [WebAuthn setup guide](https://stytch.com/docs/guides/webauthn/api) for additional usage
+// instructions and example code.
 func (c *WebAuthnClient) Authenticate(
 	ctx context.Context,
 	body *webauthn.AuthenticateParams,

@@ -7,10 +7,10 @@ package existingpassword
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/devicehistory"
 )
 
 // ResetParams: Request type for `ExistingPassword.Reset`.
@@ -56,7 +56,7 @@ type ResetParams struct {
 	// will pre-emptively send a one-time passcode (OTP) to the Member's phone number. The locale argument will
 	// be used to determine which language to use when sending the passcode.
 	//
-	// Parameter is a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
+	// Parameter is an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/),
 	// e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), and Brazilian Portuguese

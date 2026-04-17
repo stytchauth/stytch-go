@@ -7,8 +7,8 @@ package oidc
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // CreateConnectionRequestOptions:
@@ -109,9 +109,7 @@ type CreateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `OIDC Connection` object affected by this API call. See the
-	// [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response
-	// field details.
+	// Connection: The [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object).
 	Connection *sso.OIDCConnection `json:"connection,omitempty"`
 }
 
@@ -125,9 +123,7 @@ type UpdateConnectionResponse struct {
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
 	StatusCode int32 `json:"status_code,omitempty"`
-	// Connection: The `OIDC Connection` object affected by this API call. See the
-	// [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object) for complete response
-	// field details.
+	// Connection: The [OIDC Connection Object](https://stytch.com/docs/b2b/api/oidc-connection-object).
 	Connection *sso.OIDCConnection `json:"connection,omitempty"`
 	// Warning: If it is not possible to resolve the well-known metadata document from the OIDC issuer, this
 	// field will explain what went wrong if the request is successful otherwise. In other words, even if the

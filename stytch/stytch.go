@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stytchauth/stytch-go/v17/stytch/config"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch/config"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type BaseURLType string

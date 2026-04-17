@@ -9,8 +9,8 @@ package organizations
 import (
 	"time"
 
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/scim"
-	"github.com/stytchauth/stytch-go/v17/stytch/methodoptions"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/scim"
+	"github.com/stytchauth/stytch-go/v18/stytch/methodoptions"
 )
 
 // ActiveSCIMConnection:
@@ -387,7 +387,8 @@ type Member struct {
 	//   who create an Organization through the
 	// [discovery flow](https://stytch.com/docs/b2b/api/create-organization-via-discovery). See the
 	//   [RBAC guide](https://stytch.com/docs/b2b/guides/rbac/stytch-default) for more details on this Role.
-	IsAdmin            bool   `json:"is_admin,omitempty"`
+	IsAdmin bool `json:"is_admin,omitempty"`
+	// TOTPRegistrationID: Globally unique UUID that identifies a TOTP instance.
 	TOTPRegistrationID string `json:"totp_registration_id,omitempty"`
 	// RetiredEmailAddresses:
 	//   A list of retired email addresses for this member.
@@ -404,14 +405,19 @@ type Member struct {
 	//   using the [Unlink Retired Email endpoint](https://stytch.com/docs/b2b/api/unlink-retired-member-email).
 	//
 	RetiredEmailAddresses []RetiredEmail `json:"retired_email_addresses,omitempty"`
-	IsLocked              bool           `json:"is_locked,omitempty"`
+	// IsLocked: Whether the Member is temporarily locked due to too many failed authentication attempts. See
+	// the [User Locking Guide](https://stytch.com/docs/resources/platform/user-locks) for more information.
+	IsLocked bool `json:"is_locked,omitempty"`
 	// MFAEnrolled: Sets whether the Member is enrolled in MFA. If true, the Member must complete an MFA step
 	// whenever they wish to log in to their Organization. If false, the Member only needs to complete an MFA
 	// step if the Organization's MFA policy is set to `REQUIRED_FOR_ALL`.
 	MFAEnrolled bool `json:"mfa_enrolled,omitempty"`
 	// MFAPhoneNumber: The Member's phone number. A Member may only have one phone number. The phone number
 	// should be in E.164 format (i.e. +1XXXXXXXXXX).
-	MFAPhoneNumber   string `json:"mfa_phone_number,omitempty"`
+	MFAPhoneNumber string `json:"mfa_phone_number,omitempty"`
+	// DefaultMFAMethod: The Member's default MFA method. This value is used to determine which secondary MFA
+	// method to use in the case of multiple methods registered for a Member. The current possible values are
+	// `sms_otp` and `totp`.
 	DefaultMFAMethod string `json:"default_mfa_method,omitempty"`
 	// Roles: Explicit or implicit Roles assigned to this Member, along with details about the role assignment
 	// source.
@@ -438,8 +444,12 @@ type Member struct {
 	// creation.
 	SCIMRegistration *SCIMRegistration `json:"scim_registration,omitempty"`
 	// ExternalID: The ID of the member given by the identity provider.
-	ExternalID    string     `json:"external_id,omitempty"`
+	ExternalID string `json:"external_id,omitempty"`
+	// LockCreatedAt: When the member lock was created, if there is one. Values conform to the RFC 3339
+	// standard and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	LockCreatedAt *time.Time `json:"lock_created_at,omitempty"`
+	// LockExpiresAt: When the member lock expires, if there is one. Values conform to the RFC 3339 standard
+	// and are expressed in UTC, e.g. `2021-12-29T12:33:09Z`.
 	LockExpiresAt *time.Time `json:"lock_expires_at,omitempty"`
 }
 
@@ -684,7 +694,17 @@ type Organization struct {
 	// `microsoft_oauth`, `slack_oauth`, `github_oauth`, and `hubspot_oauth`.
 	//
 	AllowedAuthMethods []string `json:"allowed_auth_methods,omitempty"`
-	MFAPolicy          string   `json:"mfa_policy,omitempty"`
+	// MFAPolicy: The setting that controls the MFA policy for all Members in the Organization. The accepted
+	// values are:
+	//
+	//   `REQUIRED_FOR_ALL` – All Members within the Organization will be required to complete MFA every time
+	// they wish to log in. However, any active Session that existed prior to this setting change will remain
+	// valid.
+	//
+	//   `OPTIONAL` – The default value. The Organization does not require MFA by default for all Members.
+	// Members will be required to complete MFA only if their `mfa_enrolled` status is set to true.
+	//
+	MFAPolicy string `json:"mfa_policy,omitempty"`
 	// RBACEmailImplicitRoleAssignments: Implicit role assignments based off of email domains.
 	//   For each domain-Role pair, all Members whose email addresses have the specified email domain will be
 	// granted the
@@ -713,8 +733,9 @@ type Organization struct {
 	//
 	//   `NOT_ALLOWED` – the default setting, disables JIT provisioning by OAuth Tenant.
 	//
-	OAuthTenantJITProvisioning string   `json:"oauth_tenant_jit_provisioning,omitempty"`
-	ClaimedEmailDomains        []string `json:"claimed_email_domains,omitempty"`
+	OAuthTenantJITProvisioning string `json:"oauth_tenant_jit_provisioning,omitempty"`
+	// ClaimedEmailDomains: A list of email domains that are claimed by the Organization.
+	ClaimedEmailDomains []string `json:"claimed_email_domains,omitempty"`
 	// FirstPartyConnectedAppsAllowedType: The authentication setting that sets the Organization's policy
 	// towards first party Connected Apps. The accepted values are:
 	//

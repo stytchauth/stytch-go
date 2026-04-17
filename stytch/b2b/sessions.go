@@ -16,11 +16,11 @@ import (
 	"github.com/MicahParks/keyfunc/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/shared"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/shared"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type SessionsClient struct {
@@ -288,9 +288,6 @@ func (c *SessionsClient) Exchange(
 // The Access Token must contain the `full_access` scope (only available to First Party clients) and must
 // not be more than 5 minutes old. Access Tokens may only be exchanged a single time.
 //
-// The Member Session returned will be the same Member Session that was active in your application (the
-// authorizing party) during the initial authorization flow.
-//
 // Because the Member previously completed MFA and satisfied all Organization authentication requirements
 // at the time of the original Access Token issuance, this endpoint will never return an
 // `intermediate_session_token` or require MFA.
@@ -440,7 +437,7 @@ func (c *SessionsClient) GetJWKS(
 // ADDIMPORT: "time"
 // ADDIMPORT: "github.com/golang-jwt/jwt/v5"
 // ADDIMPORT: "github.com/MicahParks/keyfunc/v2"
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 
 func (c *SessionsClient) AuthenticateJWT(
 	ctx context.Context,
@@ -505,7 +502,7 @@ func (c *SessionsClient) AuthenticateJWTWithClaims(
 	return resp, nil
 }
 
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/shared"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v18/stytch/shared"
 func (c *SessionsClient) AuthenticateJWTLocal(
 	ctx context.Context,
 	token string,

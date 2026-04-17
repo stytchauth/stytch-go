@@ -9,8 +9,8 @@ package consumer
 import (
 	"context"
 
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/debug"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/debug"
 )
 
 type DebugClient struct {

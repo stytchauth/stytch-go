@@ -13,9 +13,9 @@ import (
 	"net/url"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sso"
-	"github.com/stytchauth/stytch-go/v17/stytch/stytcherror"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sso"
+	"github.com/stytchauth/stytch-go/v18/stytch/stytcherror"
 )
 
 type SSOClient struct {

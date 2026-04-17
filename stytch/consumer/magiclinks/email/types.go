@@ -7,8 +7,8 @@ package email
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/users"
 )
 
 // InviteParams: Request type for `Email.Invite`.
@@ -16,8 +16,8 @@ type InviteParams struct {
 	// Email: The email address of the User to send the invite Magic Link to.
 	Email string `json:"email,omitempty"`
 	// InviteTemplateID: Use a custom template for invite emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Invite.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Invite”.
 	InviteTemplateID string `json:"invite_template_id,omitempty"`
 	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
 	// Stytch endpoints by your application.
@@ -33,7 +33,7 @@ type InviteParams struct {
 	// in 1 hour. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	InviteExpirationMinutes int32 `json:"invite_expiration_minutes,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -74,12 +74,12 @@ type LoginOrCreateParams struct {
 	// expires in 1 week. The minimum expiration is 5 minutes and the maximum is 7 days (10080 mins).
 	SignupExpirationMinutes int32 `json:"signup_expiration_minutes,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Sign-up.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Sign-up”.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
 	// Stytch endpoints by your application.
@@ -96,7 +96,7 @@ type LoginOrCreateParams struct {
 	// starts and ends on the same device.
 	CodeChallenge string `json:"code_challenge,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -118,8 +118,8 @@ type SendParams struct {
 	// Email: The email address of the User to send the Magic Link to.
 	Email string `json:"email,omitempty"`
 	// LoginTemplateID: Use a custom template for login emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Login.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Login”.
 	LoginTemplateID string `json:"login_template_id,omitempty"`
 	// Attributes: Provided attributes to help with fraud detection. These values are pulled and passed into
 	// Stytch endpoints by your application.
@@ -150,7 +150,7 @@ type SendParams struct {
 	// SessionJWT: The `session_jwt` of the user to associate the email with.
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// Locale: Used to determine which language to use when sending the user this delivery method. Parameter is
-	// a [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
+	// an [IETF BCP 47 language tag](https://www.w3.org/International/articles/language-tags/), e.g. `"en"`.
 	//
 	// Currently supported languages are English (`"en"`), Spanish (`"es"`), French (`"fr"`) and Brazilian
 	// Portuguese (`"pt-br"`); if no value is provided, the copy defaults to English.
@@ -160,8 +160,8 @@ type SendParams struct {
 	//
 	Locale *SendRequestLocale `json:"locale,omitempty"`
 	// SignupTemplateID: Use a custom template for sign-up emails. By default, it will use your default email
-	// template. The template must be a template using our built-in customizations or a custom HTML email for
-	// Magic links - Sign-up.
+	// template. Templates can be added in the [Stytch dashboard](https://stytch.com/dashboard/templates) using
+	// our built-in customization options or custom HTML templates with type “Magic links - Sign-up”.
 	SignupTemplateID string `json:"signup_template_id,omitempty"`
 }
 

@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations/members/oauthproviders"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations/members/oauthproviders"
 )
 
 type OrganizationsMembersOAuthProvidersClient struct {

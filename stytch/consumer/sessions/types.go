@@ -11,9 +11,9 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/attribute"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/users"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/attribute"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/users"
 )
 
 type AmazonOAuthFactor struct {

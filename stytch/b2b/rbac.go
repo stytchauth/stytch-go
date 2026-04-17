@@ -10,9 +10,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/stytchauth/stytch-go/v17/stytch"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/rbac"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/rbac/organizations"
 )
 
 type RBACClient struct {
@@ -64,7 +64,7 @@ func (c *RBACClient) Policy(
 }
 
 // MANUAL(PolicyCache)(TYPES)
-// ADDIMPORT: "github.com/stytchauth/stytch-go/v17/stytch/b2b/rbac/organizations"
+// ADDIMPORT: "github.com/stytchauth/stytch-go/v18/stytch/b2b/rbac/organizations"
 
 type PolicyCache struct {
 	rbacClient    *RBACClient

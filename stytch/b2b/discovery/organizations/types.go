@@ -7,11 +7,11 @@ package organizations
 // !!!
 
 import (
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/discovery"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/mfa"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/organizations"
-	"github.com/stytchauth/stytch-go/v17/stytch/b2b/sessions"
-	"github.com/stytchauth/stytch-go/v17/stytch/consumer/devicehistory"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/discovery"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/mfa"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
+	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
+	"github.com/stytchauth/stytch-go/v18/stytch/consumer/devicehistory"
 )
 
 // ListParams: Request type for `Organizations.List`.
@@ -282,6 +282,8 @@ type CreateResponse struct {
 	SessionJWT string `json:"session_jwt,omitempty"`
 	// Member: The [Member object](https://stytch.com/docs/b2b/api/member-object)
 	Member organizations.Member `json:"member,omitempty"`
+	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
+	Organization organizations.Organization `json:"organization,omitempty"`
 	// MemberAuthenticated: Indicates whether the Member is fully authenticated. If false, the Member needs to
 	// complete an MFA step to log in to the Organization.
 	MemberAuthenticated bool `json:"member_authenticated,omitempty"`
@@ -304,8 +306,6 @@ type CreateResponse struct {
 	StatusCode int32 `json:"status_code,omitempty"`
 	// MemberSession: The [Session object](https://stytch.com/docs/b2b/api/session-object).
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
-	// Organization: The [Organization object](https://stytch.com/docs/b2b/api/organization-object).
-	Organization *organizations.Organization `json:"organization,omitempty"`
 	// MFARequired: Information about the MFA requirements of the Organization and the Member's options for
 	// fulfilling MFA.
 	MFARequired *mfa.MFARequired `json:"mfa_required,omitempty"`
