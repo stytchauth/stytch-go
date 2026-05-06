@@ -17,20 +17,18 @@ jobs:
           VERSION=$(sed -n 's/.*APIVersion = "\(.*\)".*/\1/p' stytch/config/version.go)
           echo "release_tag=v$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Get changed files
-        id: files
-        uses: jitterbit/get-changed-files@v1
-
       - name: Check for config.go diff
         id: diff
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
         run: |
-          FOUND=0
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            if [[ "$changed_file" == "stytch/config/version.go" ]]; then
-              FOUND=1
-            fi
-          done
-          echo "diff=$FOUND" >> $GITHUB_OUTPUT
+          git fetch --depth=1 origin "$BASE_SHA"
+          if git diff --quiet "$BASE_SHA" "$HEAD_SHA" -- stytch/config/version.go; then
+            echo "diff=0" >> $GITHUB_OUTPUT
+          else
+            echo "diff=1" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create release
         if: steps.diff.outputs.diff != 0
