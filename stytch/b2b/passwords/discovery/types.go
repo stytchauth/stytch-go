@@ -7,6 +7,8 @@ package discovery
 // !!!
 
 import (
+	"time"
+
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/discovery"
 )
 
@@ -57,5 +59,6 @@ type AuthenticateResponse struct {
 	// StatusCode: The HTTP status code of the response. Stytch follows standard HTTP response status code
 	// patterns, e.g. 2XX values equate to success, 3XX values are redirects, 4XX are client errors, and 5XX
 	// are server errors.
-	StatusCode int32 `json:"status_code,omitempty"`
+	StatusCode                        int32      `json:"status_code,omitempty"`
+	IntermediateSessionTokenExpiresAt *time.Time `json:"intermediate_session_token_expires_at,omitempty"`
 }

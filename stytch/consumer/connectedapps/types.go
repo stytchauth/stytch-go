@@ -31,6 +31,7 @@ type ConnectedApp struct {
 	// request explicit user consent for the `offline_access` scope.
 	BypassConsentForOfflineAccess bool   `json:"bypass_consent_for_offline_access,omitempty"`
 	CreationMethod                string `json:"creation_method,omitempty"`
+	IDTokenTemplateContent        string `json:"id_token_template_content,omitempty"`
 	// ClientSecretLastFour: The last four characters of the client secret.
 	ClientSecretLastFour string `json:"client_secret_last_four,omitempty"`
 	// NextClientSecretLastFour: The last four characters of the `next_client_secret`. Null if no
@@ -73,7 +74,8 @@ type ConnectedAppWithClientSecret struct {
 	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
+	BypassConsentForOfflineAccess bool   `json:"bypass_consent_for_offline_access,omitempty"`
+	IDTokenTemplateContent        string `json:"id_token_template_content,omitempty"`
 	// ClientSecretLastFour: The last four characters of the client secret.
 	ClientSecretLastFour string `json:"client_secret_last_four,omitempty"`
 	// NextClientSecretLastFour: The last four characters of the `next_client_secret`. Null if no
@@ -113,7 +115,8 @@ type ConnectedAppWithNextClientSecret struct {
 	PostLogoutRedirectURLs []string `json:"post_logout_redirect_urls,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
+	BypassConsentForOfflineAccess bool   `json:"bypass_consent_for_offline_access,omitempty"`
+	IDTokenTemplateContent        string `json:"id_token_template_content,omitempty"`
 	// NextClientSecretLastFour: The last four characters of the `next_client_secret`. Null if no
 	// `next_client_secret` exists.
 	NextClientSecretLastFour  string `json:"next_client_secret_last_four,omitempty"`

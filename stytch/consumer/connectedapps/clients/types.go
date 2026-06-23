@@ -38,7 +38,8 @@ type CreateParams struct {
 	LogoURL string `json:"logo_url,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
+	BypassConsentForOfflineAccess bool   `json:"bypass_consent_for_offline_access,omitempty"`
+	IDTokenTemplateContent        string `json:"id_token_template_content,omitempty"`
 }
 
 // DeleteParams: Request type for `Clients.Delete`.
@@ -95,7 +96,8 @@ type UpdateParams struct {
 	LogoURL string `json:"logo_url,omitempty"`
 	// BypassConsentForOfflineAccess: Valid for first party clients only. If true, the client does not need to
 	// request explicit user consent for the `offline_access` scope.
-	BypassConsentForOfflineAccess bool `json:"bypass_consent_for_offline_access,omitempty"`
+	BypassConsentForOfflineAccess bool   `json:"bypass_consent_for_offline_access,omitempty"`
+	IDTokenTemplateContent        string `json:"id_token_template_content,omitempty"`
 }
 
 // CreateResponse: Response type for `Clients.Create`.

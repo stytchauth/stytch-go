@@ -117,6 +117,14 @@ const (
 	LoginOrCreateRequestLocaleDeDE   LoginOrCreateRequestLocale = "de-DE"
 	LoginOrCreateRequestLocaleZhHans LoginOrCreateRequestLocale = "zh-Hans"
 	LoginOrCreateRequestLocaleCaES   LoginOrCreateRequestLocale = "ca-ES"
+	LoginOrCreateRequestLocaleJa     LoginOrCreateRequestLocale = "ja"
+	LoginOrCreateRequestLocaleRu     LoginOrCreateRequestLocale = "ru"
+	LoginOrCreateRequestLocaleNl     LoginOrCreateRequestLocale = "nl"
+	LoginOrCreateRequestLocalePl     LoginOrCreateRequestLocale = "pl"
+	LoginOrCreateRequestLocaleTr     LoginOrCreateRequestLocale = "tr"
+	LoginOrCreateRequestLocaleFa     LoginOrCreateRequestLocale = "fa"
+	LoginOrCreateRequestLocaleVi     LoginOrCreateRequestLocale = "vi"
+	LoginOrCreateRequestLocaleCs     LoginOrCreateRequestLocale = "cs"
 )
 
 type SendRequestLocale string
@@ -130,4 +138,12 @@ const (
 	SendRequestLocaleDeDE   SendRequestLocale = "de-DE"
 	SendRequestLocaleZhHans SendRequestLocale = "zh-Hans"
 	SendRequestLocaleCaES   SendRequestLocale = "ca-ES"
+	SendRequestLocaleJa     SendRequestLocale = "ja"
+	SendRequestLocaleRu     SendRequestLocale = "ru"
+	SendRequestLocaleNl     SendRequestLocale = "nl"
+	SendRequestLocalePl     SendRequestLocale = "pl"
+	SendRequestLocaleTr     SendRequestLocale = "tr"
+	SendRequestLocaleFa     SendRequestLocale = "fa"
+	SendRequestLocaleVi     SendRequestLocale = "vi"
+	SendRequestLocaleCs     SendRequestLocale = "cs"
 )
