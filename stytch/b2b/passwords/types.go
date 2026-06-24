@@ -7,6 +7,8 @@ package passwords
 // !!!
 
 import (
+	"time"
+
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
@@ -235,7 +237,8 @@ type AuthenticateResponse struct {
 	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
 	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
 	// `member_device` response field will contain information about the member's device attributes.
-	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
+	MemberDevice                      *devicehistory.DeviceInfo `json:"member_device,omitempty"`
+	IntermediateSessionTokenExpiresAt *time.Time                `json:"intermediate_session_token_expires_at,omitempty"`
 }
 
 // MigrateResponse: Response type for `Passwords.Migrate`.

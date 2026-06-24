@@ -7,6 +7,8 @@ package impersonation
 // !!!
 
 import (
+	"time"
+
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/mfa"
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/organizations"
 	"github.com/stytchauth/stytch-go/v18/stytch/b2b/sessions"
@@ -51,5 +53,6 @@ type AuthenticateResponse struct {
 	// Member.
 	MemberSession *sessions.MemberSession `json:"member_session,omitempty"`
 	// MFARequired: MFA will not be required when authenticating impersonation tokens.
-	MFARequired *mfa.MFARequired `json:"mfa_required,omitempty"`
+	MFARequired                       *mfa.MFARequired `json:"mfa_required,omitempty"`
+	IntermediateSessionTokenExpiresAt *time.Time       `json:"intermediate_session_token_expires_at,omitempty"`
 }

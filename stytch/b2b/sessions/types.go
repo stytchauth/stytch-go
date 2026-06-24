@@ -485,7 +485,8 @@ type ExchangeResponse struct {
 	// MemberDevice: If a valid `telemetry_id` was passed in the request and the
 	// [Fingerprint Lookup API](https://stytch.com/docs/fraud/api/fingerprint-lookup) returned results, the
 	// `member_device` response field will contain information about the member's device attributes.
-	MemberDevice *devicehistory.DeviceInfo `json:"member_device,omitempty"`
+	MemberDevice                      *devicehistory.DeviceInfo `json:"member_device,omitempty"`
+	IntermediateSessionTokenExpiresAt *time.Time                `json:"intermediate_session_token_expires_at,omitempty"`
 }
 
 // GetJWKSResponse: Response type for `Sessions.GetJWKS`.
@@ -560,6 +561,14 @@ const (
 	ExchangeRequestLocaleDeDE   ExchangeRequestLocale = "de-DE"
 	ExchangeRequestLocaleZhHans ExchangeRequestLocale = "zh-Hans"
 	ExchangeRequestLocaleCaES   ExchangeRequestLocale = "ca-ES"
+	ExchangeRequestLocaleJa     ExchangeRequestLocale = "ja"
+	ExchangeRequestLocaleRu     ExchangeRequestLocale = "ru"
+	ExchangeRequestLocaleNl     ExchangeRequestLocale = "nl"
+	ExchangeRequestLocalePl     ExchangeRequestLocale = "pl"
+	ExchangeRequestLocaleTr     ExchangeRequestLocale = "tr"
+	ExchangeRequestLocaleFa     ExchangeRequestLocale = "fa"
+	ExchangeRequestLocaleVi     ExchangeRequestLocale = "vi"
+	ExchangeRequestLocaleCs     ExchangeRequestLocale = "cs"
 )
 
 // MANUAL(Types)(TYPES)
